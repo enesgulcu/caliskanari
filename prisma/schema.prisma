@@ -1,5 +1,3 @@
-
-
 generator client {
   provider = "prisma-client-js"
 }
@@ -14,13 +12,13 @@ datasource db {
 model Student {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   email     String   @unique
-  password  String
+  password  String?
   name      String
-  surname   String
-  age       Int
-  phone     String
-  school    String
-  class     Int
+  surname   String?
+  age       Int?
+  phone     String?
+  school    String?
+  class     Int?
   adress    String?
   status    String?
   createdAt DateTime @default(now())
