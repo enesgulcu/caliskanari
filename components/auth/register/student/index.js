@@ -2,8 +2,11 @@
 import { Formik, Form } from 'formik'
 import studentValidationSchema from './formikData'
 import { createStudent } from '@/services/auth/register/student/index'
-
+import { useState } from 'react'
 export default function StudentRegisterComponent() {
+
+const [mailConfirm, setMailConfirm] = useState(" ")
+
   return (
     <div className='bg-red-400'>
 
@@ -29,13 +32,14 @@ export default function StudentRegisterComponent() {
         validationSchema={studentValidationSchema}
 
         onSubmit={(values) => {
-          createStudent(values);
+          // kullanıcı 2 şifresini de doğru girerse artık "passwordConfirm" değerine ihtiyacımız olmayacak.
+          // burada temizleriz. prisma hata veriyor (veri tabanında olmayan bir değer) gönderidğimiz için.
+          delete values.passwordConfirm;
+          createStudent(values).then(res => setMailConfirm(res.error));
         }}
       >
-
         {props => (
           <Form onSubmit={props.handleSubmit} className='flex justify-center flex-col items-center bg-gray-600 w-screen min-h-screen '>
-            
             
             <div className='m-8 bg-white p-10 rounded'>
             <h3 className='font-bold text-gray-700  mb-16 w-full  text-center md:text-5xl text-3xl '>ÖĞRENCİ KAYIT</h3>
@@ -55,7 +59,7 @@ export default function StudentRegisterComponent() {
                   />
                   <p className=" text-red-500 text-xs italic">{props.errors.name}</p>
                 </div>
-                <div className="w-full md:w-1/3 px-3">
+                <div className="w-full md:w-1/3 px-3 mb-6">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
                     Soyisim
                   </label>
@@ -70,7 +74,7 @@ export default function StudentRegisterComponent() {
                   />
                   <p className=" text-red-500 text-xs italic">{props.errors.surname}</p>
                 </div>
-                <div className="w-full md:w-1/3 px-3">
+                <div className="w-full md:w-1/3 px-3 ">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
                     Yaş
                   </label>
@@ -87,8 +91,8 @@ export default function StudentRegisterComponent() {
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">
-              <div className="w-full md:w-1/3 px-3">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
+              <div className="w-full md:w-1/3 px-3 mb-6">
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"  htmlFor="grid-last-name">
                     Telefon
                   </label>
                   <input 
@@ -102,7 +106,7 @@ export default function StudentRegisterComponent() {
                   />
                   <p className=" text-red-500 text-xs italic">{props.errors.phone}</p>
                 </div>
-                <div className="w-full md:w-1/3 px-3">
+                <div className="w-full md:w-1/3 px-3 mb-6">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
                     Şehir
                   </label>
@@ -140,7 +144,7 @@ export default function StudentRegisterComponent() {
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">
-              <div className="w-full md:w-1/3 px-3">
+              <div className="w-full md:w-1/3 px-3 mb-6">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
                     Sınıf
                   </label>
@@ -192,12 +196,12 @@ export default function StudentRegisterComponent() {
                   placeholder="Mail adresinizi giriniz."
                   className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
                   />
-                  <p className=" text-red-500 text-xs italic">{props.errors.email}</p>
+                  <p className=" text-red-500 text-xs italic">{props.errors.email || mailConfirm}</p>
               </div>
                
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">
-              <div className="w-full px-3">
+              <div className="w-full px-3 mb-6">
                   <label className="block uppercase tracking-wide mb-2 text-gray-700 text-xs font-bold" htmlFor="grid-password">
                     Şifre
                   </label>
