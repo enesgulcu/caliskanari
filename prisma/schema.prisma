@@ -1,3 +1,9 @@
+// Model Güncellendiğinde yapılacaklar:
+// 1-" npx prisma generate " bunu terminale yaz (enter!)
+// 2- VS Codu kapatıp yeniden aç.
+// ! Sırayla yaparsan gücelleme gerçekleşir.
+
+
 generator client {
   provider = "prisma-client-js"
 }
@@ -11,16 +17,17 @@ datasource db {
 
 model Student {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  email     String   @unique
-  password  String?
+  status    String
   name      String
-  surname   String?
-  age       Int?
-  phone     String?
-  school    String?
-  class     Int?
-  adress    String?
-  status    String?
+  surname   String
+  age       Int
+  phone     String
+  city      String
+  neighbourhood String
+  class     String
+  school    String
+  email     String   @unique
+  password  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }

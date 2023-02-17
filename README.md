@@ -46,6 +46,7 @@ kayıt olma adımları
 -------------------
 
 [Veli]
+// Bu daha sonra entegre edilecek
 - name
 - surname
 -------------------
@@ -77,3 +78,11 @@ kayıt olma adımları
 - password
 - password verify
 -------------------
+
+
+## YAPILACAKLAR
+- prisma email "uniq" verilmesine rağmen ayn ıveriden birçok kez oluşturabildik kontrol edilecek.
+- hata mesajları düzgün değil planlanacak ayarlanacak.
+
+- services - auth - student - register.js -> 1. satırda passwordConfirm silme kodu eklenmeli.
+ delete newStudent.passwordConfirm; -> passwordConfirm (veri tabanında yok) ama biz göndermeye çalıştığımızda hata alıyoruz obje içinden kontrolden sonra silinmeli.
