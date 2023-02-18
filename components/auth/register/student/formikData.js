@@ -3,16 +3,20 @@ import * as Yup from 'yup';
 const studentValidationSchema = Yup.object({
     name: Yup.string()
     .required('İsim alanı boş bırakılamaz.')
-    .trim( 'İsim alanı boşluk içeremez.')
+    .typeError('Yanlış bir değer girdiniz.')
+    .matches(/^[a-zA-ZğüşöçİĞÜŞÖÇ ]*$/, 'isim sadece harf içerebilir.')
     .max(30, 'İsim alanı en fazla 30 karakter olmalıdır.'),
 
     surname: Yup.string()
     .required('Soyisim alanı boş bırakılamaz.')
+    .typeError('Yanlış bir değer girdiniz.')
     .max(30, 'Soyisim alanı en fazla 30 karakter olmalıdır.')
+    .matches(/^[a-zA-ZğüşöçİĞÜŞÖÇ ]*$/, 'isim sadece harf içerebilir.')
     .trim( 'Soyisim alanı boşluk içeremez.'),
 
     age: Yup.number()
     .required('Yaş alanı boş bırakılamaz.')
+    .typeError('Yanlış bir değer girdiniz.')
     .max(99, "Yanlış bir değer girdiniz.")
     .moreThan(0, 'Yanlış bir değer girdiniz.')
     .typeError('Lütfen bir sayı giriniz'),
@@ -20,6 +24,7 @@ const studentValidationSchema = Yup.object({
     phone: Yup.string()
     .required('Telefon alanı boş bırakılamaz.')
     .max(17, 'Telefon numaranızı örnek formattaki gibi giriniz. ( 555 555 55 55 )')
+    .min(10, 'Telefon Numarası en az 10 rakamdan oluşmalıdır lütfen kontrol ediniz. ( 555 555 55 55 )')
     .matches(/^[0-9+ ]*$/, 'Telefon numaranızı örnek formattaki gibi giriniz. ( 555 555 55 55 )'),
 
     city: Yup.string()
@@ -54,9 +59,7 @@ const studentValidationSchema = Yup.object({
 
     passwordConfirm: Yup.string()
     .required('Şifre doğrulama boş bırakılamaz!')
-    .oneOf([Yup.ref('password'), null], 'Şifre Eşleşmiyor!')
-    .min(5, 'şifre çok kısa minumum 5 karakter giriniz!')
-    .matches(/[a-zA-Z]/, 'Şifre en az bir harf içermelidir!'),
+    .oneOf([Yup.ref('password')], 'Şifre Eşleşmiyor!')
 });
 
 export default studentValidationSchema;

@@ -1,14 +1,31 @@
 "use client"
-import { Formik, Form } from 'formik'
-import studentValidationSchema from './formikData'
-import { createStudent } from '@/services/auth/register/student/index'
-import { useState } from 'react'
+import { Formik, Form } from 'formik';
+import studentValidationSchema from './formikData';
+import { createStudent } from '@/services/auth/register/student/index';
+import { ToastContainer, toast } from 'react-toastify';
+import { useState } from 'react';
+import { useRouter } from 'next/navigation';
 export default function StudentRegisterComponent() {
 
-const [mailConfirm, setMailConfirm] = useState(" ")
+  const [isLogin, setIsLogin] = useState(false)
+  
+  const router = useRouter();
 
   return (
     <div className='bg-red-400'>
+
+    <ToastContainer
+    position="top-right"
+    autoClose={5000}
+    hideProgressBar={false}
+    newestOnTop={false}
+    closeOnClick
+    rtl={false}
+    pauseOnFocusLoss
+    draggable
+    pauseOnHover
+    theme="dark"
+    />
 
       <Formik
         // input verileri       
@@ -16,8 +33,8 @@ const [mailConfirm, setMailConfirm] = useState(" ")
           status: "student",
           name: "",
           surname: "",
-          age: 0,
-          phone: "",
+          age: "",
+          phone: "",  
           city: "",
           neighbourhood: "",
           class: "",
@@ -35,11 +52,27 @@ const [mailConfirm, setMailConfirm] = useState(" ")
           // kullanıcı 2 şifresini de doğru girerse artık "passwordConfirm" değerine ihtiyacımız olmayacak.
           // burada temizleriz. prisma hata veriyor (veri tabanında olmayan bir değer) gönderidğimiz için.
           delete values.passwordConfirm;
-          createStudent(values).then(res => setMailConfirm(res.error));
+          createStudent(values).then(res =>{
+            if(res.status === "success"){
+              setIsLogin(true);
+              toast.success(res.message + " (Yönlendiriliyorsunuz...)")
+              const timeOut = setInterval(() => {
+                router.push('/auth/login');
+                clearInterval(timeOut);
+              }, 5000);
+              
+
+            }else{
+              toast.error(res.message ? res.message : "Girdiğini bilgileri kontrol ediniz.")
+            }
+          });
+              
+           
+          
         }}
       >
-        {props => (
-          <Form onSubmit={props.handleSubmit} className='flex justify-center flex-col items-center bg-gray-600 w-screen min-h-screen '>
+        {(props) => (
+          <Form onSubmit={props.handleSubmit} className={`flex ${isLogin ? "blur" : ""} justify-center flex-col items-center bg-gray-600 w-screen min-h-screen`}>
             
             <div className='m-8 bg-white p-10 rounded'>
             <h3 className='font-bold text-gray-700  mb-16 w-full  text-center md:text-5xl text-3xl '>ÖĞRENCİ KAYIT</h3>
@@ -57,7 +90,7 @@ const [mailConfirm, setMailConfirm] = useState(" ")
                   placeholder='İsminizi giriniz.'
                   className="appearance-none block w-full bg-gray-100 text-gray-700 border  rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" 
                   />
-                  <p className=" text-red-500 text-xs italic">{props.errors.name}</p>
+                  <p className=" text-red-500 text-xs italic">{props.touched.name && props.errors.name}</p>
                 </div>
                 <div className="w-full md:w-1/3 px-3 mb-6">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
@@ -72,7 +105,7 @@ const [mailConfirm, setMailConfirm] = useState(" ")
                   placeholder='Soyisminizi giriniz.'
                   className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   />
-                  <p className=" text-red-500 text-xs italic">{props.errors.surname}</p>
+                  <p className=" text-red-500 text-xs italic">{props.touched.surname && props.errors.surname}</p>
                 </div>
                 <div className="w-full md:w-1/3 px-3 ">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
@@ -87,7 +120,7 @@ const [mailConfirm, setMailConfirm] = useState(" ")
                   placeholder='16'
                   className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   />
-                  <p className=" text-red-500 text-xs italic">{props.errors.age}</p>
+                  <p className=" text-red-500 text-xs italic">{props.touched.age && props.errors.age}</p>
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">
@@ -104,7 +137,7 @@ const [mailConfirm, setMailConfirm] = useState(" ")
                   placeholder='555 555 55 55'
                   className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   />
-                  <p className=" text-red-500 text-xs italic">{props.errors.phone}</p>
+                  <p className=" text-red-500 text-xs italic">{props.touched.phone && props.errors.phone}</p>
                 </div>
                 <div className="w-full md:w-1/3 px-3 mb-6">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
@@ -122,7 +155,7 @@ const [mailConfirm, setMailConfirm] = useState(" ")
                     <option value="c">Ankara</option>
                     <option value="d">İzmir</option>
                   </select>
-                  <p className=" text-red-500 text-xs italic">{props.errors.city}</p>
+                  <p className=" text-red-500 text-xs italic">{props.touched.city && props.errors.city}</p>
                 </div>
                 <div className="w-full md:w-1/3 px-3">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
@@ -140,7 +173,7 @@ const [mailConfirm, setMailConfirm] = useState(" ")
                     <option value="c">Avcılar</option>
                     <option value="d">Beylikdüzü</option>
                   </select>
-                  <p className=" text-red-500 text-xs italic">{props.errors.neighbourhood}</p>
+                  <p className=" text-red-500 text-xs italic">{props.touched.neighbourhood && props.errors.neighbourhood}</p>
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">
@@ -160,7 +193,7 @@ const [mailConfirm, setMailConfirm] = useState(" ")
                     <option value="2">2. Sınıf</option>
                     <option value="3">3. Sınıf</option>
                   </select>
-                  <p className=" text-red-500 text-xs italic">{props.errors.class}</p>
+                  <p className=" text-red-500 text-xs italic">{props.touched.class && props.errors.class}</p>
                 </div>
                 <div className="w-full md:w-2/3 px-3">
                   <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
@@ -178,7 +211,7 @@ const [mailConfirm, setMailConfirm] = useState(" ")
                     <option value="c">Maraşel Okulu</option>
                     <option value="d">Merkez okul</option>
                   </select>
-                  <p className=" text-red-500 text-xs italic">{props.errors.school}</p>
+                  <p className=" text-red-500 text-xs italic">{props.touched.school && props.errors.school}</p>
                 </div>                
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">
@@ -196,7 +229,7 @@ const [mailConfirm, setMailConfirm] = useState(" ")
                   placeholder="Mail adresinizi giriniz."
                   className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
                   />
-                  <p className=" text-red-500 text-xs italic">{props.errors.email || mailConfirm}</p>
+                  <p className=" text-red-500 text-xs italic">{props.touched.email && props.errors.email}</p>
               </div>
                
               </div>
@@ -214,7 +247,7 @@ const [mailConfirm, setMailConfirm] = useState(" ")
                   placeholder="******************"
                   className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
                   />
-                  <p className="text-red-500 text-xs italic">{props.errors.password}</p>
+                  <p className="text-red-500 text-xs italic">{props.touched.password && props.errors.password}</p>
               </div>
               <div className="w-full px-3">
                   <label className="block uppercase tracking-wide mb-2 mt-2 text-gray-700 text-xs font-bold" htmlFor="grid-password">
@@ -229,7 +262,7 @@ const [mailConfirm, setMailConfirm] = useState(" ")
                   placeholder="******************"
                   className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
                   />
-                  <p className="text-red-500 text-xs italic">{props.errors.passwordConfirm}</p>
+                  <p className="text-red-500 text-xs italic">{props.touched.passwordConfirm && props.errors.passwordConfirm}</p>
               </div>
               <div className='w-full mt-10 flex justify-center'>
                 <button type='submit' className='p-4 bg-blue-500 rounded w-44 text-white '>Kayıt Ol</button>
