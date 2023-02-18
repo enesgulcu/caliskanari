@@ -82,10 +82,10 @@ kayıt olma adımları
 
 ## YAPILACAKLAR
 
-- hata mesajları düzgün değil planlanacak ayarlanacak (kayıt bölümünde mail eşleşme hata mesajını toasty ile yap).
+- formik password lar butona basıldığı anda gitmiyor 2. basışta yada veri girildiğinde siliniyor. böyle de kullanılabilir ama ilk basışta gitse daha iyi.
 
 - Kayıt olma bölümündeki (il, ilçe, mahalle) bilgilerini API ile alıp formda listelenecek.
-API : https://github.com/melihkorkmaz/il-ilce-mahalle-geolocation-rest-api
+Bir API bulunacak ve forma entegre edilecek.
 
 
 

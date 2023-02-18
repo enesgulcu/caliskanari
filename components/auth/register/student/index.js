@@ -36,7 +36,8 @@ export default function StudentRegisterComponent() {
           age: "",
           phone: "",  
           city: "",
-          neighbourhood: "",
+          town: "",
+          district: "",
           class: "",
           school: "",          
           email: "",
@@ -49,26 +50,35 @@ export default function StudentRegisterComponent() {
         validationSchema={studentValidationSchema}
 
         onSubmit={(values) => {
+          
           // kullanıcı 2 şifresini de doğru girerse artık "passwordConfirm" değerine ihtiyacımız olmayacak.
           // burada temizleriz. prisma hata veriyor (veri tabanında olmayan bir değer) gönderidğimiz için.
           delete values.passwordConfirm;
           createStudent(values).then(res =>{
+
             if(res.status === "success"){
+              // Giriş başarılı ise ekrana "blur" efekti verir
               setIsLogin(true);
+
               toast.success(res.message + " (Yönlendiriliyorsunuz...)")
+
               const timeOut = setInterval(() => {
                 router.push('/auth/login');
                 clearInterval(timeOut);
               }, 5000);
+
+              values.password = "";
+              values.passwordConfirm = "";
               
 
             }else{
               toast.error(res.message ? res.message : "Girdiğini bilgileri kontrol ediniz.")
+              values.password = "";
+              values.passwordConfirm = "";
             }
           });
               
            
-          
         }}
       >
         {(props) => (
@@ -78,7 +88,7 @@ export default function StudentRegisterComponent() {
             <h3 className='font-bold text-gray-700  mb-16 w-full  text-center md:text-5xl text-3xl '>ÖĞRENCİ KAYIT</h3>
               <div className="flex flex-wrap -mx-3 mb-6">
                 <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-first-name">
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="name">
                     İsim
                   </label>
                   <input                   
@@ -93,7 +103,7 @@ export default function StudentRegisterComponent() {
                   <p className=" text-red-500 text-xs italic">{props.touched.name && props.errors.name}</p>
                 </div>
                 <div className="w-full md:w-1/3 px-3 mb-6">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="surname">
                     Soyisim
                   </label>
                   <input 
@@ -108,7 +118,7 @@ export default function StudentRegisterComponent() {
                   <p className=" text-red-500 text-xs italic">{props.touched.surname && props.errors.surname}</p>
                 </div>
                 <div className="w-full md:w-1/3 px-3 ">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="age">
                     Yaş
                   </label>
                   <input 
@@ -125,7 +135,7 @@ export default function StudentRegisterComponent() {
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">
               <div className="w-full md:w-1/3 px-3 mb-6">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"  htmlFor="grid-last-name">
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"  htmlFor="phone">
                     Telefon
                   </label>
                   <input 
@@ -140,7 +150,7 @@ export default function StudentRegisterComponent() {
                   <p className=" text-red-500 text-xs italic">{props.touched.phone && props.errors.phone}</p>
                 </div>
                 <div className="w-full md:w-1/3 px-3 mb-6">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="city">
                     Şehir
                   </label>
                   <select
@@ -157,28 +167,46 @@ export default function StudentRegisterComponent() {
                   </select>
                   <p className=" text-red-500 text-xs italic">{props.touched.city && props.errors.city}</p>
                 </div>
-                <div className="w-full md:w-1/3 px-3">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
+                <div className="w-full md:w-1/3 px-3 mb-6">
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="city">
                     İlçe
                   </label>
                   <select
-                  id="neighbourhood"
-                  name="neighbourhood"
-                  value={props.values.neighbourhood}
+                  id="town"
+                  name="town"
+                  value={props.values.town}
                   onChange={props.handleChange}
                   className=" cursor-pointer appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
                   >
-                    <option label="İlçeni Seç"></option>
+                    <option label="İlçe Seç"></option>
                     <option value="b">Küçükçekmece</option>
                     <option value="c">Avcılar</option>
                     <option value="d">Beylikdüzü</option>
                   </select>
-                  <p className=" text-red-500 text-xs italic">{props.touched.neighbourhood && props.errors.neighbourhood}</p>
+                  <p className=" text-red-500 text-xs italic">{props.touched.town && props.errors.town}</p>
+                </div>
+                <div className="w-full md:w-1/3 px-3">
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="neighbourhood">
+                    Mahalle
+                  </label>
+                  <select
+                  id="district"
+                  name="district"
+                  value={props.values.district}
+                  onChange={props.handleChange}
+                  className=" cursor-pointer appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  >
+                    <option label="Mahalle Seç"></option>
+                    <option value="b">Marmara Mahallesi</option>
+                    <option value="c">Küçük Yalı Mahallesi</option>
+                    <option value="d">Suluk Mahallesi</option>
+                  </select>
+                  <p className=" text-red-500 text-xs italic">{props.touched.district && props.errors.district}</p>
                 </div>
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">
               <div className="w-full md:w-1/3 px-3 mb-6">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="class">
                     Sınıf
                   </label>
                   <select
@@ -196,7 +224,7 @@ export default function StudentRegisterComponent() {
                   <p className=" text-red-500 text-xs italic">{props.touched.class && props.errors.class}</p>
                 </div>
                 <div className="w-full md:w-2/3 px-3">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="grid-last-name">
+                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="school">
                     Okul
                   </label>
                   <select
@@ -217,12 +245,13 @@ export default function StudentRegisterComponent() {
               <div className="flex flex-wrap -mx-3 mb-6">
               
               <div className="w-full px-3">
-                  <label className="block uppercase tracking-wide mb-2 mt-2 text-gray-700 text-xs font-bold" htmlFor="grid-password">
+                  <label className="block uppercase tracking-wide mb-2 mt-2 text-gray-700 text-xs font-bold" htmlFor="email">
                     E-mail
                   </label>
                   <input 
                   id='email'
                   name='email'
+                  autoComplete='off'
                   type='email'
                   value={props.values.email}
                   onChange={props.handleChange}
@@ -235,7 +264,7 @@ export default function StudentRegisterComponent() {
               </div>
               <div className="flex flex-wrap -mx-3 mb-6">
               <div className="w-full px-3 mb-6">
-                  <label className="block uppercase tracking-wide mb-2 text-gray-700 text-xs font-bold" htmlFor="grid-password">
+                  <label className="block uppercase tracking-wide mb-2 text-gray-700 text-xs font-bold" htmlFor="password">
                     Şifre
                   </label>
                   <input 
@@ -244,13 +273,13 @@ export default function StudentRegisterComponent() {
                   type='password'
                   value={props.values.password}
                   onChange={props.handleChange}
-                  placeholder="******************"
+                  placeholder="******"
                   className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
                   />
                   <p className="text-red-500 text-xs italic">{props.touched.password && props.errors.password}</p>
               </div>
               <div className="w-full px-3">
-                  <label className="block uppercase tracking-wide mb-2 mt-2 text-gray-700 text-xs font-bold" htmlFor="grid-password">
+                  <label className="block uppercase tracking-wide mb-2 mt-2 text-gray-700 text-xs font-bold" htmlFor="passwordConfirm">
                     Şifre Doğrulama
                   </label>
                   <input 
@@ -259,13 +288,13 @@ export default function StudentRegisterComponent() {
                   type='password'
                   value={props.values.passwordConfirm}
                   onChange={props.handleChange}
-                  placeholder="******************"
+                  placeholder="******"
                   className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
                   />
                   <p className="text-red-500 text-xs italic">{props.touched.passwordConfirm && props.errors.passwordConfirm}</p>
               </div>
               <div className='w-full mt-10 flex justify-center'>
-                <button type='submit' className='p-4 bg-blue-500 rounded w-44 text-white '>Kayıt Ol</button>
+                <button type='submit' className='p-4 bg-blue-500 rounded w-44 text-white'>Kayıt Ol</button>
               </div>
               </div>
             </div>

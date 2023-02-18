@@ -4,14 +4,14 @@ const studentValidationSchema = Yup.object({
     name: Yup.string()
     .required('İsim alanı boş bırakılamaz.')
     .typeError('Yanlış bir değer girdiniz.')
-    .matches(/^[a-zA-ZğüşöçİĞÜŞÖÇ ]*$/, 'isim sadece harf içerebilir.')
+    .matches(/^[a-zA-ZğüşöçıİĞÜŞÖÇ ]*$/, 'isim sadece harf içerebilir.')
     .max(30, 'İsim alanı en fazla 30 karakter olmalıdır.'),
 
     surname: Yup.string()
     .required('Soyisim alanı boş bırakılamaz.')
     .typeError('Yanlış bir değer girdiniz.')
     .max(30, 'Soyisim alanı en fazla 30 karakter olmalıdır.')
-    .matches(/^[a-zA-ZğüşöçİĞÜŞÖÇ ]*$/, 'isim sadece harf içerebilir.')
+    .matches(/^[a-zA-ZğüşöçıİĞÜŞÖÇ ]*$/, 'isim sadece harf içerebilir.')
     .trim( 'Soyisim alanı boşluk içeremez.'),
 
     age: Yup.number()
@@ -29,11 +29,11 @@ const studentValidationSchema = Yup.object({
 
     city: Yup.string()
     .required('Şehir seçimi boş bırakılamaz.')
-    .matches(/^[a-zA-ZğüşöçİĞÜŞÖÇ ]*$/, 'Şehir ismi sadece harf içerebilir.'),
+    .matches(/^[a-zA-ZğüşöçıİĞÜŞÖÇ ]*$/, 'Şehir ismi sadece harf içerebilir.'),
 
     neighbourhood: Yup.string()
     .required('İlçe seçimi boş bırakılamaz.')
-    .matches(/^[a-zA-ZğüşöçİĞÜŞÖÇ ]*$/, 'Semt / Mahalle ismi sadece harf içerebilir.'),
+    .matches(/^[a-zA-ZğüşöçıİĞÜŞÖÇ ]*$/, 'Semt / Mahalle ismi sadece harf içerebilir.'),
 
     class: Yup.number()
     .required('Lütfen Sınıfınızı Seçiniz.')
@@ -46,7 +46,7 @@ const studentValidationSchema = Yup.object({
 
     school: Yup.string()
     .required('Okul ismi boş bırakılamaz.')
-    .matches(/^[a-zA-ZğüşöçİĞÜŞÖÇ ]*$/, 'Okul ismi sadece harf içerebilir.'),
+    .matches(/^[a-zA-ZğüşöçıİĞÜŞÖÇ ]*$/, 'Okul ismi sadece harf içerebilir.'),
     
     email: Yup.string()
     .required('e mail boş bırakılamaz.')
@@ -59,7 +59,7 @@ const studentValidationSchema = Yup.object({
 
     passwordConfirm: Yup.string()
     .required('Şifre doğrulama boş bırakılamaz!')
-    .oneOf([Yup.ref('password')], 'Şifre Eşleşmiyor!')
+    .oneOf([Yup.ref('password'),null], 'Şifre Eşleşmiyor!')
 });
 
 export default studentValidationSchema;
