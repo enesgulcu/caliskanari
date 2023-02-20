@@ -1,18 +1,32 @@
 "use client"
 import { Formik, Form } from 'formik';
+import styles from './studentRegister.module.css';
 import studentValidationSchema from './formikData';
 import { createStudent } from '@/services/auth/register/student/index';
+import getAdress from '@/services/auth/register/getAdress';
 import { ToastContainer, toast } from 'react-toastify';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
+import Image from "next/image";
 import { useRouter } from 'next/navigation';
 export default function StudentRegisterComponent() {
 
-  const [isLogin, setIsLogin] = useState(false)
+  useEffect(() => {
+    getAdress().then(res => setCity(res)); 
+  }, [])
   
+
+  const [isLogin, setIsLogin] = useState(false);
+  const [city, setCity] = useState([]);
+  const [town, setTown] = useState([]);
+
+  console.log(town);
+
+
+
   const router = useRouter();
 
   return (
-    <div className='bg-red-400'>
+    <div>
 
     <ToastContainer
     position="top-right"
@@ -37,7 +51,7 @@ export default function StudentRegisterComponent() {
           phone: "",  
           city: "",
           town: "",
-          district: "",
+          neighborhood: "",
           class: "",
           school: "",          
           email: "",
@@ -81,14 +95,24 @@ export default function StudentRegisterComponent() {
            
         }}
       >
+      
         {(props) => (
-          <Form onSubmit={props.handleSubmit} className={`flex ${isLogin ? "blur" : ""} justify-center flex-col items-center bg-gray-600 w-screen min-h-screen`}>
+          <Form onSubmit={props.handleSubmit} className={`flex ${isLogin ? "blur"  : ""} ${styles.form}`}>
             
-            <div className='m-8 bg-white p-10 rounded'>
-            <h3 className='font-bold text-gray-700  mb-16 w-full  text-center md:text-5xl text-3xl '>ÖĞRENCİ KAYIT</h3>
-              <div className="flex flex-wrap -mx-3 mb-6">
-                <div className="w-full md:w-1/3 px-3 mb-6 md:mb-0">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="name">
+            <div className={styles.cotaniner}>
+              <div className={styles.cotaniner_icon}>
+              <Image
+                src="/logo.png"
+                width="100"
+                height="100"
+                alt="logo"
+            />
+              </div>
+            
+            <h1 className={styles.container_label}>ÖĞRENCİ KAYIT</h1>
+              <div className="flex flex-wrap -mx-3 mb-2 max-w-[800px]">
+                <div className={styles.container_first_row}>
+                  <label className={styles.inputLabel} htmlFor="name">
                     İsim
                   </label>
                   <input                   
@@ -98,12 +122,12 @@ export default function StudentRegisterComponent() {
                   value={props.values.name}
                   onChange={props.handleChange}
                   placeholder='İsminizi giriniz.'
-                  className="appearance-none block w-full bg-gray-100 text-gray-700 border  rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white" 
+                  className={styles.inputClass} 
                   />
                   <p className=" text-red-500 text-xs italic">{props.touched.name && props.errors.name}</p>
                 </div>
-                <div className="w-full md:w-1/3 px-3 mb-6">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="surname">
+                <div className={styles.container_first_row}>
+                  <label className={styles.inputLabel} htmlFor="surname">
                     Soyisim
                   </label>
                   <input 
@@ -113,12 +137,12 @@ export default function StudentRegisterComponent() {
                   value={props.values.surname}
                   onChange={props.handleChange}
                   placeholder='Soyisminizi giriniz.'
-                  className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className={styles.inputClass} 
                   />
                   <p className=" text-red-500 text-xs italic">{props.touched.surname && props.errors.surname}</p>
                 </div>
-                <div className="w-full md:w-1/3 px-3 ">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="age">
+                <div className={styles.container_middle_row}>
+                  <label className={styles.inputLabel} htmlFor="age">
                     Yaş
                   </label>
                   <input 
@@ -128,14 +152,12 @@ export default function StudentRegisterComponent() {
                   value={props.values.age}
                   onChange={props.handleChange}
                   placeholder='16'
-                  className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className={styles.inputClass} 
                   />
                   <p className=" text-red-500 text-xs italic">{props.touched.age && props.errors.age}</p>
                 </div>
-              </div>
-              <div className="flex flex-wrap -mx-3 mb-6">
-              <div className="w-full md:w-1/3 px-3 mb-6">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2"  htmlFor="phone">
+                <div className={styles.container_middle_row}>
+                  <label className={styles.inputLabel}  htmlFor="phone">
                     Telefon
                   </label>
                   <input 
@@ -145,68 +167,12 @@ export default function StudentRegisterComponent() {
                   value={props.values.phone}
                   onChange={props.handleChange}
                   placeholder='555 555 55 55'
-                  className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className={styles.inputClass} 
                   />
                   <p className=" text-red-500 text-xs italic">{props.touched.phone && props.errors.phone}</p>
                 </div>
-                <div className="w-full md:w-1/3 px-3 mb-6">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="city">
-                    Şehir
-                  </label>
-                  <select
-                  id="city"
-                  name="city"
-                  value={props.values.city}
-                  onChange={props.handleChange}
-                  className=" cursor-pointer appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  >
-                    <option label="Şehrini Seç"></option>
-                    <option value="b">İstanbul</option>
-                    <option value="c">Ankara</option>
-                    <option value="d">İzmir</option>
-                  </select>
-                  <p className=" text-red-500 text-xs italic">{props.touched.city && props.errors.city}</p>
-                </div>
-                <div className="w-full md:w-1/3 px-3 mb-6">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="city">
-                    İlçe
-                  </label>
-                  <select
-                  id="town"
-                  name="town"
-                  value={props.values.town}
-                  onChange={props.handleChange}
-                  className=" cursor-pointer appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  >
-                    <option label="İlçe Seç"></option>
-                    <option value="b">Küçükçekmece</option>
-                    <option value="c">Avcılar</option>
-                    <option value="d">Beylikdüzü</option>
-                  </select>
-                  <p className=" text-red-500 text-xs italic">{props.touched.town && props.errors.town}</p>
-                </div>
-                <div className="w-full md:w-1/3 px-3">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="neighbourhood">
-                    Mahalle
-                  </label>
-                  <select
-                  id="district"
-                  name="district"
-                  value={props.values.district}
-                  onChange={props.handleChange}
-                  className=" cursor-pointer appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                  >
-                    <option label="Mahalle Seç"></option>
-                    <option value="b">Marmara Mahallesi</option>
-                    <option value="c">Küçük Yalı Mahallesi</option>
-                    <option value="d">Suluk Mahallesi</option>
-                  </select>
-                  <p className=" text-red-500 text-xs italic">{props.touched.district && props.errors.district}</p>
-                </div>
-              </div>
-              <div className="flex flex-wrap -mx-3 mb-6">
-              <div className="w-full md:w-1/3 px-3 mb-6">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="class">
+                <div className={styles.container_middle_row}>
+                  <label className={styles.inputLabel} htmlFor="class">
                     Sınıf
                   </label>
                   <select
@@ -214,38 +180,83 @@ export default function StudentRegisterComponent() {
                   name="class"
                   value={props.values.class}
                   onChange={props.handleChange}
-                  className=" cursor-pointer appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className={styles.inputClass} 
                   >
                     <option label="Sınıfını Seç"></option>
-                    <option value="1">1. Sınıf</option>
-                    <option value="2">2. Sınıf</option>
-                    <option value="3">3. Sınıf</option>
+                    <option value="1. Sınıf">1. Sınıf</option>
+                    <option value="2. Sınıf">2. Sınıf</option>
+                    <option value="3. Sınıf">3. Sınıf</option>
+                    <option value="4. Sınıf">4. Sınıf</option>
+                    <option value="5. Sınıf">5. Sınıf</option>
+                    <option value="6. Sınıf">6. Sınıf</option>
+                    <option value="7. Sınıf">7. Sınıf</option>
+                    <option value="8. Sınıf">8. Sınıf</option>
+                    <option value="9. Sınıf">9. Sınıf</option>
+                    <option value="10. Sınıf">10. Sınıf</option>
+                    <option value="11. Sınıf">11. Sınıf</option>
+                    <option value="12. Sınıf">12. Sınıf</option>
+                    
                   </select>
                   <p className=" text-red-500 text-xs italic">{props.touched.class && props.errors.class}</p>
                 </div>
-                <div className="w-full md:w-2/3 px-3">
-                  <label className="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" htmlFor="school">
-                    Okul
+                <div className={styles.container_middle_row}>
+                  <label className={styles.inputLabel} htmlFor="city">
+                    İl
                   </label>
                   <select
-                  id="school"
-                  name="school"
-                  value={props.values.school}
+                  id="city"
+                  name="city"
+                  value={props.values.city}
                   onChange={props.handleChange}
-                  className=" cursor-pointer appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                  className={styles.inputClass} 
                   >
-                    <option label="Okulunu Seç"></option>
-                    <option value="b">Atatürk Okulu</option>
-                    <option value="c">Maraşel Okulu</option>
-                    <option value="d">Merkez okul</option>
+                    <option label="Şehrini Seç"></option>
+                    {
+                      city.map((item, index) => {
+                        return <option key={index} value={item}>{item}</option>
+                      })
+                    }
                   </select>
-                  <p className=" text-red-500 text-xs italic">{props.touched.school && props.errors.school}</p>
-                </div>                
-              </div>
-              <div className="flex flex-wrap -mx-3 mb-6">
-              
-              <div className="w-full px-3">
-                  <label className="block uppercase tracking-wide mb-2 mt-2 text-gray-700 text-xs font-bold" htmlFor="email">
+                  <p className=" text-red-500 text-xs italic">{props.touched.city && props.errors.city}</p>
+                </div>
+                <div className={styles.container_middle_row}>
+                  <label className={styles.inputLabel} htmlFor="city">
+                    İlçe
+                  </label>
+                  <select
+                  id="town"
+                  name="town"
+                  value={props.values.town}
+                  onChange={props.handleChange}
+                  className={styles.inputClass} 
+                  >
+                    <option label="İlçe Seç"></option>
+                    <option value="Küçükçekmece">Küçükçekmece</option>
+                    <option value="Avcılar">Avcılar</option>
+                    <option value="Beylikdüzü">Beylikdüzü</option>
+                  </select>
+                  <p className=" text-red-500 text-xs italic">{props.touched.town && props.errors.town}</p>
+                </div>
+                <div className={styles.container_middle_row} >
+                  <label className={styles.inputLabel} htmlFor="neighborhood">
+                    Mahalle
+                  </label>
+                  <select
+                  id="neighborhood"
+                  name="neighborhood"
+                  value={props.values.neighborhood}
+                  onChange={props.handleChange}
+                  className={styles.inputClass} 
+                  >
+                    <option label="Mahalle Seç"></option>
+                    <option value="Marmara Mahallesi">Marmara Mahallesi</option>
+                    <option value="Küçük Yalı Mahallesi">Küçük Yalı Mahallesi</option>
+                    <option value="Suluk Mahallesi">Suluk Mahallesi</option>
+                  </select>
+                  <p className=" text-red-500 text-xs italic">{props.touched.neighborhood && props.errors.neighborhood}</p>
+                </div> 
+                <div className={styles.container_end_row}>
+                  <label className={styles.inputLabel} htmlFor="email">
                     E-mail
                   </label>
                   <input 
@@ -256,15 +267,12 @@ export default function StudentRegisterComponent() {
                   value={props.values.email}
                   onChange={props.handleChange}
                   placeholder="Mail adresinizi giriniz."
-                  className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+                  className={styles.inputClass} 
                   />
                   <p className=" text-red-500 text-xs italic">{props.touched.email && props.errors.email}</p>
-              </div>
-               
-              </div>
-              <div className="flex flex-wrap -mx-3 mb-6">
-              <div className="w-full px-3 mb-6">
-                  <label className="block uppercase tracking-wide mb-2 text-gray-700 text-xs font-bold" htmlFor="password">
+                </div>
+                <div className={styles.container_end_row}>
+                  <label className={styles.inputLabel} htmlFor="password">
                     Şifre
                   </label>
                   <input 
@@ -274,29 +282,38 @@ export default function StudentRegisterComponent() {
                   value={props.values.password}
                   onChange={props.handleChange}
                   placeholder="******"
-                  className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
+                  className={styles.inputClass} 
                   />
                   <p className="text-red-500 text-xs italic">{props.touched.password && props.errors.password}</p>
+                </div>
+                <div className={styles.container_end_row}>
+                    <label className={styles.inputLabel} htmlFor="passwordConfirm">
+                      Şifre Doğrulama
+                    </label>
+                    <input 
+                    id='passwordConfirm'
+                    name='passwordConfirm'
+                    type='password'
+                    value={props.values.passwordConfirm}
+                    onChange={props.handleChange}
+                    placeholder="******"
+                    className={styles.inputClass} 
+                    />
+                    <p className="text-red-500 text-xs italic">{props.touched.passwordConfirm && props.errors.passwordConfirm}</p>
+                </div>
+                <div className="mt-4 text-center px-3 w-full flex justify-center">
+                        <p className="text-md">
+                          Kayıtlı kullanıcı iseniz Lütfen{" "}
+                          <a href="#" className="text-blue-600 hover:underline">{" "} Giriş Yapınız.</a>
+                        </p>
+                </div>
+                <div className='w-full mt-4 flex justify-center'>
+                  <button type='submit' className={styles.submit_button}>Kayıt Ol</button>
+                </div>
               </div>
-              <div className="w-full px-3">
-                  <label className="block uppercase tracking-wide mb-2 mt-2 text-gray-700 text-xs font-bold" htmlFor="passwordConfirm">
-                    Şifre Doğrulama
-                  </label>
-                  <input 
-                  id='passwordConfirm'
-                  name='passwordConfirm'
-                  type='password'
-                  value={props.values.passwordConfirm}
-                  onChange={props.handleChange}
-                  placeholder="******"
-                  className="appearance-none block w-full bg-gray-100 text-gray-700 border border-gray-200 rounded py-3 px-4  leading-tight focus:outline-none focus:bg-white focus:border-gray-500" 
-                  />
-                  <p className="text-red-500 text-xs italic">{props.touched.passwordConfirm && props.errors.passwordConfirm}</p>
-              </div>
-              <div className='w-full mt-10 flex justify-center'>
-                <button type='submit' className='p-4 bg-blue-500 rounded w-44 text-white'>Kayıt Ol</button>
-              </div>
-              </div>
+              
+             
+              
             </div>
 
             

@@ -2,10 +2,12 @@ import React from 'react'
 import StudentRegisterContainer from '@/containers/auth/register/student'
 
 
-export default function StudentRegister() {
+export default async function StudentRegister() {
+
+
   return (
     <>
-      <StudentRegisterContainer  />  
+      <StudentRegisterContainer   />  
     </>
   )
 }

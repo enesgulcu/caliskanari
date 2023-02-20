@@ -31,7 +31,11 @@ const studentValidationSchema = Yup.object({
     .required('Şehir seçimi boş bırakılamaz.')
     .matches(/^[a-zA-ZğüşöçıİĞÜŞÖÇ ]*$/, 'Şehir ismi sadece harf içerebilir.'),
 
-    neighbourhood: Yup.string()
+    town: Yup.string()
+    .required('İlçe seçimi boş bırakılamaz.')
+    .matches(/^[a-zA-ZğüşöçıİĞÜŞÖÇ ]*$/, 'İlçe ismi sadece harf içerebilir.'),
+
+    neighborhood: Yup.string()
     .required('İlçe seçimi boş bırakılamaz.')
     .matches(/^[a-zA-ZğüşöçıİĞÜŞÖÇ ]*$/, 'Semt / Mahalle ismi sadece harf içerebilir.'),
 
