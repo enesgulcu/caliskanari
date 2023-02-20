@@ -10,18 +10,22 @@ import Image from "next/image";
 import { useRouter } from 'next/navigation';
 export default function StudentRegisterComponent() {
 
-  useEffect(() => {
-    getAdress().then(res => setCity(res)); 
-  }, [])
-  
-
   const [isLogin, setIsLogin] = useState(false);
   const [city, setCity] = useState([]);
   const [town, setTown] = useState([]);
 
-  console.log(town);
+  let selecctedCity;
 
+  useEffect(() => {
+    getAdress().then(res => setCity(res));
+    console.log("x")
+  }, [])
 
+  // function test(city){
+  //   getAdress(city).then(res => console.log(res));
+  // }
+  
+ console.log("y")
 
   const router = useRouter();
 
@@ -62,7 +66,6 @@ export default function StudentRegisterComponent() {
 
         // input kontrol check
         validationSchema={studentValidationSchema}
-
         onSubmit={(values) => {
           
           // kullanıcı 2 şifresini de doğru girerse artık "passwordConfirm" değerine ihtiyacımız olmayacak.
@@ -97,8 +100,8 @@ export default function StudentRegisterComponent() {
       >
       
         {(props) => (
+          
           <Form onSubmit={props.handleSubmit} className={`flex ${isLogin ? "blur"  : ""} ${styles.form}`}>
-            
             <div className={styles.cotaniner}>
               <div className={styles.cotaniner_icon}>
               <Image
@@ -207,18 +210,21 @@ export default function StudentRegisterComponent() {
                   id="city"
                   name="city"
                   value={props.values.city}
+                  
                   onChange={props.handleChange}
                   className={styles.inputClass} 
                   >
                     <option label="Şehrini Seç"></option>
                     {
-                      city.map((item, index) => {
+                      city.length > 0 && city.map((item, index) => {
                         return <option key={index} value={item}>{item}</option>
                       })
                     }
                   </select>
                   <p className=" text-red-500 text-xs italic">{props.touched.city && props.errors.city}</p>
                 </div>
+                {props.values.city != "" && test(props.values.city)}
+
                 <div className={styles.container_middle_row}>
                   <label className={styles.inputLabel} htmlFor="city">
                     İlçe
