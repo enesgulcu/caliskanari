@@ -8,24 +8,38 @@ import { ToastContainer, toast } from 'react-toastify';
 import { useState, useEffect } from 'react';
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
-export default function StudentRegisterComponent() {
+export default function StudentRegisterComponent(CitiesData) {
+
+  // şehirlerin listesini containerdan prop olarak alırız.
+  const cities = CitiesData.CitiesData.data;
 
   const [isLogin, setIsLogin] = useState(false);
-  const [city, setCity] = useState([]);
-  const [town, setTown] = useState([]);
-
-  let selecctedCity;
+  const [city, setCity] = useState("");
+  const [town, setTown] = useState("");
+  const [towns, setTowns] = useState("");
+  const [neighborhood, setNeighborhood] = useState("");
+  const [neighborhoods, setNeighborhoods] = useState("");
 
   useEffect(() => {
-    getAdress().then(res => setCity(res));
-    console.log("x")
-  }, [])
+    city != "" && getAdress(city).then(res => setTowns(res));
+    setTown("");
+    setTowns("");
+    setNeighborhood("");
+    setNeighborhoods("");
+    
+  }, [city])
+
+  useEffect(() => {
+    town != "" && getAdress(`${city}/${town}`).then(res => setNeighborhoods(res));
+    setNeighborhood("");
+    setNeighborhoods("");
+  }, [town])
+
+  console.log(`${city}/${town}/${neighborhood}`)
 
   // function test(city){
   //   getAdress(city).then(res => console.log(res));
   // }
-  
- console.log("y")
 
   const router = useRouter();
 
@@ -100,7 +114,6 @@ export default function StudentRegisterComponent() {
       >
       
         {(props) => (
-          
           <Form onSubmit={props.handleSubmit} className={`flex ${isLogin ? "blur"  : ""} ${styles.form}`}>
             <div className={styles.cotaniner}>
               <div className={styles.cotaniner_icon}>
@@ -210,20 +223,18 @@ export default function StudentRegisterComponent() {
                   id="city"
                   name="city"
                   value={props.values.city}
-                  
-                  onChange={props.handleChange}
+                  onChange={(e) => {props.handleChange(e); setCity(e.target.value)}}
                   className={styles.inputClass} 
                   >
-                    <option label="Şehrini Seç"></option>
+                    <option label="İl Seç"></option>
                     {
-                      city.length > 0 && city.map((item, index) => {
+                      cities.length > 0 && cities.map((item, index) => {
                         return <option key={index} value={item}>{item}</option>
                       })
                     }
                   </select>
                   <p className=" text-red-500 text-xs italic">{props.touched.city && props.errors.city}</p>
                 </div>
-                {props.values.city != "" && test(props.values.city)}
 
                 <div className={styles.container_middle_row}>
                   <label className={styles.inputLabel} htmlFor="city">
@@ -233,13 +244,15 @@ export default function StudentRegisterComponent() {
                   id="town"
                   name="town"
                   value={props.values.town}
-                  onChange={props.handleChange}
+                  onChange={(e) => {props.handleChange(e); setTown(e.target.value)}}
                   className={styles.inputClass} 
                   >
                     <option label="İlçe Seç"></option>
-                    <option value="Küçükçekmece">Küçükçekmece</option>
-                    <option value="Avcılar">Avcılar</option>
-                    <option value="Beylikdüzü">Beylikdüzü</option>
+                    {
+                      towns.length > 0 && towns.map((item, index) => {
+                        return <option key={index} value={item}>{item}</option>
+                      })
+                    }
                   </select>
                   <p className=" text-red-500 text-xs italic">{props.touched.town && props.errors.town}</p>
                 </div>
@@ -251,13 +264,15 @@ export default function StudentRegisterComponent() {
                   id="neighborhood"
                   name="neighborhood"
                   value={props.values.neighborhood}
-                  onChange={props.handleChange}
+                  onChange={(e) => {props.handleChange(e); setNeighborhood(e.target.value)}}
                   className={styles.inputClass} 
                   >
                     <option label="Mahalle Seç"></option>
-                    <option value="Marmara Mahallesi">Marmara Mahallesi</option>
-                    <option value="Küçük Yalı Mahallesi">Küçük Yalı Mahallesi</option>
-                    <option value="Suluk Mahallesi">Suluk Mahallesi</option>
+                    {
+                      neighborhoods.length > 0 && neighborhoods.map((item, index) => {
+                        return <option key={index} value={item}>{item}</option>
+                      })
+                    }
                   </select>
                   <p className=" text-red-500 text-xs italic">{props.touched.neighborhood && props.errors.neighborhood}</p>
                 </div> 
