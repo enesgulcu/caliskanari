@@ -19,21 +19,18 @@ export default function StudentRegisterComponent(CitiesData) {
   const [city, setCity] = useState("");
   const [town, setTown] = useState("");
   const [towns, setTowns] = useState("");
-  const [neighborhood, setNeighborhood] = useState("");
   const [neighborhoods, setNeighborhoods] = useState("");
 
   useEffect(() => {
     city != "" && getAdress(city).then(res => setTowns(res));
     setTown("");
     setTowns("");
-    setNeighborhood("");
     setNeighborhoods("");
     
   }, [city])
 
   useEffect(() => {
     town != "" && getAdress(`${city}/${town}`).then(res => setNeighborhoods(res));
-    setNeighborhood("");
     setNeighborhoods("");
   }, [town])
 
@@ -76,7 +73,6 @@ export default function StudentRegisterComponent(CitiesData) {
         // input kontrol check
         validationSchema={studentValidationSchema}
         onSubmit={(values) => {
-          
           // kullanıcı 2 şifresini de doğru girerse artık "passwordConfirm" değerine ihtiyacımız olmayacak.
           // burada temizleriz. prisma hata veriyor (veri tabanında olmayan bir değer) gönderidğimiz için.
           delete values.passwordConfirm;
@@ -223,7 +219,7 @@ export default function StudentRegisterComponent(CitiesData) {
                   id="city"
                   name="city"
                   value={props.values.city}
-                  onChange={(e) => {props.handleChange(e); setCity(e.target.value)}}
+                  onChange={(e) => {props.handleChange(e); setCity(e.target.value); props.values.town = ""}}
                   className={styles.inputClass} 
                   >
                     <option label="İl Seç"></option>
@@ -244,7 +240,7 @@ export default function StudentRegisterComponent(CitiesData) {
                   id="town"
                   name="town"
                   value={props.values.town}
-                  onChange={(e) => {props.handleChange(e); setTown(e.target.value)}}
+                  onChange={(e) => {props.handleChange(e); setTown(e.target.value); props.values.neighborhood = ""}}
                   className={styles.inputClass} 
                   >
                     <option label="İlçe Seç"></option>
@@ -264,7 +260,7 @@ export default function StudentRegisterComponent(CitiesData) {
                   id="neighborhood"
                   name="neighborhood"
                   value={props.values.neighborhood}
-                  onChange={(e) => {props.handleChange(e); setNeighborhood(e.target.value)}}
+                  onChange={(e) => {props.handleChange(e)}}
                   className={styles.inputClass} 
                   >
                     <option label="Mahalle Seç"></option>
