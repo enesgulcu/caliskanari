@@ -35,12 +35,6 @@ export default function StudentRegisterComponent(CitiesData) {
     setNeighborhoods("");
   }, [town])
 
-  console.log(`${city}/${town}/${neighborhood}`)
-
-  // function test(city){
-  //   getAdress(city).then(res => console.log(res));
-  // }
-
   const router = useRouter();
 
   return (
@@ -70,8 +64,7 @@ export default function StudentRegisterComponent(CitiesData) {
           city: "",
           town: "",
           neighborhood: "",
-          class: "",
-          school: "",          
+          class: "",       
           email: "",
           password: "",
           passwordConfirm: "",

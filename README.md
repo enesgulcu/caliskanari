@@ -21,7 +21,6 @@ kayıt olma adımları
 - neighborhood
 -------------------
 - class
-- school
 -------------------
 - e-mail
 - password
@@ -37,7 +36,6 @@ kayıt olma adımları
 - state
 - neighborhood
 -------------------
-- school
 - departman
 -------------------
 - e-mail

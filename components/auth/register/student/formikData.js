@@ -39,19 +39,11 @@ const studentValidationSchema = Yup.object({
     .required('İlçe seçimi boş bırakılamaz.')
     .matches(/^[a-zA-ZğüşöçıİĞÜŞÖÇ ]*$/, 'Semt / Mahalle ismi sadece harf içerebilir.'),
 
-    class: Yup.number()
+    class: Yup.string()
     .required('Lütfen Sınıfınızı Seçiniz.')
-    .moreThan(-1, 'Yanlış bir değer girdiniz.')
-    .typeError('Yanlış bir değer girdiniz.')
-    .max(12, "Sınıfınız 1-12 arasında olmalıdır")
-    .min(1, "Sınıfınız 1-12 arasında olmalıdır")
-    .integer('Lütfen bir sayı giriniz')
-    .positive('Yanlış bir değer girdiniz.'),
+    .max(10, "Yanlış bir değer girdiniz.")
+    .min(1, "Sınıfınız 1-12 arasında olmalıdır"),
 
-    school: Yup.string()
-    .required('Okul ismi boş bırakılamaz.')
-    .matches(/^[a-zA-ZğüşöçıİĞÜŞÖÇ ]*$/, 'Okul ismi sadece harf içerebilir.'),
-    
     email: Yup.string()
     .required('e mail boş bırakılamaz.')
     .email('Geçerli bir e mail adresi giriniz.'),

@@ -24,7 +24,6 @@ model Student {
   town      String?
   neighborhood String?
   class     String?
-  school    String?
   email     String   @unique
   password  String
   createdAt DateTime @default(now())
