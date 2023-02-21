@@ -1,13 +1,15 @@
 "use client"
-import { Formik, Form } from 'formik';
-import styles from './studentRegister.module.css';
-import studentValidationSchema from './formikData';
 import { createStudent } from '@/services/auth/register/student/index';
 import getAdress from '@/services/auth/register/getAdress';
 import { ToastContainer, toast } from 'react-toastify';
-import { useState, useEffect } from 'react';
-import Image from "next/image";
+import studentValidationSchema from './formikData';
+import styles from './studentRegister.module.css';
 import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
+import { Formik, Form } from 'formik';
+import Image from "next/image";
+import Link from 'next/link';
+
 export default function StudentRegisterComponent(CitiesData) {
 
   // şehirlerin listesini containerdan prop olarak alırız.
@@ -86,6 +88,7 @@ export default function StudentRegisterComponent(CitiesData) {
 
               toast.success(res.message + " (Yönlendiriliyorsunuz...)")
 
+              //Bilgi verir ve 5 saniye sonra login sayfasına yönlendirir.
               const timeOut = setInterval(() => {
                 router.push('/auth/login');
                 clearInterval(timeOut);
@@ -96,6 +99,7 @@ export default function StudentRegisterComponent(CitiesData) {
               
 
             }else{
+              // girilen mail adresi daha önce kullanılmış ise hata mesajı verir. ve şifreleri temizler.
               toast.error(res.message ? res.message : "Girdiğini bilgileri kontrol ediniz.")
               values.password = "";
               values.passwordConfirm = "";
@@ -107,14 +111,17 @@ export default function StudentRegisterComponent(CitiesData) {
       >
       
         {(props) => (
+          // Formik içindeki inputları burada kullanırız. // css'de giriş başarılı ise blur efekti verir.
           <Form onSubmit={props.handleSubmit} className={`flex ${isLogin ? "blur"  : ""} ${styles.form}`}>
             <div className={styles.cotaniner}>
               <div className={styles.cotaniner_icon}>
               <Image
                 src="/logo.png"
-                width="100"
-                height="100"
+                width={100}
+                height={100}
                 alt="logo"
+                priority={true}
+                className='w-auto'
             />
               </div>
             
@@ -317,24 +324,16 @@ export default function StudentRegisterComponent(CitiesData) {
                 </div>
                 <div className="mt-4 text-center px-3 w-full flex justify-center">
                         <p className="text-md">
-                          Kayıtlı kullanıcı iseniz Lütfen{" "}
-                          <a href="#" className="text-blue-600 hover:underline">{" "} Giriş Yapınız.</a>
+                          Kayıtlı kullanıcı iseniz lütfen <Link href="/auth/login" className="text-blue-600 hover:underline"> Giriş Yapınız.</Link>
                         </p>
                 </div>
                 <div className='w-full mt-4 flex justify-center'>
                   <button type='submit' className={styles.submit_button}>Kayıt Ol</button>
                 </div>
               </div>
-              
-             
-              
             </div>
-
-            
           </Form>
         )}
-
-
       </Formik>
     </div>
   )
