@@ -8,8 +8,7 @@ export async function createStudent(student) {
 
     try {
       // Veritabanından öğrenci ile eşleşen bir kayıt var mı kontrol et
-      let mailCheck = "student";
-      mailCheck = await prisma.student.findUnique({
+      const mailCheck = await prisma.student.findUnique({
         where: {
           email: student.email
         },

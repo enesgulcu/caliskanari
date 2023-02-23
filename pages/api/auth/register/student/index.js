@@ -1,11 +1,11 @@
 import { createStudent } from "@/functions/auth/register/student/index";
-import bcryptPassword from "@/functions/auth/register/bcryptPassword";
+import EncryptPassword from "@/functions/auth/encryptPassword";
 
 export default async function handler (req, res) {
     if(req.method === 'POST'){
         try {
             const data = req.body;
-            data.password = await bcryptPassword(data.password);
+            data.password = await EncryptPassword(data.password);
 
             const {error} = await createStudent(data);
             if(error) throw new Error(error);
