@@ -9,6 +9,7 @@ export default function RootLayout({ children, session }) {
 
       <head />
       <body>
+        {/* SessionProvider ile sarmallarız ki tüm route lara erişebilelim diye / yukarıda "use client" tanımlamayı unutma! */}
         <SessionProvider session={session}>
           {children}
         </SessionProvider>        

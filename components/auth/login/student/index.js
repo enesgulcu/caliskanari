@@ -1,24 +1,19 @@
 "use client";
 import { Formik, Form } from "formik";
-//import studentValidationSchema from "../student/student/formikData";
-import { createStudent } from "@/services/auth/register/student/index";
+import studentValidationSchema from "./formikData";
 import { ToastContainer, toast } from "react-toastify";
-import { useCallback, useState } from "react";
-import { useRouter } from "next/navigation";
 import Image from "next/image";
 import styles from "./studentRegister.module.css";
+
+// session: giriş yapmış kullanıcıyı temsil eder varsa bilgileri içinde barındırır.
+// signIn:  kullanıcıyı giriş yapmaya yönlendirmek için kullanılır.
 import { useSession, signIn } from "next-auth/react";
 
 export default function StudentLoginComponent() {
 
+  // useSession ile session bilgilerine erişebiliriz.
   const session = useSession();
-
-  console.log(session);
-
-  const [isLogin, setIsLogin] = useState(false);
-
-  const router = useRouter();
-
+  //console.log(session);
   return (
     <div className={styles.main}>
       <ToastContainer
@@ -41,15 +36,21 @@ export default function StudentLoginComponent() {
           password: "",
           activationCode: ""
         }}
-        // input kontrol check
-        //validationSchema={studentValidationSchema}
+        // input check
+        validationSchema={studentValidationSchema}
         onSubmit={(values) => {
+
+          
+          // signIn içine hangi provider ile giriş yapılacağı ve giriş bilgileri gönderilir.
           const result = signIn('credentials', {
             email: values.email,
             password: values.password,
-            callbackUrl:"/dashboard",
-            redirect: true,
-        })}}
+            callbackUrl:"/", 
+            redirect: true, 
+          });
+          
+
+        }}
       >
         {(props) => (
           <Form onSubmit={props.handleSubmit} className={styles.main_container}>

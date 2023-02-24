@@ -15,7 +15,7 @@ export default async function GetStudent(loginStudent) {
     
         const passwordCheck = await DecryptPassword(loginStudent.password, loginCheck.password);
         if(!passwordCheck) throw new Error("Şifre hatalı.");
-    
+
         return { student: loginCheck };
     } catch (error) {
          throw new Error(error.message);

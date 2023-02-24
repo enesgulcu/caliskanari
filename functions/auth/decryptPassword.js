@@ -10,13 +10,7 @@ export default async function DecryptPassword(LoginPassword, databasePassword) {
             return result;
             
         });
-
-       
-
-        
-      
-
-        
+ 
     } catch (error) {
         console.log(error);      
     }
