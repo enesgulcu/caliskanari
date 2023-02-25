@@ -8,53 +8,58 @@ export const authOptions = {
     // CredentialsProvider ile email veşifreyi kullanıcıdan alarak normal giriş yapmasını sağlarız.
     // farklı giriş yöntemleri ile (google - github - facebook) giriş için hazır "provider" ları kullanabiliriz.
     CredentialsProvider({
+      name: "Credentials",
 
-        name: "Credentials",
-
-        credentials: {
-          email: { label: "email", type: "text"},
-          password: { label: "Password", type: "password" }
-        },
-        async authorize(credentials, req) {
-            // kontrol edilecek (email ve password) bilgilerini credentials değişkeninden alıyoruz.
-            const { email, password } = credentials;
-            
-            // yukarıda aldığımız giriş bilgilerini => [email eşleşmesi, password doğrulaması] için fonksiyonumuza gönderiyoruz.
-            const { student } = await loginStudent({ email, password });
-            if (student) {
-                return student;
-                }
-            return null;
-        }}),
-    ],
-
-    // callback: bir eylem gerçekleştirildiğinde ne olacağını kontrol etmek için kullanabileceğiniz eşzamansız işlevlerdir.
-    callbacks: {
-      
-        async jwt({ token, user }) {
-          // Persist the OAuth access_token to the token right after signin
-          if (user) {
-            token.accessToken = user.access_token
-            console.log(user.access_token)
-          }
-          return token;
-
-
-        },
-        async session({ session, token}) {
-          // Send properties to the client, like an access_token from a provider.
-          session.accessToken = token.accessToken
-          
-          return session
-        }
+      credentials: {
+        email: { label: "email", type: "text"},
+        password: { label: "Password", type: "password" }
       },
+      async authorize(credentials, req) {
+        // kontrol edilecek (email ve password) bilgilerini credentials değişkeninden alıyoruz.
+        const { email, password } = credentials;
+            
+        // yukarıda aldığımız giriş bilgilerini => [email eşleşmesi, password doğrulaması] için fonksiyonumuza gönderiyoruz.
+        const  { student } = await loginStudent({ email, password });
+            
+        const user =  { 
+          id: student.id, 
+          name: student.name, 
+          email: student.email, 
+          status: student.status 
+        };
+        console.log(user);
+        if (user) {
+            return user;
+        }
+        return null;
+      }
+    }),
+  ],
 
-    pages:{
-        // signIn fonksiyonu çalıştığında kulanıcıyı yönlendireceğimiz sayfayı belirtiyoruz.
-        signIn: '/auth/login/student',
+  // callback: bir eylem gerçekleştirildiğinde ne olacağını kontrol etmek için kullanabileceğiniz eşzamansız işlevlerdir.
+  callbacks: {
+    jwt: async ({token, user})=>{
+      if(token){
+        token.user = user;
+      }
+      return token;
     },
+    session: async ({session, token})=>{
+      
+      if(token){
+        session.token = token;
+      }
+      return session;
+    },      
+  },
 
-    secret: process.env.NEXTAUTH_SECRET,
+  secret: process.env.NEXTAUTH_SECRET,
+
+  pages:{
+    // signIn fonksiyonu çalıştığında kulanıcıyı yönlendireceğimiz sayfayı belirtiyoruz.
+    signIn: '/auth/login/student',
+    encryption: true,
+  },
 }
 
 export default NextAuth(authOptions)
