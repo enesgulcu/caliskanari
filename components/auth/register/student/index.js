@@ -55,7 +55,7 @@ export default function StudentRegisterComponent(CitiesData) {
       <Formik
         // input verileri       
         initialValues={{
-          status: "student",
+          role: "student",
           name: "",
           surname: "",
           age: "",

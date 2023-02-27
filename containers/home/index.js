@@ -11,8 +11,8 @@ import { signIn, signOut, useSession } from 'next-auth/react'
 export default function HomeContainer() {
 
   // useSession ile session bilgilerine erişebiliriz.
-  const session= useSession();
-  console.log(session);
+  const {data}= useSession();
+
   return (
     <> 
     <h1>#### HomeContainer ####</h1>
@@ -22,7 +22,7 @@ export default function HomeContainer() {
         VARSA -> logOut seçeneğini göster.
         YOKSA -> login seçeneğini göster 
         */
-        session?.data?.user ? 
+        data?.user ? 
       (
         // signOut fonksiyonu çalıştığında kullanıcıyı "çıkış" yapmaya yönlendirmek için kullanılır.
         <button className='text-red-600 font-bold' onClick={()=> signOut()}>Çıkış Yap</button>

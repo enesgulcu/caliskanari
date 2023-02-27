@@ -82,9 +82,7 @@ kayıt olma adımları
 
 - formik password lar butona basıldığı anda gitmiyor 2. basışta yada veri girildiğinde siliniyor. böyle de kullanılabilir ama ilk basışta gitse daha iyi.
 
-- Kayıt olma bölümündeki (il, ilçe, mahalle) bilgilerini API ile alıp formda listelenecek.
-Bir API bulunacak ve forma entegre edilecek.
+- middleware içinde: kullanıcı eğer giriş yapmış ise bir session var ise login ya da register bölümlerine girememeli. bunu engellemeliyiz.
 
-
-
+- öğretmen kayıt olma ve giriş sayfaları yapılacak.
 

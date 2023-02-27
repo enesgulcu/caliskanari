@@ -4,16 +4,15 @@ import studentValidationSchema from "./formikData";
 import { ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
 import styles from "./studentRegister.module.css";
+import Link from "next/link";
 
 // session: giriş yapmış kullanıcıyı temsil eder varsa bilgileri içinde barındırır.
 // signIn:  kullanıcıyı giriş yapmaya yönlendirmek için kullanılır.
-import { useSession, signIn } from "next-auth/react";
+import { signIn } from "next-auth/react";
 
 export default function StudentLoginComponent() {
 
   // useSession ile session bilgilerine erişebiliriz.
-  const session = useSession();
-  //console.log(session);
   return (
     <div className={styles.main}>
       <ToastContainer
@@ -38,20 +37,21 @@ export default function StudentLoginComponent() {
         }}
         // input check
         validationSchema={studentValidationSchema}
+
         onSubmit={(values) => {
 
-          
           // signIn içine hangi provider ile giriş yapılacağı ve giriş bilgileri gönderilir.
           const result = signIn('credentials', {
             email: values.email,
             password: values.password,
+            role: "student",
             callbackUrl:"/", 
             redirect: true, 
           });
-          
-
+        
         }}
       >
+
         {(props) => (
           <Form onSubmit={props.handleSubmit} className={styles.main_container}>
             
@@ -132,10 +132,9 @@ export default function StudentLoginComponent() {
                     </button>
 
                     <div className="mt-4 text-center">
-                      <p className="text-sm">
-                        Kayıtlı hesabınız yok mu?{" "}
-                        <a href="#" className="text-blue-600 hover:underline">{" "} Kayıt Ol.</a>
-                      </p>
+                    <p className="text-md">
+                    Kayıtlı hesabınız yok mu?<Link href="/auth/register/student" className="text-blue-600 hover:underline"> Öğrenci Kayıt.</Link>
+                    </p>
                     </div>
                   </div>
                 </div>

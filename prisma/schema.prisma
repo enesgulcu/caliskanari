@@ -15,7 +15,7 @@ datasource db {
 
 model Student {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  status    String
+  role    String
   name      String
   surname   String
   age       Int?
