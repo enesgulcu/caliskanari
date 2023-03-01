@@ -10,34 +10,50 @@ import { Formik, Form } from 'formik';
 import Image from "next/image";
 import Link from 'next/link';
 
-export default function StudentRegisterComponent(CitiesData) {
+export default function StudentRegisterComponent({CitiesData}) {
 
   // şehirlerin listesini containerdan prop olarak alırız.
-  const cities = CitiesData.CitiesData.data;
+  const cities = CitiesData.data;
 
   const [isLogin, setIsLogin] = useState(false);
   const [city, setCity] = useState("");
   const [town, setTown] = useState("");
   const [towns, setTowns] = useState("");
-  const [neighborhoods, setNeighborhoods] = useState("");
+  const [schooltype, setSchooltype] = useState("");
+
+  const [schollNames, setschollNames] = useState("");
 
   useEffect(() => {
     city != "" && getAdress(city).then(res => setTowns(res));
     setTown("");
     setTowns("");
-    setNeighborhoods("");
+    setschollNames("");
+    setSchooltype("");
+
     
   }, [city])
 
   useEffect(() => {
-    town != "" && getAdress(`${city}/${town}`).then(res => setNeighborhoods(res));
-    setNeighborhoods("");
+    setschollNames("");
+    setSchooltype("");
   }, [town])
+
+  useEffect(() => {
+    if(city != "" && town != ""){
+      if(schooltype == "Özel Okul / Kolej"){
+        setschollNames("");
+      }
+      else{
+        town != "" && getAdress(`${city}/${town}/${schooltype}`).then(res => setschollNames(res));
+      }
+    }
+    
+  }, [schooltype])
 
   const router = useRouter();
 
   return (
-    <div>
+    <div className="select-none">
 
     <ToastContainer
     position="top-right"
@@ -62,7 +78,8 @@ export default function StudentRegisterComponent(CitiesData) {
           phone: "",  
           city: "",
           town: "",
-          neighborhood: "",
+          schooltype: "",
+          schollName: "",
           class: "",       
           email: "",
           password: "",
@@ -153,7 +170,7 @@ export default function StudentRegisterComponent(CitiesData) {
                   />
                   <p className=" text-red-500 text-xs italic">{props.touched.surname && props.errors.surname}</p>
                 </div>
-                <div className={styles.container_middle_row}>
+                <div className={styles.container_middle_top_row}>
                   <label className={styles.inputLabel} htmlFor="age">
                     Yaş
                   </label>
@@ -168,7 +185,7 @@ export default function StudentRegisterComponent(CitiesData) {
                   />
                   <p className=" text-red-500 text-xs italic">{props.touched.age && props.errors.age}</p>
                 </div>
-                <div className={styles.container_middle_row}>
+                <div className={styles.container_middle_top_row}>
                   <label className={styles.inputLabel}  htmlFor="phone">
                     Telefon
                   </label>
@@ -178,12 +195,12 @@ export default function StudentRegisterComponent(CitiesData) {
                   type='text'
                   value={props.values.phone}
                   onChange={props.handleChange}
-                  placeholder='555 555 55 55'
+                  placeholder='5xxxxxxxxx'
                   className={styles.inputClass} 
                   />
                   <p className=" text-red-500 text-xs italic">{props.touched.phone && props.errors.phone}</p>
                 </div>
-                <div className={styles.container_middle_row}>
+                <div className={styles.container_middle_top_row}>
                   <label className={styles.inputLabel} htmlFor="class">
                     Sınıf
                   </label>
@@ -211,7 +228,7 @@ export default function StudentRegisterComponent(CitiesData) {
                   </select>
                   <p className=" text-red-500 text-xs italic">{props.touched.class && props.errors.class}</p>
                 </div>
-                <div className={styles.container_middle_row}>
+                <div className={styles.container_middle_bottom_row}>
                   <label className={styles.inputLabel} htmlFor="city">
                     İl
                   </label>
@@ -231,16 +248,16 @@ export default function StudentRegisterComponent(CitiesData) {
                   </select>
                   <p className=" text-red-500 text-xs italic">{props.touched.city && props.errors.city}</p>
                 </div>
-
-                <div className={styles.container_middle_row}>
+                <div className={styles.container_middle_bottom_row}>
                   <label className={styles.inputLabel} htmlFor="city">
                     İlçe
                   </label>
                   <select
                   id="town"
                   name="town"
+                  disabled={city ? false : true}
                   value={props.values.town}
-                  onChange={(e) => {props.handleChange(e); setTown(e.target.value); props.values.neighborhood = ""}}
+                  onChange={(e) => {props.handleChange(e); setTown(e.target.value); props.values.schollName = ""; props.values.schooltype = ""}}
                   className={styles.inputClass} 
                   >
                     <option label="İlçe Seç"></option>
@@ -252,26 +269,74 @@ export default function StudentRegisterComponent(CitiesData) {
                   </select>
                   <p className=" text-red-500 text-xs italic">{props.touched.town && props.errors.town}</p>
                 </div>
-                <div className={styles.container_middle_row} >
-                  <label className={styles.inputLabel} htmlFor="neighborhood">
-                    Mahalle
+                <div className={styles.container_middle_bottom_row} >
+                  <label className={styles.inputLabel} htmlFor="schooltype">
+                    Okul Türü
                   </label>
                   <select
-                  id="neighborhood"
-                  name="neighborhood"
-                  value={props.values.neighborhood}
+                  id="schooltype"
+                  name="schooltype"
+                  disabled={town ? false : true}
+                  value={props.values.schooltype}
+                  onChange={(e) => {props.handleChange(e); setSchooltype(e.target.value); props.values.schollName = ""}}
+                  className={styles.inputClass} 
+                  >
+                    <option label="Okul Türü Seç">Okul Türü Seç</option>
+                    {town && 
+                    <>
+                      <option value="Özel Okul / Kolej">Özel Okul / Kolej</option>
+                      <option value="anaokul">Anaokulu</option>
+                      <option value="ilkokul">İlkokul</option>
+                      <option value="ortaokul">Ortaokul</option>
+                      <option value="lise">Lise</option>
+                    </>
+                    }
+
+                  </select>
+                  <p className=" text-red-500 text-xs italic">{props.touched.schooltype && props.errors.schooltype}</p>
+                </div>
+
+                {
+                props.values.schooltype === "Özel Okul / Kolej" ?
+                <div className={styles.container_middle_bottom_row}>
+                <label className={styles.inputLabel} htmlFor="schollName">
+                  Okul İsmi
+                </label>
+                <input                   
+                id='schollName'
+                name='schollName'
+                type='text'
+                disabled={schooltype ? false : true}
+                value={props.values.schollName}
+                onChange={props.handleChange}
+                placeholder='Okul İsmini Gir'
+                className={styles.inputClass} 
+                />
+                <p className=" text-red-500 text-xs italic">{props.touched.schollName && props.errors.schollName}</p>
+                </div> 
+                :
+                <div className={styles.container_middle_bottom_row} >
+                  <label className={styles.inputLabel} htmlFor="schollName">
+                    Okul İsmi
+                  </label>
+                  <select
+                  id="schollName"
+                  name="schollName"
+                  disabled={schooltype ? false : true}
+                  value={props.values.schollName}
                   onChange={(e) => {props.handleChange(e)}}
                   className={styles.inputClass} 
                   >
-                    <option label="Mahalle Seç"></option>
+                    <option label="Okul Seç"></option>
                     {
-                      neighborhoods.length > 0 && neighborhoods.map((item, index) => {
+                      schollNames.length > 0 && props.values.schooltype && schollNames.map((item, index) => {
                         return <option key={index} value={item}>{item}</option>
                       })
                     }
                   </select>
-                  <p className=" text-red-500 text-xs italic">{props.touched.neighborhood && props.errors.neighborhood}</p>
-                </div> 
+                  <p className=" text-red-500 text-xs italic">{props.touched.schollName && props.errors.schollName}</p>
+                </div>   
+                }
                 <div className={styles.container_end_row}>
                   <label className={styles.inputLabel} htmlFor="email">
                     E-mail

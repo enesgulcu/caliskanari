@@ -23,9 +23,9 @@ const studentValidationSchema = Yup.object({
 
     phone: Yup.string()
     .required('Telefon alanı boş bırakılamaz.')
-    .max(17, 'Telefon numaranızı Lütfen Örnekteki gibi giriniz ( 555 555 55 55 )')
-    .min(10, 'Telefon numaranızı Lütfen Örnekteki gibi giriniz ( 555 555 55 55 )')
-    .matches(/^[0-9+ ]*$/, 'Telefon numaranızı Lütfen Örnekteki gibi giriniz ( 555 555 55 55 )'),
+    .max(17, 'Telefon numaranızı Lütfen Örnekteki gibi giriniz ( 5xxxxxxxxx )')
+    .min(10, 'Telefon numaranızı Lütfen Örnekteki gibi giriniz ( 5xxxxxxxxx )')
+    .matches(/^[0-9+ ]*$/, 'Telefon numaranızı Lütfen Örnekteki gibi giriniz ( 5xxxxxxxxx )'),
 
     city: Yup.string()
     .required('Şehir seçimi boş bırakılamaz.'),
@@ -33,8 +33,11 @@ const studentValidationSchema = Yup.object({
     town: Yup.string()
     .required('İlçe seçimi boş bırakılamaz.'),
 
-    neighborhood: Yup.string()
-    .required('İlçe seçimi boş bırakılamaz.'),
+    schooltype: Yup.string()
+    .required('Okul türü boş bırakılamaz.'),
+
+    schollName: Yup.string()
+    .required('Okul seçimi boş bırakılamaz.'),
 
     class: Yup.string()
     .required('Lütfen Sınıfınızı Seçiniz.')

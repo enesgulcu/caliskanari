@@ -86,3 +86,23 @@ kayıt olma adımları
 
 - öğretmen kayıt olma ve giriş sayfaları yapılacak.
 
+
+
+<!-- var X = document.querySelectorAll('tr > td > a')
+var Y = [];
+
+var counter = 0;
+for(var i = 0; i < X.length ; i++){
+    
+    var Z = document.querySelectorAll('tr > td > a')[i].innerText
+    if(Z){
+        Y[counter] = Z.split(' - ').map(element => element.trim());
+        counter++;
+    }
+}
+
+
+
+var myJsonString = JSON.stringify(Y);
+
+console.log(myJsonString); -->
