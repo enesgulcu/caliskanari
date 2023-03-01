@@ -16,6 +16,7 @@ export default function StudentRegisterComponent({CitiesData}) {
   const cities = CitiesData.data;
 
   const [isLogin, setIsLogin] = useState(false);
+  
   const [city, setCity] = useState("");
   const [town, setTown] = useState("");
   const [towns, setTowns] = useState("");
@@ -118,7 +119,6 @@ export default function StudentRegisterComponent({CitiesData}) {
               values.passwordConfirm = "";
             }
           });
-              
            
         }}
       >
@@ -153,7 +153,7 @@ export default function StudentRegisterComponent({CitiesData}) {
                   placeholder='İsminizi giriniz.'
                   className={styles.inputClass} 
                   />
-                  <p className=" text-red-500 text-xs italic">{props.touched.name && props.errors.name}</p>
+                  <p className=" text-red-500 text-xs italic px-2 pb-2">{props.touched.name && props.errors.name}</p>
                 </div>
                 <div className={styles.container_first_row}>
                   <label className={styles.inputLabel} htmlFor="surname">
@@ -168,7 +168,7 @@ export default function StudentRegisterComponent({CitiesData}) {
                   placeholder='Soyisminizi giriniz.'
                   className={styles.inputClass} 
                   />
-                  <p className=" text-red-500 text-xs italic">{props.touched.surname && props.errors.surname}</p>
+                  <p className=" text-red-500 text-xs italic px-2 pb-2">{props.touched.surname && props.errors.surname}</p>
                 </div>
                 <div className={styles.container_middle_top_row}>
                   <label className={styles.inputLabel} htmlFor="age">
@@ -183,7 +183,7 @@ export default function StudentRegisterComponent({CitiesData}) {
                   placeholder='16'
                   className={styles.inputClass} 
                   />
-                  <p className=" text-red-500 text-xs italic">{props.touched.age && props.errors.age}</p>
+                  <p className=" text-red-500 text-xs italic px-2 pb-2">{props.touched.age && props.errors.age}</p>
                 </div>
                 <div className={styles.container_middle_top_row}>
                   <label className={styles.inputLabel}  htmlFor="phone">
@@ -198,7 +198,7 @@ export default function StudentRegisterComponent({CitiesData}) {
                   placeholder='5xxxxxxxxx'
                   className={styles.inputClass} 
                   />
-                  <p className=" text-red-500 text-xs italic">{props.touched.phone && props.errors.phone}</p>
+                  <p className=" text-red-500 text-xs italic px-2 pb-2">{props.touched.phone && props.errors.phone}</p>
                 </div>
                 <div className={styles.container_middle_top_row}>
                   <label className={styles.inputLabel} htmlFor="class">
@@ -226,11 +226,11 @@ export default function StudentRegisterComponent({CitiesData}) {
                     <option value="12. Sınıf">12. Sınıf</option>
                     
                   </select>
-                  <p className=" text-red-500 text-xs italic">{props.touched.class && props.errors.class}</p>
+                  <p className=" text-red-500 text-xs italic px-2 pb-2">{props.touched.class && props.errors.class}</p>
                 </div>
                 <div className={styles.container_middle_bottom_row}>
                   <label className={styles.inputLabel} htmlFor="city">
-                    İl
+                    Okulun Bulunduğu İl
                   </label>
                   <select
                   id="city"
@@ -246,11 +246,11 @@ export default function StudentRegisterComponent({CitiesData}) {
                       })
                     }
                   </select>
-                  <p className=" text-red-500 text-xs italic">{props.touched.city && props.errors.city}</p>
+                  <p className=" text-red-500 text-xs italic px-2 pb-2">{props.touched.city && props.errors.city}</p>
                 </div>
                 <div className={styles.container_middle_bottom_row}>
                   <label className={styles.inputLabel} htmlFor="city">
-                    İlçe
+                  Okulun Bulunduğu İlçe
                   </label>
                   <select
                   id="town"
@@ -267,7 +267,7 @@ export default function StudentRegisterComponent({CitiesData}) {
                       })
                     }
                   </select>
-                  <p className=" text-red-500 text-xs italic">{props.touched.town && props.errors.town}</p>
+                  <p className=" text-red-500 text-xs italic px-2 pb-2">{props.touched.town && props.errors.town}</p>
                 </div>
                 <div className={styles.container_middle_bottom_row} >
                   <label className={styles.inputLabel} htmlFor="schooltype">
@@ -293,7 +293,7 @@ export default function StudentRegisterComponent({CitiesData}) {
                     }
 
                   </select>
-                  <p className=" text-red-500 text-xs italic">{props.touched.schooltype && props.errors.schooltype}</p>
+                  <p className=" text-red-500 text-xs italic px-2 pb-2">{props.touched.schooltype && props.errors.schooltype}</p>
                 </div>
 
                 {
@@ -312,7 +312,7 @@ export default function StudentRegisterComponent({CitiesData}) {
                 placeholder='Okul İsmini Gir'
                 className={styles.inputClass} 
                 />
-                <p className=" text-red-500 text-xs italic">{props.touched.schollName && props.errors.schollName}</p>
+                <p className=" text-red-500 text-xs italic px-2 pb-2">{props.touched.schollName && props.errors.schollName}</p>
                 </div> 
                 :
                 <div className={styles.container_middle_bottom_row} >
@@ -334,9 +334,10 @@ export default function StudentRegisterComponent({CitiesData}) {
                       })
                     }
                   </select>
-                  <p className=" text-red-500 text-xs italic">{props.touched.schollName && props.errors.schollName}</p>
+                  <p className=" text-red-500 text-xs italic px-2 pb-2">{props.touched.schollName && props.errors.schollName}</p>
                 </div>   
                 }
+                
                 <div className={styles.container_end_row}>
                   <label className={styles.inputLabel} htmlFor="email">
                     E-mail
@@ -351,7 +352,7 @@ export default function StudentRegisterComponent({CitiesData}) {
                   placeholder="Mail adresinizi giriniz."
                   className={styles.inputClass} 
                   />
-                  <p className=" text-red-500 text-xs italic">{props.touched.email && props.errors.email}</p>
+                  <p className=" text-red-500 text-xs italic px-2 pb-2">{props.touched.email && props.errors.email}</p>
                 </div>
                 <div className={styles.container_end_row}>
                   <label className={styles.inputLabel} htmlFor="password">

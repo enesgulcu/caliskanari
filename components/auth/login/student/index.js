@@ -3,6 +3,8 @@ import { Formik, Form } from "formik";
 import studentValidationSchema from "./formikData";
 import { ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
+import { useRouter } from 'next/navigation';
+import { useState, useEffect } from 'react';
 import styles from "./studentRegister.module.css";
 import Link from "next/link";
 
@@ -12,12 +14,15 @@ import { signIn } from "next-auth/react";
 
 export default function StudentLoginComponent() {
 
-  // useSession ile session bilgilerine erişebiliriz.
+  const [isLogin, setIsLogin] = useState(false);
+
+  const router = useRouter();
+
   return (
     <div className={styles.main}>
       <ToastContainer
         position="top-right"
-        autoClose={5000}
+        autoClose={4000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -46,14 +51,32 @@ export default function StudentLoginComponent() {
             password: values.password,
             role: "student",
             callbackUrl:"/", 
-            redirect: true, 
+            redirect: false, 
           });
+          
+          result.then((res) => {
+            if(res.ok){
+              
+              setIsLogin(true);
+
+              toast.success("Giriş Başarılı (Yönlendiriliyorsunuz...)")
+              const timeOut = setInterval(() => {
+                router.push('/');
+                clearInterval(timeOut);
+              }, 4000);
+            }
+            else{
+              toast.error("Girdiğiniz bilgiler hatalıdır. Lütfen kontrol edip tekrar deneyiniz.")
+              
+            }
+          })
+          
         
         }}
       >
 
         {(props) => (
-          <Form onSubmit={props.handleSubmit} className={styles.main_container}>
+          <Form onSubmit={props.handleSubmit} className={`${isLogin ? "blur"  : ""} ${styles.main_container}`} >
             
               <div className={styles.container}>
                 <div className={styles.container_left_side}>

@@ -22,7 +22,8 @@ model Student {
   phone     String?
   city      String?
   town      String?
-  neighborhood String?
+  schooltype String?
+  schollName String?
   class     String?
   email     String   @unique
   password  String
