@@ -68,6 +68,7 @@ export const authOptions = {
   pages:{
     // signIn fonksiyonu çalıştığında kulanıcıyı yönlendireceğimiz sayfayı belirtiyoruz.
     signIn: '/auth/login/student',
+    newUser: '/auth/register/student',
     encryption: true,
   },
 }

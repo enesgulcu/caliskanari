@@ -103,9 +103,9 @@ export default function StudentRegisterComponent({CitiesData}) {
 
               //Bilgi verir ve 5 saniye sonra login sayfasına yönlendirir.
               const timeOut = setInterval(() => {
-                router.push('/auth/login');
+                router.push('/auth/login/student');
                 clearInterval(timeOut);
-              }, 5000);
+              }, 4000);
 
               values.password = "";
               values.passwordConfirm = "";

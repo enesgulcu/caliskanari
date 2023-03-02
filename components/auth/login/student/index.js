@@ -63,7 +63,7 @@ export default function StudentLoginComponent() {
               const timeOut = setInterval(() => {
                 router.push('/');
                 clearInterval(timeOut);
-              }, 4000);
+              }, 3000);
             }
             else{
               toast.error("Girdiğiniz bilgiler hatalıdır. Lütfen kontrol edip tekrar deneyiniz.")
