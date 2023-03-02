@@ -75,7 +75,6 @@ export default function StudentRegisterComponent({CitiesData}) {
           role: "student",
           name: "",
           surname: "",
-          age: "",
           phone: "",  
           city: "",
           town: "",
@@ -170,22 +169,7 @@ export default function StudentRegisterComponent({CitiesData}) {
                   />
                   <p className=" text-red-500 text-xs italic px-2 pb-2">{props.touched.surname && props.errors.surname}</p>
                 </div>
-                <div className={styles.container_middle_top_row}>
-                  <label className={styles.inputLabel} htmlFor="age">
-                    Yaş
-                  </label>
-                  <input 
-                  id='age'
-                  name='age'
-                  type='Number'
-                  value={props.values.age}
-                  onChange={props.handleChange}
-                  placeholder='16'
-                  className={styles.inputClass} 
-                  />
-                  <p className=" text-red-500 text-xs italic px-2 pb-2">{props.touched.age && props.errors.age}</p>
-                </div>
-                <div className={styles.container_middle_top_row}>
+                <div className={styles.container_middle_row}>
                   <label className={styles.inputLabel}  htmlFor="phone">
                     Telefon
                   </label>
@@ -200,7 +184,7 @@ export default function StudentRegisterComponent({CitiesData}) {
                   />
                   <p className=" text-red-500 text-xs italic px-2 pb-2">{props.touched.phone && props.errors.phone}</p>
                 </div>
-                <div className={styles.container_middle_top_row}>
+                <div className={styles.container_middle_row}>
                   <label className={styles.inputLabel} htmlFor="class">
                     Sınıf
                   </label>
@@ -228,7 +212,7 @@ export default function StudentRegisterComponent({CitiesData}) {
                   </select>
                   <p className=" text-red-500 text-xs italic px-2 pb-2">{props.touched.class && props.errors.class}</p>
                 </div>
-                <div className={styles.container_middle_bottom_row}>
+                <div className={styles.container_middle_row}>
                   <label className={styles.inputLabel} htmlFor="city">
                     Okulun Bulunduğu İl
                   </label>
@@ -248,7 +232,7 @@ export default function StudentRegisterComponent({CitiesData}) {
                   </select>
                   <p className=" text-red-500 text-xs italic px-2 pb-2">{props.touched.city && props.errors.city}</p>
                 </div>
-                <div className={styles.container_middle_bottom_row}>
+                <div className={styles.container_middle_row}>
                   <label className={styles.inputLabel} htmlFor="city">
                   Okulun Bulunduğu İlçe
                   </label>
@@ -269,7 +253,7 @@ export default function StudentRegisterComponent({CitiesData}) {
                   </select>
                   <p className=" text-red-500 text-xs italic px-2 pb-2">{props.touched.town && props.errors.town}</p>
                 </div>
-                <div className={styles.container_middle_bottom_row} >
+                <div className={styles.container_middle_row} >
                   <label className={styles.inputLabel} htmlFor="schooltype">
                     Okul Türü
                   </label>
@@ -284,11 +268,11 @@ export default function StudentRegisterComponent({CitiesData}) {
                     <option label="Okul Türü Seç">Okul Türü Seç</option>
                     {town && 
                     <>
-                      <option value="Özel Okul / Kolej">Özel Okul / Kolej</option>
                       <option value="anaokul">Anaokulu</option>
                       <option value="ilkokul">İlkokul</option>
                       <option value="ortaokul">Ortaokul</option>
                       <option value="lise">Lise</option>
+                      <option value="diger">Okulum Listede Yok</option>
                     </>
                     }
 
@@ -297,8 +281,8 @@ export default function StudentRegisterComponent({CitiesData}) {
                 </div>
 
                 {
-                props.values.schooltype === "Özel Okul / Kolej" ?
-                <div className={styles.container_middle_bottom_row}>
+                props.values.schooltype === "diger" ?
+                <div className={styles.container_middle_row }>
                 <label className={styles.inputLabel} htmlFor="schollName">
                   Okul İsmi
                 </label>
@@ -315,7 +299,7 @@ export default function StudentRegisterComponent({CitiesData}) {
                 <p className=" text-red-500 text-xs italic px-2 pb-2">{props.touched.schollName && props.errors.schollName}</p>
                 </div> 
                 :
-                <div className={styles.container_middle_bottom_row} >
+                <div className={styles.container_middle_row} >
                   <label className={styles.inputLabel} htmlFor="schollName">
                     Okul İsmi
                   </label>
@@ -384,14 +368,15 @@ export default function StudentRegisterComponent({CitiesData}) {
                     />
                     <p className="text-red-500 text-xs italic">{props.touched.passwordConfirm && props.errors.passwordConfirm}</p>
                 </div>
+                <div className='w-full mt-4 flex justify-center'>
+                  <button type='submit' className={styles.submit_button}>Kayıt Ol</button>
+                </div>
                 <div className="mt-4 text-center px-3 w-full flex justify-center">
                         <p className="text-md">
                           Kayıtlı kullanıcı iseniz lütfen <Link href="/auth/login" className="text-blue-600 hover:underline"> Giriş Yapınız.</Link>
                         </p>
                 </div>
-                <div className='w-full mt-4 flex justify-center'>
-                  <button type='submit' className={styles.submit_button}>Kayıt Ol</button>
-                </div>
+                
               </div>
             </div>
           </Form>

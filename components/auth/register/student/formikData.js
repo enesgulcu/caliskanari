@@ -14,13 +14,6 @@ const studentValidationSchema = Yup.object({
     .matches(/^[a-zA-ZğüşöçıİĞÜŞÖÇ ]*$/, 'isim sadece harf içerebilir.')
     .trim( 'Soyisim alanı boşluk içeremez.'),
 
-    age: Yup.number()
-    .required('Yaş alanı boş bırakılamaz.')
-    .typeError('Yanlış bir değer girdiniz.')
-    .max(99, "Yanlış bir değer girdiniz.")
-    .moreThan(0, 'Yanlış bir değer girdiniz.')
-    .typeError('Lütfen bir sayı giriniz'),
-
     phone: Yup.string()
     .required('Telefon alanı boş bırakılamaz.')
     .max(17, 'Telefon numaranızı Lütfen Örnekteki gibi giriniz ( 5xxxxxxxxx )')

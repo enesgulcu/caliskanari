@@ -18,7 +18,6 @@ model Student {
   role    String
   name      String
   surname   String
-  age       Int?
   phone     String?
   city      String?
   town      String?
