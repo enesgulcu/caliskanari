@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import styles from "./studentRegister.module.css";
+import styles from "./studentLogin.module.css";
 import Link from "next/link";
 
 // session: giriş yapmış kullanıcıyı temsil eder varsa bilgileri içinde barındırır.
