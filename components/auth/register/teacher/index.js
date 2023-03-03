@@ -1,9 +1,7 @@
 import React from 'react'
 
-function TeacherRegisterComponent() {
+export default function TeacherRegisterComponent() {
   return (
     <div>TeacherRegisterComponent</div>
   )
 }
-
-export default TeacherRegisterComponent
