@@ -1,6 +1,8 @@
 import GetStudent from "@/functions/auth/login/student/index";
+import { getServerSession } from "next-auth/next";
 
 export default async function handler (req, res) {
+
     if(req.method === 'POST'){
         try {
             const data = req.body;
