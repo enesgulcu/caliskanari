@@ -1,7 +1,11 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
+import loginAdmin from "@/functions/auth/login/admin/loginAdmin";
 import { loginStudent } from "@/services/auth/login";
 import jwt from "jsonwebtoken";
+
+let loginPageRoute = "student";
+
 export const authOptions = {
 
   providers: [
@@ -18,22 +22,45 @@ export const authOptions = {
       async authorize(credentials, req) {
         // kontrol edilecek (email ve password) bilgilerini credentials değişkeninden alıyoruz.
         const { email, password, role} = credentials;
+        // giriş yapılacak sayfayı role değişkeninden alıyoruz.
+      
+        loginPageRoute = role;
         
-      if(role === "student"){
-        // yukarıda aldığımız giriş bilgilerini => [email eşleşmesi, password doğrulaması] için fonksiyonumuza gönderiyoruz.
-        const  { student } = await loginStudent({ email, password });
-            
-        const user =  { 
-          id: student.id, 
-          name: student.name, 
-          role: student.role,  
-        };
-        
-        if (user) {
-            return user;
+        if(role === "admin"){
+          // yukarıda aldığımız giriş bilgilerini => [email eşleşmesi, password doğrulaması] için fonksiyonumuza gönderiyoruz.
+          const  admin = await loginAdmin({email, password });
+          if(admin === null || !admin.ok){
+            throw new Error("Kullanıcı adı veya şifre hatalı");
+          }
+          const user =  { 
+            name: admin.name,
+            surname: admin.surname, 
+            role: admin.role  
+          };
+          
+          if (user) {
+              return user;
+          }
         }
-      }
-        return null;
+
+        else if(role === "student"){
+          // yukarıda aldığımız giriş bilgilerini => [email eşleşmesi, password doğrulaması] için fonksiyonumuza gönderiyoruz.
+          const  { student } = await loginStudent({ email, password });
+              
+          const user =  { 
+            id: student.id, 
+            name: student.name, 
+            role: student.role,  
+          };
+          
+          if (user) {
+              return user;
+          }
+        }
+        
+        else{
+          return null;
+        }        
       }
     }),
   ],
@@ -67,8 +94,7 @@ export const authOptions = {
 
   pages:{
     // signIn fonksiyonu çalıştığında kulanıcıyı yönlendireceğimiz sayfayı belirtiyoruz.
-    signIn: '/auth/login/student',
-    newUser: '/auth/register/student',
+    signIn: `/auth/login/${loginPageRoute}`,
     encryption: true,
   },
 }
