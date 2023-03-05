@@ -83,6 +83,8 @@ export default function StudentRegisterComponent({ CitiesData }) {
   return (
     <>
       <ToastContainer
+      className="2xl:text-4xl"
+
         position='top-right'
         autoClose={5000}
         hideProgressBar={false}
@@ -141,7 +143,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                 values.password = '';
                 values.passwordConfirm = '';
               } else {
-                // girilen mail adresi daha önce kullanılmış ise hata mesajı verir. ve şifreleri temizler.
+                // girilen mail adres i daha önce kullanılmış ise hata mesajı verir. ve şifreleri temizler.
                 toast.error(
                   res.message
                     ? res.message
@@ -160,52 +162,52 @@ export default function StudentRegisterComponent({ CitiesData }) {
               className={`flex ${isLogin ? 'blur' : ''}`}
             >
               <div className='flex justify-center items-center flex-col w-full'>
-                <div className='mx-auto mb-10'>
+                <div className='mx-auto mb-10 2xl:mb-24'>
                   <div className='flex justify-center items-center flex-col mb-2'>
-                    <h1 className='mb-4 text-2xl uppercase font-bold text-center text-gray-700 mt-4'>
+                    <h1 className='mb-4 2xl:mb-16 text-2xl 2xl:text-6xl uppercase font-bold text-center text-gray-700 mt-4'>
                       Öğrenci Kayıt
                     </h1>
                   </div>
-                  <div className='grid gap-8 row-gap-0 grid-cols-3'>
+                  <div className='grid gap-8 row-gap-0 grid-cols-3 2xl:gap-40'>
                     {/* Progress Bar Step 1 */}
                     <div className='relative text-center z-10'>
-                      <div className='bg-gray-500 shadow shadow-gray-500 text-white border-2 flex items-center justify-center w-14 h-14 mx-auto mb-4 rounded-full'>
+                      <div className='bg-gray-500 shadow shadow-gray-500 text-white border-2 2xl:border-4 flex items-center justify-center w-14 2xl:w-28 2xl:h-28 2xl:mb-4 h-14 mx-auto mb-4 rounded-full'>
                         {activeTab.index === 1 ? (
-                          <p className='text-3xl font-bold'>1</p>
+                          <p className='text-3xl 2xl:text-5xl font-bold'>1</p>
                         ) : (
                           <FaCheck className='w-1/2 h-1/3 text-white' />
                         )}
                       </div>
-                      <h6 className='mb-2 text-xl'>Kullanıcı Bilgileri</h6>
-                      <div className='top-0 right-0 flex items-center justify-center h-16 -mr-24 my-20 absolute -z-10'>
-                        <div className='w-40 h-40 absolute right-0 border-black border-l-2 rotate-90 flex justify-center items-center'></div>
+                      <h6 className='mb-2 text-xl 2xl:text-3xl'>Öğrenci Bilgileri</h6>
+                      <div className='top-0 right-0 2xl:-right-8 flex items-center justify-center h-16 -mr-24 my-20 absolute -z-10'>
+                        <div className='2xl:w-28 w-40 h-40 2xl:h-[25rem] absolute right-0 border-black border-l-2 rotate-90 flex justify-center items-center'></div>
                       </div>
                     </div>
                     {/* Progress Bar Step 2 */}
                     <div className='relative text-center z-10'>
-                      <div className='bg-gray-500 shadow shadow-gray-500 text-white border-2 flex items-center justify-center w-14 h-14 mx-auto mb-4 rounded-full'>
+                      <div className='bg-gray-500 shadow shadow-gray-500 text-white  border-2 2xl:border-4 flex items-center justify-center w-14 2xl:w-28 2xl:h-28 2xl:mb-4 h-14 mx-auto mb-4 rounded-full'>
                         {activeTab.index < 3 ? (
-                          <p className='text-3xl font-bold'>2</p>
+                          <p className='text-3xl 2xl:text-5xl font-bold'>2</p>
                         ) : (
                           <FaCheck className='w-1/2 h-1/3 text-white' />
                         )}
                       </div>
-                      <h6 className='mb-2 text-xl'>Okul Bilgileri</h6>
-                      <div className='top-0 right-0 flex items-center justify-center h-16 -mr-24 my-20 absolute -z-10'>
-                        <div className='w-40 h-40 absolute right-0 border-black border-l-2 rotate-90 flex justify-center items-center'></div>
+                      <h6 className='mb-2 text-xl 2xl:text-3xl'>Okul Bilgileri</h6>
+                      <div className='top-0 right-0 2xl:-right-8 flex items-center justify-center h-16 -mr-24 my-20 absolute -z-10'>
+                        <div className='2xl:w-28 w-40 h-40 2xl:h-[25rem] absolute right-0 border-black border-l-2 rotate-90 flex justify-center items-center'></div>
                       </div>
                     </div>
                     {/* Progress Bar Step 3 */}
                     <div className='relative text-center z-10'>
-                      <div className='bg-gray-500 shadow shadow-gray-500 text-white border-2 flex items-center justify-center w-14 h-14 mx-auto mb-4 rounded-full'>
-                        <p className='text-3xl font-bold'>3</p>
+                      <div className='bg-gray-500 shadow shadow-gray-500 text-white border-2 2xl:border-4 flex items-center justify-center w-14 2xl:w-28 2xl:h-28 2xl:mb-4 h-14 mx-auto mb-4 rounded-full'>
+                        <p className='text-3xl 2xl:text-5xl font-bold'>3</p>
                       </div>
-                      <h6 className='mb-2 text-xl'>Giriş Bilgileri</h6>
+                      <h6 className='mb-2 text-xl 2xl:text-3xl'>Giriş Bilgileri</h6>
                     </div>
                   </div>
                 </div>
 
-                <div className='block w-full opacity-100'>
+                <div className='block w-full opacity-100 2xl:mb-6'>
                   {/* Step 1 */}
                   <Transition
                     className='mx-8 my-4 max-w-full'
@@ -554,7 +556,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                       onClick={(e) => nextActiveTab(e, props.values)}
                       className={`${
                         activeTab.index === 1 ? 'w-full' : 'w-3/4'
-                      } mb-10 text-white bg-[#5b3acc] border rounded-md p-4 hover:bg-[#5233bb]`}
+                      } mb-10 text-white bg-[#5b3acc] 2xl:text-6xl border rounded-md p-4 hover:bg-[#5233bb]`}
                     >
                       İleri
                     </button>

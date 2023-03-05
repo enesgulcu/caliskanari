@@ -33,6 +33,7 @@
     w-full
     px-3
     mb-3
+    2xl:mb-8
 }
 
 
@@ -66,7 +67,9 @@
     @apply
     block
     mt-2
+    2xl:my-1
     text-sm
+    2xl:text-4xl
     font-medium
     text-[#617283]
 }
@@ -80,7 +83,10 @@
     border-[#bec9d5]
      rounded
      h-[50px]
+     2xl:h-24
      leading-5
+     text-xl
+     2xl:text-4xl
      px-3
      py-2
      border-[1.3px]
