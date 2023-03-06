@@ -1,5 +1,5 @@
 import React from 'react'
-import StudentRegisterComponent from '@/components/auth/register/studenty'
+import StudentRegisterComponent from '@/components/auth/register/student'
 import data from '@/mocks/cities.json'
 export default function StudentRegisterContainer() {
  
