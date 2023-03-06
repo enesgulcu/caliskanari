@@ -14,16 +14,26 @@ datasource db {
 }
 
 model Student {
-  id        String   @id @default(auto()) @map("_id") @db.ObjectId
-  role    String
-  name      String
-  surname   String
-  phone     String?
-  city      String?
-  town      String?
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  role       String
+  name       String
+  surname    String
+  phone      String?
+  city       String?
+  town       String?
   schooltype String?
   schollName String?
-  class     String?
+  class      String?
+  email      String   @unique
+  password   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+model Admin {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  role      String
+  name      String
+  surname   String
   email     String   @unique
   password  String
   createdAt DateTime @default(now())

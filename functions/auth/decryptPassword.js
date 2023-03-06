@@ -1,7 +1,6 @@
 import bcrypt from 'bcryptjs'; 
 
 export default async function DecryptPassword(LoginPassword, databasePassword) {
-   
     try {
         
         return bcrypt.compareSync(LoginPassword, databasePassword, (err, result) => {

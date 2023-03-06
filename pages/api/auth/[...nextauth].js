@@ -1,6 +1,6 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
-import loginAdmin from "@/functions/auth/login/admin/loginAdmin";
+import { loginAdmin } from "@/services/auth/login";
 import { loginStudent } from "@/services/auth/login";
 import jwt from "jsonwebtoken";
 
@@ -28,7 +28,7 @@ export const authOptions = {
         
         if(role === "admin"){
           // yukarıda aldığımız giriş bilgilerini => [email eşleşmesi, password doğrulaması] için fonksiyonumuza gönderiyoruz.
-          const  admin = await loginAdmin({email, password });
+          const  {admin} = await loginAdmin({ email, password });
           if(admin === null || !admin.ok){
             throw new Error("Kullanıcı adı veya şifre hatalı");
           }
