@@ -30,7 +30,7 @@ export default async function handler (req, res) {
                     createTime: {date, time},
                     html:`
                     <p>Sevgili</p>
-                    <h5 class='color:red'>${data.name} ${data.surname}</h5>
+                    <h3 class='color:red'>${data.name} ${data.surname}</h3>
                     <p>${data.email} mail adresinin Kayıt işlemi ${date} tarihinde, ${time} saatinde başarıyla yapıldı!</p>
                     <p>Kayıt edilen telefon: ${data.phone}</p>
                     `
