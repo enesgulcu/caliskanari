@@ -11,12 +11,13 @@ export default async function handler (req, res) {
         if(req.method === 'POST'){
             try {
                 const data = req.body;
+                
                 data.password = await EncryptPassword(data.password);
     
                 const {error} = await createStudent(data);
                 if(error) throw new Error(error);
 
-                // mail gönderme işlemi
+                //mail gönderme işlemi
                 await transporter.sendMail({
                     ...mailOptions,
                     subject: 'Kayıt işlemi başarılı subject',

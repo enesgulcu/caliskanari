@@ -19,7 +19,7 @@
     md:h-full
     w-full
     md:max-w-5xl
-    4xl:max-w-[65%]
+    4xl:max-w-[1700px]
     mx-auto
     bg-white 
     rounded-lg 
@@ -63,6 +63,9 @@
     @apply
     flex
     justify-center
+    w-full
+    h-full
+    4xl:min-h-[250px]
     
 }
 
@@ -70,6 +73,15 @@
     @apply
     w-32
     h-32
+    mb-4
+    mt-2
+    4xl:mt-10
+    text-blue-600
+}
+
+.right_side_logoImage img{
+    @apply
+    4xl:scale-150
     mb-4
     mt-2
     text-blue-600
@@ -91,9 +103,10 @@
     @apply
     block
     mt-2
-    4xl:my-1
+    4xl:mt-8
+    mb-1
     text-sm
-    4xl:text-4xl
+    4xl:text-2xl
     font-medium
     text-[#617283]
 }
@@ -107,10 +120,10 @@
     border-[#bec9d5]
      rounded
      h-[50px]
-     4xl:h-24
+     4xl:h-20
      leading-5
      text-lg
-     4xl:text-4xl
+     4xl:text-3xl
      px-3
      py-2
      border-[1.3px]

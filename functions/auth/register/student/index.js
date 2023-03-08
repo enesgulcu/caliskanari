@@ -13,11 +13,23 @@ export async function createStudent(student) {
           email: student.email
         },
       })
+
+      const phoneCheck = await prisma.student.findUnique({
+        where: {
+          phone: student.phone
+        },
+      })
       
-      // Eğer öğrenci ile eşleşen bir kayıt varsa hata döndür
-      if (mailCheck != null && mailCheck.email == student.email) {
-        return { error: "Bu mail adresi ile daha önce kayıt yapılmış." };
+       // Eğer öğrenci ile eşleşen bir kayıt varsa hata döndür
+       if (mailCheck != null && mailCheck.email == student.email) {
+        return { error: "Girdiğiniz mail adresi ile daha önce kayıt yapılmış." };
       }
+
+      // Eğer öğrenci ile eşleşen bir kayıt varsa hata döndür
+      else if (phoneCheck != null && phoneCheck.phone == student.phone) {
+        return { error: "Girdiğiniz telefon numarası ile daha önce kayıt yapılmış." };
+      }   
+
       else{
         // Eğer öğrenci ile eşleşen bir kayıt yoksa yeni kayıt oluştur
         const studentFromDB = await prisma.student.create({ data: student });
