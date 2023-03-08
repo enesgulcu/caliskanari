@@ -3,8 +3,12 @@ import EncryptPassword from "@/functions/auth/encryptPassword";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { transporter, mailOptions } from "@/pages/api/mail/nodemailer";
+import getTurkeyTime from "@/components/diger/timeNow";
 
 export default async function handler (req, res) {
+
+    const date = (await getTurkeyTime()).date;
+    const time = (await getTurkeyTime()).time;
     
     const session = await getServerSession(req, res, authOptions)
     if(!session){
@@ -18,11 +22,18 @@ export default async function handler (req, res) {
                 if(error) throw new Error(error);
 
                 //mail gönderme işlemi
-                await transporter.sendMail({
+                transporter.sendMail({
                     ...mailOptions,
-                    subject: 'Kayıt işlemi başarılı subject',
-                    text: 'Kayıt işlemi başarılı text',
-                    html:"<h1 class='red'>Kayıt işlemi başarılı html</h1>"
+                    subject: `${process.env.NEXT_PUBLIC_COMPANY_NAME} Kayıt işlemi`,
+                    text: `${process.env.NEXT_PUBLIC_COMPANY_NAME} Kayıt işlemi`,
+                    to: data.email,
+                    createTime: {date, time},
+                    html:`
+                    <p>Sevgili</p>
+                    <h5 class='color:red'>${data.name} ${data.surname}</h5>
+                    <p>${data.email} mail adresinin Kayıt işlemi ${date} tarihinde, ${time} saatinde başarıyla yapıldı!</p>
+                    <p>Kayıt edilen telefon: ${data.phone}</p>
+                    `
                 })
                 
                 return res.status(200).json({status: "success", message: "Kayıt işlemi başarılı"});
