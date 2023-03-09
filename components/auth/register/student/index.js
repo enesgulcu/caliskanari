@@ -12,6 +12,9 @@ import { FaCheck } from 'react-icons/fa';
 import { Formik, Form } from 'formik';
 import Image from 'next/image';
 import Link from 'next/link';
+import Input from '@/components/formElements/input';
+import ErrorText from '@/components/formElements/errorText';
+import Select from '@/components/formElements/select';
 
 
 
@@ -36,10 +39,12 @@ export default function StudentRegisterComponent({ CitiesData }) {
   const [activeTab, setActiveTab] = useState(1);
 
   useEffect(() => {
+    setIsloading(true);
     if (city !== '') {
       getAdress(city)
         .then((res) => {
           setTowns(res);
+          
         })
         .catch((err) => {
           console.log(err);
@@ -54,10 +59,19 @@ export default function StudentRegisterComponent({ CitiesData }) {
   useEffect(() => {
     setschollNames('');
     setSchooltype('');
+    
   }, [town]);
 
   useEffect(() => {
+    setIsloading(false);
+
+  }, [towns, schollNames])
+  
+
+  useEffect(() => {
+    
     if (city != '' && town != '') {
+      setIsloading(true);
       if (schooltype == 'Özel Okul / Kolej') {
         setschollNames('');
       } else {
@@ -304,56 +318,62 @@ export default function StudentRegisterComponent({ CitiesData }) {
                         leaveFrom='opacity-100'
                         leaveTo='opacity-0'
                       >
-                        <div className={styles.container_first_row + ""}>
-                          <label className={styles.inputLabel} htmlFor='name'>
-                            İsim
-                          </label>
-                          <input
+
+                        <div className={styles.container_first_row}>
+
+                          <Input
+                            labelValue='İsim'
+
                             id='name'
                             name='name'
                             type='text'
                             value={props.values.name}
                             onChange={props.handleChange}
                             placeholder='İsminizi giriniz.'
-                            className={styles.inputClass}
+                            
                           />
-                          <p className=' 4xl:text-2xl text-red-500 text-xs italic px-2 pb-2'>
-                            {props.touched.name && props.errors.name}
-                          </p>
+                          {props.touched.name &&
+                          <ErrorText >
+                            {props.errors.name}
+                          </ErrorText>
+                          }
+                          
                         </div>
                         <div className={styles.container_first_row}>
-                          <label className={styles.inputLabel} htmlFor='surname'>
-                            Soyisim
-                          </label>
-                          <input
+                        <Input
+                            labelValue='Soyisim'
+
                             id='surname'
                             name='surname'
                             type='text'
                             value={props.values.surname}
                             onChange={props.handleChange}
                             placeholder='Soyisminizi giriniz.'
-                            className={styles.inputClass}
+                            
                           />
-                          <p className=' 4xl:text-2xl text-red-500 text-xs italic px-2 pb-2'>
-                            {props.touched.surname && props.errors.surname}
-                          </p>
+                          {props.touched.surname &&
+                            <ErrorText >
+                              {props.errors.surname}
+                            </ErrorText>
+                           }
                         </div>
                         <div className={styles.container_middle_row}>
-                          <label className={styles.inputLabel} htmlFor='phone'>
-                            Telefon
-                          </label>
-                          <input
+                        <Input
+                            labelValue='Telefon'
+
                             id='phone'
                             name='phone'
                             type='text'
                             value={props.values.phone}
                             onChange={props.handleChange}
                             placeholder='5xxxxxxxxx'
-                            className={styles.inputClass}
+                            
                           />
-                          <p className=' 4xl:text-2xl text-red-500 text-xs italic px-2 pb-2'>
-                            {props.touched.phone && props.errors.phone}
-                          </p>
+                          {props.touched.phone &&
+                          <ErrorText >
+                            {props.errors.phone}
+                          </ErrorText>
+                          }
                         </div>
                       </Transition>
                     </div>
@@ -371,53 +391,50 @@ export default function StudentRegisterComponent({ CitiesData }) {
                       >
                         <div className='grid grid-cols-2 gap-2'>
                           <div>
-                            <label className={styles.inputLabel} htmlFor='city'>
-                              Okulun Bulunduğu İl
-                            </label>
-                            <select
+                            <Select
+                            labelValue='Okulun Bulunduğu İl'
                               id='city'
                               name='city'
                               value={props.values.city}
+                              optionLabel='İl Seç'
                               onChange={(e) => {
                                 props.handleChange(e);
                                 setCity(e.target.value);
                                 props.values.town = '';
                               }}
-                              className={styles.inputClass}
                             >
-                              <option label='İl Seç'></option>
                               {cities.length > 0 &&
-                                cities.map((item, index) => {
-                                  return (
-                                    <option key={index} value={item}>
-                                      {item}
-                                    </option>
-                                  );
-                                })}
-                            </select>
-                            <p className=' 4xl:text-2xl text-red-500 text-xs italic px-2 pb-2'>
-                              {props.touched.city && props.errors.city}
-                            </p>
+                                  cities.map((item, index) => {
+                                    return (
+                                      <option key={index} value={item}>
+                                        {item}
+                                      </option>
+                                    );
+                              })}
+                            </Select>
+
+                            {props.touched.city &&
+                              <ErrorText >
+                                {props.errors.city}
+                              </ErrorText>
+                            }
                           </div>
                           <div>
-                            <label className={styles.inputLabel} htmlFor='city'>
-                              Okulun Bulunduğu İlçe
-                            </label>
-                            <select
+                            <Select
+                            labelValue='Okulun Bulunduğu İlçe'
                               id='town'
                               name='town'
-                              disabled={city ? false : true}
                               value={props.values.town}
+                              disabled={city ? false : true}
+                              optionLabel='İlçe Seç'
                               onChange={(e) => {
                                 props.handleChange(e);
                                 setTown(e.target.value);
                                 props.values.schollName = '';
                                 props.values.schooltype = '';
                               }}
-                              className={styles.inputClass}
                             >
-                              <option label='İlçe Seç'></option>
-                              {towns.length > 0 &&
+                              {towns?.length > 0 &&
                                 towns.map((item, index) => {
                                   return (
                                     <option key={index} value={item}>
@@ -425,31 +442,31 @@ export default function StudentRegisterComponent({ CitiesData }) {
                                     </option>
                                   );
                                 })}
-                            </select>
-                            <p className=' 4xl:text-2xl text-red-500 text-xs italic px-2 pb-2'>
-                              {props.touched.town && props.errors.town}
-                            </p>
+                            </Select>
+
+                            {props.touched.town &&
+                              <ErrorText >
+                                {props.errors.town}
+                              </ErrorText>
+                            }
+                        
                           </div>
                           <div>
-                            <label
-                              className={styles.inputLabel}
-                              htmlFor='schooltype'
-                            >
-                              Okul Türü
-                            </label>
-                            <select
+
+                          <Select
+                            labelValue='Okul Türü'
                               id='schooltype'
                               name='schooltype'
-                              disabled={town ? false : true}
                               value={props.values.schooltype}
+                              disabled={town ? false : true}
+                              optionLabel='Okul Türü Seç'
                               onChange={(e) => {
                                 props.handleChange(e);
+                                !schollNames.length && setIsloading(true);
                                 setSchooltype(e.target.value);
                                 props.values.schollName = '';
                               }}
-                              className={styles.inputClass}
                             >
-                              <option label='Okul Türü Seç'>Okul Türü Seç</option>
                               {town && (
                                 <>
                                   <option value='anaokul'>Anaokulu</option>
@@ -461,55 +478,50 @@ export default function StudentRegisterComponent({ CitiesData }) {
                                   </option>
                                 </>
                               )}
-                            </select>
-                            <p className=' 4xl:text-2xl text-red-500 text-xs italic px-2 pb-2'>
-                              {props.touched.schooltype &&
-                                props.errors.schooltype}
-                            </p>
+                            </Select>
+
+                            {props.touched.schooltype &&
+                              <ErrorText >
+                                {props.errors.schooltype}
+                              </ErrorText>
+                            }
+
                           </div>
                           {props.values.schooltype === 'diger' ? (
                             <div>
-                              <label
-                                className={styles.inputLabel}
-                                htmlFor='schollName'
-                              >
-                                Okul İsmi
-                              </label>
-                              <input
-                                id='schollName'
-                                name='schollName'
-                                type='text'
-                                disabled={schooltype ? false : true}
-                                value={props.values.schollName}
-                                onChange={props.handleChange}
-                                placeholder='Okul İsmini Gir'
-                                className={styles.inputClass}
-                              />
-                              <p className=' 4xl:text-2xl text-red-500 text-xs italic px-2 pb-2'>
+                              <Input
+                                  labelValue='Okul İsmi'
+
+                                  id='schollName'
+                                  name='schollName'
+                                  type='text'
+                                  disabled={schooltype ? false : true}
+                                  value={props.values.schollName}
+                                  onChange={props.handleChange}
+                                  placeholder='Soyisminizi giriniz.'
+                                  
+                                />
                                 {props.touched.schollName &&
-                                  props.errors.schollName}
-                              </p>
+                                  <ErrorText >
+                                    {props.errors.schollName}
+                                  </ErrorText>
+                                }
+                              
                             </div>
                           ) : (
                             <div>
-                              <label
-                                className={styles.inputLabel}
-                                htmlFor='schollName'
-                              >
-                                Okul İsmi
-                              </label>
-                              <select
-                                id='schollName'
-                                name='schollName'
-                                disabled={schooltype ? false : true}
-                                value={props.values.schollName}
-                                onChange={(e) => {
-                                  props.handleChange(e);
-                                }}
-                                className={styles.inputClass}
-                              >
-                                <option label='Okul Seç'></option>
-                                {schollNames.length > 0 &&
+                              <Select
+                            labelValue='Okul İsmi'
+                              id='schollName'
+                              name='schollName'
+                              value={props.values.schollName}
+                              disabled={schooltype ? false : true}
+                              optionLabel='Okul Seç'
+                              onChange={(e) => {
+                                props.handleChange(e);
+                              }}
+                            >
+                              {schollNames.length > 0 &&
                                   props.values.schooltype &&
                                   schollNames.map((item, index) => {
                                     return (
@@ -517,43 +529,47 @@ export default function StudentRegisterComponent({ CitiesData }) {
                                         {item}
                                       </option>
                                     );
-                                  })}
-                              </select>
-                              <p className=' 4xl:text-2xl text-red-500 text-xs italic px-2 pb-2'>
-                                {props.touched.schollName &&
-                                  props.errors.schollName}
-                              </p>
+                              })}
+                            </Select>
+
+                            {props.touched.schollName &&
+                              <ErrorText >
+                                {props.errors.schollName}
+                              </ErrorText>
+                            }
                             </div>
                           )}
                         </div>
                         <div>
-                          <label className={styles.inputLabel} htmlFor='class'>
-                            Sınıf
-                          </label>
-                          <select
-                            id='class'
-                            name='class'
-                            value={props.values.class}
-                            onChange={props.handleChange}
-                            className={styles.inputClass}
-                          >
-                            <option label='Sınıfını Seç'></option>
-                            <option value='1. Sınıf'>1. Sınıf</option>
-                            <option value='2. Sınıf'>2. Sınıf</option>
-                            <option value='3. Sınıf'>3. Sınıf</option>
-                            <option value='4. Sınıf'>4. Sınıf</option>
-                            <option value='5. Sınıf'>5. Sınıf</option>
-                            <option value='6. Sınıf'>6. Sınıf</option>
-                            <option value='7. Sınıf'>7. Sınıf</option>
-                            <option value='8. Sınıf'>8. Sınıf</option>
-                            <option value='9. Sınıf'>9. Sınıf</option>
-                            <option value='10. Sınıf'>10. Sınıf</option>
-                            <option value='11. Sınıf'>11. Sınıf</option>
-                            <option value='12. Sınıf'>12. Sınıf</option>
-                          </select>
-                          <p className=' 4xl:text-2xl text-red-500 text-xs italic px-2 pb-2'>
-                            {props.touched.class && props.errors.class}
-                          </p>
+                        <Select
+                            labelValue='Sınıf'
+                              id='class'
+                              name='class'
+                              value={props.values.class}
+                              disabled={schooltype ? false : true}
+                              optionLabel='Sınıf Seç'
+                              onChange={props.handleChange}
+                            >
+                              <option value='1. Sınıf'>1. Sınıf</option>
+                              <option value='2. Sınıf'>2. Sınıf</option>
+                              <option value='3. Sınıf'>3. Sınıf</option>
+                              <option value='4. Sınıf'>4. Sınıf</option>
+                              <option value='5. Sınıf'>5. Sınıf</option>
+                              <option value='6. Sınıf'>6. Sınıf</option>
+                              <option value='7. Sınıf'>7. Sınıf</option>
+                              <option value='8. Sınıf'>8. Sınıf</option>
+                              <option value='9. Sınıf'>9. Sınıf</option>
+                              <option value='10. Sınıf'>10. Sınıf</option>
+                              <option value='11. Sınıf'>11. Sınıf</option>
+                              <option value='12. Sınıf'>12. Sınıf</option>
+                            </Select>
+
+                            {props.touched.class &&
+                              <ErrorText >
+                                {props.errors.class}
+                              </ErrorText>
+                            }
+
                         </div>
                       </Transition>
                     </div>
@@ -570,60 +586,62 @@ export default function StudentRegisterComponent({ CitiesData }) {
                         leaveTo='opacity-0'
                       >
                         <div className={styles.container_end_row}>
-                          <label className={styles.inputLabel} htmlFor='email'>
-                            E-mail
-                          </label>
-                          <input
+                        <Input
+                            labelValue='E-mail'
+
                             id='email'
                             name='email'
-                            autoComplete='off'
                             type='email'
                             value={props.values.email}
                             onChange={props.handleChange}
                             placeholder='Mail adresinizi giriniz.'
-                            className={styles.inputClass}
+                            
                           />
-                          <p className=' 4xl:text-2xl text-red-500 text-xs italic px-2 pb-2'>
-                            {props.touched.email && props.errors.email}
-                          </p>
+                          {props.touched.email &&
+                          <ErrorText >
+                            {props.errors.email}
+                          </ErrorText>
+                          }
+
                         </div>
                         <div className={styles.container_end_row}>
-                          <label className={styles.inputLabel} htmlFor='password'>
-                            Şifre
-                          </label>
-                          <input
+                        <Input
+                            labelValue='Şifre'
+
                             id='password'
                             name='password'
                             type='password'
                             value={props.values.password}
                             onChange={props.handleChange}
                             placeholder='******'
-                            className={styles.inputClass}
+                            
                           />
-                          <p className=' 4xl:text-2xl text-red-500 text-xs italic px-2 pb-2'>
-                            {props.touched.password && props.errors.password}
-                          </p>
+                          {props.touched.password &&
+                          <ErrorText >
+                            {props.errors.password}
+                          </ErrorText>
+                          }
+
                         </div>
                         <div className={styles.container_end_row}>
-                          <label
-                            className={styles.inputLabel}
-                            htmlFor='passwordConfirm'
-                          >
-                            Şifre Doğrulama
-                          </label>
-                          <input
+
+                        <Input
+                            labelValue='Şifre Doğrulama'
+
                             id='passwordConfirm'
                             name='passwordConfirm'
                             type='password'
                             value={props.values.passwordConfirm}
                             onChange={props.handleChange}
                             placeholder='******'
-                            className={styles.inputClass}
+                            
                           />
-                          <p className=' 4xl:text-2xl text-red-500 text-xs italic'>
-                            {props.touched.passwordConfirm &&
-                              props.errors.passwordConfirm}
-                          </p>
+                          {props.touched.passwordConfirm &&
+                          <ErrorText >
+                            {props.errors.passwordConfirm}
+                          </ErrorText>
+                          }
+
                         </div>
                       </Transition>
                     </div>
@@ -635,7 +653,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                           <button
                             type='button'
                             onClick={(e) => prevActiveTab(e)}
-                            className='mb-6 w-1/4 4xl:text-6xl text-white bg-[#777779] border rounded-md p-4 hover:bg-[#8a8a8a]'
+                            className='mb-6 w-1/4 4xl:text-6xl text-white bg-secondary border rounded-md p-4 hover:bg-[#595959]'
                           >
                             Geri
                           </button>

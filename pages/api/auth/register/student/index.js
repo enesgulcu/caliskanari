@@ -3,7 +3,7 @@ import EncryptPassword from "@/functions/auth/encryptPassword";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { transporter, mailOptions } from "@/pages/api/mail/nodemailer";
-import getTurkeyTime from "@/components/diger/timeNow";
+import getTurkeyTime from "@/functions/other/timeNow";
 
 export default async function handler (req, res) {
 
