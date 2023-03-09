@@ -15,7 +15,7 @@ export default async function handler (req, res) {
         if(req.method === 'POST'){
             try {
                 const data = req.body;
-                
+                const mailKey = await EncryptPassword(process.env.MAIL_SECRET); 
                 data.password = await EncryptPassword(data.password);
     
                 const {error} = await createStudent(data);
@@ -30,9 +30,14 @@ export default async function handler (req, res) {
                     createTime: {date, time},
                     html:`
                     <p>Sevgili</p>
-                    <h3 class='color:red'>${data.name} ${data.surname}</h3>
+                    <h3 style='color:green'>${data.name} ${data.surname}</h3>
                     <p>${data.email} mail adresinin Kayıt işlemi ${date} tarihinde, ${time} saatinde başarıyla yapıldı!</p>
                     <p>Kayıt edilen telefon: ${data.phone}</p>
+                    <a href = ${process.env.NEXT_PUBLIC_API_URL}/auth/verify/email?key=${mailKey}&time=${Date.now()}&mail=${data.email}&role=${data.role}>
+                        <button>
+                            Hesabınızı Onaylamak İçin Tıklayın.
+                        </button>
+                    </a>
                     `
                 })
                 

@@ -15,6 +15,7 @@ datasource db {
 
 model Student {
   id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  verified   Boolean  @default(false)
   role       String
   name       String
   surname    String
@@ -29,6 +30,25 @@ model Student {
   createdAt  DateTime @default(now())
   updatedAt  DateTime @updatedAt
 }
+
+model StudentVerify {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  verified   Boolean  @default(false)
+  role       String
+  name       String
+  surname    String
+  phone      String   @unique
+  city       String
+  town       String
+  schooltype String
+  schollName String
+  class      String
+  email      String   @unique
+  password   String
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+}
+
 model Admin {
   id        String   @id @default(auto()) @map("_id") @db.ObjectId
   role      String
@@ -39,5 +59,6 @@ model Admin {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
+
 
 

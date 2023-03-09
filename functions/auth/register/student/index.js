@@ -14,21 +14,23 @@ export async function createStudent(student) {
         },
       })
 
-      const phoneCheck = await prisma.student.findUnique({
-        where: {
-          phone: student.phone
-        },
-      })
+      // TELEFON KONTROL İSTEĞİ (DURDURULDU ŞİMDİLİK!)
+      // const phoneCheck = await prisma.student.findUnique({
+      //   where: {
+      //     phone: student.phone
+      //   },
+      // })
       
        // Eğer öğrenci ile eşleşen bir kayıt varsa hata döndür
        if (mailCheck != null && mailCheck.email == student.email) {
         return { error: "Girdiğiniz mail adresi ile daha önce kayıt yapılmış." };
       }
 
-      // Eğer öğrenci ile eşleşen bir kayıt varsa hata döndür
-      else if (phoneCheck != null && phoneCheck.phone == student.phone) {
-        return { error: "Girdiğiniz telefon numarası ile daha önce kayıt yapılmış." };
-      }   
+      // TELEFON KONTROL KOŞULU (DURDURULDU ŞİMDİLİK!)
+      // // Eğer öğrenci ile eşleşen bir kayıt varsa hata döndür
+      // else if (phoneCheck != null && phoneCheck.phone == student.phone) {
+      //   return { error: "Girdiğiniz telefon numarası ile daha önce kayıt yapılmış." };
+      // }   
 
       else{
         // Eğer öğrenci ile eşleşen bir kayıt yoksa yeni kayıt oluştur

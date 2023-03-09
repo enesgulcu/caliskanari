@@ -148,6 +148,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
           // input verileri
           initialValues={{
             role: 'student',
+            verified: false,
             name: '',
             surname: '',
             phone: '',
