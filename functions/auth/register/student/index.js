@@ -2,6 +2,7 @@
 import prisma from "@/lib/prisma/index";
 
 
+
 // POST
 export async function createStudent(student) {
 

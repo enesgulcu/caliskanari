@@ -1,28 +1,25 @@
 import React from 'react'
 import styles from './styles.module.css';
 
-export default function Select({clidren, ...props}) {
+export default function Select({children, Class, optionLabel, labelValue,  ...props}) {
   return (
     <>
         <label
-        className={props?.class?.label ? props?.class?.label : styles.label }
+        className={Class?.label ? Class?.label : styles.label }
         htmlFor={props.id}>
 
-          {props.labelValue}
+          {labelValue}
 
         </label>
 
         <select
-        id={props.id}
-        name={props.name}
-        disabled={props?.disabled ? props?.disabled : false}
-        value={props.value}
-        onChange={props.onChange}
-        className={props?.class?.select ? props?.class?.select : styles.select}>
-          <option label={props.optionLabel}></option>
-          {props.children}
+        {...props}
+        className={Class?.select ? Class?.select : styles.select}>
+          <option label={optionLabel}></option>
+          {children}
           
         </select>
     </>
   )
 }
+

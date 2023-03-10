@@ -15,6 +15,7 @@ import Link from 'next/link';
 import Input from '@/components/formElements/input';
 import ErrorText from '@/components/formElements/errorText';
 import Select from '@/components/formElements/select';
+import Stepper from "@/components/Stepper";
 
 
 
@@ -238,74 +239,33 @@ export default function StudentRegisterComponent({ CitiesData }) {
                     {/* Progress Bar (Stepper) */}
                     <div className='grid gap-8 mx-0 md:mx-8 row-gap-0 grid-cols-3 4xl:gap-40'>
                       {/* Progress Bar Step 1 */}
-                      <div className='relative text-center z-10'>
-                        <div
-                          className={`text-white bg-white border-4 flex items-center justify-center w-14 4xl:w-28 4xl:h-28 4xl:mb-4 h-14 mx-auto mb-2 rounded-full ${
-                            activeTab === 1
-                              ? 'border-secondary'
-                              : 'border-primary'
-                          }`}
-                        >
-                          {activeTab === 1 ? (
-                            <p className='text-secondary 4xl:text-5xl font-bold text-xl'>
-                              1
-                            </p>
-                          ) : (
-                            <FaCheck className='w-1/2 h-1/3 text-primary' />
-                          )}
-                        </div>
-                        <h6 className={`mb-2 text-sm 4xl:text-3xl ${activeTab == 1 && "text-primary font-semibold"}`}>
-                          Öğrenci Bilgileri
-                        </h6>
-                        <div className='top-0 right-0 4xl:-right-8 flex items-center justify-center h-16 -mr-24 my-20 absolute -z-10'>
-                          <div
-                            className={`${
-                              activeTab === 1
-                                ? 'border-secondary'
-                                : 'border-primary'
-                            } 4xl:w-28 w-[11rem] h-40 4xl:h-[25rem] absolute right-0  border-l-8 rotate-90 -z-10 flex justify-center items-center`}
-                          ></div>
-                        </div>
-                      </div>
+                      <Stepper
+                        activeTab={1}
+                        title='Öğrenci Bilgileri'
+                        activeTitle={activeTab == 1}
+                        showIcon={activeTab != 1}
+                        icon={<FaCheck />}
+                        stepCompleted={activeTab != 1}
+                      />
                       {/* Progress Bar Step 2 */}
-                      <div className='relative text-center z-10'>
-                        <div
-                          className={`${
-                            activeTab < 3 ? 'border-secondary' : 'border-primary'
-                          } bg-white text-white  border-4 flex items-center justify-center w-14 4xl:w-28 4xl:h-28 4xl:mb-4 h-14 mx-auto mb-2 rounded-full`}
-                        >
-                          {activeTab < 3 ? (
-                            <p className='text-secondary 4xl:text-5xl font-bold text-xl'>
-                              2
-                            </p>
-                          ) : (
-                            <FaCheck className='w-1/2 h-1/3 text-primary' />
-                          )}
-                        </div>
-                        <h6 className={`mb-2 text-sm 4xl:text-3xl ${activeTab == 2 && "text-primary font-semibold"}`}>
-                          Okul Bilgileri
-                        </h6>
-                        <div className='top-0 right-0 4xl:-right-8 flex items-center justify-center h-16 -mr-24 my-20 absolute -z-10'>
-                          <div
-                            className={`${
-                              activeTab < 3
-                                ? 'border-secondary'
-                                : 'border-primary'
-                            } 4xl:w-28 w-[11rem] h-40 4xl:h-[25rem] absolute right-0  border-l-8 rotate-90 flex -z-10 justify-center items-center`}
-                          ></div>
-                        </div>
-                      </div>
+                      <Stepper
+                        activeTab={2}
+                        title='Okul Bilgileri'
+                        activeTitle={activeTab == 2}
+                        showIcon={activeTab > 2}
+                        icon={<FaCheck />}
+                        stepCompleted={activeTab > 2}
+                      />
                       {/* Progress Bar Step 3 */}
-                      <div className='relative text-center z-10'>
-                        <div className={`bg-white text-white border-4 ${isRegister ? "border-primary" : "border-secondary"} 4xl:border-4 flex items-center justify-center w-14 4xl:w-28 4xl:h-28 4xl:mb-4 h-14 mx-auto mb-2 rounded-full`}>
-                          <p className='text-secondary 4xl:text-5xl font-bold text-xl w-3/4 flex justify-center'>
-                            {isRegister ? <FaCheck className='w-1/2 h-1/3 text-primary' /> : "3"}
-                          </p>
-                        </div>
-                        <h6 className={`mb-2 text-sm 4xl:text-3xl ${activeTab == 3 && !isRegister && "text-primary font-semibold"}`}>
-                          Giriş Bilgileri
-                        </h6>
-                      </div>
+                      <Stepper
+                        activeTab={3}
+                        title='Giriş Bilgileri'
+                        activeTitle={activeTab == 3}
+                        showIcon={activeTab == 3 && isRegister}
+                        icon={<FaCheck />}
+                        stepCompleted={isRegister}
+                        lastStep={true}
+                      />
                     </div>
                     <div className='block w-full opacity-100 4xl:mb-6 relative z-10'>
                       {/* Step 1 */}
@@ -499,7 +459,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                                   disabled={schooltype ? false : true}
                                   value={props.values.schollName}
                                   onChange={props.handleChange}
-                                  placeholder='Soyisminizi giriniz.'
+                                  placeholder='Okul ismini giriniz.'
                                   
                                 />
                                 {props.touched.schollName &&
