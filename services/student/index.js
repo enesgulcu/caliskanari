@@ -46,7 +46,7 @@ export async function updateStudent(id, newData) {
 // DELETE
 export async function deleteStudent(id) {
   try {
-    const student = await prisma.student.delete({ where: { id } });
+    const student = await prisma.Student.delete({ where: { id } });
     return { student };
   } catch (error) {
     return { error };

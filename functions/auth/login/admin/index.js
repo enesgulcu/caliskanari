@@ -7,9 +7,6 @@ import DecryptPassword from "@/functions/auth/decryptPassword";
 // POST
 export default async function GetAdmin(loginAdmin) {
 
-    // const aaa = await EncryptPassword("Ts1967Gs1905@")
-    // console.log(aaa);
-
     try {
         const loginCheck = await prisma.admin.findUnique({
             where: {
