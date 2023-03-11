@@ -1,5 +1,5 @@
 import DecryptPassword from "@/functions/auth/decryptPassword";
-import VerifyEmail from "@/functions/auth/verify/email";
+import VerifyEmail from "@/services/email/verify";
 export default async function handler (req, res) {
     try {
         const query = req.query;

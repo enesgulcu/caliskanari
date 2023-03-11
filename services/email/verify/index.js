@@ -9,7 +9,7 @@ export default async function VerifyEmail(mail, role) {
         throw new Error("Mail adresiniz zaten onaylanmış.");
         }
 
-        mailCheck = role === "student" ?
+        const mailCheck = role === "student" ?
         await prisma.student.findUnique({ where: { email: mail } }) :
         await prisma.teacher.findUnique({ where: { email: mail } });
 
