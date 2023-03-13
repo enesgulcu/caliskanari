@@ -1,5 +1,5 @@
 import DecryptPassword from "@/functions/auth/decryptPassword";
-import VerifyEmail from "@/services/email/verify";
+import VerifyEmail from "@/functions/email/verify";
 export default async function handler (req, res) {
     try {
         const query = req.query;
@@ -20,7 +20,6 @@ export default async function handler (req, res) {
 
         if(pastHour < 24){
             const  {error}  = await VerifyEmail(query.mail, query.role);
-            console.log(error);
             if(error) throw new Error(error);
             return res.status(200).json({status: "success", message: "Mail adresiniz başarıyla onaylandı!", pastMinute});
         }

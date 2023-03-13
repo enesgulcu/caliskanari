@@ -1,5 +1,5 @@
 'use client';
-import { createStudent } from '@/services/auth/register/student/index';
+import { createUser } from '@/services/auth/register/usersRegister/index';
 import getAdress from '@/services/auth/register/getAdress';
 import { ToastContainer, toast } from 'react-toastify';
 import studentValidationSchema from './formikData';
@@ -148,7 +148,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
           validateOnMount={true}
           // input verileri
           initialValues={{
-            role: 'student',
+            role: 'Student',
             verified: false,
             name: '',
             surname: '',
@@ -173,19 +173,19 @@ export default function StudentRegisterComponent({ CitiesData }) {
             // girilen telefonlarda boşlukları siler ve sonrasında son 10 haniesini alma
             values.phone = values.phone.replace(/\s/g, "").slice(-10);
 
-            createStudent(values).then((res) => {
+            createUser(values).then((res) => {
               if (res.status === 'success') {
                 // Giriş başarılı ise ekrana "blur" efekti verir
                 setIsloading(false);
                 setIsRegister(true);
 
-                toast.success(res.message + ' (Yönlendiriliyorsunuz...)');
+                toast.success(res.message);
 
                 //Bilgi verir ve 5 saniye sonra login sayfasına yönlendirir.
                 const timeOut = setInterval(() => {
                   router.push('/auth/login/student');
                   clearInterval(timeOut);
-                }, 4000);
+                }, 5000);
 
                 values.password = '';
                 values.passwordConfirm = '';
