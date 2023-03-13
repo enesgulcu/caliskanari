@@ -1,9 +1,9 @@
 import prisma from "@/lib/prisma/index";
 
 // GET
-export async function getUsers(userType) {
+export async function getUsers(userRole) {
   try {
-    const users = await prisma[userType].findMany();
+    const users = await prisma[userRole].findMany();
     return { users };
   } catch (error) {
     return { error };
@@ -11,9 +11,9 @@ export async function getUsers(userType) {
 }
 
 // POST
-export async function createUser(userType, data) {
+export async function createUser(userRole, data) {
   try {
-    const userFromDB = await prisma[userType].create({ data: data });
+    const userFromDB = await prisma[userRole].create({ data: data });
     return { user: userFromDB };
   } catch (error) {
     return { error };
@@ -21,9 +21,9 @@ export async function createUser(userType, data) {
 }
 
 // GET by ID
-export async function getUserById(userType, id) {
+export async function getUserById(userRole, id) {
   try {
-    const user = await prisma[userType].findUnique({ where: { id } });
+    const user = await prisma[userRole].findUnique({ where: { id } });
     return { user };
   } catch (error) {
     return { error };
@@ -31,9 +31,9 @@ export async function getUserById(userType, id) {
 }
 
 // GET by EMAIL
-export async function getUserByEmail(userType, email) {
+export async function getUserByEmail(userRole, email) {
   try {
-    const user = await prisma[userType].findUnique({ where: { email } });
+    const user = await prisma[userRole].findUnique({ where: { email } });
     return { user };
   } catch (error) {
     return { error };
@@ -41,9 +41,9 @@ export async function getUserByEmail(userType, email) {
 }
 
 // UPDATE BY ID
-export async function updateUserId(userType, id, newData) {
+export async function updateUserId(userRole, id, newData) {
   try {
-    const userFromDB = await prisma[userType].update({
+    const userFromDB = await prisma[userRole].update({
       where: { id },
       data: newData,
     });
@@ -54,11 +54,11 @@ export async function updateUserId(userType, id, newData) {
 }
 
 // UPDATE BY EMAIL
-export async function updateUserEmail(userType, email, newData) {
+export async function updateUserByEmail(userRole, email, data) {
   try {
-    const userFromDB = await prisma[userType].update({
+    const userFromDB = await prisma[userRole].update({
       where: { email },
-      data: newData,
+      data: data,
     });
     return { user: userFromDB };
   } catch (error) {
@@ -67,9 +67,9 @@ export async function updateUserEmail(userType, email, newData) {
 }
 
 // DELETE BY ID
-export async function deleteUser(userType, id) {
+export async function deleteUser(userRole, id) {
   try {
-    const user = await prisma[userType].delete({ where: { id } });
+    const user = await prisma[userRole].delete({ where: { id } });
     return { user };
   } catch (error) {
     return { error };
@@ -77,9 +77,9 @@ export async function deleteUser(userType, id) {
 }
 
 // DELETE BY EMAIL
-export async function deleteUserByEmail(userType, email) {
+export async function deleteUserByEmail(userRole, email) {
   try {
-    const user = await prisma[userType].delete({ where: { email } });
+    const user = await prisma[userRole].delete({ where: { email } });
     return { user };
   } catch (error) {
     return { error };
@@ -95,7 +95,7 @@ export default {
   getUserByEmail,
 
   updateUserId,
-  updateUserEmail,
+  updateUserByEmail,
   
   deleteUser,
   deleteUserByEmail,

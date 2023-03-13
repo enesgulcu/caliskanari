@@ -1,4 +1,4 @@
-import { createNewUser } from "@/functions/auth/register/usersRegister/index";
+import { createNewUser } from "@/functions/auth/register/index";
 import EncryptPassword from "@/functions/auth/encryptPassword";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
@@ -19,8 +19,9 @@ export default async function handler (req, res) {
                 const mailKey = await EncryptPassword(process.env.MAIL_SECRET); 
                 data.password = await EncryptPassword(data.password);
     
-                const {error} = await createNewUser(data);
+                const {error, user} = await createNewUser(data);
                 if(error) throw new Error(error);
+
 
                 //mail gönderme işlemi
                 transporter.sendMail({
@@ -34,17 +35,15 @@ export default async function handler (req, res) {
                     <h3 style='color:green'>${data.name} ${data.surname}</h3>
                     <p>${data.email} mail adresinin Kayıt işlemi ${date} tarihinde, ${time} saatinde başarıyla yapıldı!</p>
                     <p>Kayıt edilen telefon: ${data.phone}</p>
-                    <a style="cursor: pointer" href = ${process.env.NEXT_PUBLIC_API_URL}/auth/verify/email?key=${mailKey}&time=${Date.now()}&mail=${data.email}&role=${data.role}>
+                    <a style="cursor:pointer!important" href = ${process.env.NEXT_PUBLIC_URL}/auth/verifyEmail?key=${mailKey}&time=${Date.now()}&mail=${data.email}&role=${data.role}>
                         <button style="
-                        cursor: pointer;
+                        cursor: pointer!important;
                         background: #3d7bf1;
                         color: white;
                         padding: 15px;
                         border-radius: 10px;
                         border: white;
                         font-weight: 500;
-                        
-                        
                     ">
                             Hesabınızı Onaylamak İçin Tıklayın.
                         </button>

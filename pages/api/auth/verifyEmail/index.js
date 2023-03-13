@@ -2,12 +2,12 @@ import DecryptPassword from "@/functions/auth/decryptPassword";
 import VerifyEmail from "@/functions/email/verify";
 export default async function handler (req, res) {
     try {
-        const query = req.query;
+        const body = req.body;
     
-    const secret = await DecryptPassword(process.env.MAIL_SECRET, query.key);
+    const secret = await DecryptPassword(process.env.MAIL_SECRET, body.key);
    
-    if(secret && query.mail && query.time && query.role){
-        const time = parseInt(query.time);
+    if(secret && body.mail && body.time && body.role){
+        const time = parseInt(body.time);
         const now = Date.now();
         const LifeTime = now - time;
 
@@ -19,8 +19,9 @@ export default async function handler (req, res) {
 
 
         if(pastHour < 24){
-            const  {error}  = await VerifyEmail(query.mail, query.role);
-            if(error) throw new Error(error);
+            const  {error}  = await VerifyEmail(body.mail, body.role);
+
+            if(error) throw new Error(error?.message);
             return res.status(200).json({status: "success", message: "Mail adresiniz başarıyla onaylandı!", pastMinute});
         }
 
@@ -32,6 +33,8 @@ export default async function handler (req, res) {
         return res.status(401).json({status: "error", message: "Mail adresiniz onaylanamadı!"});
     }
     } catch (error) {
-        res = res.status(401).json({status: "error", message: error.message});
+        console.log(error?.message)
+        return res.status(401).json({status: "error", message: error?.message});
     }
 }
+

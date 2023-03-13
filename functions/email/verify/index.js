@@ -1,32 +1,31 @@
 import prisma from "@/lib/prisma/index";
+import { getUserByEmail, updateUserByEmail} from "@/services/usersAllProcess/index";
 
 export default async function VerifyEmail(mail, role) {
   try {
-    const verifyCheck = await prisma[`${role}Verify`].findUnique({
-      where: { email: mail },
-    });
 
-    if (verifyCheck) {
-      throw new Error("Mail adresiniz zaten onaylanmış.");
+    let mailCheck = await getUserByEmail(role, mail);
+    mailCheck = mailCheck.user;
+
+
+    if (!mailCheck) {
+      throw new Error("Kullanıcı kaydı bulunamadı.");
     }
 
-    const mailCheck = await prisma[role].findUnique({ where: { email: mail } });
-
-    if (!mailCheck || mailCheck.email !== mail) {
-      throw new Error("Kullanıcı kaydı bulunamadı.");
+    if (mailCheck.verified){ 
+      throw new Error("Mail adresiniz zaten onaylanmış.");
     }
 
     mailCheck.verified = true;
 
-    const user = await prisma[role].delete({ where: { email: mailCheck.email } });
-    const userFromDB = await prisma[`${role}Verify`].create({ data: mailCheck });
-
-    if (!user || !userFromDB) {
+    const userFromDB = await updateUserByEmail(role, mail, mailCheck.verified);
+    console.log(userFromDB);
+    if (!userFromDB) {
       throw new Error("Mail adresiniz onaylanamadı bir hata ile karşılaşıldı!");
     }
 
-    return { [`${role}verify`]: userFromDB, [role]: user };
+    return { message: "Mail adresiniz başarıyla onaylandı!"};
   } catch (error) {
-    return { error };
+    return  {error} ;
   }
 }

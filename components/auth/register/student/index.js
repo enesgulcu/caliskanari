@@ -1,5 +1,5 @@
 'use client';
-import { createUser } from '@/services/auth/register/usersRegister/index';
+import { createUser } from '@/services/auth/register/index';
 import getAdress from '@/services/auth/register/getAdress';
 import { ToastContainer, toast } from 'react-toastify';
 import studentValidationSchema from './formikData';
@@ -67,7 +67,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
     setIsloading(false);
 
   }, [towns, schollNames])
-  
+
 
   useEffect(() => {
     
@@ -96,6 +96,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
     const { errors } = props;
     props.handleSubmit();
     if (activeTab === 1) {
+      
       if (errors.name || errors.surname || errors.phone) {
         return props.errors;
       } else {
@@ -109,6 +110,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
         errors.town ||
         errors.schooltype ||
         errors.schollName ||
+        props.values.schollName === '' ||
         errors.class
       ) {
         return props.errors;
@@ -130,8 +132,9 @@ export default function StudentRegisterComponent({ CitiesData }) {
     <>
     { isloading && (<LoadingScreen isloading={isloading}/>) }
       <div className={styles.main}>
+        
         <ToastContainer
-          className='4xl:text-4xl'
+          className='4xl:text-4xl min:w-40'
           position='top-right'
           autoClose={5000}
           hideProgressBar={false}
@@ -284,7 +287,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
 
                           <Input
                             labelValue='İsim'
-
+                            disabled={isloading || isRegister}
                             id='name'
                             name='name'
                             type='text'
@@ -303,7 +306,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                         <div className={styles.container_first_row}>
                         <Input
                             labelValue='Soyisim'
-
+                            disabled={isloading || isRegister}
                             id='surname'
                             name='surname'
                             type='text'
@@ -321,7 +324,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                         <div className={styles.container_middle_row}>
                         <Input
                             labelValue='Telefon'
-
+                            disabled={isloading || isRegister}
                             id='phone'
                             name='phone'
                             type='text'
@@ -364,6 +367,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                                 props.values.town = '';
                               }}
                             >
+                              <option disabled={true} className='bg-gray-200 text-[5px]'></option>
                               {cities.length > 0 &&
                                   cities.map((item, index) => {
                                     return (
@@ -395,6 +399,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                                 props.values.schooltype = '';
                               }}
                             >
+                              <option disabled={true} className='bg-gray-200 text-[5px]'></option>
                               {towns?.length > 0 &&
                                 towns.map((item, index) => {
                                   return (
@@ -413,7 +418,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                         
                           </div>
                           <div>
-
+                            
                           <Select
                             labelValue='Okul Türü'
                               id='schooltype'
@@ -422,12 +427,14 @@ export default function StudentRegisterComponent({ CitiesData }) {
                               disabled={town ? false : true}
                               optionLabel='Okul Türü Seç'
                               onChange={(e) => {
+                                e.target.value === 'anaokul' ? props.values.class = "anaokul" : props.values.class = "";
                                 props.handleChange(e);
                                 !schollNames.length && setIsloading(true);
                                 setSchooltype(e.target.value);
                                 props.values.schollName = '';
                               }}
                             >
+                              <option disabled={true} className='bg-gray-200 text-[5px]'></option>
                               {town && (
                                 <>
                                   <option value='anaokul'>Anaokulu</option>
@@ -456,7 +463,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                                   id='schollName'
                                   name='schollName'
                                   type='text'
-                                  disabled={schooltype ? false : true}
+                                  disabled={schooltype || isloading || isRegister ? false : true}
                                   value={props.values.schollName}
                                   onChange={props.handleChange}
                                   placeholder='Okul ismini giriniz.'
@@ -482,8 +489,10 @@ export default function StudentRegisterComponent({ CitiesData }) {
                                 props.handleChange(e);
                               }}
                             >
+                              <option disabled={true} className='bg-gray-200 text-[5px]'></option>
                               {schollNames.length > 0 &&
                                   props.values.schooltype &&
+                                  
                                   schollNames.map((item, index) => {
                                     return (
                                       <option key={index} value={item}>
@@ -501,7 +510,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                             </div>
                           )}
                         </div>
-                        <div>
+                        <div className={schooltype === "anaokul" ? "hidden" : "block"}>
                         <Select
                             labelValue='Sınıf'
                               id='class'
@@ -511,18 +520,51 @@ export default function StudentRegisterComponent({ CitiesData }) {
                               optionLabel='Sınıf Seç'
                               onChange={props.handleChange}
                             >
-                              <option value='1. Sınıf'>1. Sınıf</option>
-                              <option value='2. Sınıf'>2. Sınıf</option>
-                              <option value='3. Sınıf'>3. Sınıf</option>
-                              <option value='4. Sınıf'>4. Sınıf</option>
-                              <option value='5. Sınıf'>5. Sınıf</option>
-                              <option value='6. Sınıf'>6. Sınıf</option>
-                              <option value='7. Sınıf'>7. Sınıf</option>
-                              <option value='8. Sınıf'>8. Sınıf</option>
-                              <option value='9. Sınıf'>9. Sınıf</option>
-                              <option value='10. Sınıf'>10. Sınıf</option>
-                              <option value='11. Sınıf'>11. Sınıf</option>
-                              <option value='12. Sınıf'>12. Sınıf</option>
+                              <option disabled={true} className='bg-gray-200 text-[5px]'></option>
+                              {schooltype === 'ilkokul' &&
+                                <>
+                                  <option value='1. Sınıf'>1. Sınıf</option>
+                                  <option value='2. Sınıf'>2. Sınıf</option>
+                                  <option value='3. Sınıf'>3. Sınıf</option>
+                                  <option value='4. Sınıf'>4. Sınıf</option>
+                                </>
+                              }
+                              {schooltype === 'ortaokul' &&
+                                <>                              
+                                  <option value='5. Sınıf'>5. Sınıf</option>
+                                  <option value='6. Sınıf'>6. Sınıf</option>
+                                  <option value='7. Sınıf'>7. Sınıf</option>
+                                  <option value='8. Sınıf'>8. Sınıf</option>
+                                </>
+                              }
+                              {schooltype === 'lise' &&
+                                <>
+                                  <option value='9. Sınıf'>9. Sınıf</option>
+                                  <option value='10. Sınıf'>10. Sınıf</option>
+                                  <option value='11. Sınıf'>11. Sınıf</option>
+                                  <option value='12. Sınıf'>12. Sınıf</option>
+                                </>
+                              }
+                              {schooltype === 'diger' &&
+                                <>
+                                <option disabled={true} className='bg-gray-200 text-[5px]'></option>
+                                  <option value='anaokul'>Anaokul</option>
+                                  <option value='1. Sınıf'>1. Sınıf</option>
+                                  <option value='2. Sınıf'>2. Sınıf</option>
+                                  <option value='3. Sınıf'>3. Sınıf</option>
+                                  <option value='4. Sınıf'>4. Sınıf</option>
+                                  <option value='5. Sınıf'>5. Sınıf</option>
+                                  <option value='6. Sınıf'>6. Sınıf</option>
+                                  <option value='7. Sınıf'>7. Sınıf</option>
+                                  <option value='8. Sınıf'>8. Sınıf</option>
+                                  <option value='9. Sınıf'>9. Sınıf</option>
+                                  <option value='10. Sınıf'>10. Sınıf</option>
+                                  <option value='11. Sınıf'>11. Sınıf</option>
+                                  <option value='12. Sınıf'>12. Sınıf</option>
+                                  </>
+                                }
+
+
                             </Select>
 
                             {props.touched.class &&
@@ -549,7 +591,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                         <div className={styles.container_end_row}>
                         <Input
                             labelValue='E-mail'
-
+                            disabled={isloading || isRegister}
                             id='email'
                             name='email'
                             type='email'
@@ -568,7 +610,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                         <div className={styles.container_end_row}>
                         <Input
                             labelValue='Şifre'
-
+                            disabled={isloading || isRegister}
                             id='password'
                             name='password'
                             type='password'
@@ -588,7 +630,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
 
                         <Input
                             labelValue='Şifre Doğrulama'
-
+                            disabled={isloading || isRegister}
                             id='passwordConfirm'
                             name='passwordConfirm'
                             type='password'
@@ -612,9 +654,10 @@ export default function StudentRegisterComponent({ CitiesData }) {
                         {/* Prev Button */}
                         {activeTab >= 2 && (
                           <button
+                          disabled={isloading || isRegister}
                             type='button'
                             onClick={(e) => prevActiveTab(e)}
-                            className='mb-6 w-1/4 4xl:text-6xl text-white bg-secondary border rounded-md p-4 hover:bg-[#595959]'
+                            className={`${isloading == true ||  isRegister == false && "hover:bg-[#595959]"} mb-6 w-1/4 4xl:text-6xl text-white bg-secondary border rounded-md p-4`}
                           >
                             Geri
                           </button>
@@ -622,6 +665,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                         {/* Next Button */}
                         {activeTab < 3 && (
                           <button
+                          disabled={isloading || isRegister}
                             type='button'
                             onClick={(e) => nextActiveTab(e, props)}
                             className={`${
@@ -635,9 +679,8 @@ export default function StudentRegisterComponent({ CitiesData }) {
                         {activeTab === 3 && (
                           <button
                             disabled={isloading  == true ||  isRegister == true}
-                            
                             type='submit'
-                            className={`${isloading == true ||  isRegister == true ? "bg-secondary" : "bg-primary"}  w-3/4 mb-6 text-white text-xl 4xl:text-6xl border rounded-md p-4 hover:bg-primarydark`}
+                            className={`${isloading == true ||  isRegister == true ? "bg-secondary" : "bg-primary hover:bg-primarydark"}  w-3/4 mb-6 text-white text-xl 4xl:text-6xl border rounded-md p-4 `}
                           >
                             Kayıt Ol
                           </button>
@@ -647,8 +690,9 @@ export default function StudentRegisterComponent({ CitiesData }) {
                         <p className='text-md 2xl:text-xl 4xl:xl:text-2xl'>
                           Zaten bir hesabınız var mı?
                           <Link
-                            href='/auth/login/student'
-                            className='text-primary font-semibold hover:underline '
+                            
+                            href={`${isloading || isRegister ? "#" : "/auth/login/student" }`}
+                            className={`${isloading || isRegister ? "text-secondary cursor-default" : "text-primary font-semibold hover:underline"}  `}
                           >
                             {' '}
                             Öğrenci Giriş.

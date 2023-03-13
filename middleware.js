@@ -24,7 +24,7 @@ export default withAuth(
     }
     
     if(!user){
-
+        // kullanıcı giriş yapmamış ise ve gittiği sayfa login veya register sayfası değil ise login sayfasına yönlendir.
         if (!user && (!path.includes('login') && !path.includes('register'))) {
             return NextResponse.rewrite(new URL('/', req.url));
         }
@@ -57,6 +57,7 @@ export const config = {
     '/student/:path*',
     '/teacher/:path*',
     '/admin/:path*',
-    '/auth/:path*',
+    '/auth/login/:path*',
+    '/auth/register/:path*',
   ],
 };
