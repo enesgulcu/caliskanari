@@ -4,6 +4,7 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { transporter, mailOptions } from "@/pages/api/mail/nodemailer";
 import getTurkeyTime from "@/functions/other/timeNow";
+import {createNewForgotPassword} from "@/functions/auth/forgotPassword";
 
 export default async function handler (req, res) {
 
@@ -21,7 +22,15 @@ export default async function handler (req, res) {
                     throw new Error("Email adresi boş bırakılamaz!");
                 }
 
-                const mailKey = await EncryptPassword(process.env.MAIL_SECRET); 
+                const mailKey = await EncryptPassword(process.env.MAIL_SECRET);
+                const email = await EncryptPassword(data); 
+
+                const NewPasswordData = await createNewForgotPassword(data,{email, mailKey});
+
+                if(NewPasswordData.error){
+                    throw new Error(NewPasswordData.error.message);
+                }
+
 
                 //mail gönderme işlemi
                 transporter.sendMail({
@@ -34,7 +43,7 @@ export default async function handler (req, res) {
                     <p>Şifre Sıfırlama Bağlantısı</p>
                     <p>${data} mail adresinin şifre sıfırlama işlemi ${date} tarihinde, ${time} saatinde başlatıldı.</p>
                     <p>Şifre sıfırlama işlemini tamamlamak için aşağıdaki linke tıklayınız.</p>
-                    <a style="cursor:pointer!important" href = ${process.env.NEXT_PUBLIC_URL}/auth/resetPassword?key=${mailKey}&time=${Date.now()}&mail=${data}>
+                    <a style="cursor:pointer!important" href = ${process.env.NEXT_PUBLIC_URL}/auth/resetPassword?key=${mailKey}&mail=${data}>
                         <button style="
                         cursor: pointer!important;
                         background: #3d7bf1;

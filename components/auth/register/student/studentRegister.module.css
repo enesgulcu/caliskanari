@@ -81,7 +81,6 @@
 
 .right_side_logoImage img{
     @apply
-    4xl:scale-150
     mb-4
     mt-2
     text-blue-600

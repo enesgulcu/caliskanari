@@ -22,11 +22,11 @@ export default async function handler (req, res) {
             const  {error}  = await VerifyEmail(body.mail, body.role);
 
             if(error) throw new Error(error?.message);
-            return res.status(200).json({status: "success", message: "Mail adresiniz başarıyla onaylandı!", pastMinute});
+            return res.status(200).json({status: "success", message: "Mail adresiniz başarıyla onaylandı!"});
         }
 
          else{
-             return res.status(401).json({status: "error", message: "Mail adresinizin onay süresi doldu!", pastMinute});
+             return res.status(401).json({status: "error", message: "Mail adresinizin onay süresi doldu!"});
         }
     }
     else{

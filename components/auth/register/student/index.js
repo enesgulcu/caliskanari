@@ -209,7 +209,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
           {(props) => (
             <Form
               onSubmit={props.handleSubmit}
-              className={`${isRegister ? 'blur' : ''} ${styles.main_container} md:scale-75 2xl:scale-100 4xl:scale-125`}
+              className={`${isRegister ? 'blur' : ''} ${styles.main_container} md:scale-75 2xl:scale-75 4xl:scale-50`}
             >
               <div className={styles.container}>
                 <div className={styles.container_left_side}>
@@ -247,7 +247,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                         title='Öğrenci Bilgileri'
                         activeTitle={activeTab == 1}
                         showIcon={activeTab != 1}
-                        icon={<FaCheck />}
+                        icon={<FaCheck size={46} />}
                         stepCompleted={activeTab != 1}
                       />
                       {/* Progress Bar Step 2 */}
@@ -265,7 +265,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                         title='Giriş Bilgileri'
                         activeTitle={activeTab == 3}
                         showIcon={activeTab == 3 && isRegister}
-                        icon={<FaCheck />}
+                        icon={<FaCheck  />}
                         stepCompleted={isRegister}
                         lastStep={true}
                       />
@@ -367,7 +367,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                                 props.values.town = '';
                               }}
                             >
-                              <option disabled={true} className='bg-gray-200 text-[5px]'></option>
+                              <option disabled={true} className=' hidden md:block bg-gray-200 text-[5px]'></option>
                               {cities.length > 0 &&
                                   cities.map((item, index) => {
                                     return (
@@ -399,7 +399,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                                 props.values.schooltype = '';
                               }}
                             >
-                              <option disabled={true} className='bg-gray-200 text-[5px]'></option>
+                              <option disabled={true} className=' hidden md:block bg-gray-200 text-[5px]'></option>
                               {towns?.length > 0 &&
                                 towns.map((item, index) => {
                                   return (
@@ -434,7 +434,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                                 props.values.schollName = '';
                               }}
                             >
-                              <option disabled={true} className='bg-gray-200 text-[5px]'></option>
+                              <option disabled={true} className=' hidden md:block bg-gray-200 text-[5px]'></option>
                               {town && (
                                 <>
                                   <option value='anaokul'>Anaokulu</option>
@@ -489,7 +489,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                                 props.handleChange(e);
                               }}
                             >
-                              <option disabled={true} className='bg-gray-200 text-[5px]'></option>
+                              <option disabled={true} className=' hidden md:block bg-gray-200 text-[5px]'></option>
                               {schollNames.length > 0 &&
                                   props.values.schooltype &&
                                   
@@ -520,7 +520,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                               optionLabel='Sınıf Seç'
                               onChange={props.handleChange}
                             >
-                              <option disabled={true} className='bg-gray-200 text-[5px]'></option>
+                              <option disabled={true} className=' hidden md:block bg-gray-200 text-[5px]'></option>
                               {schooltype === 'ilkokul' &&
                                 <>
                                   <option value='1. Sınıf'>1. Sınıf</option>
@@ -547,7 +547,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                               }
                               {schooltype === 'diger' &&
                                 <>
-                                <option disabled={true} className='bg-gray-200 text-[5px]'></option>
+                                <option disabled={true} className=' hidden md:block bg-gray-200 text-[5px]'></option>
                                   <option value='anaokul'>Anaokul</option>
                                   <option value='1. Sınıf'>1. Sınıf</option>
                                   <option value='2. Sınıf'>2. Sınıf</option>

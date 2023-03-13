@@ -1,16 +1,14 @@
 "use client";
 import { Formik, Form } from "formik";
-import resetPasswordValidationSchema from "./formikData";
+import forgotPasswordValidationSchema from "./formikData";
 import { ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
-import styles from "./resetPassword.module.css";
-import ResetPassword from "@/services/auth/resetPassword";
-// session: giriş yapmış kullanıcıyı temsil eder varsa bilgileri içinde barındırır.
-// signIn:  kullanıcıyı giriş yapmaya yönlendirmek için kullanılır.
+import { useState } from 'react';
+import styles from "./forgotPassword.module.css";
+import ForgotPassword from "@/services/auth/forgotPassword";
 
-export default function ResetPasswordComponent() {
+export default function ForgotPasswordComponent() {
 
   const [isLogin, setIsLogin] = useState(false);
 
@@ -37,11 +35,11 @@ export default function ResetPasswordComponent() {
           email: "",
         }}
         // input check
-        validationSchema={resetPasswordValidationSchema}
+        validationSchema={forgotPasswordValidationSchema}
 
         onSubmit={(values) => {
             
-            ResetPassword(values).then(data => {
+            ForgotPassword(values).then(data => {
                 if (data.status === "success") {
                     toast.success(data.message);
                 } else {

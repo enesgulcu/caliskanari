@@ -15,13 +15,12 @@ export default async function handler (req, res) {
     if(!session){
         if(req.method === 'POST'){
             try {
-                const data = req.body;
+                const data = req.body;   
                 const mailKey = await EncryptPassword(process.env.MAIL_SECRET); 
                 data.password = await EncryptPassword(data.password);
     
                 const {error, user} = await createNewUser(data);
                 if(error) throw new Error(error);
-
 
                 //mail gönderme işlemi
                 transporter.sendMail({

@@ -3,10 +3,11 @@ import { getUserByEmail, createUser } from "@/services/usersAllProcess/index";
 
 export async function createNewUser(user) {
   try {
-
+    
     // kullanıcı kontrolü
     let mailCheck = await getUserByEmail(user.role, user.email);
     mailCheck = mailCheck.user;
+    
 
     // eğer doğrulanmamış bir hesaba bağlı bir kayıt varsa yen iveriyi üzerine yaz
     if (mailCheck != null) {
@@ -16,7 +17,15 @@ export async function createNewUser(user) {
 
     else {
       const userFromDB = await createUser(user.role, user);
-      return { user: userFromDB };
+
+      // Kayıt olan her kullanıcıyı tek tabloda birleştiririz. 
+      const allUserFromDB = await createUser("allUser", {
+        email: user.email,
+        role : user.role,
+        name : user.name,
+        surname : user.surname,
+      });
+      return { user: userFromDB};
     }          
   } 
   catch (error) {

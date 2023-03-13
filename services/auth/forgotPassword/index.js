@@ -1,7 +1,7 @@
 // Öğrenci (kayıt) işlemleri için kullanılan servis
-export default async function ResetPassword({email}){
+export default async function ForgotPassword({email}){
     
-    const data = await fetch (`${process.env.NEXT_PUBLIC_API_URL}/auth/resetPassword`,{
+    const data = await fetch (`${process.env.NEXT_PUBLIC_API_URL}/auth/forgotPassword`,{
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -13,3 +13,4 @@ export default async function ResetPassword({email}){
 
     return data;
 }
+
