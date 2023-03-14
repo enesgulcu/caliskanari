@@ -15,10 +15,25 @@ export default async function handler (req, res) {
     if(!session){
         if(req.method === 'POST'){
             try {
-                const data = req.body;   
+                const data = req.body;
+                
+                // Eğer kullanıcı gerekli alanları doldurmadan kayıt olmaya çalışırsa hata fırlatır.
+                if(
+                    data.role == ""         || data.role == undefined       || data.role == null
+                    || data.name == ""      || data.name == undefined       || data.name == null
+                    || data.surname == ""   || data.surname == undefined    || data.surname == null
+                    || data.email == ""     || data.email == undefined      || data.email == null
+                    || data.password == ""  || data.password == undefined   || data.password == null
+                    || data.phone == ""     || data.phone == undefined      || data.phone == null
+                    || data.city == ""      || data.city == undefined       || data.city == null
+                    || data.town == ""      || data.town == undefined       || data.town == null                    
+                ){
+                    throw new Error("Lütfen tüm alanları doldurunuz!");
+                }
+
                 const mailKey = await EncryptPassword(process.env.MAIL_SECRET); 
                 data.password = await EncryptPassword(data.password);
-    
+                
                 const {error, user} = await createNewUser(data);
                 if(error) throw new Error(error);
 

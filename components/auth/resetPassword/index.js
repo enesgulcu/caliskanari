@@ -1,14 +1,14 @@
 "use client";
 import { Formik, Form } from "formik";
-import forgotPasswordValidationSchema from "./formikData";
+import resetPasswordValidationSchema from "./formikData";
 import { ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import styles from "./forgotPassword.module.css";
-import ForgotPassword from "@/services/auth/forgotPassword";
+import styles from "./resetPassword.module.css";
+import ResetPassword from "@/services/auth/resetPassword";
 
-export default function ForgotPasswordComponent() {
+export default function ResetPasswordComponent() {
 
   const [isLogin, setIsLogin] = useState(false);
 
@@ -32,14 +32,15 @@ export default function ForgotPasswordComponent() {
       <Formik
         // input verileri
         initialValues={{          
-          email: "",
+          password: "",
+          passwordConfirm: "",
         }}
         // input check
-        validationSchema={forgotPasswordValidationSchema}
+        validationSchema={resetPasswordValidationSchema}
 
         onSubmit={(values) => {
             
-            ForgotPassword(values).then(data => {
+          ResetPassword(values).then(data => {
               if (data.status === "success") {
                   toast.success(data.message);
               } else {
@@ -81,13 +82,26 @@ export default function ForgotPasswordComponent() {
                       Şifre Sıfırlama
                     </h1>
                     <div className="mt-4">
-                      <label className="block text-sm">Email</label>
+                      <label className="block text-sm">Yeni Şifre</label>
                       <input
-                      id='email'
-                      name='email'
+                      id='password'
+                      name='password'
                       autoComplete='off'
-                      type='email'
-                      value={props.values.email}
+                      type='password'
+                      value={props.values.password}
+                      onChange={props.handleChange}
+                      placeholder="Mail adresinizi giriniz."
+                      className="w-full px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                      />
+                    </div>
+                    <div className="mt-4">
+                      <label className="block text-sm">Yeni Şifre Doğrulama</label>
+                      <input
+                      id='passwordConfirm'
+                      name='passwordConfirm'
+                      autoComplete='off'
+                      type='password'
+                      value={props.values.passwordConfirm}
                       onChange={props.handleChange}
                       placeholder="Mail adresinizi giriniz."
                       className="w-full px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
@@ -95,10 +109,10 @@ export default function ForgotPasswordComponent() {
                     </div>
                     <button
                     disabled={isLogin}
-                      className={`${isLogin ? "bg-gray-600 active:bg-gray-600 hover:bg-gray-600" : "bg-blue-600 active:bg-blue-600 hover:bg-blue-700"} block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150  border border-transparent rounded-lg  focus:outline-none focus:shadow-outline-blue`}
+                      className={`${isLogin ? "bg-gray-600 active:bg-gray-600 hover:bg-gray-600" : "bg-blue-600 active:bg-blue-600 hover:bg-blue-700"} mb-8 block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150  border border-transparent rounded-lg  focus:outline-none focus:shadow-outline-blue`}
                       href="#"
                     >
-                      Şifre İçin Mail Gönder
+                      Şifreyi Sıfırla
                     </button>
                   </div>
                 </div>

@@ -1,13 +1,12 @@
-import { getUserByEmail, updateUserByEmail} from "@/services/usersAllProcess/index";
+import { getDataByUnique, updateDataByAny} from "@/services/serviceOperations";
 
-export default async function VerifyEmail(mail, role) {
+export default async function VerifyEmail(email, role) {
   try {
 
-    let mailCheck = await getUserByEmail(role, mail);
-    mailCheck = mailCheck.user;
+    const mailCheck = await getDataByUnique(role, {email: email});
 
 
-    if (!mailCheck) {
+    if (!mailCheck || mailCheck.role !== role) {
       throw new Error("Kullanıcı kaydı bulunamadı.");
     }
 
@@ -16,7 +15,7 @@ export default async function VerifyEmail(mail, role) {
     }
 
 
-    const userFromDB = await updateUserByEmail(role, mail, { verified: true});
+    const userFromDB = await updateDataByAny(role, {email: email}, { verified: true});
     if (!userFromDB) {
       throw new Error("Mail adresiniz onaylanamadı bir hata ile karşılaşıldı!");
     }

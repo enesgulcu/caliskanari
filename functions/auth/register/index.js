@@ -1,31 +1,31 @@
 // INFO PAGE: // https://www.prisma.io/docs/concepts/components/prisma-client/crud#update-a-single-record
-import { getUserByEmail, createUser } from "@/services/usersAllProcess/index";
+import { getDataByUnique, createNewData } from "@/services/serviceOperations";
 
 export async function createNewUser(user) {
   try {
     
     // kullanıcı kontrolü
-    let mailCheck = await getUserByEmail(user.role, user.email);
-    mailCheck = mailCheck.user;
+    const mailCheck = await getDataByUnique(user.role, {email: user.email});
+ 
     
 
     // eğer doğrulanmamış bir hesaba bağlı bir kayıt varsa yen iveriyi üzerine yaz
-    if (mailCheck != null) {
+    if (mailCheck != null ) {
       return { error: "Bu e-mail adresine kayıtlı başka bir hesap bulunmaktadır. Şifremi unuttum bölümünden şifrenizi sıfırlayabilirsiniz." };
     }
 
 
     else {
-      const userFromDB = await createUser(user.role, user);
+      const userFromDB = await createNewData(user.role, user);
 
       // Kayıt olan her kullanıcıyı tek tabloda birleştiririz. 
-      const allUserFromDB = await createUser("allUser", {
+      const AllUserFromDB = await createNewData("AllUser", {
         email: user.email,
         role : user.role,
         name : user.name,
         surname : user.surname,
       });
-      return { user: userFromDB};
+      return userFromDB;
     }          
   } 
   catch (error) {

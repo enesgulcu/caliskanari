@@ -18,10 +18,6 @@ import Select from '@/components/formElements/select';
 import Stepper from "@/components/Stepper";
 
 
-
-
-
-
 export default function StudentRegisterComponent({ CitiesData }) {
   // şehirlerin listesini containerdan prop olarak alırız.
   const cities = CitiesData.data;
@@ -686,16 +682,26 @@ export default function StudentRegisterComponent({ CitiesData }) {
                           </button>
                         )}
                       </div>
-                      <div className='text-center mb-4'>
+                      <div className='text-center mb-4 gap-2 flex flex-col'>
                         <p className='text-md 2xl:text-xl 4xl:xl:text-2xl'>
-                          Zaten bir hesabınız var mı?
+                          Zaten bir hesabınız var mı?{' '}
                           <Link
                             
                             href={`${isloading || isRegister ? "#" : "/auth/login/student" }`}
                             className={`${isloading || isRegister ? "text-secondary cursor-default" : "text-primary font-semibold hover:underline"}  `}
                           >
-                            {' '}
                             Öğrenci Giriş.
+                          </Link>
+                        </p>
+                        <p className='text-md 2xl:text-xl 4xl:xl:text-2xl'>
+                          Şifrenizi mi unuttunuz?{' '}
+                          <Link
+                            
+                            href={`${isloading || isRegister ? "#" : "/auth/forgotPassword" }`}
+                            className={`${isloading || isRegister ? "text-secondary cursor-default" : "text-primary font-semibold hover:underline"}  `}
+                          >
+
+                            Şifremi Unuttum.
                           </Link>
                         </p>
                       </div>

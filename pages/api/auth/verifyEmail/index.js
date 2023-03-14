@@ -13,15 +13,17 @@ export default async function handler (req, res) {
 
 
         //const pastDay = Math.floor(LifeTime / (1000 * 60 * 60 * 24));
-        const pastHour = Math.floor((LifeTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-        const pastMinute = Math.floor((LifeTime % (1000 * 60 * 60)) / (1000 * 60));
+        //const pastMinute = Math.floor((LifeTime % (1000 * 60 * 60)) / (1000 * 60));
         //const pastSecond = Math.floor((LifeTime % (1000 * 60)) / 1000);
+
+        const pastHour = Math.floor((LifeTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 
 
         if(pastHour < 24){
             const  {error}  = await VerifyEmail(body.mail, body.role);
 
             if(error) throw new Error(error?.message);
+            
             return res.status(200).json({status: "success", message: "Mail adresiniz başarıyla onaylandı!"});
         }
 
@@ -33,7 +35,6 @@ export default async function handler (req, res) {
         return res.status(401).json({status: "error", message: "Mail adresiniz onaylanamadı!"});
     }
     } catch (error) {
-        console.log(error?.message)
         return res.status(401).json({status: "error", message: error?.message});
     }
 }
