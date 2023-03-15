@@ -8,7 +8,7 @@ import { useState } from 'react';
 import styles from "./resetPassword.module.css";
 import ResetPassword from "@/services/auth/resetPassword";
 
-export default function ResetPasswordComponent() {
+export default function ResetPasswordComponent(email) {
 
   const [isLogin, setIsLogin] = useState(false);
 
@@ -34,13 +34,12 @@ export default function ResetPasswordComponent() {
         initialValues={{          
           password: "",
           passwordConfirm: "",
+          email: email
         }}
         // input check
         validationSchema={resetPasswordValidationSchema}
-
-        onSubmit={(values) => {
-            
-          ResetPassword(values).then(data => {
+        onSubmit={ async (values) => {
+          await ResetPassword(values).then(data => {
               if (data.status === "success") {
                   toast.success(data.message);
               } else {

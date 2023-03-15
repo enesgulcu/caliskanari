@@ -1,6 +1,5 @@
 // Öğrenci (kayıt) işlemleri için kullanılan servis
-export async function VerifyEmail({searchParams}){
-    
+export default async function VerifyEmail(searchParams){
     const data = await fetch (`${process.env.NEXT_PUBLIC_API_URL}/auth/verifyEmail`,{
         method: 'POST',
         headers: {

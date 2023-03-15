@@ -1,7 +1,7 @@
 // INFO PAGE: // https://www.prisma.io/docs/concepts/components/prisma-client/crud#update-a-single-record
 import { getDataByUnique, createNewData } from "@/services/serviceOperations";
 
-export async function createNewUser(user) {
+export async function createNewUser(user, mailKey) {
   try {
     
     // kullanıcı kontrolü
@@ -25,6 +25,18 @@ export async function createNewUser(user) {
         name : user.name,
         surname : user.surname,
       });
+
+      // E-mail doğrulama işlemi için veritabanına kayıt oluşturur.
+      const createVerifyDB = await createNewData("VerifyEmail", {
+        email: user.email,
+        secretKey: mailKey,
+        validTime: Date.now(),
+      }); 
+
+      if(!createVerifyDB || !AllUserFromDB || !userFromDB){
+        throw new Error("Kayıt Oluşturulamadı.");
+      }
+
       return userFromDB;
     }          
   } 

@@ -1,16 +1,16 @@
 import React from 'react'
-export default function VerifyEmailComponent({data}) {
+export default function VerifyEmailComponent({status, error, message}) {
 
   return (
     <>
         {
-            data?.status === "success" ?
+            status === "success" ?
             <div className="container">
                 <div className="row">
                     <div className="col-12">
                         <div className="alert alert-success" role="alert">
-                            <h4 className="alert-heading">Tebrikler!</h4>
-                            <p>{data?.message}</p>
+                            <h4 className="alert-heading">Tebrikler! Mailiniz Onaylandı.</h4>
+                            <p>{message}</p>
                         </div>
                     </div>
                 </div>
@@ -20,8 +20,8 @@ export default function VerifyEmailComponent({data}) {
                 <div className="row">
                     <div className="col-12">
                         <div className="alert alert-danger" role="alert">
-                            <h4 className="alert-heading">Hata!</h4>
-                            <p>{data?.message}</p>
+                            <h4 className="alert-heading">HATA</h4>
+                            <p>{error ? error : message}</p>
                         </div>
                     </div>
                 </div>

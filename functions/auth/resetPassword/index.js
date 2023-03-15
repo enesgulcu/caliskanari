@@ -24,7 +24,7 @@ export default async function ResetPassword(searchParams) {
             throw new Error("Girdiğiniz Mail Adresi Geçersizdir.");
          }
 
-         return {success: true};
+         return {success: true, email: forgetPasswordData.email};
 
 
         

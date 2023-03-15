@@ -19,24 +19,22 @@ export default async function ResetPasswordContainer({searchParams}) {
     return notFound();
   }
 
-    const {success, error} = await ResetPassword(searchParams);
+    const {success, error, email} = await ResetPassword(searchParams);
+
   
-    if(success){
-      // BURAYA ŞİFRE SIFIRLAMA SAYFASINI GÖSTEREN KOMPENENT EKLENECEK YAPILMADI!
+    if(!success || error || !email){
       return (
-        <>  
-            <ResetPasswordComponent/>
-        </>
+      <div>
+        <h2>{error}</h2>
+      </div>
       )
     }
-    else{
-      return (
-        <>  
-          <h2>HATA! {error}</h2>
-        </>
-      )
-      // BURAYA HATA BİLDİRİMİNİ GÖSTEREN KOMPENENT EKLENECEK VE İÇİNE HATA MESAJI OTOMATİK GÖNDERİLECEK YAPILMADI!
-    }
+
+    return (
+      <>  
+          <ResetPasswordComponent email={email}/>
+      </>
+    )
 
   
   

@@ -1,41 +1,21 @@
-import DecryptPassword from "@/functions/auth/decryptPassword";
-import VerifyEmail from "@/functions/email/verify";
+import VerifyEmail from "@/functions/auth/verifyEmail";
+
 export default async function handler (req, res) {
     try {
-        const body = req.body;
-    
-    const secret = await DecryptPassword(process.env.MAIL_SECRET, body.key);
-   
-    if(secret && body.mail && body.time && body.role){
-        const time = parseInt(body.time);
-        const now = Date.now();
-        const LifeTime = now - time;
+        const searchParams = req.body;
 
+        if( !searchParams.key || !searchParams.email || !searchParams.time || !searchParams.role) {
+            throw new Error("Girdiğiniz bilgiler geçersizdir.");
+        }
 
-        //const pastDay = Math.floor(LifeTime / (1000 * 60 * 60 * 24));
-        //const pastMinute = Math.floor((LifeTime % (1000 * 60 * 60)) / (1000 * 60));
-        //const pastSecond = Math.floor((LifeTime % (1000 * 60)) / 1000);
-
-        const pastHour = Math.floor((LifeTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-
-
-        if(pastHour < 24){
-            const  {error}  = await VerifyEmail(body.mail, body.role);
-
-            if(error) throw new Error(error?.message);
+        const  {error}  = await VerifyEmail(searchParams);
+        if(error) throw new Error(error);
             
-            return res.status(200).json({status: "success", message: "Mail adresiniz başarıyla onaylandı!"});
-        }
-
-         else{
-             return res.status(401).json({status: "error", message: "Mail adresinizin onay süresi doldu!"});
-        }
+        return res.status(200).json({status: "success", message: "Mail adresiniz başarıyla onaylandı!"});
+        
     }
-    else{
-        return res.status(401).json({status: "error", message: "Mail adresiniz onaylanamadı!"});
-    }
-    } catch (error) {
-        return res.status(401).json({status: "error", message: error?.message});
+    catch (error) {
+        return res.status(401).json({status: "error", error: error?.message, message: "Mail Onaylama sırasında bir hata ile karşılaşıldı!"});
     }
 }
 

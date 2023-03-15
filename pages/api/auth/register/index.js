@@ -7,12 +7,14 @@ import getTurkeyTime from "@/functions/other/timeNow";
 
 export default async function handler (req, res) {
 
-    const date = (await getTurkeyTime()).date;
-    const time = (await getTurkeyTime()).time;
-    
     //getServerSession:  Kullanıcının oturum açıp açmadığını kontrol eder. Eğer açılmışsa session değişkenine atar.
     const session = await getServerSession(req, res, authOptions)
     if(!session){
+
+    const date = (await getTurkeyTime()).date;
+    const time = (await getTurkeyTime()).time;
+    
+    
         if(req.method === 'POST'){
             try {
                 const data = req.body;
@@ -33,9 +35,12 @@ export default async function handler (req, res) {
 
                 const mailKey = await EncryptPassword(process.env.MAIL_SECRET); 
                 data.password = await EncryptPassword(data.password);
+                const hashedEmail = await EncryptPassword(data.email);
                 
-                const {error, user} = await createNewUser(data);
+                const {error, user} = await createNewUser(data, mailKey);
                 if(error) throw new Error(error);
+
+                
 
                 //mail gönderme işlemi
                 transporter.sendMail({
@@ -49,7 +54,7 @@ export default async function handler (req, res) {
                     <h3 style='color:green'>${data.name} ${data.surname}</h3>
                     <p>${data.email} mail adresinin Kayıt işlemi ${date} tarihinde, ${time} saatinde başarıyla yapıldı!</p>
                     <p>Kayıt edilen telefon: ${data.phone}</p>
-                    <a style="cursor:pointer!important" href = ${process.env.NEXT_PUBLIC_URL}/auth/verifyEmail?key=${mailKey}&time=${Date.now()}&mail=${data.email}&role=${data.role}>
+                    <a style="cursor:pointer!important" href = ${process.env.NEXT_PUBLIC_URL}/auth/verifyEmail?key=${mailKey}&time=${Date.now()}&email=${hashedEmail}&role=${data.role}>
                         <button style="
                         cursor: pointer!important;
                         background: #3d7bf1;
