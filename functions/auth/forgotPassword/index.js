@@ -9,7 +9,7 @@ export async function createNewForgotPassword(email, {mailKey}) {
     const mailCheck = await getDataByUnique("AllUser", {email: email});
 
     // eğer doğrulanmamış bir hesaba bağlı bir kayıt varsa yen iveriyi üzerine yaz
-    if (mailCheck == null) {
+    if (mailCheck == null || mailCheck.error) {
       throw new Error("Bu email adresine kayıtlı bir kullanıcı bulunamadı!");
     }
     else {
@@ -20,7 +20,9 @@ export async function createNewForgotPassword(email, {mailKey}) {
       const ForgotPasswordCheck = await getDataByMany("ForgotPassword", {email: email});
       let currentTimes = [];
       let oldTimes = [];
-      if(ForgotPasswordCheck){
+      
+      if(mailCheck && ForgotPasswordCheck && !ForgotPasswordCheck.error){
+       
         ForgotPasswordCheck.map(async (item) => {
           const lifeTime = Date.now() - item.validTime;
           const pastHour = Math.floor((lifeTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -54,7 +56,7 @@ export async function createNewForgotPassword(email, {mailKey}) {
       // yeni bir kayıt oluştur
       const validTime = Date.now();
       const forgotPasswordFromDB = await  createNewData("ForgotPassword", {email:email, secretKey:mailKey, validTime:validTime})
-      if(forgotPasswordFromDB.error){
+      if(forgotPasswordFromDB.error || forgotPasswordFromDB == null || forgotPasswordFromDB == undefined){
         throw new Error(forgotPasswordFromDB.error);
       }
       return forgotPasswordFromDB;

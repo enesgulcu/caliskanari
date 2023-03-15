@@ -1,4 +1,4 @@
-import { getDataByUnique, updateDataByAny } from "@/services/serviceOperations";
+import { getDataByUnique, updateDataByAny, deleteDataByMany } from "@/services/serviceOperations";
 
 import DecryptPassword from "@/functions/auth/decryptPassword"
 
@@ -10,7 +10,7 @@ export default async function VerifyEmail({key, email, role}) {
       
     const verifyEmailData = await getDataByUnique("VerifyEmail", {secretKey: key});
     
-     if(!verifyEmailData) {
+     if(!verifyEmailData || verifyEmailData.error  || verifyEmailData == null) {
         throw new Error("Mail Doğrulama Linki Geçersizdir.");
      }
 
@@ -31,7 +31,7 @@ export default async function VerifyEmail({key, email, role}) {
       const mailCheck = await getDataByUnique(role, {email: verifyEmailData.email});
 
 
-    if (!mailCheck || mailCheck.role !== role) {
+    if (!mailCheck || mailCheck.role !== role || mailCheck == null || mailCheck.error) {
       throw new Error("Kullanıcı kaydı bulunamadı.");
     }
 
@@ -39,10 +39,11 @@ export default async function VerifyEmail({key, email, role}) {
       throw new Error("Mail adresiniz zaten onaylanmış.");
     }
 
-
     const userFromDB = await updateDataByAny(role, {email: verifyEmailData.email}, { verified: true});
    
-    if (!userFromDB) {
+    const deleteVerifyEmail = await deleteDataByMany ("VerifyEmail", {email: verifyEmailData.email});
+
+    if (!userFromDB || userFromDB.error || !deleteVerifyEmail || deleteVerifyEmail.error) {
       throw new Error("Mail adresiniz onaylanamadı bir hata ile karşılaşıldı!");
     }
 

@@ -25,12 +25,12 @@ export default async function handler (req, res) {
                     throw new Error("Şifre oluşturulamadı!");
                 }
                 const allUserFromDB = await getDataByUnique("AllUser", {email: email});
-                if(!allUserFromDB){
+                if(!allUserFromDB || allUserFromDB.error || allUserFromDB == null){
                     throw new Error("Kullanıcı bulunamadı!");
                 }
                 const role = await allUserFromDB.role;
                 const userFromDB = await updateDataByAny(role, {email: email}, { verified: true, password: hashedNewPassword});
-                if(!userFromDB){
+                if(!userFromDB || userFromDB.error || userFromDB == null){
                     throw new Error("Kullanıcı güncellenemedi!");
                 }
                 const deletforgotPasswordDB = await deleteDataByMany("ForgotPassword", {email: email});

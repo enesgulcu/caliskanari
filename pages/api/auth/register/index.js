@@ -37,7 +37,8 @@ export default async function handler (req, res) {
                 data.password = await EncryptPassword(data.password);
                 const hashedEmail = await EncryptPassword(data.email);
                 
-                const {error, user} = await createNewUser(data, mailKey);
+                const {error} = await createNewUser(data, mailKey);
+                
                 if(error) throw new Error(error);
 
                 

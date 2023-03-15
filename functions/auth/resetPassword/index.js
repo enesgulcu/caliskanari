@@ -6,7 +6,7 @@ export default async function ResetPassword(searchParams) {
    try {
     
     const forgetPasswordData = await getDataByUnique("ForgotPassword", {secretKey: searchParams.key});
-     if(!forgetPasswordData) {
+     if(!forgetPasswordData || forgetPasswordData.error  || forgetPasswordData == null) {
         throw new Error("Şifre Sıfırlama Linki Geçersizdir.");
      }
 

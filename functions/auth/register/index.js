@@ -10,21 +10,24 @@ export async function createNewUser(user, mailKey) {
     
 
     // eğer doğrulanmamış bir hesaba bağlı bir kayıt varsa yen iveriyi üzerine yaz
-    if (mailCheck != null ) {
+    if (mailCheck != null && !mailCheck.error) {
       return { error: "Bu e-mail adresine kayıtlı başka bir hesap bulunmaktadır. Şifremi unuttum bölümünden şifrenizi sıfırlayabilirsiniz." };
     }
 
 
     else {
+      // Kullanıcıyı veritabanına kayıt eder.
       const userFromDB = await createNewData(user.role, user);
-
-      // Kayıt olan her kullanıcıyı tek tabloda birleştiririz. 
-      const AllUserFromDB = await createNewData("AllUser", {
+      
+      //Kayıt olan her kullanıcıyı tek tabloda birleştiririz. 
+      const allUserFromDB = await createNewData("AllUser", {
         email: user.email,
         role : user.role,
         name : user.name,
         surname : user.surname,
       });
+      
+      
 
       // E-mail doğrulama işlemi için veritabanına kayıt oluşturur.
       const createVerifyDB = await createNewData("VerifyEmail", {
@@ -32,16 +35,16 @@ export async function createNewUser(user, mailKey) {
         secretKey: mailKey,
         validTime: Date.now(),
       }); 
-
-      if(!createVerifyDB || !AllUserFromDB || !userFromDB){
-        throw new Error("Kayıt Oluşturulamadı.");
+      
+      if( createVerifyDB.error || userFromDB.error || allUserFromDB.error || !createVerifyDB || !userFromDB || !allUserFromDB){
+        return { error: "Kayıt oluşturulamadı." };
       }
 
-      return userFromDB;
+      return { success: "Kayıt başarılı. E-mail adresinize doğrulama kodu gönderildi." };
     }          
   } 
   catch (error) {
-    return { error };
+    return { error: error.message };
   }
 }
 
