@@ -71,7 +71,7 @@ export default async function handler (req, res) {
                     `
                 })
                 
-                return res.status(200).json({status: "success", message: "Kayıt işlemi başarılı. Lütfen Mail adresinize gönderilen linke tıklayarak hesabınızı onaylayınız."});
+                return res.status(200).json({status: "success",role: data.role,  message: "Kayıt işlemi başarılı. Lütfen Mail adresinize gönderilen linke tıklayarak hesabınızı onaylayınız."});
             } catch (error) {
                 return res.status(500).json({status: "error", message: error.message}); 
            }                   

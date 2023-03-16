@@ -18,7 +18,14 @@ import Select from '@/components/formElements/select';
 import Stepper from "@/components/Stepper";
 
 
+
 export default function StudentRegisterComponent({ CitiesData }) {
+
+  const PageRole = 'student';
+  const PageLabelUpper = 'ÖĞRENCİ';
+  const PageLabelLover = 'öğrenci';
+  const PageLabelNormal = 'Öğrenci';
+
   // şehirlerin listesini containerdan prop olarak alırız.
   const cities = CitiesData.data;
 
@@ -29,10 +36,10 @@ export default function StudentRegisterComponent({ CitiesData }) {
 
   // yükleme ekranları tetikleneceği zaman çalışan state.
   const [isloading, setIsloading] = useState(false);
+  const [isRegister, setIsRegister] = useState(false);
 
   const [schollNames, setschollNames] = useState('');
-
-  const [isRegister, setIsRegister] = useState(false);
+  
   const [activeTab, setActiveTab] = useState(1);
 
   useEffect(() => {
@@ -147,7 +154,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
           validateOnMount={true}
           // input verileri
           initialValues={{
-            role: 'Student',
+            role: PageRole,
             verified: false,
             name: '',
             surname: '',
@@ -179,10 +186,10 @@ export default function StudentRegisterComponent({ CitiesData }) {
                 setIsRegister(true);
 
                 toast.success(res.message);
-
+                console.log(res);
                 //Bilgi verir ve 5 saniye sonra login sayfasına yönlendirir.
                 const timeOut = setInterval(() => {
-                  router.push('/auth/login/student');
+                  router.push(`/auth/login/${values.role}`);
                   clearInterval(timeOut);
                 }, 5000);
 
@@ -233,14 +240,15 @@ export default function StudentRegisterComponent({ CitiesData }) {
                       </div>
                     </div>
                     <h1 className='mb-4 md:mb-8 tracking-wider uppercase mt-4 text-2xl 2xl:text-3xl 4xl:text-5xl font-bold text-center text-white bg-secondary p-4'>
-                      Öğrenci Kayıt
+                      {`${PageLabelUpper} Kayıt`} 
                     </h1>
                     {/* Progress Bar (Stepper) */}
                     <div className='grid gap-8 mx-0 md:mx-8 row-gap-0 grid-cols-3 4xl:gap-40'>
                       {/* Progress Bar Step 1 */}
                       <Stepper
                         activeTab={1}
-                        title='Öğrenci Bilgileri'
+                        
+                        title={`${PageLabelNormal} Bilgileri`}
                         activeTitle={activeTab == 1}
                         showIcon={activeTab != 1}
                         icon={<FaCheck size={46} />}
@@ -687,10 +695,11 @@ export default function StudentRegisterComponent({ CitiesData }) {
                           Zaten bir hesabınız var mı?{' '}
                           <Link
                             
-                            href={`${isloading || isRegister ? "#" : "/auth/login/student" }`}
+                            href={`${isloading || isRegister ? "#" : "/auth/login/"+PageRole}`}
                             className={`${isloading || isRegister ? "text-secondary cursor-default" : "text-primary font-semibold hover:underline"}  `}
                           >
-                            Öğrenci Giriş.
+                            {`${PageLabelNormal} Giriş.`}
+
                           </Link>
                         </p>
                         <p className='text-md 2xl:text-xl 4xl:xl:text-2xl'>

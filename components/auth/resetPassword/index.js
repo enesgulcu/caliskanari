@@ -7,52 +7,74 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import styles from "./resetPassword.module.css";
 import ResetPassword from "@/services/auth/resetPassword";
+import Input from '@/components/formElements/input';
+import ErrorText from '@/components/formElements/errorText';
+import LoadingScreen from '@/components/loading';
 
 export default function ResetPasswordComponent(email) {
 
+  const [isloading, setIsloading] = useState(false);
   const [isLogin, setIsLogin] = useState(false);
 
   const router = useRouter();
 
   return (
-    <div className={styles.main}>
-      <ToastContainer
-        position="top-right"
-        autoClose={4000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
+  <>
+    { isloading && (<LoadingScreen isloading={isloading}/>) }
 
-      <Formik
-        // input verileri
-        initialValues={{          
-          password: "",
-          passwordConfirm: "",
-          email: email
-        }}
-        // input check
-        validationSchema={resetPasswordValidationSchema}
-        onSubmit={ async (values) => {
-          await ResetPassword(values).then(data => {
+    <div className={`${styles.main} ${isLogin ? "pointer-events-none" : "pointer-events-auto"}`}>
+        <ToastContainer
+          position="top-right"
+          autoClose={5000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
+
+        <Formik
+          // input verileri
+          initialValues={{
+            password: "",
+            passwordConfirm: "",
+            email: email,
+          }}
+          // input check
+          validationSchema={resetPasswordValidationSchema}
+
+          onSubmit={async (values) => {
+
+            setIsloading(true);
+
+            await ResetPassword(values).then((data) => {
+
               if (data.status === "success") {
-                  toast.success(data.message);
-              } else {
-                  toast.error(data.message);
-              }
-            })
-          
-        }}
-      >
+                setIsLogin(true);
+                toast.success(data.message + "Lütfen Bekleyin, yönlendiriliyorsunuz...");
+                setIsloading(false);
 
-        {(props) => (
-          <Form onSubmit={props.handleSubmit} className={`${isLogin ? "blur"  : ""} ${styles.main_container}`} >
-            
+                //Bilgi verir ve 5 saniye sonra login sayfasına yönlendirir.
+                const timeOut = setInterval(() => {
+                  router.push(`/auth/login/${data.role.toLowerCase()}`);
+                  clearInterval(timeOut);
+                }, 5000);
+                
+              } else {
+                toast.error(data.message);
+                setIsloading(false);
+              }
+            });
+          }}
+        >
+          {(props) => (
+            <Form
+              onSubmit={props.handleSubmit}
+              className={`${isLogin ? "blur" : ""} ${styles.main_container}`}
+            >
               <div className={styles.container}>
                 <div className={styles.container_left_side}>
                   <img
@@ -81,45 +103,54 @@ export default function ResetPasswordComponent(email) {
                       Şifre Sıfırlama
                     </h1>
                     <div className="mt-4">
-                      <label className="block text-sm">Yeni Şifre</label>
-                      <input
-                      id='password'
-                      name='password'
-                      autoComplete='off'
-                      type='password'
-                      value={props.values.password}
-                      onChange={props.handleChange}
-                      placeholder="Mail adresinizi giriniz."
-                      className="w-full px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                      <Input
+                        labelValue="Yeni Şifre"
+                        disabled={isLogin}
+                        id="password"
+                        name="password"
+                        type="password"
+                        value={props.values.password}
+                        onChange={props.handleChange}
+                        placeholder="şifrenizi giriniz."
                       />
+                      {props.touched.password && (
+                        <ErrorText>{props.errors.password}</ErrorText>
+                      )}
                     </div>
                     <div className="mt-4">
-                      <label className="block text-sm">Yeni Şifre Doğrulama</label>
-                      <input
-                      id='passwordConfirm'
-                      name='passwordConfirm'
-                      autoComplete='off'
-                      type='password'
-                      value={props.values.passwordConfirm}
-                      onChange={props.handleChange}
-                      placeholder="Mail adresinizi giriniz."
-                      className="w-full px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                      <Input
+                        labelValue="Yeni Şifre Doğrulama"
+                        disabled={isLogin}
+                        id="passwordConfirm"
+                        name="passwordConfirm"
+                        type="password"
+                        value={props.values.passwordConfirm}
+                        onChange={props.handleChange}
+                        placeholder="Şifrenizi tekrar giriniz."
                       />
+                      {props.touched.passwordConfirm && (
+                        <ErrorText>{props.errors.passwordConfirm}</ErrorText>
+                      )}
                     </div>
-                    <button
-                    disabled={isLogin}
-                      className={`${isLogin ? "bg-gray-600 active:bg-gray-600 hover:bg-gray-600" : "bg-blue-600 active:bg-blue-600 hover:bg-blue-700"} mb-8 block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150  border border-transparent rounded-lg  focus:outline-none focus:shadow-outline-blue`}
-                      href="#"
-                    >
-                      Şifreyi Sıfırla
-                    </button>
+
+                    <div className="w-full flex justify-center mt-6">
+                      <button
+                        disabled={isLogin}
+                        type="submit"
+                        className={`${isLogin == true ? "bg-secondary" : "bg-primary hover:bg-primarydark"}  w-3/4 mb-6 text-white text-xl 4xl:text-6xl border rounded-md p-4 `}
+                      >
+                        Şifreyi Sıfırla
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
-          </Form>
-        )}
-      </Formik>
+            </Form>
+          )}
+        </Formik>
     </div>
+  </>
+    
   );
 }
 

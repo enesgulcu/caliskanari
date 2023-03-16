@@ -7,6 +7,8 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import styles from "./forgotPassword.module.css";
 import ForgotPassword from "@/services/auth/forgotPassword";
+import Input from '@/components/formElements/input';
+import ErrorText from '@/components/formElements/errorText';
 
 export default function ForgotPasswordComponent() {
 
@@ -40,8 +42,10 @@ export default function ForgotPasswordComponent() {
         onSubmit={(values) => {
             
             ForgotPassword(values).then(data => {
+              
               if (data.status === "success") {
                   toast.success(data.message);
+                  setIsLogin(true);
               } else {
                   toast.error(data.message);
               }
@@ -81,25 +85,31 @@ export default function ForgotPasswordComponent() {
                       Şifre Sıfırlama
                     </h1>
                     <div className="mt-4">
-                      <label className="block text-sm">Email</label>
-                      <input
+                    <Input
+                      labelValue='Email'
+                      disabled={isLogin}
                       id='email'
                       name='email'
-                      autoComplete='off'
                       type='email'
                       value={props.values.email}
                       onChange={props.handleChange}
-                      placeholder="Mail adresinizi giriniz."
-                      className="w-full px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                      />
+                      placeholder='Mail adresinizi giriniz.'
+                    />
+                    {props.touched.email &&
+                      <ErrorText >
+                        {props.errors.email}
+                      </ErrorText>
+                    }
                     </div>
-                    <button
-                    disabled={isLogin}
-                      className={`${isLogin ? "bg-gray-600 active:bg-gray-600 hover:bg-gray-600" : "bg-blue-600 active:bg-blue-600 hover:bg-blue-700"} block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150  border border-transparent rounded-lg  focus:outline-none focus:shadow-outline-blue`}
-                      href="#"
-                    >
-                      Şifre İçin Mail Gönder
-                    </button>
+                    <div className="w-full flex justify-center my-4">
+                      <button
+                        disabled={isLogin}
+                        type='submit'
+                        className={`${isLogin == true ? "bg-secondary" : "bg-primary hover:bg-primarydark"}  w-3/4 text-white text-xl 4xl:text-6xl border rounded-md p-4 `}
+                      >
+                        Şifre İçin Mail Gönder
+                      </button>
+                    </div>
                   </div>
                 </div>
               </div>
