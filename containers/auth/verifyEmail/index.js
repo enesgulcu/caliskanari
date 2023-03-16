@@ -1,6 +1,7 @@
 import React from 'react'
 import VerifyEmailComponent from '@/components/auth/verifyEmail'
-import VerifyEmail from '@/services/auth/verifyEmail'
+import {postAPI} from '@/services/fetchAPI';
+
 import {notFound} from 'next/navigation'
 
 export default async function VerifyEmailContainer({searchParams}) {
@@ -25,7 +26,7 @@ export default async function VerifyEmailContainer({searchParams}) {
     return notFound();
   }
 
-    const {status, error, message} = await VerifyEmail(searchParams);
+    const {status, error, message} = await postAPI("/auth/verifyEmail", searchParams);
 
     if(status){
       return (

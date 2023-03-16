@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import styles from "./forgotPassword.module.css";
-import ForgotPassword from "@/services/auth/forgotPassword";
+import {postAPI} from "@/services/fetchAPI";
 import Input from '@/components/formElements/input';
 import ErrorText from '@/components/formElements/errorText';
 
@@ -20,7 +20,7 @@ export default function ForgotPasswordComponent() {
     <div className={styles.main}>
       <ToastContainer
         position="top-right"
-        autoClose={4000}
+        autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}
         closeOnClick
@@ -41,11 +41,16 @@ export default function ForgotPasswordComponent() {
 
         onSubmit={(values) => {
             
-            ForgotPassword(values).then(data => {
+            postAPI("/auth/forgotPassword", values.email).then(data => {
               
               if (data.status === "success") {
                   toast.success(data.message);
                   setIsLogin(true);
+
+                  setTimeout(() => {
+                    router.push('/');
+                  }, 5000);
+
               } else {
                   toast.error(data.message);
               }
@@ -55,7 +60,7 @@ export default function ForgotPasswordComponent() {
       >
 
         {(props) => (
-          <Form onSubmit={props.handleSubmit} className={`${isLogin ? "blur"  : ""} ${styles.main_container}`} >
+          <Form onSubmit={props.handleSubmit} className={`${isLogin ? "blur"  : ""} ${styles.main_container} md:scale-75 2xl:scale-100`} >
             
               <div className={styles.container}>
                 <div className={styles.container_left_side}>
@@ -105,9 +110,9 @@ export default function ForgotPasswordComponent() {
                       <button
                         disabled={isLogin}
                         type='submit'
-                        className={`${isLogin == true ? "bg-secondary" : "bg-primary hover:bg-primarydark"}  w-3/4 text-white text-xl 4xl:text-6xl border rounded-md p-4 `}
+                        className={`${isLogin == true ? "bg-secondary" : "bg-primary hover:bg-primarydark"}  w-full text-white text-xl 4xl:text-6xl border rounded-md p-4 `}
                       >
-                        Şifre İçin Mail Gönder
+                        Şifre Sıfırlama Maili Gönder
                       </button>
                     </div>
                   </div>

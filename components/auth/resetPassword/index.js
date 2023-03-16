@@ -6,7 +6,7 @@ import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import styles from "./resetPassword.module.css";
-import ResetPassword from "@/services/auth/resetPassword";
+import {postAPI} from '@/services/fetchAPI';
 import Input from '@/components/formElements/input';
 import ErrorText from '@/components/formElements/errorText';
 import LoadingScreen from '@/components/loading';
@@ -50,11 +50,11 @@ export default function ResetPasswordComponent(email) {
 
             setIsloading(true);
 
-            await ResetPassword(values).then((data) => {
+            await postAPI("/auth/resetPassword", values).then((data) => {
 
               if (data.status === "success") {
                 setIsLogin(true);
-                toast.success(data.message + "Lütfen Bekleyin, yönlendiriliyorsunuz...");
+                toast.success(data.message + " Lütfen Bekleyin, yönlendiriliyorsunuz...");
                 setIsloading(false);
 
                 //Bilgi verir ve 5 saniye sonra login sayfasına yönlendirir.
@@ -137,7 +137,7 @@ export default function ResetPasswordComponent(email) {
                       <button
                         disabled={isLogin}
                         type="submit"
-                        className={`${isLogin == true ? "bg-secondary" : "bg-primary hover:bg-primarydark"}  w-3/4 mb-6 text-white text-xl 4xl:text-6xl border rounded-md p-4 `}
+                        className={`${isLogin == true ? "bg-secondary" : "bg-primary hover:bg-primarydark"}  w-full mb-6 text-white text-xl 4xl:text-6xl border rounded-md p-4 `}
                       >
                         Şifreyi Sıfırla
                       </button>

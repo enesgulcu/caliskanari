@@ -1,5 +1,5 @@
 'use client';
-import { createUser } from '@/services/auth/register/index';
+import {postAPI} from '@/services/fetchAPI/index';
 import getAdress from '@/services/auth/register/getAdress';
 import { ToastContainer, toast } from 'react-toastify';
 import studentValidationSchema from './formikData';
@@ -179,14 +179,13 @@ export default function StudentRegisterComponent({ CitiesData }) {
             // girilen telefonlarda boşlukları siler ve sonrasında son 10 haniesini alma
             values.phone = values.phone.replace(/\s/g, "").slice(-10);
 
-            createUser(values).then((res) => {
+            postAPI("/auth/register/", values).then((res) => {
               if (res.status === 'success') {
                 // Giriş başarılı ise ekrana "blur" efekti verir
                 setIsloading(false);
                 setIsRegister(true);
 
                 toast.success(res.message);
-                console.log(res);
                 //Bilgi verir ve 5 saniye sonra login sayfasına yönlendirir.
                 const timeOut = setInterval(() => {
                   router.push(`/auth/login/${values.role}`);
@@ -684,7 +683,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                           <button
                             disabled={isloading  == true ||  isRegister == true}
                             type='submit'
-                            className={`${isloading == true ||  isRegister == true ? "bg-secondary" : "bg-primary hover:bg-primarydark"}  w-3/4 mb-6 text-white text-xl 4xl:text-6xl border rounded-md p-4 `}
+                            className={`${isloading == true ||  isRegister == true ? "bg-secondary" : "bg-primary hover:bg-primarydark"}  w-full mb-6 text-white text-xl 4xl:text-6xl border rounded-md p-4 `}
                           >
                             Kayıt Ol
                           </button>

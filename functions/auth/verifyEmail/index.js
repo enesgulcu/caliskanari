@@ -19,6 +19,10 @@ export default async function VerifyEmail({key, email, role}) {
       const pastHour = Math.floor((LifeTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       
       if(pastHour >= 24){
+         const {error} = await deleteDataByMany("VerifyEmail", {email: verifyEmailData.email});
+            if(error){
+              throw new Error(error.message);
+            }
          throw new Error("Mail Doğrulama Linkinin Geçerlilik Süresi Bitmiştir. Lütfen Yeni Bir Mail Doğrulama Talebinde Bulununuz.");
       }
 

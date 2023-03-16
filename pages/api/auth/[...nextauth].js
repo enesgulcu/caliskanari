@@ -1,8 +1,6 @@
 import NextAuth from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials";
-import { loginAdmin } from "@/services/auth/login";
-import { loginStudent } from "@/services/auth/login";
-import jwt from "jsonwebtoken";
+import {postAPI} from "@/services/fetchAPI";
 
 let loginPageRoute = "student";
 
@@ -23,19 +21,24 @@ export const authOptions = {
         // kontrol edilecek (email ve password) bilgilerini credentials değişkeninden alıyoruz.
         const { email, password, role} = credentials;
         // giriş yapılacak sayfayı role değişkeninden alıyoruz.
-      
+        const cookie = req.headers.cookie;
+        console.log(cookie)
         loginPageRoute = role;
         
-        if(role === "admin"){
+        if(role){
           // yukarıda aldığımız giriş bilgilerini => [email eşleşmesi, password doğrulaması] için fonksiyonumuza gönderiyoruz.
-          const  {admin} = await loginAdmin({ email, password });
-          if(admin === null || !admin.ok){
-            throw new Error("Kullanıcı adı veya şifre hatalı");
+          const  {userFromDB, success, error} = await postAPI(`/auth/login`, {role, email, password});
+          
+          if(userFromDB === null || !success || userFromDB === undefined || error){
+            throw new Error(error);
           }
-          const user =  { 
-            name: admin.name,
-            surname: admin.surname, 
-            role: admin.role  
+          
+
+          const user =  {
+            name: userFromDB.name,
+            surname: userFromDB.surname, 
+            role: userFromDB.role,
+            email: userFromDB.email,  
           };
           
           if (user) {
@@ -43,23 +46,8 @@ export const authOptions = {
           }
         }
 
-        else if(role === "student"){
-          // yukarıda aldığımız giriş bilgilerini => [email eşleşmesi, password doğrulaması] için fonksiyonumuza gönderiyoruz.
-          const  { student } = await loginStudent({ email, password });
-              
-          const user =  { 
-            id: student.id, 
-            name: student.name, 
-            role: student.role,  
-          };
-          
-          if (user) {
-              return user;
-          }
-        }
-        
         else{
-          return null;
+          throw new Error("Giriş işleminde bir hata oluştu.");
         }        
       }
     }),

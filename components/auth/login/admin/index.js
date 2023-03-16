@@ -6,6 +6,8 @@ import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import styles from "./adminLogin.module.css";
+import Input from '@/components/formElements/input';
+import ErrorText from '@/components/formElements/errorText';
 
 // session: giriş yapmış kullanıcıyı temsil eder varsa bilgileri içinde barındırır.
 // signIn:  kullanıcıyı giriş yapmaya yönlendirmek için kullanılır.
@@ -47,7 +49,7 @@ export default function AdminLoginComponent() {
           const result = signIn('credentials', {
             email: values.email,
             password: values.password,
-            role: "admin",
+            role: "Admin",
             callbackUrl:"/", 
             redirect: false, 
           });
@@ -65,7 +67,6 @@ export default function AdminLoginComponent() {
             }
             else{
               toast.error("Girdiğiniz bilgiler hatalıdır. Lütfen kontrol edip tekrar deneyiniz.")
-              
             }
           })
           
@@ -100,34 +101,45 @@ export default function AdminLoginComponent() {
                         />
                       </div>
                     </div>
+                    
                     <h1 className="mb-4 mt-4 text-2xl font-bold text-center text-gray-700">
                       Admin Giriş
                     </h1>
+
                     <div className="mt-4">
-                      <label className="block text-sm">Email</label>
-                      <input
+                    <Input
+                      labelValue='Email'
+                      disabled={isLogin}
                       id='email'
                       name='email'
-                      autoComplete='off'
-                      type='email'
+                      type='text'
                       value={props.values.email}
                       onChange={props.handleChange}
-                      placeholder="Mail adresinizi giriniz."
-                      className="w-full px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                      />
+                      placeholder='Mail adresinizi giriniz.'
+                    />
+                    {props.touched.email &&
+                    <ErrorText >
+                      {props.errors.email}
+                    </ErrorText>
+                    }
                     </div>
-                    <div>
-                      <label className="block mt-4 text-sm">Şifre</label>
 
-                      <input 
+                    <div>
+                      <Input
+                        labelValue='Şifre'
+                        disabled={isLogin}
                         id='password'
                         name='password'
                         type='password'
                         value={props.values.password}
                         onChange={props.handleChange}
-                        placeholder="******"
-                        className="w-full px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                        placeholder='******'
                       />
+                      {props.touched.password &&
+                      <ErrorText >
+                        {props.errors.password}
+                      </ErrorText>
+                      }
                     </div>
                     
                     <button

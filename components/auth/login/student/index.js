@@ -4,15 +4,17 @@ import studentValidationSchema from "./formikData";
 import { ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
-import { useState, useEffect } from 'react';
-import styles from "./studentLogin.module.css";
+import { useState } from 'react';
+import styles from "./login.module.css";
 import Link from "next/link";
 
 // session: giriş yapmış kullanıcıyı temsil eder varsa bilgileri içinde barındırır.
 // signIn:  kullanıcıyı giriş yapmaya yönlendirmek için kullanılır.
 import { signIn } from "next-auth/react";
 
-export default function StudentLoginComponent() {
+export default function LoginComponent({pageRole}) {
+
+ 
 
   const [isLogin, setIsLogin] = useState(false);
 
@@ -49,12 +51,13 @@ export default function StudentLoginComponent() {
           const result = signIn('credentials', {
             email: values.email,
             password: values.password,
-            role: "student",
+            role: pageRole,
             callbackUrl:"/", 
             redirect: false, 
           });
           
           result.then((res) => {
+            
             if(res.ok){
               
               setIsLogin(true);
@@ -66,7 +69,8 @@ export default function StudentLoginComponent() {
               }, 3000);
             }
             else{
-              toast.error("Girdiğiniz bilgiler hatalıdır. Lütfen kontrol edip tekrar deneyiniz.")
+              console.log(res);
+              toast.error(res.error)
               
             }
           })
@@ -157,7 +161,7 @@ export default function StudentLoginComponent() {
 
                     <div className="mt-4 text-center">
                     <p className="text-md">
-                    Kayıtlı hesabınız yok mu?<Link href="/auth/register/student" className="text-blue-600 hover:underline"> Öğrenci Kayıt.</Link>
+                    Kayıtlı hesabınız yok mu?<Link href={`/auth/register/${pageRole}`} className="text-blue-600 hover:underline"> Öğrenci Kayıt.</Link>
                     </p>
                     </div>
                   </div>
