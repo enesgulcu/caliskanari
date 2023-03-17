@@ -12,12 +12,12 @@ const roles = {
 export default withAuth(
   function middleware(req) {
 
+   let ip = "selam"; 
+   ip = req.headers['x-real-ip'] || req?.connection?.remoteAddress || req?.socket?.remoteAddress || req?.connection?.socket?.remoteAddress;
     
-  const ip = req.headers['x-real-ip'] || req?.connection?.remoteAddress || req?.socket?.remoteAddress || req?.connection?.socket?.remoteAddress;
-    
-    if(ip){
+
       return NextResponse.rewrite(new URL(`/${ip}`, req.url));
-    }
+    
 
 
     // kullanıcı bilgilerini çekeriz
