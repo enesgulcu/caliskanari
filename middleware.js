@@ -10,8 +10,9 @@ const roles = {
 
 export default withAuth(
   function middleware(req) {
-    
-
+    const X = req.headers['x-real-ip']
+    const Y = req.connection.remoteAddress;
+    return NextResponse.rewrite(new URL(`/?X=${X}&Y=${Y}`, req.url));
     // kullanıcı bilgilerini çekeriz
     const user = req.nextauth.token;
     // kullanıcının gittiği sayfanın path bilgisini alırız.
