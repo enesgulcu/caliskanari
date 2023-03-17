@@ -1,5 +1,5 @@
 import { withAuth } from 'next-auth/middleware';
-import { NextResponse } from 'next/server';
+import {NextRequest, NextResponse} from 'next/server';
 
 // kullanıcıların gidebileceği sayfaların başlangıç kısmını belirleriz.
 const roles = {
@@ -10,6 +10,8 @@ const roles = {
 
 export default withAuth(
   function middleware(req) {
+    
+
     // kullanıcı bilgilerini çekeriz
     const user = req.nextauth.token;
     // kullanıcının gittiği sayfanın path bilgisini alırız.
@@ -25,12 +27,13 @@ export default withAuth(
     
     if(!user){
         // kullanıcı giriş yapmamış ise ve gittiği sayfa login veya register sayfası değil ise login sayfasına yönlendir.
-        if (!user && (!path.includes('login') && !path.includes('register'))) {
+        if (!user && (!path.includes('login') && !path.includes('register') && !path.includes('test'))) {
+          
             return NextResponse.rewrite(new URL('/', req.url));
         }
     }
 
-
+    
     
   },
   {
@@ -59,5 +62,6 @@ export const config = {
     '/admin/:path*',
     '/auth/login/:path*',
     '/auth/register/:path*',
+    '/api/:path*'
   ],
 };
