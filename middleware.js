@@ -16,7 +16,7 @@ export default withAuth(
    ip = req.headers['x-real-ip'] || req?.connection?.remoteAddress || req?.socket?.remoteAddress || req?.connection?.socket?.remoteAddress;
     
 
-      return NextResponse.rewrite(new URL(`/${ip}`, req.url));
+      return NextResponse.redirect(new URL(`/${ip}`, req.url));
     
 
 
