@@ -14,20 +14,24 @@ export default async function loginFunction({role, email, password}) {
         if(!userFromDB) throw new Error("Bu mail adresi ile kayıtlı bir öğrenci bulunamadı.");
         
 
-        if(role != "Admin" && userFromDB.verified == false){
-           throw new Error("Lütfen mail adresinizi doğrulayınız.");
-        }
+        
 
         const PasswordFromDB = role == "Admin" ? userFromDB.password + process.env.ADMIN_PASSWORD : userFromDB.password;
         
         const passwordCheck = await DecryptPassword(password, PasswordFromDB);
-        console.log(passwordCheck);
-        if(!passwordCheck) throw new Error("Şifre hatalı.");
+        
+        if(!passwordCheck) throw new Error("Mail adresi veya şifre hatalı.");
+
+        if(role != "Admin" && userFromDB.verified == false){
+            let error = new Error('Lütfen mail adresinizi doğrulayınız.');
+            error.status = 400;
+            error.verfyEmail = false;
+            throw error;
+         }
 
         return {success: true, userFromDB: userFromDB};
-    } catch (error) {
-        
-        return {success: false, error: error.message};
+    } catch (error) {   
+        return {success: false, error: error};
     }
 
 }

@@ -1,5 +1,5 @@
 import { withAuth } from 'next-auth/middleware';
-import {NextRequest, NextResponse} from 'next/server';
+import {NextResponse} from 'next/server';
 
 // kullanıcıların gidebileceği sayfaların başlangıç kısmını belirleriz.
 const roles = {
@@ -11,19 +11,6 @@ const roles = {
 
 export default withAuth(
   function middleware(req) {
-
-   let ip = "selam"; 
-   if (req?.headers['x-forwarded-for']) {
-    ip = req?.headers['x-forwarded-for'].split(',')[0];
-  } else if (req?.headers['x-real-ip']) {
-    ip = req?.connection?.remoteAddress;
-  } else {
-    ip = req?.connection?.remoteAddress;
-  }
-
-      return NextResponse.redirect(new URL(`/${ip}`, req.url));
-    
-
 
     // kullanıcı bilgilerini çekeriz
     const user = req.nextauth.token;

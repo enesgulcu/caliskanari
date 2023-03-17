@@ -34,6 +34,8 @@ export default function StudentRegisterComponent({ CitiesData }) {
   const [towns, setTowns] = useState('');
   const [schooltype, setSchooltype] = useState('');
 
+
+
   // yükleme ekranları tetikleneceği zaman çalışan state.
   const [isloading, setIsloading] = useState(false);
   const [isRegister, setIsRegister] = useState(false);
@@ -195,6 +197,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                 values.password = '';
                 values.passwordConfirm = '';
               } else {
+
                 setIsloading(false);
                 // girilen mail adresi daha önce kullanılmış ise hata mesajı verir. ve şifreleri temizler.
                 toast.error(

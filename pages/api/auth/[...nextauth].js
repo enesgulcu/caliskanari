@@ -21,8 +21,6 @@ export const authOptions = {
         // kontrol edilecek (email ve password) bilgilerini credentials değişkeninden alıyoruz.
         const { email, password, role} = credentials;
         // giriş yapılacak sayfayı role değişkeninden alıyoruz.
-        const cookie = req.headers.cookie;
-        console.log(cookie)
         loginPageRoute = role;
         
         if(role){
@@ -32,7 +30,6 @@ export const authOptions = {
           if(userFromDB === null || !success || userFromDB === undefined || error){
             throw new Error(error);
           }
-          
 
           const user =  {
             name: userFromDB.name,

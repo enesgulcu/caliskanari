@@ -14,7 +14,7 @@ import { signIn } from "next-auth/react";
 
 export default function LoginComponent({pageRole}) {
 
- 
+  const [mailIsNotVerify , setMailIsNotVerify] = useState(false);
 
   const [isLogin, setIsLogin] = useState(false);
 
@@ -69,9 +69,11 @@ export default function LoginComponent({pageRole}) {
               }, 3000);
             }
             else{
-              console.log(res);
-              toast.error(res.error)
-              
+              if(!res.verfyEmail && !res.verfyEmail != undefined){
+                setMailIsNotVerify(true);
+                setIsLogin(true);
+              }
+              toast.error(res.error);
             }
           })
           
