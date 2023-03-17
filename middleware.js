@@ -13,8 +13,13 @@ export default withAuth(
   function middleware(req) {
 
    let ip = "selam"; 
-   ip = req.headers['x-real-ip'] || req?.connection?.remoteAddress || req?.socket?.remoteAddress || req?.connection?.socket?.remoteAddress;
-    
+   if (req?.headers['x-forwarded-for']) {
+    ip = req?.headers['x-forwarded-for'].split(',')[0];
+  } else if (req?.headers['x-real-ip']) {
+    ip = req?.connection?.remoteAddress;
+  } else {
+    ip = req?.connection?.remoteAddress;
+  }
 
       return NextResponse.redirect(new URL(`/${ip}`, req.url));
     
