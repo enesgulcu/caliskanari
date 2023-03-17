@@ -8,11 +8,18 @@ const roles = {
   admin: '/admin',
 };
 
+
 export default withAuth(
   function middleware(req) {
-    const X = req.headers['x-real-ip']
-    const Y = req.connection.remoteAddress;
-    return NextResponse.rewrite(new URL(`/${X}`, req.url));
+
+    
+  const ip = req.headers['x-real-ip'] || req?.connection?.remoteAddress || req?.socket?.remoteAddress || req?.connection?.socket?.remoteAddress;
+    
+    if(ip){
+      return NextResponse.rewrite(new URL(`/${ip}`, req.url));
+    }
+
+
     // kullanıcı bilgilerini çekeriz
     const user = req.nextauth.token;
     // kullanıcının gittiği sayfanın path bilgisini alırız.
