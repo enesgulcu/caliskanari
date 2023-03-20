@@ -5,14 +5,14 @@ import { ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import styles from "./forgotPassword.module.css";
+import styles from "./styles.module.css";
 import {postAPI} from "@/services/fetchAPI";
 import Input from '@/components/formElements/input';
 import ErrorText from '@/components/formElements/errorText';
 
 export default function ForgotPasswordComponent() {
 
-  const [isLogin, setIsLogin] = useState(false);
+  const [isAccessing, setIsAccessing] = useState(false);
 
   const router = useRouter();
 
@@ -45,7 +45,7 @@ export default function ForgotPasswordComponent() {
               
               if (data.status === "success") {
                   toast.success(data.message);
-                  setIsLogin(true);
+                  setIsAccessing(true);
 
                   setTimeout(() => {
                     router.push('/');
@@ -60,7 +60,7 @@ export default function ForgotPasswordComponent() {
       >
 
         {(props) => (
-          <Form onSubmit={props.handleSubmit} className={`${isLogin ? "blur"  : ""} ${styles.main_container} md:scale-75 2xl:scale-100`} >
+          <Form onSubmit={props.handleSubmit} className={`${isAccessing ? "blur"  : ""} ${styles.main_container} md:scale-75 2xl:scale-100`} >
             
               <div className={styles.container}>
                 <div className={styles.container_left_side}>
@@ -92,7 +92,7 @@ export default function ForgotPasswordComponent() {
                     <div className="mt-4">
                     <Input
                       labelValue='Email'
-                      disabled={isLogin}
+                      disabled={isAccessing}
                       id='email'
                       name='email'
                       type='email'
@@ -108,9 +108,9 @@ export default function ForgotPasswordComponent() {
                     </div>
                     <div className="w-full flex justify-center my-4">
                       <button
-                        disabled={isLogin}
+                        disabled={isAccessing}
                         type='submit'
-                        className={`${isLogin == true ? "bg-secondary" : "bg-primary hover:bg-primarydark"}  w-full text-white text-xl 4xl:text-6xl border rounded-md p-4 `}
+                        className={`${isAccessing == true ? "bg-secondary" : "bg-primary hover:bg-primarydark"}  w-full text-white text-xl 4xl:text-6xl border rounded-md p-4 `}
                       >
                         Şifre Sıfırlama Maili Gönder
                       </button>

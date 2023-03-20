@@ -1,51 +1,54 @@
 import React from 'react'
 import VerifyEmailComponent from '@/components/auth/verifyEmail'
 import {postAPI} from '@/services/fetchAPI';
-
-import {notFound} from 'next/navigation'
+import {notFound} from 'next/navigation';
+import Notification from '@/components/notification';
 
 export default async function VerifyEmailContainer({searchParams}) {
 
+  try {
+    // eğer key veya mail boş ise mail doğrulama talebi gelmemiş demektir.
+    // mail doğrulama formunu göster.
+    if(!searchParams || !searchParams.email){
+      
+      // Mail doğrulama formu.
+      return(
+        <VerifyEmailComponent/>
+      )
+    }
+    
+    else if(
+      
+      searchParams.key &&
+      searchParams.email &&
+      searchParams.time &&
+      searchParams.role
+      ){
+       
+        const {error, message, status} = await postAPI("/auth/verifyEmail", searchParams);
+        if(error){ 
+          throw new Error(error);
+        }
+        if(status === "success"){
+          return <Notification url={"/"} label={"Mail Doğrulama Başarılı!"} message={message} type={"success"} buttonText={"Ana Sayfaya Git"} />
+        }
+        else{
+          return <Notification url={"/"} label={"Mail Doğrulama Başarısız!"} message={message} type={"error"} buttonText={"Ana Sayfaya Git"} />
+        }
+      }
 
-
-  // eğer key veya mail boş ise 404 Not Foud döndür.
-  if(
-    searchParams.key == undefined ||
-    searchParams.key == null ||
-    searchParams.key == "" ||
-    searchParams.email == undefined ||
-    searchParams.email == "" ||
-    searchParams.email == null ||
-    searchParams.time == undefined ||
-    searchParams.time == "" ||
-    searchParams.time == null ||
-    searchParams.role == "undefined" ||
-    searchParams.role == "" ||
-    searchParams.role == null
-    ){
-    return notFound();
+      else{
+        
+        return notFound();
+      }
+    
+  } catch (error) {
+    console.log(error.message);
+      return notFound();
+  }
   }
 
-    const {status, error, message} = await postAPI("/auth/verifyEmail", searchParams);
-
-    if(status){
-      return (
-        <>  
-            <VerifyEmailComponent status={status} error={error} message={message}/>
-        </>
-      )
-    }
-    else{
-      return (
-        <>  
-          <VerifyEmailComponent status={error} error={error} message={message}/>
-        </>
-      )
-      // BURAYA HATA BİLDİRİMİNİ GÖSTEREN KOMPENENT EKLENECEK VE İÇİNE HATA MESAJI OTOMATİK GÖNDERİLECEK YAPILMADI!
-    }
-
+    
   
   
 
-  
-}

@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import styles from "./resetPassword.module.css";
+import styles from "./styles.module.css";
 import {postAPI} from '@/services/fetchAPI';
 import Input from '@/components/formElements/input';
 import ErrorText from '@/components/formElements/errorText';
@@ -14,7 +14,7 @@ import LoadingScreen from '@/components/loading';
 export default function ResetPasswordComponent(email) {
 
   const [isloading, setIsloading] = useState(false);
-  const [isLogin, setIsLogin] = useState(false);
+  const [isAccessing, setIsAccessing] = useState(false);
 
   const router = useRouter();
 
@@ -22,7 +22,7 @@ export default function ResetPasswordComponent(email) {
   <>
     { isloading && (<LoadingScreen isloading={isloading}/>) }
 
-    <div className={`${styles.main} ${isLogin ? "pointer-events-none" : "pointer-events-auto"}`}>
+    <div className={`${styles.main} ${isAccessing ? "pointer-events-none" : "pointer-events-auto"}`}>
         <ToastContainer
           position="top-right"
           autoClose={5000}
@@ -53,7 +53,7 @@ export default function ResetPasswordComponent(email) {
             await postAPI("/auth/resetPassword", values).then((data) => {
 
               if (data.status === "success") {
-                setIsLogin(true);
+                setIsAccessing(true);
                 toast.success(data.message + " Lütfen Bekleyin, yönlendiriliyorsunuz...");
                 setIsloading(false);
 
@@ -73,7 +73,7 @@ export default function ResetPasswordComponent(email) {
           {(props) => (
             <Form
               onSubmit={props.handleSubmit}
-              className={`${isLogin ? "blur" : ""} ${styles.main_container}`}
+              className={`${isAccessing ? "blur" : ""} ${styles.main_container}`}
             >
               <div className={styles.container}>
                 <div className={styles.container_left_side}>
@@ -105,7 +105,7 @@ export default function ResetPasswordComponent(email) {
                     <div className="mt-4">
                       <Input
                         labelValue="Yeni Şifre"
-                        disabled={isLogin}
+                        disabled={isAccessing}
                         id="password"
                         name="password"
                         type="password"
@@ -120,7 +120,7 @@ export default function ResetPasswordComponent(email) {
                     <div className="mt-4">
                       <Input
                         labelValue="Yeni Şifre Doğrulama"
-                        disabled={isLogin}
+                        disabled={isAccessing}
                         id="passwordConfirm"
                         name="passwordConfirm"
                         type="password"
@@ -135,9 +135,9 @@ export default function ResetPasswordComponent(email) {
 
                     <div className="w-full flex justify-center mt-6">
                       <button
-                        disabled={isLogin}
+                        disabled={isAccessing}
                         type="submit"
-                        className={`${isLogin == true ? "bg-secondary" : "bg-primary hover:bg-primarydark"}  w-full mb-6 text-white text-xl 4xl:text-6xl border rounded-md p-4 `}
+                        className={`${isAccessing == true ? "bg-secondary" : "bg-primary hover:bg-primarydark"}  w-full mb-6 text-white text-xl 4xl:text-6xl border rounded-md p-4 `}
                       >
                         Şifreyi Sıfırla
                       </button>

@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import styles from "./adminLogin.module.css";
+import styles from "./styles.module.css";
 import Input from '@/components/formElements/input';
 import ErrorText from '@/components/formElements/errorText';
 
@@ -15,7 +15,7 @@ import { signIn } from "next-auth/react";
 
 export default function AdminLoginComponent() {
 
-  const [isLogin, setIsLogin] = useState(false);
+  const [isAccessing, setIsAccessing] = useState(false);
 
   const router = useRouter();
 
@@ -57,7 +57,7 @@ export default function AdminLoginComponent() {
           result.then((res) => {
             if(res.ok){
               
-              setIsLogin(true);
+              setIsAccessing(true);
 
               toast.success("Giriş Başarılı (Yönlendiriliyorsunuz...)")
               const timeOut = setInterval(() => {
@@ -75,7 +75,7 @@ export default function AdminLoginComponent() {
       >
 
         {(props) => (
-          <Form onSubmit={props.handleSubmit} className={`${isLogin ? "blur"  : ""} ${styles.main_container}`} >
+          <Form onSubmit={props.handleSubmit} className={`${isAccessing ? "blur"  : ""} ${styles.main_container}`} >
             
               <div className={styles.container}>
                 <div className={styles.container_left_side}>
@@ -109,7 +109,7 @@ export default function AdminLoginComponent() {
                     <div className="mt-4">
                     <Input
                       labelValue='Email'
-                      disabled={isLogin}
+                      disabled={isAccessing}
                       id='email'
                       name='email'
                       type='text'
@@ -127,7 +127,7 @@ export default function AdminLoginComponent() {
                     <div>
                       <Input
                         labelValue='Şifre'
-                        disabled={isLogin}
+                        disabled={isAccessing}
                         id='password'
                         name='password'
                         type='password'
@@ -143,8 +143,8 @@ export default function AdminLoginComponent() {
                     </div>
                     
                     <button
-                      disabled={isLogin}
-                      className={`${isLogin ? "bg-gray-600 active:bg-gray-600 hover:bg-gray-600" : "bg-blue-600 active:bg-blue-600 hover:bg-blue-700"} block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150  border border-transparent rounded-lg  focus:outline-none focus:shadow-outline-blue`}
+                      disabled={isAccessing}
+                      className={`${isAccessing ? "bg-gray-600 active:bg-gray-600 hover:bg-gray-600" : "bg-blue-600 active:bg-blue-600 hover:bg-blue-700"} block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150  border border-transparent rounded-lg  focus:outline-none focus:shadow-outline-blue`}
                       href="#"
                     >
                       Giriş Yap

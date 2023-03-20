@@ -5,7 +5,7 @@ import { ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
-import styles from "./login.module.css";
+import styles from "./styles.module.css";
 import Link from "next/link";
 
 // session: giriş yapmış kullanıcıyı temsil eder varsa bilgileri içinde barındırır.
@@ -16,7 +16,7 @@ export default function LoginComponent({pageRole}) {
 
   const [mailIsNotVerify , setMailIsNotVerify] = useState(false);
 
-  const [isLogin, setIsLogin] = useState(false);
+  const [isAccessing, setIsAccessing] = useState(false);
 
   const router = useRouter();
 
@@ -60,7 +60,7 @@ export default function LoginComponent({pageRole}) {
             
             if(res.ok){
               
-              setIsLogin(true);
+              setIsAccessing(true);
 
               toast.success("Giriş Başarılı (Yönlendiriliyorsunuz...)")
               const timeOut = setInterval(() => {
@@ -69,9 +69,9 @@ export default function LoginComponent({pageRole}) {
               }, 3000);
             }
             else{
-              if(!res.verfyEmail && !res.verfyEmail != undefined){
+              if(!res.verfyEmail && res.verfyEmail != undefined){
                 setMailIsNotVerify(true);
-                setIsLogin(true);
+                setIsAccessing(true);
               }
               toast.error(res.error);
             }
@@ -82,7 +82,7 @@ export default function LoginComponent({pageRole}) {
       >
 
         {(props) => (
-          <Form onSubmit={props.handleSubmit} className={`${isLogin ? "blur"  : ""} ${styles.main_container}`} >
+          <Form onSubmit={props.handleSubmit} className={`${isAccessing ? "blur"  : ""} ${styles.main_container}`} >
             
               <div className={styles.container}>
                 <div className={styles.container_left_side}>
@@ -137,25 +137,9 @@ export default function LoginComponent({pageRole}) {
                         className="w-full px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                       />
                     </div>
-                    <div>
-                      <label className="block mt-4 text-sm">
-                        Aktivasyon Kodu
-                      </label>
-
-                      <input                   
-                        id='name'
-                        name='name'
-                        type='text'
-                        value={props.values.activationCode}
-                        onChange={props.handleChange}
-                        placeholder='İsminizi giriniz.'
-                        className="w-full px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                      />
-        {/* isLogin */}
-                    </div>
                     <button
-                    disabled={isLogin}
-                      className={`${isLogin ? "bg-gray-600 active:bg-gray-600 hover:bg-gray-600" : "bg-blue-600 active:bg-blue-600 hover:bg-blue-700"} block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150  border border-transparent rounded-lg  focus:outline-none focus:shadow-outline-blue`}
+                    disabled={isAccessing}
+                      className={`${isAccessing ? "bg-gray-600 active:bg-gray-600 hover:bg-gray-600" : "bg-blue-600 active:bg-blue-600 hover:bg-blue-700"} block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150  border border-transparent rounded-lg  focus:outline-none focus:shadow-outline-blue`}
                       href="#"
                     >
                       Giriş Yap

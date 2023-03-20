@@ -4,7 +4,7 @@ import DecryptPassword from "@/functions/auth/decryptPassword"
 
 
 
-export default async function VerifyEmail({key, email, role}) {
+export default async function VerifyEmail({key, time, email, role}) {
 
    try {
       
@@ -18,6 +18,8 @@ export default async function VerifyEmail({key, email, role}) {
       const LifeTime = now - verifyEmailData.validTime;
       const pastHour = Math.floor((LifeTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
       
+      // 24 saat geçerlilik süresi var.
+      // 24 saat geçerlilik süresi dolmuşsa kaydı sil.
       if(pastHour >= 24){
          const {error} = await deleteDataByMany("VerifyEmail", {email: verifyEmailData.email});
             if(error){
@@ -26,12 +28,14 @@ export default async function VerifyEmail({key, email, role}) {
          throw new Error("Mail Doğrulama Linkinin Geçerlilik Süresi Bitmiştir. Lütfen Yeni Bir Mail Doğrulama Talebinde Bulununuz.");
       }
 
+      // mail adresi doğrulama işlemi
       const  verify = await DecryptPassword(verifyEmailData.email, email)
       
       if(!verify) {
          throw new Error("Girdiğiniz Mail Adresi Geçersizdir.");
       }
 
+      // mail adresi doğrulama işlemi
       const mailCheck = await getDataByUnique(role, {email: verifyEmailData.email});
 
 
@@ -43,8 +47,10 @@ export default async function VerifyEmail({key, email, role}) {
       throw new Error("Mail adresiniz zaten onaylanmış.");
     }
 
+    // Veri tabanında mail adresi onaylanmış olarak güncelle.
     const userFromDB = await updateDataByAny(role, {email: verifyEmailData.email}, { verified: true});
    
+    // verifyEmail tablosundan kayıtları sil.
     const deleteVerifyEmail = await deleteDataByMany ("VerifyEmail", {email: verifyEmailData.email});
 
     if (!userFromDB || userFromDB.error || !deleteVerifyEmail || deleteVerifyEmail.error) {
@@ -55,7 +61,7 @@ export default async function VerifyEmail({key, email, role}) {
 
    } catch (error) {
       
-      return {error: error?.message};
+      return {error: error?.message, status: "error"};
    }
 
 }

@@ -33,8 +33,9 @@ export default async function handler (req, res) {
                     throw new Error("Lütfen tüm alanları doldurunuz!");
                 }
 
-                const mailKey = await EncryptPassword(process.env.MAIL_SECRET); 
+                
                 data.password = await EncryptPassword(data.password);
+                const mailKey = await EncryptPassword(process.env.MAIL_SECRET); 
                 const hashedEmail = await EncryptPassword(data.email);
                 
                 const {error} = await createNewUser(data, mailKey);

@@ -3,7 +3,7 @@ import {postAPI} from '@/services/fetchAPI/index';
 import getAdress from '@/services/auth/register/getAdress';
 import { ToastContainer, toast } from 'react-toastify';
 import studentValidationSchema from './formikData';
-import styles from './studentRegister.module.css';
+import styles from './styles.module.css';
 import LoadingScreen from '@/components/loading';
 import { Transition } from '@headlessui/react';
 import { useRouter } from 'next/navigation';
@@ -192,7 +192,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                 const timeOut = setInterval(() => {
                   router.push(`/auth/login/${values.role}`);
                   clearInterval(timeOut);
-                }, 5000);
+                }, 4000);
 
                 values.password = '';
                 values.passwordConfirm = '';
