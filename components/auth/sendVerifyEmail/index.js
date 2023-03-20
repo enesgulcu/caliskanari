@@ -1,6 +1,6 @@
 "use client";
 import { Formik, Form } from "formik";
-import resetPasswordValidationSchema from "./formikData";
+import SendVerifyEmailValidationSchema from "./formikData";
 import { ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
@@ -11,7 +11,7 @@ import Input from '@/components/formElements/input';
 import ErrorText from '@/components/formElements/errorText';
 import LoadingScreen from '@/components/loading';
 
-export default function ResetPasswordComponent(email) {
+export default function SendVerifyEmailComponent() {
 
   const [isloading, setIsloading] = useState(false);
   const [isAccessing, setIsAccessing] = useState(false);
@@ -39,19 +39,16 @@ export default function ResetPasswordComponent(email) {
         <Formik
           // input verileri
           initialValues={{
-            password: "",
-            passwordConfirm: "",
-            email: email,
+            email: ""
           }}
           // input check
-          validationSchema={resetPasswordValidationSchema}
+          validationSchema={SendVerifyEmailValidationSchema}
 
           onSubmit={async (values) => {
-
             setIsloading(true);
 
-            await postAPI("/auth/resetPassword", values).then((data) => {
-
+            await postAPI("/auth/sendVerifyEmail", values).then((data) => {
+              console.log(data);
               if (data.status === "success") {
                 setIsAccessing(true);
                 toast.success(data.message + " Lütfen Bekleyin, yönlendiriliyorsunuz...");
@@ -59,9 +56,16 @@ export default function ResetPasswordComponent(email) {
 
                 //Bilgi verir ve 5 saniye sonra login sayfasına yönlendirir.
                 const timeOut = setInterval(() => {
-                  router.push(`/auth/login/${data.role.toLowerCase()}`);
+                  if(data.role){
+                    router.push(`/auth/login/${data.role.toLowerCase()}`);
+                  }
+                  else{
+                    router.push(`/`);
+                  }
+                  
+                  
                   clearInterval(timeOut);
-                }, 5000);
+                }, 4000);
                 
               } else {
                 toast.error(data.message);
@@ -76,13 +80,6 @@ export default function ResetPasswordComponent(email) {
               className={`${isAccessing ? "blur" : ""} ${styles.main_container}`}
             >
               <div className={styles.container}>
-                <div className={styles.container_left_side}>
-                  <img
-                    className={styles.left_side_image}
-                    src="https://source.unsplash.com/user/erondu/1600x900"
-                    alt="img"
-                  />
-                </div>
                 <div className={styles.container_right_side}>
                   <div className="w-full">
                     <div className={styles.right_side_logo}>
@@ -100,46 +97,30 @@ export default function ResetPasswordComponent(email) {
                       </div>
                     </div>
                     <h1 className="mb-4 mt-4 text-2xl font-bold text-center text-gray-700">
-                      Şifre Sıfırlama
+                      Mail Doğrulama
                     </h1>
                     <div className="mt-4">
                       <Input
-                        labelValue="Yeni Şifre"
+                        labelValue="Mail"
                         disabled={isAccessing}
-                        id="password"
-                        name="password"
-                        type="password"
-                        value={props.values.password}
+                        id="email"
+                        name="email"
+                        type="email"
+                        value={props.values.email}
                         onChange={props.handleChange}
-                        placeholder="şifrenizi giriniz."
+                        placeholder="Mail adresinizi giriniz."
                       />
-                      {props.touched.password && (
-                        <ErrorText>{props.errors.password}</ErrorText>
+                      {props.touched.email && (
+                        <ErrorText>{props.errors.email}</ErrorText>
                       )}
                     </div>
-                    <div className="mt-4">
-                      <Input
-                        labelValue="Yeni Şifre Doğrulama"
-                        disabled={isAccessing}
-                        id="passwordConfirm"
-                        name="passwordConfirm"
-                        type="password"
-                        value={props.values.passwordConfirm}
-                        onChange={props.handleChange}
-                        placeholder="Şifrenizi tekrar giriniz."
-                      />
-                      {props.touched.passwordConfirm && (
-                        <ErrorText>{props.errors.passwordConfirm}</ErrorText>
-                      )}
-                    </div>
-
                     <div className="w-full flex justify-center mt-6">
                       <button
                         disabled={isAccessing}
                         type="submit"
-                        className={`${isAccessing == true ? "bg-secondary" : "bg-primary hover:bg-primarydark"}  w-full mb-6 text-white text-xl border rounded-md p-4 `}
+                        className={`${isAccessing == true ? "bg-secondary" : "bg-primary hover:bg-primarydark"} w-full text-white text-xl border rounded-md p-4 `}
                       >
-                        Şifreyi Sıfırla
+                        Doğrulama Maili Gönder
                       </button>
                     </div>
                   </div>
@@ -153,4 +134,5 @@ export default function ResetPasswordComponent(email) {
     
   );
 }
+
 

@@ -23,7 +23,7 @@ export default async function ResetPassword(searchParams) {
             throw new Error("Şifre Sıfırlama Linkinin Geçerlilik Süresi Bitmiştir. Lütfen Yeni Bir Şifre Sıfırlama Talebinde Bulununuz.");
          }
 
-         const  verify = await DecryptPassword(forgetPasswordData.email, searchParams.email)
+         const verify = await DecryptPassword(forgetPasswordData.email, searchParams.email)
      
          if(!verify) {
             throw new Error("Girdiğiniz Mail Adresi Geçersizdir.");

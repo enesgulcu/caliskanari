@@ -110,7 +110,7 @@ export default function ForgotPasswordComponent() {
                       <button
                         disabled={isAccessing}
                         type='submit'
-                        className={`${isAccessing == true ? "bg-secondary" : "bg-primary hover:bg-primarydark"}  w-full text-white text-xl 4xl:text-6xl border rounded-md p-4 `}
+                        className={`${isAccessing == true ? "bg-secondary" : "bg-primary hover:bg-primarydark"}  w-full text-white text-xl 4xl:text-2xl  border rounded-md p-4 `}
                       >
                         Şifre Sıfırlama Maili Gönder
                       </button>

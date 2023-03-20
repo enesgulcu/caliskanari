@@ -12,14 +12,14 @@ export default async function handler (req, res) {
             const {userFromDB, error} = await loginFunction(data);
             
             if(error){
-                error.verfyEmail = error?.verfyEmail;
-                throw error;
+                
+                throw new Error(error.message);
             }
         
-            return res.status(200).json({success: true,verfyEmail: verfyEmail, userFromDB: userFromDB, message: "Giriş işlemi başarılı"});
+            return res.status(200).json({success: true,verifyEmail: userFromDB.verified , userFromDB: userFromDB, message: "Giriş işlemi başarılı"});
 
         } catch (error) {   
-            return res.status(500).json({status: "error", error: error.message, verfyEmail: error.verfyEmail}); 
+            return res.status(500).json({status: "error", error: error.message, verifyEmail: error.verifyEmail}); 
        }                   
     }   
 

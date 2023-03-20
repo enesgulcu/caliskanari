@@ -69,7 +69,7 @@ export default function LoginComponent({pageRole}) {
               }, 3000);
             }
             else{
-              if(!res.verfyEmail && res.verfyEmail != undefined){
+              if(!res.verifyEmail && res.verifyEmail != undefined){
                 setMailIsNotVerify(true);
                 setIsAccessing(true);
               }

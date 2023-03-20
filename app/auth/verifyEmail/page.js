@@ -1,15 +1,11 @@
 import React from 'react'
-import VerifyEmailContainer from '@/containers/auth/verifyEmail'
-// api>auth>register içinden bu sayfaya searchParams ile doğrulama maillerini gönderiyoruz. 
-// buradan da apiye verileri gönderip doğrulama işlemini tamamlıyoruz.
+import VerifyEmailContainer from '@/containers/auth/verifyEmail';
 
-//NOT: mailden tıklanan buton ile searchParams'a veriler gelir.
-export default async function VerifyEmail({searchParams}) {
-  
-
+export default async function VerifyEmailPage({searchParams}) {
+    
   return (
     <>
-      <VerifyEmailContainer searchParams={searchParams}/>
+        <VerifyEmailContainer searchParams={searchParams}/>
     </>
   )
 }

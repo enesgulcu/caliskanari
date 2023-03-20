@@ -11,7 +11,7 @@ export default async function loginFunction({role, email, password}) {
         
         
 
-        if(!userFromDB) throw new Error("Bu mail adresi ile kayıtlı bir öğrenci bulunamadı.");
+        if(!userFromDB) throw new Error("Bu mail adresi ile kayıtlı bir kullanıcı bulunamadı.");
         
 
         
@@ -25,7 +25,7 @@ export default async function loginFunction({role, email, password}) {
         if(role != "Admin" && userFromDB.verified == false){
             let error = new Error('Lütfen mail adresinizi doğrulayınız.');
             error.status = 400;
-            error.verfyEmail = false;
+            error.verify = false;
             throw error;
          }
 

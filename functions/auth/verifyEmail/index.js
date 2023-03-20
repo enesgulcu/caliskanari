@@ -4,10 +4,9 @@ import DecryptPassword from "@/functions/auth/decryptPassword"
 
 
 
-export default async function VerifyEmail({key, time, email, role}) {
+export default async function VerifyEmail({key, email, role}) {
 
    try {
-      
     const verifyEmailData = await getDataByUnique("VerifyEmail", {secretKey: key});
     
      if(!verifyEmailData || verifyEmailData.error  || verifyEmailData == null) {
