@@ -3,7 +3,7 @@ import {MdDone, MdWarningAmber, MdCircleNotifications } from "react-icons/md";
 import { MdOutlineErrorOutline } from "react-icons/md";
 import Link from 'next/link';
 
-let color =  "gray-700";
+let color =  "green";
 let icon = <MdCircleNotifications/>;
 
 // url = yönlendirilecek sayfa
@@ -12,13 +12,27 @@ let icon = <MdCircleNotifications/>;
 // message = gösterilecek mesaj
 // buttonText = buton yazısı
 
-export default async function Notification(
+export default function Notification(
   url="/",
   label="Bilgilendirme",
   type="info",
   message="bir hata oluştu lütfen tekrar deneyin",
   buttonText="Anasayfaya Git") 
 {
+  console.log("_____1_____")
+  console.log(url)
+  console.log("_____2_____")
+  console.log(label)
+  console.log("_____3_____")
+  console.log(type)
+  console.log("______4____")
+  console.log(message)
+  console.log("_____5_____")
+  console.log(buttonText)
+  console.log("______6____")
+  console.log(color)
+  console.log("______7____")
+  
 
 
   if(type  == "info"){
