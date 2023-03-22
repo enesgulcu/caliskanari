@@ -1,5 +1,18 @@
 import { withAuth } from 'next-auth/middleware';
 import {NextResponse} from 'next/server';
+import {Ratelimit} from "@upstash/ratelimit";
+import {Redis} from "@upstash/redis";
+
+const redis = new Redis({
+  url: process.env.UPSTASH_REDIS_REST_URL,
+  token: process.env.UPSTASH_REDIS_REST_TOKEN,
+})
+
+// Create a new ratelimiter, that allows 5 requests per 5 seconds
+const ratelimit = new Ratelimit({
+  redis: redis,
+  limiter: Ratelimit.fixedWindow(5, "10 s"),
+});
 
 // kullanıcıların gidebileceği sayfaların başlangıç kısmını belirleriz.
 const roles = {
@@ -10,7 +23,14 @@ const roles = {
 
 
 export default withAuth(
-  function middleware(req) {
+  async function middleware(req) {
+    console.log(req);
+
+    const result = await ratelimit.limit(req).then((result) => {
+      return result;
+    });
+
+    console.log(result);
 
     // kullanıcı bilgilerini çekeriz
     const user = req.nextauth.token;
