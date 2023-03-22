@@ -6,12 +6,19 @@ import Notification from '@/components/notification';
 export default async function VerifyEmailContainer({searchParams}) {
  
   const {key, email, role} = searchParams;
- 
-  //let {status, message, error} = await postAPI("/auth/verifyEmail", {key, email, role});
-    let status = "success"
-    let message = "Doğrulama Başarılı"
-    let error = null
 
+  if(!key || !email || !role){
+    return (
+      <div>
+          <VerifyEmailComponents>
+              <Notification type="error" message="Doğrulama Verileri Eksik Lütfen Tekrar Deneyin." label="Doğrulama Başarısız!" url="/" buttonText="Anasayfaya Dön"/>
+          </VerifyEmailComponents>
+      </div>
+    )
+ }
+
+ else{
+  const {status, message, error} = await postAPI("/auth/verifyEmail", {key, email, role});
   
   return (
     <div>
@@ -19,12 +26,15 @@ export default async function VerifyEmailContainer({searchParams}) {
         <VerifyEmailComponents>
             {
                 status == "success" && !error ?
-                <Notification type="success" message={message} label="Doğrulama Başarılı!" url="/" />
+                <Notification type="success" message={message} label="Doğrulama Başarılı!" url="/" buttonText={buttonText} />
                 :
-                <Notification type="error" message={error} label="Doğrulama Başarısız!" url="/"/>
+                <Notification type="error" message={error.message} label="Doğrulama Başarısız!" url="/" buttonText={buttonText}/>
             }
             
         </VerifyEmailComponents>
     </div>
   )
+ }
+ 
+  
 }

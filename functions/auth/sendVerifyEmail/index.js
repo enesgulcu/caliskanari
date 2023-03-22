@@ -29,8 +29,9 @@ export default async function SendVerifyEmail(email) {
         if(verifyCheck.error || !verifyCheck || verifyCheck == null){
             throw new Error("Girdiğiniz mail adresi geçersizdir!");
         }
-        if(verifyCheck.verify){
-            throw new Error("Girdiğiniz mail adresi zaten onaylanmıştır!");
+
+        if(verifyCheck.verified){
+            throw new Error("Girdiğiniz mail adresi zaten onaylanmış.");
         }
     
         const {error} = await deleteDataByMany("VerifyEmail", {email: email});

@@ -1,5 +1,6 @@
 import { transporter, mailOptions } from "@/pages/api/mail/nodemailer";
 import SendVerifyEmail from "@/functions/auth/sendVerifyEmail";
+import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
 
 export default async function handler (req, res) {
@@ -8,7 +9,6 @@ export default async function handler (req, res) {
     if(!session){
         
         const {email} = req.body;
-        
         
         try {
             
@@ -63,6 +63,9 @@ export default async function handler (req, res) {
     
             return res.status(401).json({status: "error", error: error?.message, message: error?.message});
         }
+    }
+    else{
+        return res.status(401).json({status: "error", error: "Zaten giriş yapmış durumdasınız.", message: "Zaten giriş yapmış durumdasınız."});
     }
 }
 

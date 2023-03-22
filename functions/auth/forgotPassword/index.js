@@ -4,6 +4,10 @@ import { getDataByUnique, createNewData, getDataByMany, deleteDataByMany } from 
 export async function createNewForgotPassword(email, {mailKey}) {
 
   try {
+
+    if(!email || !mailKey){
+      throw new Error("Eksik veri gönderdiniz!");
+    }
     
     // kullanıcı kontrolü
     const mailCheck = await getDataByUnique("AllUser", {email: email});

@@ -27,8 +27,9 @@ export default withAuth(
     
     if(!user){
         // kullanıcı giriş yapmamış ise ve gittiği sayfa login veya register sayfası değil ise login sayfasına yönlendir.
-        if (!user && (!path.includes('login') && !path.includes('register') && !path.includes('test'))) {
-          
+        if (!user && (!path.includes('login') && !path.includes('register') && !path.includes('sendVerifyEmail'))) {
+            
+
             return NextResponse.rewrite(new URL('/', req.url));
         }
     }
@@ -56,12 +57,14 @@ export default withAuth(
 export const config = {
   // kontrol işleminin hangi sayfalarda olacağını belirleriz.
   // aşağıda örnek olarak belirtilen sayfanın ve ona bağlı tüm alt sayfaların kontrolü yapılıyor.
+  // buraya sayfayı yazmazsanız -> hiçbir zaman kontrol edilmeyecektir.
   matcher: [
     '/student/:path*',
     '/teacher/:path*',
     '/admin/:path*',
     '/auth/login/:path*',
     '/auth/register/:path*',
-    '/api/:path*'
+    '/api/:path*',
+    '/auth/sendVerifyEmail/:path*'
   ],
 };

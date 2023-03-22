@@ -9,14 +9,19 @@ import styles from "./styles.module.css";
 import {postAPI} from "@/services/fetchAPI";
 import Input from '@/components/formElements/input';
 import ErrorText from '@/components/formElements/errorText';
+import LoadingScreen from '@/components/loading';
 
 export default function ForgotPasswordComponent() {
 
   const [isAccessing, setIsAccessing] = useState(false);
+  const [isloading, setIsloading] = useState(false);
 
   const router = useRouter();
 
   return (
+  <>
+    { isloading && (<LoadingScreen isloading={isloading}/>) }
+    
     <div className={styles.main}>
       <ToastContainer
         position="top-right"
@@ -40,11 +45,14 @@ export default function ForgotPasswordComponent() {
         validationSchema={forgotPasswordValidationSchema}
 
         onSubmit={(values) => {
+
+          setIsloading(true);
             
             postAPI("/auth/forgotPassword", values.email).then(data => {
               
               if (data.status === "success") {
                   toast.success(data.message);
+                  setIsloading(false);
                   setIsAccessing(true);
 
                   setTimeout(() => {
@@ -53,6 +61,7 @@ export default function ForgotPasswordComponent() {
 
               } else {
                   toast.error(data.message);
+                  setIsloading(false);
               }
             })
           
@@ -122,6 +131,8 @@ export default function ForgotPasswordComponent() {
         )}
       </Formik>
     </div>
+  </>
+    
   );
 }
 

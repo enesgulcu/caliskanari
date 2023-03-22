@@ -46,20 +46,22 @@ export default function SendVerifyEmailComponent() {
 
           onSubmit={async (values) => {
             setIsloading(true);
-
+            
             await postAPI("/auth/sendVerifyEmail", values).then((data) => {
-              console.log(data);
               if (data.status === "success") {
                 setIsAccessing(true);
-                toast.success(data.message + " Lütfen Bekleyin, yönlendiriliyorsunuz...");
                 setIsloading(false);
+                toast.success(data.message + " Lütfen Bekleyin, yönlendiriliyorsunuz...");
+                
 
                 //Bilgi verir ve 5 saniye sonra login sayfasına yönlendirir.
                 const timeOut = setInterval(() => {
                   if(data.role){
+                    setIsloading(false);
                     router.push(`/auth/login/${data.role.toLowerCase()}`);
                   }
                   else{
+                    setIsloading(false);
                     router.push(`/`);
                   }
                   

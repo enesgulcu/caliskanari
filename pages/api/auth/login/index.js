@@ -7,6 +7,10 @@ export default async function handler (req, res) {
 
         try {
             const data = req.body;
+
+            if(!data.email || !data.password){
+                throw new Error("Lütfen tüm alanları doldurunuz.");
+            }
             
             // kullanıcı verilerini sorgula / şifreleri karşılaştır.
             const {userFromDB, error} = await loginFunction(data);

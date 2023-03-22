@@ -12,26 +12,8 @@ let icon = <MdCircleNotifications/>;
 // message = gösterilecek mesaj
 // buttonText = buton yazısı
 
-export default function Notification(
-  url="/",
-  label="Bilgilendirme",
-  type="info",
-  message="bir hata oluştu lütfen tekrar deneyin",
-  buttonText="Anasayfaya Git") 
+export default async function Notification({type, message, label, url, buttonText}) 
 {
-  console.log("_____1_____")
-  console.log(url)
-  console.log("_____2_____")
-  console.log(label)
-  console.log("_____3_____")
-  console.log(type)
-  console.log("______4____")
-  console.log(message)
-  console.log("_____5_____")
-  console.log(buttonText)
-  console.log("______6____")
-  console.log(color)
-  console.log("______7____")
   
 
 
@@ -55,19 +37,46 @@ export default function Notification(
   }
 
   return (
-    <div className={`bg-${color}-500 absolute w-full h-full flex flex-col items-center text-xl justify-center select-none`}>
+    <div className={`absolute w-full h-full flex flex-col items-center text-xl justify-center select-none
+    ${type == "info" && "bg-blue-500"}
+    ${type == "error" && "bg-red-500"}
+    ${type == "success" && "bg-green-500"}
+    ${type == "warning" && "bg-yellow-500"}
+    `}>
       <div className={`bg-white inline-block rounded shadow-lg py-6`}>
         
         <div className='flex flex-col justify-center items-center '>
-            {icon}
-          <div className={`w-full flex justify-start flex-col bg-${color}-50 py-4 px-6 my-6`}>
+            
+              {type == "info" && <MdCircleNotifications size={80}  className='text-blue-500'/>}
+              {type == "error" && <MdOutlineErrorOutline size={80}  className='text-red-500'/>}
+              {type == "success" && <MdDone size={80}  className='text-green-500'/>}
+              {type == "warning" && <MdWarningAmber size={80}  className='text-yellow-500'/>}
+
+            
+          <div className={`w-full flex justify-start flex-col py-4 px-6 my-6
+          ${type == "info" && "bg-blue-100"}
+          ${type == "error" && "bg-red-100"}
+          ${type == "success" && "bg-green-100"}
+          ${type == "warning" && "bg-yellow-100"}
+
+          `}>
             <h3 className=' font-bold text-xl'>{label}</h3>
-            <p className={`text-${color}-500`}>{message}</p>
+            <p className={`
+            ${type == "info" && "text-blue-500"}
+            ${type == "error" && "text-red-500"}
+            ${type == "success" && "text-green-500"}
+            ${type == "warning" && "text-yellow-500"}
+            `}>{message}</p>
           </div>
         </div>
         <div className='w-full flex justify-center items-center'>
           <Link href={url}>
-          <button className={`bg-${color}-500 hover:bg-black hover:scale-110 transition-all p-4 rounded text-white shadow`}>
+          <button className={`hover:bg-black hover:scale-110 transition-all p-4 rounded text-white shadow
+          ${type == "info" && "bg-blue-500"}
+          ${type == "error" && "bg-red-500"}
+          ${type == "success" && "bg-green-500"}
+          ${type == "warning" && "bg-yellow-500"}
+          `}>
             {buttonText}
           </button> 
           </Link>
