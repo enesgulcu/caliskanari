@@ -27,15 +27,18 @@ export default withAuth(
     
     if(!user){
         // kullanıcı giriş yapmamış ise ve gittiği sayfa login veya register sayfası değil ise login sayfasına yönlendir.
-        if (!user && (!path.includes('login') && !path.includes('register') && !path.includes('sendVerifyEmail'))) {
+        if (
+          !user && (
+          !path.includes('login') &&
+          !path.includes('register') &&
+          !path.includes('sendVerifyEmail') &&
+          !path.includes('forgotPassword')
+          )) {
             
 
             return NextResponse.rewrite(new URL('/', req.url));
         }
-    }
-
-    
-    
+    }    
   },
   {
     // kullanıcının giriş yapmış olması ve belirtilen rollerden birine sahip olması gerektiğini belirtiyoruz.
@@ -65,6 +68,7 @@ export const config = {
     '/auth/login/:path*',
     '/auth/register/:path*',
     '/api/:path*',
-    '/auth/sendVerifyEmail/:path*'
+    '/auth/sendVerifyEmail/:path*',
+    '/auth/forgotPassword/:path*',
   ],
 };
