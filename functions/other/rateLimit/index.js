@@ -1,11 +1,37 @@
-const limits = {};
+import {Ratelimit} from "@upstash/ratelimit";
+import {Redis} from "@upstash/redis";
 
-export default function rateLimit(email, req, res, next) {
+export default async function rateLimit(req, maxRequest="30 s", timeLimit=10) {
 
-  const ip = req.connection.remoteAddress || req.headers['x-forwarded-for'];
-  const limit = 10; // 10 istek
-  const timeLimit = 1000 * 60 * 5; // 5 dakika içerisinde max 10 istek
+  try {
+    if(!req){
+      throw new Error("Request is not found");
+    }
 
+    const redis = new Redis({
+      url: process.env.UPSTASH_REDIS_REST_URL,
+      token: process.env.UPSTASH_REDIS_REST_TOKEN,
+    })
     
-
+    // Create a new ratelimiter, that allows 5 requests per 5 seconds
+    const ratelimit = new Ratelimit({
+      redis: redis,
+      limiter: Ratelimit.fixedWindow(timeLimit, maxRequest),
+    });
+  
+    const result = await ratelimit.limit(req).then((result) => {
+  
+      // 1.000.000 miliseconds = 1 second
+      // saniye cinsinden kalan zamanı ve durumunu geri döndürürüz.
+      const LifeTime = Math.floor((result.reset - Date.now())/1000);
+  
+      return {success:result.success, reset:LifeTime};
+  
+    });
+  
+    return result;
+  } catch (error) {
+    console.log(error);
+    return {success:false, reset:0, error:error.message};
+  }
 }

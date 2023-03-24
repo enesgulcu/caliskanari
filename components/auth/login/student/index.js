@@ -7,6 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 import styles from "./styles.module.css";
 import Link from "next/link";
+import LoadingScreen from '@/components/loading';
 
 // session: giriş yapmış kullanıcıyı temsil eder varsa bilgileri içinde barındırır.
 // signIn:  kullanıcıyı giriş yapmaya yönlendirmek için kullanılır.
@@ -14,148 +15,157 @@ import { signIn } from "next-auth/react";
 
 export default function LoginComponent({pageRole}) {
 
-  const [mailIsNotVerify , setMailIsNotVerify] = useState(false);
-
   const [isAccessing, setIsAccessing] = useState(false);
+  const [isloading, setIsloading] = useState(false);
 
   const router = useRouter();
 
   return (
-    <div className={styles.main}>
-      <ToastContainer
-        position="top-right"
-        autoClose={4000}
-        hideProgressBar={false}
-        newestOnTop={false}
-        closeOnClick
-        rtl={false}
-        pauseOnFocusLoss
-        draggable
-        pauseOnHover
-        theme="dark"
-      />
+    <>
+      { isloading && (<LoadingScreen isloading={isloading}/>) }
 
-      <Formik
-        // input verileri
-        initialValues={{          
-          email: "",
-          password: "",
-          activationCode: ""
-        }}
-        // input check
-        validationSchema={studentValidationSchema}
+      <div className={styles.main}>
+        <ToastContainer
+          position="top-right"
+          autoClose={4000}
+          hideProgressBar={false}
+          newestOnTop={false}
+          closeOnClick
+          rtl={false}
+          pauseOnFocusLoss
+          draggable
+          pauseOnHover
+          theme="dark"
+        />
 
-        onSubmit={(values) => {
+        <Formik
+          // input verileri
+          initialValues={{          
+            email: "",
+            password: "",
+            activationCode: ""
+          }}
+          // input check
+          validationSchema={studentValidationSchema}
 
-          // signIn içine hangi provider ile giriş yapılacağı ve giriş bilgileri gönderilir.
-          const result = signIn('credentials', {
-            email: values.email,
-            password: values.password,
-            role: pageRole,
-            callbackUrl:"/", 
-            redirect: false, 
-          });
-          
-          result.then((res) => {
-            
-            if(res.ok){
+          onSubmit={(values) => {
+            setIsloading(true);
+            // signIn içine hangi provider ile giriş yapılacağı ve giriş bilgileri gönderilir.
+            const result = signIn('credentials', {
+              email: values.email,
+              password: values.password,
+              role: pageRole,
+              callbackUrl:"/", 
+              redirect: false, 
+            }).then((res) => {
+              console.log(res);
+
               
-              setIsAccessing(true);
-
-              toast.success("Giriş Başarılı (Yönlendiriliyorsunuz...)")
-              const timeOut = setInterval(() => {
-                router.push('/');
-                clearInterval(timeOut);
-              }, 3000);
-            }
-            else{
-              if(!res.verifyEmail && res.verifyEmail != undefined){
-                setMailIsNotVerify(true);
+              if(res.ok){
                 setIsAccessing(true);
+                setIsloading(false);
+                toast.success("Giriş Başarılı (Yönlendiriliyorsunuz...)")
+                const timeOut = setInterval(() => {
+                  router.push('/');
+                  clearInterval(timeOut);
+                }, 3000);
               }
-              toast.error(res.error);
-            }
-          })
-          
-        
-        }}
-      >
+              else{
+                toast.error(res.error);
+                setIsloading(false);
 
-        {(props) => (
-          <Form onSubmit={props.handleSubmit} className={`${isAccessing ? "blur"  : ""} ${styles.main_container}`} >
+                // // verifyEmail şuanda nextauth error içerisinden gelmiyor kontrol et.
+                // if(!res.verifyEmail || res.verifyEmail != undefined || res.verifyEmail == false){
+                //   //toast.error("Yönlendiriliyorsunuz...");
+                //   const timeOut = setInterval(() => {
+                //     //router.push('/auth/sendVerifyEmail');
+                //     clearInterval(timeOut);
+                //   }, 4000);                
+                // }
+                
+              }
+            })
             
-              <div className={styles.container}>
-                <div className={styles.container_left_side}>
-                  <img
-                    className={styles.left_side_image}
-                    src="https://source.unsplash.com/user/erondu/1600x900"
-                    alt="img"
-                  />
-                </div>
-                <div className={styles.container_right_side}>
-                  <div className="w-full">
-                    <div className={styles.right_side_logo}>
-                      <div
-                        className={styles.right_side_logoImage}
-                        fill="none"
-                        stroke="currentColor"
-                      >
-                        <Image
-                          src="/logo.png"
-                          width="150"
-                          height="150"
-                          alt="logo"
+          
+          }}
+        >
+
+          {(props) => (
+            <Form onSubmit={props.handleSubmit} className={`${isAccessing ? "blur"  : ""} ${styles.main_container}`} >
+              
+                <div className={styles.container}>
+                  <div className={styles.container_left_side}>
+                    <img
+                      className={styles.left_side_image}
+                      src="https://source.unsplash.com/user/erondu/1600x900"
+                      alt="img"
+                    />
+                  </div>
+                  <div className={styles.container_right_side}>
+                    <div className="w-full">
+                      <div className={styles.right_side_logo}>
+                        <div
+                          className={styles.right_side_logoImage}
+                          fill="none"
+                          stroke="currentColor"
+                        >
+                          <Image
+                            src="/logo.png"
+                            width="150"
+                            height="150"
+                            alt="logo"
+                          />
+                        </div>
+                      </div>
+                      <h1 className="mb-4 mt-4 text-2xl font-bold text-center text-gray-700">
+                        Öğrenci Giriş
+                      </h1>
+                      <div className="mt-4">
+                        <label className="block text-sm">Email</label>
+                        <input
+                        id='email'
+                        name='email'
+                        autoComplete='off'
+                        type='email'
+                        value={props.values.email}
+                        onChange={props.handleChange}
+                        placeholder="Mail adresinizi giriniz."
+                        className="w-full px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                         />
                       </div>
-                    </div>
-                    <h1 className="mb-4 mt-4 text-2xl font-bold text-center text-gray-700">
-                      Öğrenci Giriş
-                    </h1>
-                    <div className="mt-4">
-                      <label className="block text-sm">Email</label>
-                      <input
-                      id='email'
-                      name='email'
-                      autoComplete='off'
-                      type='email'
-                      value={props.values.email}
-                      onChange={props.handleChange}
-                      placeholder="Mail adresinizi giriniz."
-                      className="w-full px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                      />
-                    </div>
-                    <div>
-                      <label className="block mt-4 text-sm">Şifre</label>
+                      <div>
+                        <label className="block mt-4 text-sm">Şifre</label>
 
-                      <input 
-                        id='password'
-                        name='password'
-                        type='password'
-                        value={props.values.password}
-                        onChange={props.handleChange}
-                        placeholder="******"
-                        className="w-full px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                      />
-                    </div>
-                    <button
-                    disabled={isAccessing}
-                      className={`${isAccessing ? "bg-gray-600 active:bg-gray-600 hover:bg-gray-600" : "bg-blue-600 active:bg-blue-600 hover:bg-blue-700"} block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150  border border-transparent rounded-lg  focus:outline-none focus:shadow-outline-blue`}
-                      href="#"
-                    >
-                      Giriş Yap
-                    </button>
+                        <input 
+                          id='password'
+                          name='password'
+                          type='password'
+                          value={props.values.password}
+                          onChange={props.handleChange}
+                          placeholder="******"
+                          className="w-full px-4 py-2 text-sm border rounded-md focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                        />
+                      </div>
+                      <button
+                      disabled={isAccessing}
+                        className={`${isAccessing ? "bg-gray-600 active:bg-gray-600 hover:bg-gray-600" : "bg-blue-600 active:bg-blue-600 hover:bg-blue-700"} block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150  border border-transparent rounded-lg  focus:outline-none focus:shadow-outline-blue`}
+                        href="#"
+                      >
+                        Giriş Yap
+                      </button>
 
-                    <div className="mt-4 text-center">
-                    <p className="text-md">
-                    Kayıtlı hesabınız yok mu?<Link href={`/auth/register/${pageRole}`} className="text-blue-600 hover:underline"> Öğrenci Kayıt.</Link>
-                    </p>
+                      <div className="mt-4 text-center">
+                      <p className="text-md">
+                      Kayıtlı hesabınız yok mu?<Link href={`/auth/register/${pageRole.toLowerCase()}`} className="text-blue-600 hover:underline"> Öğrenci Kayıt.</Link>
+                      </p>
+                      </div>
                     </div>
                   </div>
                 </div>
-              </div>
-          </Form>
-        )}
-      </Formik>
-    </div>
+            </Form>
+          )}
+        </Formik>
+      </div>
+    </>
   );
 }

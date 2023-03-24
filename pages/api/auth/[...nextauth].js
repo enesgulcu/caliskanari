@@ -25,10 +25,15 @@ export const authOptions = {
         
         if(role){
           // yukarıda aldığımız giriş bilgilerini => [email eşleşmesi, password doğrulaması] için fonksiyonumuza gönderiyoruz.
-          const  {userFromDB, success, error} = await postAPI(`/auth/login`, {role, email, password});
-          
+          const  {userFromDB, success, error, verifyEmail, status} = await postAPI(`/auth/login`, {role, email, password});
+
           if(userFromDB === null || !success || userFromDB === undefined || error){
-            throw new Error(error);
+            let error2 = new Error();
+                error2.message = error;
+                error2.status = status;
+                error2.verifyEmail = verifyEmail;
+                console.log(error2)
+                throw error2;
           }
 
           const user =  {
