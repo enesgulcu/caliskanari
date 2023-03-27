@@ -32,7 +32,7 @@ export default async function handler (req, res) {
                     createTime: {date, time},
                     html:`
                         <p>Sevgili</p>
-                        <h3 style='color:green'>${mailCheck.name} ${mailCheck.surname}</h3>
+                        <h3 style='color:green'>${mailCheck.name} ${mailCheck.surname},</h3>
                         <p>${email} mail adresinin Onaylama işlemi ${date} tarihinde, ${time} saatinde oluşturuldu.</p>
                         <a
                             style="cursor:pointer!important"

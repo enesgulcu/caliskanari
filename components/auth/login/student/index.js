@@ -57,10 +57,7 @@ export default function LoginComponent({pageRole}) {
               role: pageRole,
               callbackUrl:"/", 
               redirect: false, 
-            }).then((res) => {
-              console.log(res);
-
-              
+            }).then((res) => {              
               if(res.ok){
                 setIsAccessing(true);
                 setIsloading(false);
@@ -74,14 +71,15 @@ export default function LoginComponent({pageRole}) {
                 toast.error(res.error);
                 setIsloading(false);
 
-                // // verifyEmail şuanda nextauth error içerisinden gelmiyor kontrol et.
-                // if(!res.verifyEmail || res.verifyEmail != undefined || res.verifyEmail == false){
-                //   //toast.error("Yönlendiriliyorsunuz...");
-                //   const timeOut = setInterval(() => {
-                //     //router.push('/auth/sendVerifyEmail');
-                //     clearInterval(timeOut);
-                //   }, 4000);                
-                // }
+                // verifyEmail şuanda nextauth error içerisinden gelmiyor kontrol et.
+                if(res.error.includes("doğrulanmamış") || res.error.includes("doğrulayınız")){
+                  setIsAccessing(true);
+                  toast.error("Yönlendiriliyorsunuz...");
+                  const timeOut = setInterval(() => {
+                    router.push('/auth/sendVerifyEmail');
+                    clearInterval(timeOut);
+                  }, 4000);                
+                }
                 
               }
             })

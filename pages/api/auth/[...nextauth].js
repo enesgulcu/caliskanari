@@ -32,7 +32,6 @@ export const authOptions = {
                 error2.message = error;
                 error2.status = status;
                 error2.verifyEmail = verifyEmail;
-                console.log(error2)
                 throw error2;
           }
 

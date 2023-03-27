@@ -1,6 +1,6 @@
 import { withAuth } from 'next-auth/middleware';
 import {NextResponse} from 'next/server';
-import rateLimit from '@/functions/other/rateLimit';
+import RateLimitPageConfig from '@/functions/other/rateLimitPageConfig';
 
 // kullanıcıların gidebileceği sayfaların başlangıç kısmını belirleriz.
 const roles = {
@@ -9,39 +9,49 @@ const roles = {
   admin: '/admin',
 };
 
-
-
 export default withAuth(
   async function middleware(req) {
-
-
-    // kullanıcı bilgilerini çekeriz
-    const user = req.nextauth.token;
-    // kullanıcının gittiği sayfanın path bilgisini alırız.
-    const path = req.nextUrl.pathname;
-
-    if(user){
-
-        // kişinin (rolü) ile gitti sayfa aynı ise izin ver değil ise anasayfaya sayfasına yönlendir.
-        if (!path.startsWith(roles[user.role])) {
-            return NextResponse.rewrite(new URL('/', req.url));
-        }
+    console.log(req.nextUrl.pathname)
+    // rate limit kontrolü burada başlar.
+    const {success, error, reset, path} = await RateLimitPageConfig(req);
+    if(!success || error){
+      
+        // kullanıcı limiti aştı ise hata mesajını gösterir.
+        return NextResponse.redirect(new URL(`/notification?type=error&message=${error}&label=Lütfen Dikkat!&remainingTime=${reset}&buttonText=Giriş Yap&url=${process.env.NEXT_PUBLIC_URL + path}`, req.url));
     }
-    
-    if(!user){
-        // kullanıcı giriş yapmamış ise ve gittiği sayfa login veya register sayfası değil ise login sayfasına yönlendir.
-        if (
-          !user && (
-          !path.includes('login') &&
-          !path.includes('register') &&
-          !path.includes('sendVerifyEmail') &&
-          !path.includes('forgotPassword')
-          )) {
-            
 
-            return NextResponse.rewrite(new URL('/', req.url));
-        }
-    }    
+    else{
+      // kullanıcının gittiği sayfanın path bilgisini alırız.
+      const path = req.nextUrl.pathname;
+
+      // kullanıcı bilgilerini çekeriz
+      const user = req.nextauth.token;
+      
+
+      if(user){
+
+          // kişinin (rolü) ile gitti sayfa aynı ise izin ver değil ise anasayfaya sayfasına yönlendir.
+          if (!path.startsWith(roles[user.role])) {
+              return NextResponse.rewrite(new URL('/', req.url));
+          }
+      }
+      
+      if(!user){
+          // kullanıcı giriş yapmamış ise ve gittiği sayfa login veya register sayfası değil ise login sayfasına yönlendir.
+          if (
+            !user && (
+            !path.includes('login') &&
+            !path.includes('register') &&
+            !path.includes('sendVerifyEmail') &&
+            !path.includes('forgotPassword') &&
+            !path.includes('test')
+            )) {
+              
+
+              return NextResponse.rewrite(new URL('/', req.url));
+          }
+      }
+    }   
   },
   {
     // kullanıcının giriş yapmış olması ve belirtilen rollerden birine sahip olması gerektiğini belirtiyoruz.

@@ -26,9 +26,9 @@ export default async function VerifyEmailContainer({searchParams}) {
         <VerifyEmailComponents>
             {
                 status == "success" && !error ?
-                <Notification type="success" message={message} label="Doğrulama Başarılı!" url="/" buttonText={buttonText} />
+                <Notification type="success" message={message} label="Doğrulama Başarılı!" url="/" buttonText={"Anasayfaya Dön"} />
                 :
-                <Notification type="error" message={error.message} label="Doğrulama Başarısız!" url="/" buttonText={buttonText}/>
+                <Notification type="error" message={error} label="Doğrulama Başarısız!" url="/" buttonText={"Anasayfaya Dön"}/>
             }
             
         </VerifyEmailComponents>
