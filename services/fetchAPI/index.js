@@ -14,17 +14,22 @@ export async function getAPI(URL, headers = {'Content-Type': 'application/json'}
 
 // Öğrenci (kayıt) işlemleri için kullanılan servis
 export async function postAPI(URL, body = "", method="POST", headers = {'Content-Type': 'application/json'}){
+    try {
+        const data = await fetch (`${process.env.NEXT_PUBLIC_API_URL + URL}`,{
+            method: method,
+            headers: headers,
+            body: JSON.stringify(body)
+            
+        }).then(res => res.json())
+        .catch(err => console.log(err))
+
+        return data;
+
+    } catch (error) {
+        throw new Error(`API request failed: ${error.message}`);
+    }    
+
     
-
-    const data = await fetch (`${process.env.NEXT_PUBLIC_API_URL + URL}`,{
-        method: method,
-        headers: headers,
-        body: JSON.stringify(body)
-        
-    }).then(res => res.json())
-    .catch(err => console.log(err))
-
-    return data;
 }
 
 

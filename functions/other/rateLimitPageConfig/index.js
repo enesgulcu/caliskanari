@@ -30,7 +30,9 @@ export  default async function rateLimitPageConfig(req) {
 
     try {
         // kullanıcının gittiği sayfanın path bilgisini alırız.
-        const path = req.nextUrl.pathname;
+        const url =  new URL(req.url);
+        const path = url?.pathname;
+
         
         // path adresinin içerisinden yukarıda tanımladığımız "pageConfig" nesnesindeki sayfaların başlangıç kısmını aratırız.
         const currentPage = Object.keys(pageConfig).find(page => path.startsWith(path));
@@ -38,8 +40,6 @@ export  default async function rateLimitPageConfig(req) {
             // sayfa başlangıç kısmı ile eşleşen sayfa var ise rate limit kontrolü yapılır.
             const {maxRequest, timeLimit, errorMessage} = pageConfig[currentPage];
             const {error, success, reset} = await RateLimit(req, maxRequest, timeLimit);
-            console.log(success)
-            console.log(path)
             if (error) {
                 throw new Error(error);
             }
@@ -60,6 +60,6 @@ export  default async function rateLimitPageConfig(req) {
         } 
 
     } catch (error) {
-        return {error: error.message, success: false, reset: error.reset, path: req.nextUrl.pathname};
+        return {error: error.message, success: false, reset: error.reset};
     }
 }

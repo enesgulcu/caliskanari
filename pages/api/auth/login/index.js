@@ -1,10 +1,9 @@
 import loginFunction from "@/functions/auth/login/index";
 
-
 export default async function handler (req, res) {
+
    
     if(req.method === 'POST'){
-
         try {
             const data = req.body;
 
