@@ -1,5 +1,5 @@
 import { withAuth } from 'next-auth/middleware';
-import {NextResponse} from 'next/server';
+import { NextResponse } from 'next/server'
 import RateLimitPageConfig from '@/functions/other/rateLimitPageConfig';
 
 // kullanıcıların gidebileceği sayfaların başlangıç kısmını belirleriz.
@@ -9,32 +9,47 @@ const roles = {
   admin: '/admin',
 };
 
-export function middleware(req) {
-  const { pathname } = new URL(req.url);
+export async function middleware(req, res, next) {
+  
+  const { pathname } = new URL(req.url) || new URL(req.nextUrl);
+  console.log("pathname : " + pathname)
+  if (
+    // istek gidecek sayfaları burada belirledik. eğer bu sayfalara istek giderse kontrol edilecek
+    pathname.startsWith('/api/auth/login') ||
+    pathname.startsWith('/api/auth/register') ||
+    pathname.startsWith('/api/auth/sendVerifyEmail') ||
+    pathname.startsWith('/api/auth/forgotPassword') ||
+    pathname.startsWith('/api/auth/verifyEmail')
+  ) {
+    // rate limit kontrolü burada başlar.
+    const {success, error, reset, backUrl, targetUrl} = await RateLimitPageConfig(req, pathname);
+    
+    console.log("success : " + success)
+    console.log("error : " + error)
+    console.log("reset : " + reset)
+    console.log("backUrl : " + backUrl)
+    console.log("targetUrl : " + targetUrl)
+    if(!success || error){
 
-  if (pathname.startsWith('/api/')) {
-    console.log('API request:', pathname);
+        return NextResponse.rewrite(targetUrl, req.url);
+
+        // kullanıcı limiti aştı ise hata mesajını gösterir.
+        //return NextResponse.rewrite(new URL(`/notification?type=error&message=${error}&label=Lütfen Dikkat!&remainingTime=${reset}&buttonText=Giriş Yap&url=${targetUrl}`, req.url));
+        return NextResponse.next();
+        }
+    else{
+        // kullanıcı limiti aşmadı ise isteği gönderir.
+        return NextResponse.next();
+    }
   }
-
-  // diğer middleware kodları burada devam eder
 
 }
 
 export default withAuth(
   async function middleware(req) {
 
-    // rate limit kontrolü burada başlar.
-    const {success, error, reset, path} = await RateLimitPageConfig(req);
-    if(!success || error){
-      
-        // kullanıcı limiti aştı ise hata mesajını gösterir.
-        return NextResponse.redirect(new URL(`/notification?type=error&message=${error}&label=Lütfen Dikkat!&remainingTime=${reset}&buttonText=Giriş Yap&url=${process.env.NEXT_PUBLIC_URL + path}`, req.url));
-    }
-
-    else{
       // kullanıcının gittiği sayfanın path bilgisini alırız.
-      const path = req.nextUrl.pathname;
-
+      const path = req.nextUrl.pathname || new URL(req.url.pathname)
       // kullanıcı bilgilerini çekeriz
       const user = req.nextauth.token;
 
@@ -56,12 +71,11 @@ export default withAuth(
             !path.includes('forgotPassword') &&
             !path.includes('test')
             )) {
-              
-
+            
               return NextResponse.rewrite(new URL('/', req.url));
           }
       }
-    }   
+       
   },
   {
     // kullanıcının giriş yapmış olması ve belirtilen rollerden birine sahip olması gerektiğini belirtiyoruz.
@@ -85,13 +99,13 @@ export const config = {
   // aşağıda örnek olarak belirtilen sayfanın ve ona bağlı tüm alt sayfaların kontrolü yapılıyor.
   // buraya sayfayı yazmazsanız -> hiçbir zaman kontrol edilmeyecektir.
   matcher: [
-    '/student/:path*',
-    '/teacher/:path*',
+    '/api/:path*',
     '/admin/:path*',
+    '/student/:path*',
+    '/teacher/:path*',    
     '/auth/login/:path*',
     '/auth/register/:path*',
-    '/api/:path*',
-    '/auth/sendVerifyEmail/:path*',
     '/auth/forgotPassword/:path*',
+    '/auth/sendVerifyEmail/:path*',
   ],
 };

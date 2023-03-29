@@ -1,8 +1,9 @@
 import loginFunction from "@/functions/auth/login/index";
 
 export default async function handler (req, res) {
-
-   
+   if(!req){
+         return res.status(500).json({error: "İstek bulunamadı."});
+   }
     if(req.method === 'POST'){
         try {
             const data = req.body;
@@ -14,7 +15,7 @@ export default async function handler (req, res) {
             // kullanıcı verilerini sorgula / şifreleri karşılaştır.
             const {userFromDB, error, verifyEmail, status} = await loginFunction(data);
 
-            if(error){
+            if(error || !userFromDB){
                 let error2 = new Error();
                 error2.message = error.message;
                 error2.status = status;

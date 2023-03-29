@@ -50,7 +50,8 @@ export default function ForgotPasswordComponent() {
             
             postAPI("/auth/forgotPassword", values.email).then(data => {
               
-              if (data.status === "success") {
+              if(data){
+                if (data?.status === "success") {
                   toast.success(data.message);
                   setIsloading(false);
                   setIsAccessing(true);
@@ -59,9 +60,14 @@ export default function ForgotPasswordComponent() {
                     router.push('/');
                   }, 5000);
 
-              } else {
-                  toast.error(data.message);
-                  setIsloading(false);
+                } else {
+                    toast.error(data?.message);
+                    setIsloading(false);
+                }
+              }
+              else{
+                toast.error("Bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.");
+                setIsloading(false);
               }
             })
           

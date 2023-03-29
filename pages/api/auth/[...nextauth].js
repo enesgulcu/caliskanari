@@ -23,28 +23,33 @@ export const authOptions = {
         // giriş yapılacak sayfayı role değişkeninden alıyoruz.
         loginPageRoute = role;
         
-        if(role){
+        if(email){
           // yukarıda aldığımız giriş bilgilerini => [email eşleşmesi, password doğrulaması] için fonksiyonumuza gönderiyoruz.
-          const  {userFromDB, success, error, verifyEmail, status} = await postAPI(`/auth/login`, {role, email, password});
+          const data = await postAPI(`/auth/login`, {role, email, password});
 
-          if(userFromDB === null || !success || userFromDB === undefined || error){
-            let error2 = new Error();
-                error2.message = error;
-                error2.status = status;
-                error2.verifyEmail = verifyEmail;
-                throw error2;
+          if(!data){
+            throw new Error("Giriş işleminde bir hata oluştu.");
           }
 
-          const user =  {
-            name: userFromDB.name,
-            surname: userFromDB.surname, 
-            role: userFromDB.role,
-            email: userFromDB.email,  
-          };
-          
-          if (user) {
-              return user;
-          }
+          const {userFromDB, success, error, status, verifyEmail} = data;
+            if(userFromDB === null || !success || userFromDB === undefined || error || !userFromDB){
+              let error2 = new Error();
+                  error2.message = error;
+                  error2.status = status;
+                  error2.verifyEmail = verifyEmail;
+                  throw error2;
+            }
+  
+            const user =  {
+              name: userFromDB.name,
+              surname: userFromDB.surname, 
+              role: userFromDB.role,
+              email: userFromDB.email,  
+            };
+            
+            if (user) {
+                return user;
+            }
         }
 
         else{
