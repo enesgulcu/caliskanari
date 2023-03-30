@@ -1,35 +1,60 @@
 // Öğrenci (kayıt) işlemleri için kullanılan servis
-export async function getAPI(URL, headers = {'Content-Type': 'application/json'}){
-
-    const data = await fetch (`${process.env.NEXT_PUBLIC_API_URL + URL}`,{
-        method: "GET",
-        headers:headers
-
-    }).then(res => res.json())
-    .catch(err => console.log(err))
-
-    return data;
-}
-
-
-// Öğrenci (kayıt) işlemleri için kullanılan servis
 export async function postAPI(URL, body = "", method="POST", headers = {'Content-Type': 'application/json'}){
+
+
     try {
         const data = await fetch (`${process.env.NEXT_PUBLIC_API_URL + URL}`,{
             method: method,
             headers: headers,
             body: JSON.stringify(body)
             
-        }).then(res => res.json())
-        .catch(err => console.log(err))
-
+        }).then(res =>{
+            router.push("/");
+            console.log(res);
+            if(res.redirected){
+                // bazı yerlerde window'u bulamıyor kontrol et
+                return window.location.href = res.url;
+            }
+            else{
+                console.log("not rediredted")
+                return res.json();
+            }
+            
+        }).catch(err => console.log(err))
+        
         return data;
 
-    } catch (error) {
-        throw new Error(`API request failed: ${error.message}`);
-    }    
+    } catch (err) {
+        throw new Error(`API request failed: ${err}`);
+    }        
+}
 
-    
+
+
+// Öğrenci (kayıt) işlemleri için kullanılan servis
+export async function getAPI(URL, headers = {'Content-Type': 'application/json'}){
+
+
+
+    const data = await fetch (`${process.env.NEXT_PUBLIC_API_URL + URL}`,{
+        method: "GET",
+        headers:headers
+
+    }).then(res =>{
+        router.push("/");
+        console.log(res);
+        if(res.redirected){
+            // bazı yerlerde window'u bulamıyor kontrol et
+            return window.location.href = res.url;
+        }
+        else{
+            console.log("not rediredted")
+            return res.json();
+        }
+        
+    }).catch(err => console.log(err))
+
+    return data;
 }
 
 

@@ -2,8 +2,8 @@ import RateLimit from '@/functions/other/rateLimit';
 
 const pageConfig = {
     login: {
-        maxRequest: 2,
-        timeLimit: "500 s",  
+        maxRequest: 5,
+        timeLimit: "600 s",  
         errorMessage: "Kısa zamanda çok fazla istek attınız.",
         backUrl: "/",
         targetUrl: process.env.NEXT_PUBLIC_URL + "/auth/login/student"

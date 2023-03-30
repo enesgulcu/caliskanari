@@ -4,7 +4,9 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
 
 export default async function handler (req, res) {
-    
+    if(req.method == "GET"){
+        return res.status(200).json({message: "GET method is not allowed."})
+    }
     const session = await getServerSession(req, res, authOptions)
     if(!session){
         
@@ -56,8 +58,6 @@ export default async function handler (req, res) {
                 return res.status(200).json({status: "success",  message: "Mail adresinize onaylama bağlantısı gönderildi."});
             }
 
-            
-            
         }
         catch (error) {
     

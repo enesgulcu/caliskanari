@@ -1,8 +1,8 @@
 "use client"
 import {MdDone, MdWarningAmber, MdCircleNotifications, MdOutlineErrorOutline } from "react-icons/md";
 import { useState , useEffect, useCallback} from "react";
-import Link from 'next/link';
 import { useSearchParams, usePathname } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 
 // url = yönlendirilecek sayfa
 // label = başlık
@@ -12,7 +12,7 @@ import { useSearchParams, usePathname } from 'next/navigation';
 
 export default function Notification({type="info", message="Lütfen tekrar deneyiniz.", label="Bir Hata Oluştu.", url="/", buttonText="Ana Sayfa", remainingTime}){
 
-  
+  const router = useRouter();
   
   const searchParams = useSearchParams();
   const pathname = usePathname();
@@ -105,8 +105,8 @@ export default function Notification({type="info", message="Lütfen tekrar deney
           </div>
         </div>
         <div className={`w-full flex justify-center items-center`}>
-          <Link href={`${countDown <= 0 ? url : "/"}`}>
-          <button className={`hover:bg-black hover:scale-110 transition-all p-4 rounded text-white shadow
+          <button onClick={() => countDown <= 0 ? router.replace(url) : "/"}
+          className={`hover:bg-black hover:scale-110 transition-all p-4 rounded text-white shadow
           ${countDown > 0 && "bg-gray-500 opacity-30 hover:scale-100 hover:bg-gray-500"}
           ${type == "info" && "bg-blue-500"}
           ${type == "error" && "bg-red-500"}
@@ -115,7 +115,6 @@ export default function Notification({type="info", message="Lütfen tekrar deney
           `} disabled={countDown > 0} >
             {`${buttonText}`}
           </button> 
-          </Link>
         </div>
         
       </div>

@@ -46,32 +46,37 @@ export default function SendVerifyEmailComponent() {
 
           onSubmit={async (values) => {
             setIsloading(true);
-            
             await postAPI("/auth/sendVerifyEmail", values).then((data) => {
-              if (data.status === "success") {
-                setIsAccessing(true);
+              if(!data){
+                toast.error("Bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.");
                 setIsloading(false);
-                toast.success(data.message + " Lütfen Bekleyin, yönlendiriliyorsunuz...");
-                
-
-                //Bilgi verir ve 5 saniye sonra login sayfasına yönlendirir.
-                const timeOut = setInterval(() => {
-                  if(data.role){
-                    setIsloading(false);
-                    router.push(`/auth/login/${data.role.toLowerCase()}`);
-                  }
-                  else{
-                    setIsloading(false);
-                    router.push(`/`);
-                  }
+              }
+              else{
+                if (data.status === "success") {
+                  setIsAccessing(true);
+                  setIsloading(false);
+                  toast.success(data.message + " Lütfen Bekleyin, yönlendiriliyorsunuz...");
                   
+  
+                  //Bilgi verir ve 5 saniye sonra login sayfasına yönlendirir.
+                  const timeOut = setInterval(() => {
+                    if(data.role){
+                      setIsloading(false);
+                      router.push(`/auth/login/${data.role.toLowerCase()}`);
+                    }
+                    else{
+                      setIsloading(false);
+                      router.push(`/`);
+                    }
+                    
+                    
+                    clearInterval(timeOut);
+                  }, 4000);
                   
-                  clearInterval(timeOut);
-                }, 4000);
-                
-              } else {
-                toast.error(data.message);
-                setIsloading(false);
+                } else {
+                  toast.error(data.message);
+                  setIsloading(false);
+                }
               }
             });
           }}
@@ -136,5 +141,3 @@ export default function SendVerifyEmailComponent() {
     
   );
 }
-
-
