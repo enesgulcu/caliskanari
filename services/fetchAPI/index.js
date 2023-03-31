@@ -1,3 +1,4 @@
+import { NextResponse } from 'next/server'
 // Öğrenci (kayıt) işlemleri için kullanılan servis
 export async function postAPI(URL, body = "", method="POST", headers = {'Content-Type': 'application/json'}){
 
@@ -9,14 +10,13 @@ export async function postAPI(URL, body = "", method="POST", headers = {'Content
             body: JSON.stringify(body)
             
         }).then(res =>{
-            router.push("/");
-            console.log(res);
+
             if(res.redirected){
                 // bazı yerlerde window'u bulamıyor kontrol et
-                return window.location.href = res.url;
+                return window.location.href = res.url
+            
             }
             else{
-                console.log("not rediredted")
                 return res.json();
             }
             
@@ -41,11 +41,10 @@ export async function getAPI(URL, headers = {'Content-Type': 'application/json'}
         headers:headers
 
     }).then(res =>{
-        router.push("/");
-        console.log(res);
         if(res.redirected){
+            
             // bazı yerlerde window'u bulamıyor kontrol et
-            return window.location.href = res.url;
+            //return window.location.href = res.url;
         }
         else{
             console.log("not rediredted")

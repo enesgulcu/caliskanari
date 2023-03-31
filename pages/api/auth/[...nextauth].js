@@ -26,9 +26,8 @@ export const authOptions = {
         if(email){
           // yukarıda aldığımız giriş bilgilerini => [email eşleşmesi, password doğrulaması] için fonksiyonumuza gönderiyoruz.
           const data = await postAPI(`/auth/login`, {role, email, password});
-
           if(!data){
-            throw new Error("Giriş işleminde bir hata oluştu.");
+            throw new Error("Giriş işleminde bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.");
           }
 
           const {userFromDB, success, error, status, verifyEmail} = data;

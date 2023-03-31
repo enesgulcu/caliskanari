@@ -57,7 +57,7 @@ export default function LoginComponent({pageRole}) {
               role: pageRole,
               callbackUrl:"/", 
               redirect: false, 
-            }).then((res) => {              
+            }).then((res) => {             
               if(res.ok){
                 setIsAccessing(true);
                 setIsloading(false);

@@ -2,16 +2,16 @@ import RateLimit from '@/functions/other/rateLimit';
 
 const pageConfig = {
     login: {
-        maxRequest: 5,
-        timeLimit: "600 s",  
+        maxRequest: 2,
+        timeLimit: "30 s",  
         errorMessage: "Kısa zamanda çok fazla istek attınız.",
         backUrl: "/",
         targetUrl: process.env.NEXT_PUBLIC_URL + "/auth/login/student"
     },
 
     register: {
-        maxRequest: 5, 
-        timeLimit: "300 s", 
+        maxRequest: 2, 
+        timeLimit: "30 s", 
         errorMessage: "Kısa zamanda çok fazla istek attınız.",
         backUrl: "/",
         targetUrl: process.env.NEXT_PUBLIC_URL + "/auth/register/student"
@@ -19,7 +19,7 @@ const pageConfig = {
 
     sendVerifyEmail: {
         maxRequest: 2, 
-        timeLimit: "600 s", 
+        timeLimit: "30 s", 
         errorMessage: "Kısa zamanda çok fazla istek attınız.",
         backUrl: "/",
         targetUrl: process.env.NEXT_PUBLIC_URL + "/auth/sendVerifyEmail"
@@ -27,7 +27,7 @@ const pageConfig = {
     
     forgotPassword: {
         maxRequest: 2, 
-        timeLimit: "600 s", 
+        timeLimit: "30 s", 
         errorMessage: "Kısa zamanda çok fazla istek attınız.",
         backUrl: "/",
         targetUrl: process.env.NEXT_PUBLIC_URL + "/auth/forgotPassword"
