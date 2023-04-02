@@ -43,11 +43,12 @@ export default async function middleware(req) {
       pathname.startsWith("/api/auth/verifyEmail")
     ) { 
       // rate limit kontrolü burada başlar.
-      const { success, error, reset, backUrl, targetUrl } = await RateLimitPageConfig(req, pathname);
+      const { success, error, reset, backUrl, targetUrl, targetButtonName, backButtonName } = await RateLimitPageConfig(req, pathname);
 
       if (!success || error) {
         // kullanıcı limiti aştı ise kullanıcıyı başka bir sayfaya yönlendirir.
-        return NextResponse.redirect(new URL(`/notification?type=error&message=${error}&label=Lütfen Dikkat!&remainingTime=${reset}&buttonText=Giriş Yap&url=${targetUrl}`,req.url));
+        return NextResponse.redirect(new URL(
+          `/notification?type=error&message=${error}&label=Lütfen Dikkat!&remainingTime=${reset}&targetButtonName=${targetButtonName}&backButtonName=${backButtonName}&targetUrl=${targetUrl}&backUrl=${backUrl}`,req.url));
       } else {
         // kullanıcı limiti aşmadı ise isteği gönderir.
         return NextResponse.next();

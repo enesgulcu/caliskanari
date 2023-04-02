@@ -2,35 +2,43 @@ import RateLimit from '@/functions/other/rateLimit';
 
 const pageConfig = {
     login: {
-        maxRequest: 2,
-        timeLimit: "30 s",  
+        maxRequest: 10,
+        timeLimit: "600 s",  
         errorMessage: "Kısa zamanda çok fazla istek attınız.",
         backUrl: "/",
-        targetUrl: process.env.NEXT_PUBLIC_URL + "/auth/login/student"
+        targetUrl: process.env.NEXT_PUBLIC_URL + "/auth/login/student",
+        targetButtonName: "Giriş Yap",
+        backButtonName: "Ana Sayfa"
     },
 
     register: {
         maxRequest: 2, 
-        timeLimit: "30 s", 
+        timeLimit: "600 s", 
         errorMessage: "Kısa zamanda çok fazla istek attınız.",
         backUrl: "/",
-        targetUrl: process.env.NEXT_PUBLIC_URL + "/auth/register/student"
+        targetUrl: process.env.NEXT_PUBLIC_URL + "/auth/register/student",
+        targetButtonName: "Kayıt Ol",
+        backButtonName: "Ana Sayfa"
     },
 
     sendVerifyEmail: {
-        maxRequest: 2, 
-        timeLimit: "30 s", 
+        maxRequest: 1, 
+        timeLimit: "240 s", 
         errorMessage: "Kısa zamanda çok fazla istek attınız.",
         backUrl: "/",
-        targetUrl: process.env.NEXT_PUBLIC_URL + "/auth/sendVerifyEmail"
+        targetUrl: process.env.NEXT_PUBLIC_URL + "/auth/sendVerifyEmail",
+        targetButtonName: "Mail Doğrula",
+        backButtonName: "Ana Sayfa"
     },
     
     forgotPassword: {
-        maxRequest: 2, 
-        timeLimit: "30 s", 
+        maxRequest: 1, 
+        timeLimit: "240 s", 
         errorMessage: "Kısa zamanda çok fazla istek attınız.",
         backUrl: "/",
-        targetUrl: process.env.NEXT_PUBLIC_URL + "/auth/forgotPassword"
+        targetUrl: process.env.NEXT_PUBLIC_URL + "/auth/forgotPassword",
+        targetButtonName: "Şifremi Unuttum",
+        backButtonName: "Ana Sayfa"
     }
 };
 
@@ -45,7 +53,7 @@ export  default async function rateLimitPageConfig(req, pathname) {
         const currentPage = Object.keys(pageConfig).find(page => path.startsWith(path));
         if (currentPage) {
             // sayfa başlangıç kısmı ile eşleşen sayfa var ise rate limit kontrolü yapılır.
-            const {maxRequest, timeLimit, errorMessage, backUrl, targetUrl} = pageConfig[currentPage];
+            const {maxRequest, timeLimit, errorMessage, backUrl, targetUrl, targetButtonName, backButtonName} = pageConfig[currentPage];
             const {error, success, reset} = await RateLimit(req, maxRequest, timeLimit);
 
             if (error) {
@@ -56,12 +64,14 @@ export  default async function rateLimitPageConfig(req, pathname) {
                 let error =  new Error();
                 error.message = errorMessage;
                 error.reset = reset;
-                error.backUrl = backUrl;
                 error.targetUrl = targetUrl;
+                error.backUrl = backUrl;                
+                error.targetButtonName = targetButtonName;
+                error.backButtonName = backButtonName;
                 throw error;
             }
             else {
-                return {success: true, backUrl:backUrl, targetUrl:targetUrl};
+                return {success: true};
             }
 
         }
@@ -70,6 +80,14 @@ export  default async function rateLimitPageConfig(req, pathname) {
         } 
 
     } catch (error) {
-        return {error: error.message, success: false, reset: error.reset, backUrl: error.backUrl, targetUrl: error.targetUrl};
+        return {
+            error: error.message, 
+            success: false, 
+            reset: error.reset, 
+            backUrl: error.backUrl, 
+            targetUrl: error.targetUrl, 
+            targetButtonName: error.targetButtonName, 
+            backButtonName: error.backButtonName   
+        };
     }
 }

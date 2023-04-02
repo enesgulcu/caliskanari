@@ -4,13 +4,22 @@ import { useState , useEffect, useCallback} from "react";
 import { useSearchParams, usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 
-// url = yönlendirilecek sayfa
+// targetUrl = yönlendirilecek sayfa
 // label = başlık
 // type = info, error, success, warning
 // message = gösterilecek mesaj
-// buttonText = buton yazısı
+// targetUrl = buton yazısı
 
-export default function Notification({type="info", message="Lütfen tekrar deneyiniz.", label="Bir Hata Oluştu.", url="/", buttonText="Ana Sayfa", remainingTime}){
+export default function Notification({
+  type="info", 
+  message="Lütfen tekrar deneyiniz.", 
+  label="Bir Hata Oluştu.", 
+  targetUrl="/", 
+  targetButtonName="Ana Sayfa",
+  backButtonName="Geri Dön",
+  backUrl = "/",
+  remainingTime = 10
+}){
 
   const router = useRouter();
   
@@ -18,12 +27,14 @@ export default function Notification({type="info", message="Lütfen tekrar deney
   const pathname = usePathname();
  
   if(searchParams){
-    remainingTime = searchParams.get("remainingTime") || 0;
     type = searchParams.get("type") || "error";
     message = searchParams.get("message") || "Bir hata oluştu.";
     label = searchParams.get("label") || "Lütfen tekrar deneyiniz.";
-    url = searchParams.get("url") || "/";
-    buttonText = searchParams.get("buttonText") || "Ana Sayfa";
+    targetButtonName = searchParams.get("targetButtonName") || "Ana Sayfa";
+    backButtonName = searchParams.get("backButtonName") || "Geri Dön";
+    remainingTime = searchParams.get("remainingTime") || 10;
+    targetUrl = searchParams.get("targetUrl") || "/";
+    backUrl = searchParams.get("backUrl") || "/";
   } 
 
 
@@ -53,7 +64,7 @@ export default function Notification({type="info", message="Lütfen tekrar deney
       setCountDown(seconds);
 
       // searchparams ve path yapısını buradan değiştiriyoruz
-      // aşağıdaki kodun en önemli özelliği sayfayı yenilemeden url yapısını değiştirmesidir.
+      // aşağıdaki kodun en önemli özelliği sayfayı yenilemeden targetUrl yapısını değiştirmesidir.
       // createQueryString -> parametredeki değeri değiştirir.
       window.history.pushState({}, '', `${pathname}?${createQueryString('remainingTime', seconds)}`)
       --seconds;
@@ -104,16 +115,28 @@ export default function Notification({type="info", message="Lütfen tekrar deney
             `}>{`${countDown ? (message + " " +  countDown + " saniye sonra tekrar deneyiniz") : message } `}</p>
           </div>
         </div>
-        <div className={`w-full flex justify-center items-center`}>
-          <button onClick={() => countDown <= 0 ? router.replace(url) : "/"}
+        <div className={`w-full flex justify-center items-center gap-4`}>
+          <button onClick={() => countDown <= 0 ? router.replace(targetUrl) : "/"}
           className={`hover:bg-black hover:scale-110 transition-all p-4 rounded text-white shadow
-          ${countDown > 0 && "bg-gray-500 opacity-30 hover:scale-100 hover:bg-gray-500"}
+          ${countDown >= 0 && "bg-gray-500  hover:scale-100 hover:bg-gray-500"}
           ${type == "info" && "bg-blue-500"}
           ${type == "error" && "bg-red-500"}
           ${type == "success" && "bg-green-500"}
           ${type == "warning" && "bg-yellow-500"}
-          `} disabled={countDown > 0} >
-            {`${buttonText}`}
+          `} disabled = {countDown => 0} >
+            {`${targetButtonName}`}
+          </button> 
+          <button onClick={() => countDown <= 0 ? router.replace(backUrl) : "/"}
+          className={`
+          ${!backButtonName && "hidden"}
+          hover:bg-black hover:scale-110 transition-all p-4 rounded text-white shadow
+          ${countDown >= 0 && "bg-gray-500  hover:scale-100 hover:bg-green-500"}
+          ${type == "info" && "bg-blue-500"}
+          ${type == "error" && "bg-red-500"}
+          ${type == "success" && "bg-green-500"}
+          ${type == "warning" && "bg-yellow-500"}
+          `} >
+            {`${backButtonName}`}
           </button> 
         </div>
         

@@ -47,7 +47,6 @@ export async function getAPI(URL, headers = {'Content-Type': 'application/json'}
             //return window.location.href = res.url;
         }
         else{
-            console.log("not rediredted")
             return res.json();
         }
         
