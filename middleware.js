@@ -13,7 +13,6 @@ export default async function middleware(req) {
 
   // Tüm istekleri burad ayakalarız.
   const { pathname } = new URL(req.url) || new URL(req.nextUrl);
-console.log(pathname);
     //########################################################################################################
     // Sistemin kendi API isteklerini görmezden gelir.########################################################
     if (
