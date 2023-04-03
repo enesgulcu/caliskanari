@@ -8,7 +8,8 @@ export default async function EncryptPassword(password) {
         return password;
 
     } catch (error) {
-        console.log(error);      
+        console.log(error);  
+        return error;    
     }
 }
 

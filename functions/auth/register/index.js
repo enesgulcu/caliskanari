@@ -7,15 +7,13 @@ export async function createNewUser(user, mailKey) {
     // kullanıcı kontrolü
     const mailCheck = await getDataByUnique(user.role, {email: user.email});
  
-    
-
     // eğer doğrulanmamış bir hesaba bağlı bir kayıt varsa yen iveriyi üzerine yaz
     if (mailCheck != null && !mailCheck.error) {
       return { error: "Bu e-mail adresine kayıtlı başka bir hesap bulunmaktadır. Şifremi unuttum bölümünden şifrenizi sıfırlayabilirsiniz." };
     }
 
-
     else {
+      user.verified = false;
       // Kullanıcıyı veritabanına kayıt eder.
       const userFromDB = await createNewData(user.role, user);
       
@@ -27,8 +25,6 @@ export async function createNewUser(user, mailKey) {
         surname : user.surname,
       });
       
-      
-
       // E-mail doğrulama işlemi için veritabanına kayıt oluşturur.
       const createVerifyDB = await createNewData("VerifyEmail", {
         email: user.email,
@@ -49,15 +45,12 @@ export async function createNewUser(user, mailKey) {
 }
 
 
-
       // TELEFON KONTROL İSTEĞİ (DURDURULDU ŞİMDİLİK!)
       // const phoneCheck = await prisma.user.findUnique({
       //   where: {
       //     phone: user.phone
       //   },
       // })
-
-
 
       // TELEFON KONTROL KOŞULU (DURDURULDU ŞİMDİLİK!)
       // // Eğer öğrenci ile eşleşen bir kayıt varsa hata döndür

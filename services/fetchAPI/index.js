@@ -10,11 +10,8 @@ export async function postAPI(URL, body = "", method="POST", headers = {'Content
             body: JSON.stringify(body)
             
         }).then(res =>{
-
-            if(res.redirected){
-                // bazı yerlerde window'u bulamıyor kontrol et
-                return window.location.href = res.url
-            
+            if(res.url.includes("/notification") && res.redirected){
+                return window.location.href = res.url;
             }
             else{
                 return res.json();

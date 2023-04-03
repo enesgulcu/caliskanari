@@ -4,8 +4,15 @@ import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { transporter, mailOptions } from "@/pages/api/mail/nodemailer";
 import getTurkeyTime from "@/functions/other/timeNow";
+import mailStringCheck from "@/functions/other/mailStringCheck";
+
+
 
 export default async function handler (req, res) {
+
+    if(!req){
+        return res.status(500).json({status: "error", message: "Bir hata oluştu!"});
+    }
 
     //getServerSession:  Kullanıcının oturum açıp açmadığını kontrol eder. Eğer açılmışsa session değişkenine atar.
     const session = await getServerSession(req, res, authOptions)
@@ -14,14 +21,28 @@ export default async function handler (req, res) {
     const date = (await getTurkeyTime()).date;
     const time = (await getTurkeyTime()).time;
     
-    
-        if(req.method === 'POST'){
+        console.log(req.headers.referer);
+        
+        if(req.method === 'POST' && req.body){
             try {
                 const data = req.body;
+
+
+                // istek yapılan sayfa içerisinden rol bilgisini alır ve atamasını yaparız.
+                if(req.headers.referer){                
+                    if(req.headers.referer.includes("teacher")){
+                        data.role = "teacher";
+                    }
+                    else{
+                        data.role = "student";
+                    }
+                }
                 
                 // Eğer kullanıcı gerekli alanları doldurmadan kayıt olmaya çalışırsa hata fırlatır.
                 if(
-                    data.role == ""         || data.role == undefined       || data.role == null
+                    !mailStringCheck(data.email) 
+                    || (data.role != "student" && data.role != "teacher") 
+                    || data.role == ""      || data.role == undefined       || data.role == null
                     || data.name == ""      || data.name == undefined       || data.name == null
                     || data.surname == ""   || data.surname == undefined    || data.surname == null
                     || data.email == ""     || data.email == undefined      || data.email == null
@@ -30,16 +51,31 @@ export default async function handler (req, res) {
                     || data.city == ""      || data.city == undefined       || data.city == null
                     || data.town == ""      || data.town == undefined       || data.town == null                    
                 ){
-                    throw new Error("Lütfen tüm alanları doldurunuz!");
+                    throw new Error("Lütfen tüm alanları doğru bir şekilde doldurunuz!");
                 }
 
                 
-                data.password = await EncryptPassword(data.password);
-                const mailKey = await EncryptPassword(process.env.MAIL_SECRET); 
-                const hashedEmail = await EncryptPassword(data.email);
-                const {error} = await createNewUser(data, mailKey);
                 
-                if(error) throw new Error(error);
+                
+                data.password = await EncryptPassword(data.password);
+                if(!data.password){
+                    throw new Error("Şifre oluşturulurken bir hata oluştu!");
+                }
+                
+                const mailKey = await EncryptPassword(process.env.MAIL_SECRET); 
+                if(!mailKey){
+                    throw new Error("Kayıt sırasında bir hata oluştu.");
+                }
+
+                const hashedEmail = await EncryptPassword(data.email);
+                if(!hashedEmail){
+                    throw new Error("Kayıt sırasında bir hata oluştu.");
+                }
+
+                const {error} = await createNewUser(data, mailKey);
+                if(error){
+                    throw new Error(error);
+                }
 
                 
 
@@ -75,6 +111,9 @@ export default async function handler (req, res) {
             } catch (error) {
                 return res.status(500).json({status: "error", message: error.message}); 
            }                   
+        }
+        else{
+            return res.status(405).json({status: "error", message: "Bu sayfaya bu şekilde erişim sağlanamaz!"});
         } 
     }
     else{

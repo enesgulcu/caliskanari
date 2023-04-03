@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getToken } from 'next-auth/jwt';
 import RateLimitPageConfig from '@/functions/other/rateLimitPageConfig';
+
 // kullanıcıların gidebileceği sayfaların başlangıç kısmını belirleriz.
 const roles = {
   student: '/student',
@@ -11,9 +12,10 @@ const roles = {
 
 export default async function middleware(req) {
 
-  // Tüm istekleri burad ayakalarız.
+  // Tüm istekleri burada yakalarız.
   const { pathname } = new URL(req.url) || new URL(req.nextUrl);
-    //########################################################################################################
+    console.log(pathname);
+      //########################################################################################################
     // Sistemin kendi API isteklerini görmezden gelir.########################################################
     if (
       pathname.startsWith("/_next") ||
@@ -34,21 +36,15 @@ export default async function middleware(req) {
     //########################################################################################################
     // sistem API istekleri haricinde...######################################################################
     // /api/auth ile başlayan tüm gelen isteklerin hepsini kontrol eder. #####################################
-    else if (
-      pathname.startsWith("/api/auth") &&
-      pathname.startsWith("/api/auth/login") ||
-      pathname.startsWith("/api/auth/register") ||
-      pathname.startsWith("/api/auth/sendVerifyEmail") ||
-      pathname.startsWith("/api/auth/forgotPassword") ||
-      pathname.startsWith("/api/auth/verifyEmail")
-    ) { 
+    else if (pathname.startsWith("/api/") && !pathname.startsWith("/api/mail")) { 
+      
       // rate limit kontrolü burada başlar.
-      const { success, error, reset, backUrl, targetUrl, targetButtonName, backButtonName } = await RateLimitPageConfig(req, pathname);
+      const { success, error, reset, backUrl, targetUrl, targetButtonName, backButtonName, label } = await RateLimitPageConfig(req, pathname);
 
-      if (!success || error) {
+      if (!success || error && false) {
         // kullanıcı limiti aştı ise kullanıcıyı başka bir sayfaya yönlendirir.
         return NextResponse.redirect(new URL(
-          `/notification?type=error&message=${error}&label=Lütfen Dikkat!&remainingTime=${reset}&targetButtonName=${targetButtonName}&backButtonName=${backButtonName}&targetUrl=${targetUrl}&backUrl=${backUrl}`,req.url));
+          `/notification?type=error&message=${error}&label=${label}&remainingTime=${reset}&targetButtonName=${targetButtonName}&backButtonName=${backButtonName}&targetUrl=${targetUrl}&backUrl=${backUrl}`,req.url));
       } else {
         // kullanıcı limiti aşmadı ise isteği gönderir.
         return NextResponse.next();
@@ -64,6 +60,7 @@ export default async function middleware(req) {
       // kullanıcı oturum açmış ise. ###########################################################################  
       if (session) {
         if (
+          
           !pathname.startsWith(roles[session.role]) || 
           pathname.startsWith("/auth/login") ||
           pathname.startsWith("/auth/register") ||
@@ -85,6 +82,7 @@ export default async function middleware(req) {
         !pathname.startsWith("/auth/register") &&
         !pathname.startsWith("/auth/verifyEmail") &&
         !pathname.startsWith("/auth/forgotPassword") &&
+        !pathname.startsWith("/notification") &&
         !pathname.startsWith("/auth/sendVerifyEmail") 
       ) {
         return NextResponse.rewrite(new URL("/", req.url));
@@ -93,11 +91,6 @@ export default async function middleware(req) {
         return NextResponse.next();
       }
     }
-
-//########################################################################################################
-//######################################################################################################## 
-
-    return NextResponse.next();
   }
 
 
@@ -111,6 +104,9 @@ export const config = {
     '/teacher/:path*',
     '/auth/:path*',
     '/api/:path*',
+
+    // aşağıdaki isteklerden birisi geliyorsa o zaman çalışma dedik!.   NOT: YİNEDE GİDİYOR AMA DURMASINDA FAYDA VAR!
+    '/((?!api/auth/session|_next|api/auth/signin|api/auth/signout|api/auth/providers|api/auth/callback|api/auth/csrf|api/auth/error|api/auth/_log|api/auth/_|favicon.ico).*)',
 
   ],
 };

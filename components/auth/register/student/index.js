@@ -157,7 +157,6 @@ export default function StudentRegisterComponent({ CitiesData }) {
           // input verileri
           initialValues={{
             role: PageRole,
-            verified: false,
             name: '',
             surname: '',
             phone: '',
@@ -181,7 +180,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
             // girilen telefonlarda boşlukları siler ve sonrasında son 10 haniesini alma
             values.phone = values.phone.replace(/\s/g, "").slice(-10);
 
-            postAPI("/auth/register/", values).then((res) => {
+            postAPI("/auth/register", values).then((res) => {
               if (res.status === 'success') {
                 // Giriş başarılı ise ekrana "blur" efekti verir
                 setIsloading(false);
@@ -203,7 +202,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                 toast.error(
                   res.message
                     ? res.message
-                    : 'Girdiğini bilgileri kontrol ediniz.'
+                    : 'Girdiğiniz bilgileri kontrol ediniz.'
                 );
                 values.password = '';
                 values.passwordConfirm = '';
