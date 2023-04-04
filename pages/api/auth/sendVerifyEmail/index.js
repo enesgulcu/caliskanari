@@ -2,11 +2,14 @@ import { transporter, mailOptions } from "@/pages/api/mail/nodemailer";
 import SendVerifyEmail from "@/functions/auth/sendVerifyEmail";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
+import mailStringCheck from "@/functions/other/mailStringCheck";
 
 export default async function handler (req, res) {
-    if(req.method == "GET"){
-        return res.status(200).json({message: "GET method is not allowed."})
+
+    if(req.method != "POST"){
+        return res.status(200).json({message: "Method not allowed"})
     }
+
     const session = await getServerSession(req, res, authOptions)
     if(!session){
         
@@ -14,12 +17,11 @@ export default async function handler (req, res) {
         
         try {
             
-            if(!email) {
+            if(!email && !mailStringCheck(email) ) {
                 throw new Error("Lütfen email adresini doğru girin.");
             }
 
             const {error, status, mailKey, hashedEmail, mailCheck, date, time} = await SendVerifyEmail(email);
-
 
             if(error){
                 throw new Error(error);
@@ -56,6 +58,9 @@ export default async function handler (req, res) {
             })
                 
                 return res.status(200).json({status: "success",  message: "Mail adresinize onaylama bağlantısı gönderildi."});
+            }
+            else{
+                throw new Error("Mail adresinize onaylama bağlantısı gönderilemedi.");
             }
 
         }

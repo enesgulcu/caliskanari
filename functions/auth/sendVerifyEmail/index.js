@@ -15,13 +15,13 @@ export default async function SendVerifyEmail(email) {
         const mailKey = await EncryptPassword(process.env.MAIL_SECRET); 
         const hashedEmail = await EncryptPassword(email);
     
-        if(!mailKey || !hashedEmail || !mailKey || !hashedEmail) {
+        if(!mailKey || !hashedEmail || !mailKey || !hashedEmail || hashedEmail.error || mailKey.error) {
             throw new Error("Mail gönderilemedi! Lütfen daha sonra tekrar deneyiniz!");
         }
 
 
         const mailCheck = await getDataByUnique("AllUser", {email: email});
-        if(!mailCheck || mailCheck == null){
+        if(!mailCheck || mailCheck == null || mailCheck.error){
             throw new Error("Girdiğiniz mail adresi geçersizdir!");
         }
        
@@ -44,6 +44,7 @@ export default async function SendVerifyEmail(email) {
             secretKey: mailKey,
             validTime: Date.now(),
           }); 
+          
         if(createVerifyDB.error){
             throw new Error(createVerifyDB.error)
         }

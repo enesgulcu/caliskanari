@@ -4,7 +4,7 @@ export default async function VerifyEmailComponents({children}) {
     
   return (
     <div>
-        {children}
+        {await children}
     </div>
   )
 }

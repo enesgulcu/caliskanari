@@ -25,7 +25,7 @@ export default async function ResetPassword(searchParams) {
 
          const verify = await DecryptPassword(forgetPasswordData.email, searchParams.email)
      
-         if(!verify) {
+         if(!verify || verify.error) {
             throw new Error("Girdiğiniz Mail Adresi Geçersizdir.");
          }
 

@@ -15,7 +15,7 @@ const pageConfig = {
 
     register: {
         maxRequest: 2, 
-        timeLimit: "1 s", 
+        timeLimit: "600 s", 
         errorMessage: "Kısa zamanda çok fazla istek attınız.",
         backUrl: "/",
         targetUrl: process.env.NEXT_PUBLIC_URL + "/auth/register/student",
@@ -25,11 +25,22 @@ const pageConfig = {
     },
 
     sendVerifyEmail: {
-        maxRequest: 2, 
-        timeLimit: "1 s", 
+        maxRequest: 3, 
+        timeLimit: "3600 s", 
         errorMessage: "Kısa zamanda çok fazla istek attınız.",
         backUrl: "/",
         targetUrl: process.env.NEXT_PUBLIC_URL + "/auth/sendVerifyEmail",
+        targetButtonName: "Mail Doğrula",
+        backButtonName: "Ana Sayfa",
+        label: "Lütfen Dikkat!",
+    },
+
+    verifyEmail: {
+        maxRequest: 5, 
+        timeLimit: "5 s", 
+        errorMessage: "Kısa zamanda çok fazla istek attınız.",
+        backUrl: "/",
+        targetUrl: process.env.NEXT_PUBLIC_URL + "/auth/verifyEmail",
         targetButtonName: "Mail Doğrula",
         backButtonName: "Ana Sayfa",
         label: "Lütfen Dikkat!",

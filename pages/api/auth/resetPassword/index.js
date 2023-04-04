@@ -28,7 +28,7 @@ export default async function handler (req, res) {
                     throw new Error("Şifreler uyuşmuyor!");
                 }
                 const hashedNewPassword = await EncryptPassword(password);
-                if(!hashedNewPassword){
+                if(!hashedNewPassword || hashedNewPassword.error){
                     
                     throw new Error("Şifre oluşturulamadı!");
                 }

@@ -25,7 +25,7 @@ export default async function handler (req, res) {
                 const mailKey = await EncryptPassword(process.env.MAIL_SECRET);
                 const hashedEmail = await EncryptPassword(email); 
 
-                if(!mailKey || !hashedEmail){
+                if(!mailKey || !hashedEmail || hashedEmail.error || mailKey.error){
                     throw new Error("Şifre sıfırlama işlemi sırasında bir hata oluştu!");
                 }
 

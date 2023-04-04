@@ -20,8 +20,6 @@ export default async function handler (req, res) {
 
     const date = (await getTurkeyTime()).date;
     const time = (await getTurkeyTime()).time;
-    
-        console.log(req.headers.referer);
         
         if(req.method === 'POST' && req.body){
             try {
@@ -54,22 +52,21 @@ export default async function handler (req, res) {
                     throw new Error("Lütfen tüm alanları doğru bir şekilde doldurunuz!");
                 }
 
-                
-                
-                
                 data.password = await EncryptPassword(data.password);
-                if(!data.password){
-                    throw new Error("Şifre oluşturulurken bir hata oluştu!");
+                
+                if(!data.password || data.password.error){
+                    throw new Error("pass: Kayıt sırasında bir hata oluştu.");
                 }
                 
                 const mailKey = await EncryptPassword(process.env.MAIL_SECRET); 
-                if(!mailKey){
-                    throw new Error("Kayıt sırasında bir hata oluştu.");
+                if(!mailKey || mailKey.error){
+                    throw new Error("key: Kayıt sırasında bir hata oluştu.");
                 }
 
                 const hashedEmail = await EncryptPassword(data.email);
-                if(!hashedEmail){
-                    throw new Error("Kayıt sırasında bir hata oluştu.");
+                
+                if(!hashedEmail || hashedEmail.error){
+                    throw new Error("hash: Kayıt sırasında bir hata oluştu.");
                 }
 
                 const {error} = await createNewUser(data, mailKey);

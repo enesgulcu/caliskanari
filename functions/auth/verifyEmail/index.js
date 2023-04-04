@@ -30,7 +30,7 @@ export default async function VerifyEmail({key, email, role}) {
       // mail adresi doğrulama işlemi
       const  verify = await DecryptPassword(verifyEmailData.email, email)
       
-      if(!verify) {
+      if(!verify || verify.error) {
          throw new Error("Girdiğiniz Mail Adresi Geçersizdir.");
       }
 
@@ -49,10 +49,14 @@ export default async function VerifyEmail({key, email, role}) {
     // Veri tabanında mail adresi onaylanmış olarak güncelle.
     const userFromDB = await updateDataByAny(role, {email: verifyEmailData.email}, { verified: true});
    
+      if (!userFromDB || userFromDB.error) {
+         throw new Error("Mail adresiniz onaylanamadı bir hata ile karşılaşıldı!");
+      }
+
     // verifyEmail tablosundan kayıtları sil.
     const deleteVerifyEmail = await deleteDataByMany ("VerifyEmail", {email: verifyEmailData.email});
 
-    if (!userFromDB || userFromDB.error || !deleteVerifyEmail || deleteVerifyEmail.error) {
+    if (!deleteVerifyEmail || deleteVerifyEmail.error) {
       throw new Error("Mail adresiniz onaylanamadı bir hata ile karşılaşıldı!");
     }
 

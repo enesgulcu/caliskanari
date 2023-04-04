@@ -14,7 +14,6 @@ export default async function middleware(req) {
 
   // Tüm istekleri burada yakalarız.
   const { pathname } = new URL(req.url) || new URL(req.nextUrl);
-    console.log(pathname);
       //########################################################################################################
     // Sistemin kendi API isteklerini görmezden gelir.########################################################
     if (
@@ -36,8 +35,8 @@ export default async function middleware(req) {
     //########################################################################################################
     // sistem API istekleri haricinde...######################################################################
     // /api/auth ile başlayan tüm gelen isteklerin hepsini kontrol eder. #####################################
-    else if (pathname.startsWith("/api/") && !pathname.startsWith("/api/mail")) { 
-      
+    else if (pathname.startsWith("/api/") && !pathname.startsWith("/api/mail")) {
+
       // rate limit kontrolü burada başlar.
       const { success, error, reset, backUrl, targetUrl, targetButtonName, backButtonName, label } = await RateLimitPageConfig(req, pathname);
 
@@ -49,19 +48,19 @@ export default async function middleware(req) {
         // kullanıcı limiti aşmadı ise isteği gönderir.
         return NextResponse.next();
       }
-    } 
+    }
     //########################################################################################################
     // kullanıcının gittiği sayfaları (oturum açılmış) ve (oturum kapalı) durumuna göre kontrol eder. ########
     else {
       // kullanıcının oturum bilgilerini alır.
       const session =  await getToken({ req, secret: process.env.NEXTAUTH_SECRET});
 
-      //########################################################################################################  
-      // kullanıcı oturum açmış ise. ###########################################################################  
+      //########################################################################################################
+      // kullanıcı oturum açmış ise. ###########################################################################
       if (session) {
         if (
-          
-          !pathname.startsWith(roles[session.role]) || 
+
+          !pathname.startsWith(roles[session.role]) ||
           pathname.startsWith("/auth/login") ||
           pathname.startsWith("/auth/register") ||
           pathname.startsWith("/auth/sendVerifyEmail") ||
@@ -72,18 +71,18 @@ export default async function middleware(req) {
         }
       }
 
-      //########################################################################################################  
+      //########################################################################################################
       // kullanıcı oturum açmamış ise. #########################################################################
       if (
         !session &&
         (!pathname.startsWith("/auth/") ||
         !pathname.startsWith("/api/")) &&
         !pathname.startsWith("/auth/login") &&
+        !pathname.startsWith("/notification") &&
         !pathname.startsWith("/auth/register") &&
         !pathname.startsWith("/auth/verifyEmail") &&
         !pathname.startsWith("/auth/forgotPassword") &&
-        !pathname.startsWith("/notification") &&
-        !pathname.startsWith("/auth/sendVerifyEmail") 
+        !pathname.startsWith("/auth/sendVerifyEmail")
       ) {
         return NextResponse.rewrite(new URL("/", req.url));
       }

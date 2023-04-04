@@ -3,6 +3,10 @@ import bcrypt from 'bcryptjs';
 export default async function DecryptPassword(LoginPassword, databasePassword) {
     try {
         
+        if(!LoginPassword || !databasePassword) {
+            throw new Error("Password is empty");
+        }
+
         return bcrypt.compareSync(LoginPassword, databasePassword, (err, result) => {
 
             if(err) throw new Error(err);
@@ -11,7 +15,7 @@ export default async function DecryptPassword(LoginPassword, databasePassword) {
         });
  
     } catch (error) {
-        console.log(error);      
+        return {error: error};    
     }
 }
 
