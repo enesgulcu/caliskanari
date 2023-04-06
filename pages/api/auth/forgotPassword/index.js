@@ -4,6 +4,7 @@ import { authOptions } from "@/pages/api/auth/[...nextauth]";
 import { transporter, mailOptions } from "@/pages/api/mail/nodemailer";
 import getTurkeyTime from "@/functions/other/timeNow";
 import {createNewForgotPassword} from "@/functions/auth/forgotPassword";
+import mailStringCheck from "@/functions/other/mailStringCheck";
 
 export default async function handler (req, res) {
     
@@ -18,8 +19,8 @@ export default async function handler (req, res) {
             try {
                 const email = req.body;
 
-                if(!email){
-                    throw new Error("Email adresi boş bırakılamaz!");
+                if(!email || !mailStringCheck(email) || email == "" || email == null || email == undefined){
+                    throw new Error("Lütfen girdiğiniz email adresini kontrol ediniz.");
                 }
 
                 const mailKey = await EncryptPassword(process.env.MAIL_SECRET);
@@ -69,6 +70,10 @@ export default async function handler (req, res) {
                 return res.status(500).json({status: "error", message: error.message}); 
            }                   
         } 
+        else{
+            return res.status(405).json({status: "error", message: "hatalı bir istek gerçekleştirdiniz."});
+        }
+
     }
     else{
         return res.status(401).json({status: "error", message: "Oturum açılmış kullanıcılar şifre sıfırlama işlemi yapamaz."});

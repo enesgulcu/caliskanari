@@ -13,7 +13,7 @@ export async function createNewForgotPassword(email, {mailKey}) {
     const mailCheck = await getDataByUnique("AllUser", {email: email});
 
     // eğer doğrulanmamış bir hesaba bağlı bir kayıt varsa yen iveriyi üzerine yaz
-    if (mailCheck == null || mailCheck.error) {
+    if (mailCheck == null || mailCheck.error || mailCheck == undefined || mailCheck == "") {
       throw new Error("Bu email adresine kayıtlı bir kullanıcı bulunamadı!");
     }
     else {
@@ -38,13 +38,13 @@ export async function createNewForgotPassword(email, {mailKey}) {
             oldTimes.push(item.validTime);
           }
         })
-        // 3 kere şifre sıfırlama talebinde bulunmuşsa son kalan zamanı hesapla ve hata döndür
+        // 3 kere doğru bir maile şifre sıfırlama talebinde bulunmuşsa son kalan zamanı hesapla ve hata döndür
         if(currentTimes.length >= 3){
           const lastResetPasswordRequest = currentTimes[currentTimes.length - 1]; 
           const lifeTime2 = Date.now() - lastResetPasswordRequest;
           const pastHour = Math.floor((lifeTime2 % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
           const remainingTime = 24 - pastHour;
-          throw new Error("3 kere şifre sıfırlama talebinde bulundunuz. Lütfen " + remainingTime + " saat sonra tekrar deneyiniz.");
+          throw new Error("Kısa süre içerisinde 3 kere şifre sıfırlama talebinde bulundunuz. Lütfen " + remainingTime + " saat sonra tekrar deneyiniz.");
         }
 
         if(oldTimes.length > 0){

@@ -2,8 +2,8 @@ import RateLimit from '@/functions/other/rateLimit';
 
 const pageConfig = {
     login: {
-        maxRequest: 10,
-        timeLimit: "1 s",  
+        maxRequest: 3,
+        timeLimit: "15 s",  
         errorMessage: "Kısa zamanda çok fazla istek attınız.",
         backUrl: "/",
         targetUrl: process.env.NEXT_PUBLIC_URL + "/auth/login/student",
@@ -14,8 +14,8 @@ const pageConfig = {
     },
 
     register: {
-        maxRequest: 2, 
-        timeLimit: "600 s", 
+        maxRequest: 3,
+        timeLimit: "45 s",   
         errorMessage: "Kısa zamanda çok fazla istek attınız.",
         backUrl: "/",
         targetUrl: process.env.NEXT_PUBLIC_URL + "/auth/register/student",
@@ -25,8 +25,8 @@ const pageConfig = {
     },
 
     sendVerifyEmail: {
-        maxRequest: 3, 
-        timeLimit: "3600 s", 
+        maxRequest: 3,
+        timeLimit: "15 s",   
         errorMessage: "Kısa zamanda çok fazla istek attınız.",
         backUrl: "/",
         targetUrl: process.env.NEXT_PUBLIC_URL + "/auth/sendVerifyEmail",
@@ -36,8 +36,8 @@ const pageConfig = {
     },
 
     verifyEmail: {
-        maxRequest: 5, 
-        timeLimit: "5 s", 
+        maxRequest: 3,
+        timeLimit: "15 s",   
         errorMessage: "Kısa zamanda çok fazla istek attınız.",
         backUrl: "/",
         targetUrl: process.env.NEXT_PUBLIC_URL + "/auth/verifyEmail",
@@ -47,8 +47,8 @@ const pageConfig = {
     },
     
     forgotPassword: {
-        maxRequest: 2, 
-        timeLimit: "1 s", 
+        maxRequest: 3,
+        timeLimit: "15 s",   
         errorMessage: "Kısa zamanda çok fazla istek attınız.",
         backUrl: "/",
         targetUrl: process.env.NEXT_PUBLIC_URL + "/auth/forgotPassword",

@@ -49,7 +49,7 @@ export default function ForgotPasswordComponent() {
           setIsloading(true);
             
             postAPI("/auth/forgotPassword", values.email).then(data => {
-              
+
               if(data){
                 if (data?.status === "success") {
                   toast.success(data.message);
@@ -96,8 +96,9 @@ export default function ForgotPasswordComponent() {
                         <Image
                           src="/logo.png"
                           width="150"
-                          height="150"
+                          height="150"  
                           alt="logo"
+                          priority={true}
                         />
                       </div>
                     </div>

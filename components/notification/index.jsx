@@ -137,40 +137,36 @@ export default function Notification({
           <div className={`w-full flex justify-center items-center gap-4 p-4`}>
             <button
               onClick={() => {
-                setIsloading(true);
                 if (countDown <= 0) {
+                  setIsloading(true);
                   router.replace(targetUrl);
                 } else {
                   // Do nothing
                 }
               }}
-              className={`hover:bg-black hover:scale-110 transition-all p-4 rounded text-white shadow
-          ${countDown >= 0 && "bg-gray-500  hover:scale-100 hover:bg-gray-500"}
-          ${type == "info" && "bg-blue-500"}
-          ${type == "error" && "bg-red-500"}
-          ${type == "success" && "bg-green-500"}
-          ${type == "warning" && "bg-yellow-500"}
+              className={` bg-gray-500  transition-all p-4 hover:scale-100 rounded text-white shadow
+          ${countDown > 0 && "bg-gray-500   hover:bg-gray-500 hover:scale-100 cursor-default"}
+          ${countDown <= 0 && type == "info" && "bg-blue-500 hover:scale-110 hover:bg-blue-600"}
+          ${countDown <= 0 && type == "error" && "bg-red-500 hover:scale-110 hover:bg-blue-600"}
+          ${countDown <= 0 && type == "success" && "bg-green-500 hover:scale-110 hover:bg-blue-600"}
+          ${countDown <= 0 && type == "warning" && "bg-yellow-500 hover:scale-110 hover:bg-blue-600"}
           `}
+          
             >
-              {`${targetButtonName}`}
+              {`${targetButtonName} ${countDown > 0 ? `(${countDown})` : "" }`}
             </button>
             <button
               onClick={() => {
                 setIsloading(true);
-                if (countDown <= 0) {
                   router.replace(backUrl);
-                } else {
-                  // Do nothing
-                }
               }}
               className={`
           ${!backButtonName && "hidden"}
-          hover:bg-black hover:scale-110 transition-all p-4 rounded text-white shadow
-          ${countDown >= 0 && "bg-gray-500  hover:scale-100 hover:bg-green-500"}
-          ${type == "info" && "bg-blue-500"}
-          ${type == "error" && "bg-red-500"}
-          ${type == "success" && "bg-green-500"}
-          ${type == "warning" && "bg-yellow-500"}
+          hover:scale-110 transition-all p-4 rounded text-white shadow
+          ${type == "info" && "bg-blue-500 hover:bg-blue-600"}
+          ${type == "error" && "bg-red-500 hover:bg-blue-600"}
+          ${type == "success" && "bg-green-600 hover:bg-blue-600"}
+          ${type == "warning" && "bg-yellow-500 hover:bg-blue-600"}
           `}
             >
               {`${backButtonName}`}

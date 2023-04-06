@@ -1,40 +1,57 @@
-import { getDataByUnique, deleteDataByMany } from "@/services/serviceOperations";
-import DecryptPassword from "@/functions/auth/decryptPassword"
-
+import {getDataByUnique,deleteDataByMany} from "@/services/serviceOperations";
+import DecryptPassword from "@/functions/auth/decryptPassword";
 
 export default async function ResetPassword(searchParams) {
-   try {
-    
-    const forgetPasswordData = await getDataByUnique("ForgotPassword", {secretKey: searchParams.key});
-     if(!forgetPasswordData || forgetPasswordData.error  || forgetPasswordData == null) {
-        throw new Error("Şifre Sıfırlama Linki Geçersizdir.");
-     }
+  try {
+    if (!searchParams) {
+      throw new Error("Eksik yada yanlış bir işlem başlattınız.");
+    }
 
-        const now = Date.now();
-        const LifeTime = now - forgetPasswordData.validTime;
-        const pastHour = Math.floor((LifeTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    // ForgotPassword tablosundan key eşleşmesi ile verileri yakalarız.
+    const forgotPasswordData = await getDataByUnique("ForgotPassword", {
+      secretKey: searchParams.key,
+    });
+    if (
+      !forgotPasswordData ||
+      forgotPasswordData.error ||
+      forgotPasswordData == null
+    ) {
+      throw new Error("Şifre Sıfırlama Linki Geçersizdir.");
+    }
 
-         if(pastHour >= 24){
-            const {error} = await deleteDataByMany("ForgotPassword", {email: forgetPasswordData.email});
+    // Şifre Sıfırlama Linkinin Geçerlilik Süresi 24 Saattir.
+    const now = Date.now();
+    const LifeTime = now - forgotPasswordData.validTime;
+    const pastHour = Math.floor(
+      (LifeTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
+    );
 
-            if(error){
-               throw new Error(error.message);
-            }
-            throw new Error("Şifre Sıfırlama Linkinin Geçerlilik Süresi Bitmiştir. Lütfen Yeni Bir Şifre Sıfırlama Talebinde Bulununuz.");
-         }
+    // Eğer geçerlilik süresi dolmuş ise verileri silelim.
+    if (pastHour >= 24) {
+      const { error } = await deleteDataByMany("ForgotPassword", {
+        email: forgotPasswordData.email,
+      });
 
-         const verify = await DecryptPassword(forgetPasswordData.email, searchParams.email)
-     
-         if(!verify || verify.error) {
-            throw new Error("Girdiğiniz Mail Adresi Geçersizdir.");
-         }
+      if (error) {
+        throw new Error(error.message);
+      }
+      throw new Error(
+        "Şifre Sıfırlama Linkinin Geçerlilik Süresi Bitmiştir. Lütfen Yeni Bir Şifre Sıfırlama Talebinde Bulununuz."
+      );
+    }
 
-         return {success: true, email: forgetPasswordData.email};
+    // ForgotPassword tablosundan gelen değerler ile DecryptPassword fonksiyonunu kullanarak şifreleri karşılaştırıyoruz.
+    const verify = await DecryptPassword(
+      forgotPasswordData.email,
+      searchParams.email
+    );
 
+    if (!verify || verify.error) {
+      throw new Error("Bu mail adresi ile ilgili bir şifre sıfırlama talebi bulunmamaktadır.");
+    }
 
-        
-   } catch (error) {
-        return {error : error.message};
-   }
-
+    return { success: true, email: forgotPasswordData.email };
+  } catch (error) {
+    return { error: error.message };
+  }
 }

@@ -237,6 +237,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                           width='150'
                           height='150'
                           alt='logo'
+                          priority={true}
                         />
                       </div>
                     </div>
@@ -261,7 +262,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                         title='Okul Bilgileri'
                         activeTitle={activeTab == 2}
                         showIcon={activeTab > 2}
-                        icon={<FaCheck />}
+                        icon={<FaCheck size={46}/>}
                         stepCompleted={activeTab > 2}
                       />
                       {/* Progress Bar Step 3 */}
@@ -270,7 +271,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                         title='Giriş Bilgileri'
                         activeTitle={activeTab == 3}
                         showIcon={activeTab == 3 && isRegister}
-                        icon={<FaCheck  />}
+                        icon={<FaCheck  size={46}/>}
                         stepCompleted={isRegister}
                         lastStep={true}
                       />
@@ -296,7 +297,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                             id='name'
                             name='name'
                             type='text'
-                            value={props.values.name}
+                            
                             onChange={props.handleChange}
                             placeholder='İsminizi giriniz.'
                             
@@ -315,7 +316,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                             id='surname'
                             name='surname'
                             type='text'
-                            value={props.values.surname}
+                            
                             onChange={props.handleChange}
                             placeholder='Soyisminizi giriniz.'
                             
@@ -333,7 +334,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                             id='phone'
                             name='phone'
                             type='text'
-                            value={props.values.phone}
+                            
                             onChange={props.handleChange}
                             placeholder='5xxxxxxxxx'
                             
@@ -364,7 +365,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                             labelValue='Okulun Bulunduğu İl'
                               id='city'
                               name='city'
-                              value={props.values.city}
+                              
                               optionLabel='İl Seç'
                               onChange={(e) => {
                                 props.handleChange(e);
@@ -394,7 +395,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                             labelValue='Okulun Bulunduğu İlçe'
                               id='town'
                               name='town'
-                              value={props.values.town}
+                              
                               disabled={city ? false : true}
                               optionLabel='İlçe Seç'
                               onChange={(e) => {
@@ -428,7 +429,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                             labelValue='Okul Türü'
                               id='schooltype'
                               name='schooltype'
-                              value={props.values.schooltype}
+                              
                               disabled={town ? false : true}
                               optionLabel='Okul Türü Seç'
                               onChange={(e) => {
@@ -469,7 +470,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                                   name='schollName'
                                   type='text'
                                   disabled={schooltype || isloading || isRegister ? false : true}
-                                  value={props.values.schollName}
+                                  
                                   onChange={props.handleChange}
                                   placeholder='Okul ismini giriniz.'
                                   
@@ -487,7 +488,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                             labelValue='Okul İsmi'
                               id='schollName'
                               name='schollName'
-                              value={props.values.schollName}
+                              
                               disabled={schooltype ? false : true}
                               optionLabel='Okul Seç'
                               onChange={(e) => {
@@ -520,7 +521,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                             labelValue='Sınıf'
                               id='class'
                               name='class'
-                              value={props.values.class}
+                              
                               disabled={schooltype ? false : true}
                               optionLabel='Sınıf Seç'
                               onChange={props.handleChange}
@@ -600,7 +601,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                             id='email'
                             name='email'
                             type='email'
-                            value={props.values.email}
+                            
                             onChange={props.handleChange}
                             placeholder='Mail adresinizi giriniz.'
                             
@@ -619,7 +620,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                             id='password'
                             name='password'
                             type='password'
-                            value={props.values.password}
+                            
                             onChange={props.handleChange}
                             placeholder='******'
                             
@@ -639,7 +640,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                             id='passwordConfirm'
                             name='passwordConfirm'
                             type='password'
-                            value={props.values.passwordConfirm}
+                            
                             onChange={props.handleChange}
                             placeholder='******'
                             

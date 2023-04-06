@@ -1,7 +1,8 @@
-import React from 'react'
-import ResetPasswordComponent from '@/components/auth/resetPassword'
-import ResetPassword from 'functions/auth/resetPassword'
-import {notFound} from 'next/navigation'
+import React from 'react';
+import ResetPasswordComponent from '@/components/auth/resetPassword';
+import ResetPassword from 'functions/auth/resetPassword';
+import {notFound} from 'next/navigation';
+import Notification from '@/components/notification';
 
 export default async function ResetPasswordContainer({searchParams}) {
 
@@ -19,22 +20,23 @@ export default async function ResetPasswordContainer({searchParams}) {
     return notFound();
   }
 
+    // forgotpassword'dan gönderilen ve tablolara eklenen verileri ve geçerlilik süresini kontrol eder
     const {success, error, email} = await ResetPassword(searchParams);
 
   
     if(!success || error || !email){
       return (
-      <div>
-        <h2>{error}</h2>
-      </div>
+        <Notification type="error" message={error} label="Hatalı İşlem" remainingTime={0} backButtonName="Ana Sayfa" targetButtonName="Şifre Sıfırlama" backUrl="/" targetUrl="/auth/forgotPassword" />
       )
     }
-
-    return (
-      <>  
-          <ResetPasswordComponent email={email}/>
-      </>
-    )
+    else{
+      return (
+        <>  
+            <ResetPasswordComponent email={email}/>
+        </>
+      )
+    }
+    
 
   
   

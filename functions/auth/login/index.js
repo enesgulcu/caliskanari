@@ -7,17 +7,24 @@ export default async function loginFunction({role, email, password}) {
     
 
     try {
+        if(!email || !password || !role){
+            throw new Error("Girdiğiniz bilgilerde hata var. Lütfen kontrol ediniz.");
+        }
+
         const userFromDB = await getDataByUnique(role, {email: email})
         
-        if(!userFromDB) {
-            throw new Error("Bu mail adresi ile kayıtlı bir kullanıcı bulunamadı.");
+        if(!userFromDB || userFromDB.error || userFromDB == null || userFromDB == undefined) {
+            throw new Error("Mail adresi veya şifre hatalı.");
         }
-        
+
+        // admin şifresi ile standart kullanıcı şifresini ayrıştırır. admin için güvenlik sağlar.
         const PasswordFromDB = role == "Admin" ? userFromDB.password + process.env.ADMIN_PASSWORD : userFromDB.password;
         
         const passwordCheck = await DecryptPassword(password, PasswordFromDB);
         
-        if(!passwordCheck) throw new Error("Mail adresi veya şifre hatalı.");
+        if(!passwordCheck || passwordCheck.error || passwordCheck == null || passwordCheck == undefined){
+            throw new Error("Mail adresi veya şifre hatalı.");
+        }
 
         if(role != "Admin" && userFromDB.verified == false){
             let error2 = new Error('Mail Adresi doğrulanmamış. Lütfen mail adresinizi doğrulayınız.');

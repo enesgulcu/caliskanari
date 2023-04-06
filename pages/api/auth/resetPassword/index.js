@@ -2,6 +2,7 @@ import { updateDataByAny, getDataByUnique, deleteDataByMany } from "@/services/s
 import EncryptPassword from "@/functions/auth/encryptPassword";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import mailStringCheck from "@/functions/other/mailStringCheck";
 
 export default async function handler (req, res) {
    
@@ -18,7 +19,9 @@ export default async function handler (req, res) {
             const passwordConfirm = body.passwordConfirm;
                
             try {
-                
+                if(!mailStringCheck(email) || !email){
+                    throw new Error("Geçersiz mail adresi!");
+                }
                 if(
                     password == null || password == "" ||  password == undefined ||
                     passwordConfirm == null || passwordConfirm == "" ||  passwordConfirm == undefined ||
@@ -41,8 +44,10 @@ export default async function handler (req, res) {
                 if(!userFromDB || userFromDB.error || userFromDB == null){
                     throw new Error("Kullanıcı güncellenemedi!");
                 }
-                const deletforgotPasswordDB = await deleteDataByMany("ForgotPassword", {email: email});
-                const deleteVerifyEmailDB = await deleteDataByMany("VerifyEmail", {email: email});
+
+                // Şifre sıfırlama işlemi başarılı ise ForgotPassword ve VerifyEmail tablolarından ilgili kayıtları siler.
+                await deleteDataByMany("ForgotPassword", {email: email});
+                await deleteDataByMany("VerifyEmail", {email: email});
              
                 return res.status(200).json({status: "success",role: allUserFromDB.role, message: "Şifre başarıyla değiştirildi!"});
 

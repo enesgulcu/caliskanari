@@ -100,6 +100,7 @@ export default function SendVerifyEmailComponent() {
                           width="150"
                           height="150"
                           alt="logo"
+                          priority={true}
                         />
                       </div>
                     </div>

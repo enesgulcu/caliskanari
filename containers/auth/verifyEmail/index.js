@@ -11,7 +11,7 @@ export default async function VerifyEmailContainer({searchParams}) {
     return (
       <div>
           <VerifyEmailComponents>
-              <Notification type="error" message="Doğrulama Verileri Eksik Lütfen Tekrar Deneyin." label="Doğrulama Başarısız!" url="/" buttonText="Anasayfaya Dön"/>
+              <Notification type="error" message="Doğrulama Verileri Eksik Lütfen Tekrar Deneyin." label="Doğrulama Başarısız!" remainingTime={0} targetButtonName="Ana Sayfa" targetUrl="/"/>
           </VerifyEmailComponents>
       </div>
     )

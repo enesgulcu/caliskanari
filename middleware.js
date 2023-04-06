@@ -14,7 +14,7 @@ export default async function middleware(req) {
 
   // Tüm istekleri burada yakalarız.
   const { pathname } = new URL(req.url) || new URL(req.nextUrl);
-      //########################################################################################################
+    //########################################################################################################
     // Sistemin kendi API isteklerini görmezden gelir.########################################################
     if (
       pathname.startsWith("/_next") ||
@@ -65,6 +65,7 @@ export default async function middleware(req) {
           pathname.startsWith("/auth/register") ||
           pathname.startsWith("/auth/sendVerifyEmail") ||
           pathname.startsWith("/auth/forgotPassword") ||
+          pathname.startsWith("/auth/resetPassword") ||
           pathname.startsWith("/auth/verifyEmail")
         ) {
            return NextResponse.rewrite(new URL("/", req.url));
@@ -82,7 +83,8 @@ export default async function middleware(req) {
         !pathname.startsWith("/auth/register") &&
         !pathname.startsWith("/auth/verifyEmail") &&
         !pathname.startsWith("/auth/forgotPassword") &&
-        !pathname.startsWith("/auth/sendVerifyEmail")
+        !pathname.startsWith("/auth/sendVerifyEmail") &&
+        !pathname.startsWith("/auth/resetPassword")
       ) {
         return NextResponse.rewrite(new URL("/", req.url));
       }
@@ -104,8 +106,8 @@ export const config = {
     '/auth/:path*',
     '/api/:path*',
 
-    // aşağıdaki isteklerden birisi geliyorsa o zaman çalışma dedik!.   NOT: YİNEDE GİDİYOR AMA DURMASINDA FAYDA VAR!
-    '/((?!api/auth/session|_next|api/auth/signin|api/auth/signout|api/auth/providers|api/auth/callback|api/auth/csrf|api/auth/error|api/auth/_log|api/auth/_|favicon.ico).*)',
 
+    // aşağıdaki isteklerden birisi geliyorsa o zaman çalışma dedik!.   NOT: YİNEDE GİDİYOR AMA DURMASINDA FAYDA VAR!
+    //'/((?!api/auth/session|_next|api/auth/signin|api/auth/signout|api/auth/providers|api/auth/callback|api/auth/csrf|api/auth/error|api/auth/_log|api/auth/_|favicon.ico).*)',
   ],
 };

@@ -1,15 +1,16 @@
 import loginFunction from "@/functions/auth/login/index";
+import mailStringCheck from "@/functions/other/mailStringCheck";
 
 export default async function handler (req, res) {
-   if(!req){
+    if(!req){
          return res.status(500).json({error: "İstek bulunamadı."});
-   }
+    }
     if(req.method === 'POST'){
         try {
             const data = req.body;
 
-            if(!data.email || !data.password){
-                throw new Error("Lütfen tüm alanları doldurunuz.");
+            if(!data.email || !data.password || !data || !mailStringCheck(data.email)){
+                throw new Error("Girdiğiniz bilgilerde hata var. Lütfen kontrol ediniz.");
             }
             
             // kullanıcı verilerini sorgula / şifreleri karşılaştır.
@@ -28,6 +29,9 @@ export default async function handler (req, res) {
         } catch (error) {   
             return res.status(500).json({status: error.status, error: error.message, verifyEmail: error.verify}); 
        }                   
-    }   
+    } 
+    else{
+        return res.status(500).json({error: "Giriş metodunda hata oluştu."});            
+    }     
 
-    };
+};

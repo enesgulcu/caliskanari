@@ -8,12 +8,21 @@ import { useState } from 'react';
 import styles from "./styles.module.css";
 import Link from "next/link";
 import LoadingScreen from '@/components/loading';
+import PopupScreen from "@/components/popup";
 
 // session: giriş yapmış kullanıcıyı temsil eder varsa bilgileri içinde barındırır.
 // signIn:  kullanıcıyı giriş yapmaya yönlendirmek için kullanılır.
 import { signIn } from "next-auth/react";
 
 export default function LoginComponent({pageRole}) {
+
+  const [popupData, setPopupData] = useState({
+    popupIsActive: false,
+    Title: "Bu bir Popup Uyarısıdır!",
+    subTitle: "askere gitmeden önce lütfen kayıt yaptırınız.",
+    buttonUrl: "/",
+    buttonText: "Anasayfa"
+  });
 
   const [isAccessing, setIsAccessing] = useState(false);
   const [isloading, setIsloading] = useState(false);
@@ -22,6 +31,15 @@ export default function LoginComponent({pageRole}) {
 
   return (
     <>
+      <PopupScreen
+          isVisible={popupData.popupIsActive}
+          Title={popupData.Title}
+          subTitle={popupData.subTitle}
+          buttonUrl={popupData.buttonUrl}
+          buttonText={popupData.buttonText}
+      >
+      </PopupScreen>
+
       { isloading && (<LoadingScreen isloading={isloading}/>) }
 
       <div className={styles.main}>
@@ -57,8 +75,28 @@ export default function LoginComponent({pageRole}) {
               role: pageRole,
               callbackUrl:"/", 
               redirect: false, 
-            }).then((res) => {             
-              if(res.ok){
+            }).then((res) => {    
+              if(!res){
+                toast.error("Bir hata oluştu. Lütfen tekrar deneyiniz.");
+                setIsloading(false);
+              }         
+              else if(!res.ok){
+                toast.error(res.error);
+                setIsloading(false);
+
+                // verifyEmail şuanda nextauth error içerisinden gelmiyor kontrol et.
+                if(res.error.includes("doğrulanmamış") || res.error.includes("doğrulayınız")){
+                  setPopupData({ 
+                  
+                    popupIsActive: true,
+                    Title: "Mail Adresiniz Doğrulanmamış!",
+                    subTitle: "Girdiğiniz mail adresi henüz doğrulanmamış. Mail adresinize gelen doğrulama kodunu girerek hesabınızı aktif edebilir, veya aşağıdaki butona basarak yeni bir doğrulama maili talep edebilirsiniz.",
+                    buttonUrl: "/auth/sendVerifyEmail",
+                    buttonText: "Mail Doğrulama"
+                  });               
+                }
+              }
+              else{
                 setIsAccessing(true);
                 setIsloading(false);
                 toast.success("Giriş Başarılı (Yönlendiriliyorsunuz...)")
@@ -66,21 +104,6 @@ export default function LoginComponent({pageRole}) {
                   router.push('/');
                   clearInterval(timeOut);
                 }, 3000);
-              }
-              else{
-                toast.error(res.error);
-                setIsloading(false);
-
-                // verifyEmail şuanda nextauth error içerisinden gelmiyor kontrol et.
-                if(res.error.includes("doğrulanmamış") || res.error.includes("doğrulayınız")){
-                  setIsAccessing(true);
-                  toast.error("Yönlendiriliyorsunuz...");
-                  const timeOut = setInterval(() => {
-                    router.push('/auth/sendVerifyEmail');
-                    clearInterval(timeOut);
-                  }, 4000);                
-                }
-                
               }
             })
             
@@ -112,6 +135,7 @@ export default function LoginComponent({pageRole}) {
                             width="150"
                             height="150"
                             alt="logo"
+                            priority={true}
                           />
                         </div>
                       </div>

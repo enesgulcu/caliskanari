@@ -98,6 +98,7 @@ export default function AdminLoginComponent() {
                           width="150"
                           height="150"
                           alt="logo"
+                          priority={true}
                         />
                       </div>
                     </div>
