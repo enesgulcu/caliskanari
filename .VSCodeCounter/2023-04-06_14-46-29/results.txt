@@ -1,0 +1,233 @@
+Date : 2023-04-06 14:46:29
+Directory : c:\Users\Enes\Documents\GitHub\caliskanari
+Total : 104 files,  11953 codes, 201 comments, 738 blanks, all 12892 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| JSON               |          3 |      8,057 |          0 |          2 |      8,059 |
+| JavaScript         |         83 |      3,052 |        179 |        621 |      3,852 |
+| CSS                |         12 |        560 |          0 |         74 |        634 |
+| JavaScript JSX     |          2 |        182 |         14 |         22 |        218 |
+| Prisma             |          1 |         76 |          4 |         12 |         92 |
+| Properties         |          1 |         14 |          0 |          4 |         18 |
+| Markdown           |          1 |          7 |          0 |          3 |         10 |
+| JSON with Comments |          1 |          5 |          4 |          0 |          9 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                           | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                              |        104 |     11,953 |        201 |        738 |     12,892 |
+| . (Files)                                                                                      |          9 |      8,133 |         41 |         34 |      8,208 |
+| app                                                                                            |         18 |        160 |          5 |         44 |        209 |
+| app (Files)                                                                                    |          3 |         35 |          0 |          6 |         41 |
+| app\admin                                                                                      |          1 |          8 |          0 |          2 |         10 |
+| app\auth                                                                                       |         11 |         96 |          5 |         28 |        129 |
+| app\auth\forgotPassword                                                                        |          1 |          9 |          2 |          1 |         12 |
+| app\auth\login                                                                                 |          4 |         33 |          0 |         11 |         44 |
+| app\auth\login (Files)                                                                         |          1 |          9 |          0 |          2 |         11 |
+| app\auth\login\admin                                                                           |          1 |          9 |          0 |          3 |         12 |
+| app\auth\login\student                                                                         |          1 |          9 |          0 |          3 |         12 |
+| app\auth\login\teacher                                                                         |          1 |          6 |          0 |          3 |          9 |
+| app\auth\register                                                                              |          3 |         27 |          0 |          7 |         34 |
+| app\auth\register (Files)                                                                      |          1 |          9 |          0 |          2 |         11 |
+| app\auth\register\student                                                                      |          1 |          9 |          0 |          5 |         14 |
+| app\auth\register\teacher                                                                      |          1 |          9 |          0 |          0 |          9 |
+| app\auth\resetPassword                                                                         |          1 |          9 |          0 |          4 |         13 |
+| app\auth\sendVerifyEmail                                                                       |          1 |          9 |          3 |          3 |         15 |
+| app\auth\verifyEmail                                                                           |          1 |          9 |          0 |          2 |         11 |
+| app\notification                                                                               |          1 |          9 |          0 |          4 |         13 |
+| app\student                                                                                    |          1 |          6 |          0 |          2 |          8 |
+| app\teacher                                                                                    |          1 |          6 |          0 |          2 |          8 |
+| components                                                                                     |         35 |      2,341 |         45 |        324 |      2,710 |
+| components\Stepper                                                                             |          2 |         80 |          0 |          7 |         87 |
+| components\auth                                                                                |         23 |      1,934 |         30 |        268 |      2,232 |
+| components\auth\forgotPassword                                                                 |          3 |        198 |          2 |         31 |        231 |
+| components\auth\login                                                                          |          8 |        477 |         11 |         70 |        558 |
+| components\auth\login (Files)                                                                  |          1 |         11 |          0 |          1 |         12 |
+| components\auth\login\admin                                                                    |          3 |        211 |          5 |         35 |        251 |
+| components\auth\login\student                                                                  |          3 |        249 |          6 |         33 |        288 |
+| components\auth\login\teacher                                                                  |          1 |          6 |          0 |          1 |          7 |
+| components\auth\register                                                                       |          5 |        828 |         10 |        110 |        948 |
+| components\auth\register (Files)                                                               |          1 |         20 |          0 |          1 |         21 |
+| components\auth\register\student                                                               |          3 |        802 |         10 |        108 |        920 |
+| components\auth\register\teacher                                                               |          1 |          6 |          0 |          1 |          7 |
+| components\auth\resetPassword                                                                  |          3 |        228 |          3 |         31 |        262 |
+| components\auth\sendVerifyEmail                                                                |          3 |        195 |          3 |         25 |        223 |
+| components\auth\verifyEmail                                                                    |          1 |          8 |          1 |          1 |         10 |
+| components\formElements                                                                        |          6 |        115 |          1 |         17 |        133 |
+| components\formElements\errorText                                                              |          2 |         18 |          1 |          2 |         21 |
+| components\formElements\input                                                                  |          2 |         48 |          0 |          6 |         54 |
+| components\formElements\select                                                                 |          2 |         49 |          0 |          9 |         58 |
+| components\loading                                                                             |          1 |         22 |          0 |          2 |         24 |
+| components\notification                                                                        |          2 |        145 |         14 |         21 |        180 |
+| components\popup                                                                               |          1 |         45 |          0 |          9 |         54 |
+| containers                                                                                     |         13 |        177 |         20 |         54 |        251 |
+| containers\auth                                                                                |         11 |        141 |         10 |         41 |        192 |
+| containers\auth\forgotPassword                                                                 |          1 |          9 |          0 |          2 |         11 |
+| containers\auth\login                                                                          |          4 |         36 |          0 |          3 |         39 |
+| containers\auth\login (Files)                                                                  |          1 |          9 |          0 |          0 |          9 |
+| containers\auth\login\admin                                                                    |          1 |          9 |          0 |          1 |         10 |
+| containers\auth\login\student                                                                  |          1 |          9 |          0 |          1 |         10 |
+| containers\auth\login\teacher                                                                  |          1 |          9 |          0 |          1 |         10 |
+| containers\auth\register                                                                       |          3 |         28 |          0 |          4 |         32 |
+| containers\auth\register (Files)                                                               |          1 |          9 |          0 |          1 |         10 |
+| containers\auth\register\student                                                               |          1 |         10 |          0 |          3 |         13 |
+| containers\auth\register\teacher                                                               |          1 |          9 |          0 |          0 |          9 |
+| containers\auth\resetPassword                                                                  |          1 |         30 |          2 |         14 |         46 |
+| containers\auth\sendVerifyEmail                                                                |          1 |          7 |          0 |         10 |         17 |
+| containers\auth\verifyEmail                                                                    |          1 |         31 |          8 |          8 |         47 |
+| containers\home                                                                                |          1 |         27 |         10 |          9 |         46 |
+| containers\notification                                                                        |          1 |          9 |          0 |          4 |         13 |
+| functions                                                                                      |         13 |        419 |         50 |        124 |        593 |
+| functions\auth                                                                                 |          8 |        266 |         40 |         92 |        398 |
+| functions\auth (Files)                                                                         |          2 |         25 |          0 |         14 |         39 |
+| functions\auth\forgotPassword                                                                  |          1 |         53 |         10 |          9 |         72 |
+| functions\auth\login                                                                           |          1 |         27 |          3 |         11 |         41 |
+| functions\auth\register                                                                        |          1 |         31 |         17 |         12 |         60 |
+| functions\auth\resetPassword                                                                   |          1 |         45 |          4 |          9 |         58 |
+| functions\auth\sendVerifyEmail                                                                 |          1 |         43 |          0 |         15 |         58 |
+| functions\auth\verifyEmail                                                                     |          1 |         42 |          6 |         22 |         70 |
+| functions\other                                                                                |          5 |        153 |         10 |         32 |        195 |
+| functions\other\mailStringCheck                                                                |          1 |         13 |          4 |          5 |         22 |
+| functions\other\rateLimit                                                                      |          1 |         24 |          3 |         10 |         37 |
+| functions\other\rateLimitPageConfig                                                            |          1 |         94 |          3 |         15 |        112 |
+| functions\other\secondCountDown                                                                |          1 |         12 |          0 |          2 |         14 |
+| functions\other\timeNow                                                                        |          1 |         10 |          0 |          0 |         10 |
+| lib                                                                                            |          1 |         11 |          0 |          3 |         14 |
+| lib\prisma                                                                                     |          1 |         11 |          0 |          3 |         14 |
+| mocks                                                                                          |          1 |         85 |          0 |          0 |         85 |
+| pages                                                                                          |          9 |        431 |         22 |        104 |        557 |
+| pages\api                                                                                      |          9 |        431 |         22 |        104 |        557 |
+| pages\api\auth                                                                                 |          7 |        410 |         22 |        101 |        533 |
+| pages\api\auth (Files)                                                                         |          1 |         70 |         10 |         18 |         98 |
+| pages\api\auth\forgotPassword                                                                  |          1 |         67 |          2 |         13 |         82 |
+| pages\api\auth\login                                                                           |          1 |         29 |          1 |          8 |         38 |
+| pages\api\auth\register                                                                        |          1 |         95 |          4 |         21 |        120 |
+| pages\api\auth\resetPassword                                                                   |          1 |         52 |          3 |         13 |         68 |
+| pages\api\auth\sendVerifyEmail                                                                 |          1 |         62 |          0 |         15 |         77 |
+| pages\api\auth\verifyEmail                                                                     |          1 |         35 |          2 |         13 |         50 |
+| pages\api\mail                                                                                 |          1 |         11 |          0 |          2 |         13 |
+| pages\api\test                                                                                 |          1 |         10 |          0 |          1 |         11 |
+| prisma                                                                                         |          1 |         76 |          4 |         12 |         92 |
+| services                                                                                       |          3 |        111 |         14 |         38 |        163 |
+| services\auth                                                                                  |          1 |         11 |          0 |          5 |         16 |
+| services\auth\register                                                                         |          1 |         11 |          0 |          5 |         16 |
+| services\fetchAPI                                                                              |          1 |         32 |          4 |         18 |         54 |
+| services\serviceOperations                                                                     |          1 |         68 |         10 |         15 |         93 |
+| styles                                                                                         |          1 |          9 |          0 |          1 |         10 |
++------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                       | language           | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Users\Enes\Documents\GitHub\caliskanari\.env                                                | Properties         |         14 |          0 |          4 |         18 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\README.md                                           | Markdown           |          7 |          0 |          3 |         10 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\app\admin\page.js                                   | JavaScript         |          8 |          0 |          2 |         10 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\app\auth\forgotPassword\page.js                     | JavaScript         |          9 |          2 |          1 |         12 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\app\auth\login\admin\page.js                        | JavaScript         |          9 |          0 |          3 |         12 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\app\auth\login\page.js                              | JavaScript         |          9 |          0 |          2 |         11 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\app\auth\login\student\page.js                      | JavaScript         |          9 |          0 |          3 |         12 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\app\auth\login\teacher\page.js                      | JavaScript         |          6 |          0 |          3 |          9 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\app\auth\register\page.js                           | JavaScript         |          9 |          0 |          2 |         11 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\app\auth\register\student\page.js                   | JavaScript         |          9 |          0 |          5 |         14 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\app\auth\register\teacher\page.js                   | JavaScript         |          9 |          0 |          0 |          9 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\app\auth\resetPassword\page.js                      | JavaScript         |          9 |          0 |          4 |         13 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\app\auth\sendVerifyEmail\page.js                    | JavaScript         |          9 |          3 |          3 |         15 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\app\auth\verifyEmail\page.js                        | JavaScript         |          9 |          0 |          2 |         11 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\app\head.js                                         | JavaScript         |         10 |          0 |          1 |         11 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\app\layout.js                                       | JavaScript         |         17 |          0 |          3 |         20 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\app\notification\page.js                            | JavaScript         |          9 |          0 |          4 |         13 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\app\page.js                                         | JavaScript         |          8 |          0 |          2 |         10 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\app\student\page.js                                 | JavaScript         |          6 |          0 |          2 |          8 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\app\teacher\page.js                                 | JavaScript         |          6 |          0 |          2 |          8 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\Stepper\index.jsx                        | JavaScript JSX     |         37 |          0 |          2 |         39 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\Stepper\styles.module.css                | CSS                |         43 |          0 |          5 |         48 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\forgotPassword\formikData.js        | JavaScript         |          7 |          0 |          3 |         10 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\forgotPassword\index.js             | JavaScript         |        126 |          2 |         18 |        146 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\forgotPassword\styles.module.css    | CSS                |         65 |          0 |         10 |         75 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\login\admin\formikData.js           | JavaScript         |          9 |          0 |          4 |         13 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\login\admin\index.js                | JavaScript         |        137 |          5 |         21 |        163 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\login\admin\styles.module.css       | CSS                |         65 |          0 |         10 |         75 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\login\index.js                      | JavaScript         |         11 |          0 |          1 |         12 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\login\student\formikData.js         | JavaScript         |          9 |          0 |          4 |         13 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\login\student\index.js              | JavaScript         |        175 |          6 |         19 |        200 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\login\student\styles.module.css     | CSS                |         65 |          0 |         10 |         75 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\login\teacher\index.js              | JavaScript         |          6 |          0 |          1 |          7 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\register\index.js                   | JavaScript         |         20 |          0 |          1 |         21 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\register\student\formikData.js      | JavaScript         |         41 |          0 |         13 |         54 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\register\student\index.js           | JavaScript         |        642 |         10 |         81 |        733 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\register\student\styles.module.css  | CSS                |        119 |          0 |         14 |        133 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\register\teacher\index.js           | JavaScript         |          6 |          0 |          1 |          7 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\resetPassword\formikData.js         | JavaScript         |         11 |          0 |          4 |         15 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\resetPassword\index.js              | JavaScript         |        152 |          3 |         17 |        172 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\resetPassword\styles.module.css     | CSS                |         65 |          0 |         10 |         75 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\sendVerifyEmail\formikData.js       | JavaScript         |          7 |          0 |          3 |         10 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\sendVerifyEmail\index.js            | JavaScript         |        128 |          3 |         13 |        144 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\sendVerifyEmail\styles.module.css   | CSS                |         60 |          0 |          9 |         69 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\auth\verifyEmail\index.js                | JavaScript         |          8 |          1 |          1 |         10 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\formElements\errorText\index.js          | JavaScript         |          9 |          1 |          2 |         12 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\formElements\errorText\styles.module.css | CSS                |          9 |          0 |          0 |          9 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\formElements\input\index.js              | JavaScript         |         18 |          0 |          4 |         22 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\formElements\input\styles.module.css     | CSS                |         30 |          0 |          2 |         32 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\formElements\select\index.js             | JavaScript         |         19 |          0 |          7 |         26 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\formElements\select\styles.module.css    | CSS                |         30 |          0 |          2 |         32 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\loading\index.js                         | JavaScript         |         22 |          0 |          2 |         24 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\notification\index.jsx                   | JavaScript JSX     |        145 |         14 |         20 |        179 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\notification\styles.module.css           | CSS                |          0 |          0 |          1 |          1 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\components\popup\index.js                           | JavaScript         |         45 |          0 |          9 |         54 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\containers\auth\forgotPassword\index.js             | JavaScript         |          9 |          0 |          2 |         11 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\containers\auth\login\admin\index.js                | JavaScript         |          9 |          0 |          1 |         10 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\containers\auth\login\index.js                      | JavaScript         |          9 |          0 |          0 |          9 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\containers\auth\login\student\index.js              | JavaScript         |          9 |          0 |          1 |         10 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\containers\auth\login\teacher\index.js              | JavaScript         |          9 |          0 |          1 |         10 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\containers\auth\register\index.js                   | JavaScript         |          9 |          0 |          1 |         10 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\containers\auth\register\student\index.js           | JavaScript         |         10 |          0 |          3 |         13 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\containers\auth\register\teacher\index.js           | JavaScript         |          9 |          0 |          0 |          9 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\containers\auth\resetPassword\index.js              | JavaScript         |         30 |          2 |         14 |         46 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\containers\auth\sendVerifyEmail\index.js            | JavaScript         |          7 |          0 |         10 |         17 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\containers\auth\verifyEmail\index.js                | JavaScript         |         31 |          8 |          8 |         47 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\containers\home\index.js                            | JavaScript         |         27 |         10 |          9 |         46 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\containers\notification\index.js                    | JavaScript         |          9 |          0 |          4 |         13 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\functions\auth\decryptPassword.js                   | JavaScript         |         14 |          0 |          8 |         22 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\functions\auth\encryptPassword.js                   | JavaScript         |         11 |          0 |          6 |         17 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\functions\auth\forgotPassword\index.js              | JavaScript         |         53 |         10 |          9 |         72 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\functions\auth\login\index.js                       | JavaScript         |         27 |          3 |         11 |         41 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\functions\auth\register\index.js                    | JavaScript         |         31 |         17 |         12 |         60 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\functions\auth\resetPassword\index.js               | JavaScript         |         45 |          4 |          9 |         58 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\functions\auth\sendVerifyEmail\index.js             | JavaScript         |         43 |          0 |         15 |         58 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\functions\auth\verifyEmail\index.js                 | JavaScript         |         42 |          6 |         22 |         70 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\functions\other\mailStringCheck\index.js            | JavaScript         |         13 |          4 |          5 |         22 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\functions\other\rateLimitPageConfig\index.js        | JavaScript         |         94 |          3 |         15 |        112 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\functions\other\rateLimit\index.js                  | JavaScript         |         24 |          3 |         10 |         37 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\functions\other\secondCountDown\index.js            | JavaScript         |         12 |          0 |          2 |         14 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\functions\other\timeNow\index.js                    | JavaScript         |         10 |          0 |          0 |         10 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\jsconfig.json                                       | JSON with Comments |          5 |          4 |          0 |          9 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\lib\prisma\index.js                                 | JavaScript         |         11 |          0 |          3 |         14 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\middleware.js                                       | JavaScript         |         76 |         23 |         14 |        113 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\mocks\cities.json                                   | JSON               |         85 |          0 |          0 |         85 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\next.config.js                                      | JavaScript         |         20 |          1 |          6 |         27 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\package-lock.json                                   | JSON               |      7,928 |          0 |          1 |      7,929 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\package.json                                        | JSON               |         44 |          0 |          1 |         45 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\pages\api\auth\[...nextauth].js                     | JavaScript         |         70 |         10 |         18 |         98 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\pages\api\auth\forgotPassword\index.js              | JavaScript         |         67 |          2 |         13 |         82 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\pages\api\auth\login\index.js                       | JavaScript         |         29 |          1 |          8 |         38 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\pages\api\auth\register\index.js                    | JavaScript         |         95 |          4 |         21 |        120 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\pages\api\auth\resetPassword\index.js               | JavaScript         |         52 |          3 |         13 |         68 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\pages\api\auth\sendVerifyEmail\index.js             | JavaScript         |         62 |          0 |         15 |         77 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\pages\api\auth\verifyEmail\index.js                 | JavaScript         |         35 |          2 |         13 |         50 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\pages\api\mail\nodemailer.js                        | JavaScript         |         11 |          0 |          2 |         13 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\pages\api\test\index.js                             | JavaScript         |         10 |          0 |          1 |         11 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\postcss.config.js                                   | JavaScript         |          6 |          0 |          1 |          7 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\prisma\schema.prisma                                | Prisma             |         76 |          4 |         12 |         92 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\services\auth\register\getAdress.js                 | JavaScript         |         11 |          0 |          5 |         16 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\services\fetchAPI\index.js                          | JavaScript         |         32 |          4 |         18 |         54 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\services\serviceOperations\index.js                 | JavaScript         |         68 |         10 |         15 |         93 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\styles\global.css                                   | CSS                |          9 |          0 |          1 |         10 |
+| c:\Users\Enes\Documents\GitHub\caliskanari\tailwind.config.js                                  | JavaScript         |         33 |         13 |          4 |         50 |
+| Total                                                                                          |                    |     11,953 |        201 |        738 |     12,892 |
++------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
