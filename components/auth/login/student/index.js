@@ -176,9 +176,15 @@ export default function LoginComponent({pageRole}) {
                         Giriş Yap
                       </button>
 
-                      <div className="mt-4 text-center">
+                      <div className="mt-4 text-center gap-2 flex justify-center items-center flex-col">
                       <p className="text-md">
                       Kayıtlı hesabınız yok mu?<Link href={`/auth/register/${pageRole.toLowerCase()}`} className="text-blue-600 hover:underline"> Öğrenci Kayıt.</Link>
+                      </p>
+                      <p className="text-md">
+                      Şifrenizi mi unuttunuz?<Link href={`/auth/forgotPassword/`} className="text-blue-600 hover:underline"> Şifremi Unuttum.</Link>
+                      </p>
+                      <p className={`text-md bg-red-100 p-2 rounded ${popupData.popupIsActive ? "block" : "hidden"}`}>
+                      Mailiniz Doğrulanmamış mı?<Link href={`/auth/sendVerifyEmail`} className="text-blue-600 hover:underline"> Mail Doğrulama.</Link>
                       </p>
                       </div>
                     </div>
