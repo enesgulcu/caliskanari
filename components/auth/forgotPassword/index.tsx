@@ -1,20 +1,22 @@
 "use client";
-import { Formik, Form } from "formik";
-import forgotPasswordValidationSchema from "./formikData";
-import { ToastContainer, toast } from "react-toastify";
+
 import Image from "next/image";
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { Formik, Form } from "formik";
 import styles from "./styles.module.css";
 import {postAPI} from "@/services/fetchAPI";
-import Input from '@/components/formElements/input';
-import ErrorText from '@/components/formElements/errorText';
+import { useRouter } from 'next/navigation';
 import LoadingScreen from '@/components/loading';
+import Input from '@/components/formElements/input';
+import { ToastContainer, toast } from "react-toastify";
+import forgotPasswordValidationSchema from "./formikData";
+import ErrorText from '@/components/formElements/errorText';
 
-export default function ForgotPasswordComponent() {
 
-  const [isAccessing, setIsAccessing] = useState(false);
-  const [isloading, setIsloading] = useState(false);
+const ForgotPasswordComponent = () => {
+
+  const [isAccessing, setIsAccessing] = useState <boolean> (false);
+  const [isloading, setIsloading] = useState <boolean> (false);
 
   const router = useRouter();
 
@@ -48,7 +50,7 @@ export default function ForgotPasswordComponent() {
 
           setIsloading(true);
             
-            postAPI("/auth/forgotPassword", values.email).then(data => {
+            postAPI("/auth/forgotPassword",  values.email ).then(data => {
 
               if(data){
                 if (data?.status === "success") {
@@ -90,8 +92,6 @@ export default function ForgotPasswordComponent() {
                     <div className={styles.right_side_logo}>
                       <div
                         className={styles.right_side_logoImage}
-                        fill="none"
-                        stroke="currentColor"
                       >
                         <Image
                           src="/logo.png"
@@ -142,4 +142,6 @@ export default function ForgotPasswordComponent() {
     
   );
 }
+
+export default ForgotPasswordComponent;
 

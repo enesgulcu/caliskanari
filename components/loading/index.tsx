@@ -1,7 +1,10 @@
-import React from 'react'
 import HashLoader from "react-spinners/HashLoader";
 
-export default function LoadingScreen(isloading = false) {
+interface Props {
+  isloading: boolean;
+}
+
+const LoadingScreen = ({ isloading = false }: Props) => {
   return (
     <>
     { isloading && 
@@ -21,3 +24,5 @@ export default function LoadingScreen(isloading = false) {
     </>
   )
 }
+
+export default LoadingScreen

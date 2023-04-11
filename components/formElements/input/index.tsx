@@ -1,7 +1,21 @@
 import React from 'react'
 import styles from './styles.module.css';
 
-export default function Input({Class, labelValue, disabled, type,   ...props}) {
+interface functionProps{
+
+  labelValue: any
+  Class?: any
+  disabled?: boolean
+  type?: string
+  id?: string
+  name?: string
+  value?: string
+  onChange?: any
+  placeholder?: string
+}
+
+
+ const Input = ({Class, labelValue, disabled, type,   ...props}: functionProps) => {
   return (
     <>
         <label
@@ -20,3 +34,5 @@ export default function Input({Class, labelValue, disabled, type,   ...props}) {
     </>
   )
 }
+
+export default Input
