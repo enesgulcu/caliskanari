@@ -1,11 +1,12 @@
-import React from 'react'
 import StudentLoginContainer from '@/containers/auth/login/student'
 
-export default function StudentLoginPage() {
+ const StudentLoginPage:React.FC = () => {
   return (
     <>
         <StudentLoginContainer />
     </>
   )
 }
+
+export default StudentLoginPage
 

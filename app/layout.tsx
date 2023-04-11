@@ -9,8 +9,6 @@ interface Props {
   children: React.ReactNode
 }
 
-
-
  const RootLayout: React.FC <Props> = ({ children, session } ) => {
   return (
     <html lang="tr">

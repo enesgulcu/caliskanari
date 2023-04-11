@@ -1,5 +1,5 @@
 import HomeContainer from '@/containers/home/index'
-export default function Admin() {
+ const Admin:React.FC = () => {
  return(
   <>
     admin page
@@ -7,3 +7,5 @@ export default function Admin() {
   </>
  )
 }
+
+export default Admin

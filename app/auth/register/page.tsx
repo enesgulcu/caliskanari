@@ -1,11 +1,13 @@
 import RegisterContainer from '@/containers/auth/register/index'
 
-import React from 'react'
-
-export default function Register() {
+ const Register:React.FC = () => {
   return (
     <>
         <RegisterContainer />
     </>
   )
 }
+
+export default Register;
+
+

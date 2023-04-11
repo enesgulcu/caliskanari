@@ -1,11 +1,11 @@
 import LoginContainer from '@/containers/auth/login/index'
 
-import React from 'react'
-
-export default function Login() {
+ const Login:React.FC =() => {
   return (
     <>
         <LoginContainer />
     </>
   )
 }
+
+export default Login

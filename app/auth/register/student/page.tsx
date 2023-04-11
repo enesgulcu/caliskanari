@@ -1,13 +1,11 @@
-import React from 'react'
 import StudentRegisterContainer from '@/containers/auth/register/student'
 
-
-export default async function StudentRegister() {
-
-
+const StudentRegister:React.FC = () => {
   return (
     <>
       <StudentRegisterContainer   />  
     </>
   )
 }
+
+export default StudentRegister

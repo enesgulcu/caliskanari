@@ -1,12 +1,13 @@
-import React from 'react'
-
 import NotificationContainer from '@/containers/notification'
 
-export default async function NotificationPage() {
+const NotificationPage:React.FC = () => {
+  
   return (
     <>  
         <NotificationContainer/>
     </>
   )
 }
+
+export default NotificationPage
 
