@@ -1,4 +1,4 @@
-export default function Head() {
+ const Head: React.FC = () => {
   return (
     <>
       <title>{ process.env.NEXT_PUBLIC_COMPANY_FULL_NAME }</title>
@@ -8,3 +8,5 @@ export default function Head() {
     </>
   )
 }
+
+export default Head;

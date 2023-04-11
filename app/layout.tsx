@@ -2,8 +2,16 @@
 import '@/styles/global.css'
 import 'react-toastify/dist/ReactToastify.css';
 import { SessionProvider } from 'next-auth/react';
+import { Session } from 'next-auth'
 
-export default function RootLayout({ children, session }) {
+interface Props {
+  session: Session | null
+  children: React.ReactNode
+}
+
+
+
+ const RootLayout: React.FC <Props> = ({ children, session } ) => {
   return (
     <html lang="tr">
 
@@ -17,3 +25,5 @@ export default function RootLayout({ children, session }) {
     </html>
   )
 }
+
+export default RootLayout

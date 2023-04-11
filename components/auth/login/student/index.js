@@ -75,11 +75,12 @@ export default function LoginComponent({pageRole}) {
               role: pageRole,
               callbackUrl:"/", 
               redirect: false, 
-            }).then((res) => {    
+            }).then((res) => {   
               if(!res){
                 toast.error("Bir hata oluştu. Lütfen tekrar deneyiniz.");
                 setIsloading(false);
-              }         
+              } 
+                      
               else if(!res.ok){
                 toast.error(res.error);
                 setIsloading(false);

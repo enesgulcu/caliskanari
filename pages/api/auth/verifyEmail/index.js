@@ -1,4 +1,4 @@
-import VerifyEmail from "@/functions/auth/verifyEmail";
+import VerifyEmail from  "@/functions/auth/verifyEmail";
 import { getServerSession } from "next-auth/next";
 import { authOptions } from "@/pages/api/auth/[...nextauth]";
 
