@@ -1,11 +1,12 @@
-import LoginContainer from '@/containers/auth/login/index'
+import TeacherLoginContainer from '@/containers/auth/login/teacher'
 
- const Login:React.FC =() => {
+ const TeacherLoginPage:React.FC = () => {
   return (
     <>
-        <LoginContainer />
+        <TeacherLoginContainer />
     </>
   )
 }
 
-export default Login
+export default TeacherLoginPage
+

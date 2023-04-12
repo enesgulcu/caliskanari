@@ -3,7 +3,7 @@ import TeacherLoginComponent from '@/components/auth/login/teacher'
 export default function TeacherLoginContainer() {
   return (
     <>
-        <TeacherLoginComponent />
+        <TeacherLoginComponent pageRole="Teacher"/>
     </>
   )
 }

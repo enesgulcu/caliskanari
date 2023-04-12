@@ -18,8 +18,8 @@ export default function LoginComponent({pageRole}) {
 
   const [popupData, setPopupData] = useState({
     popupIsActive: false,
-    Title: "Bu bir Popup Uyarısıdır!",
-    subTitle: "askere gitmeden önce lütfen kayıt yaptırınız.",
+    Title: "Uyarı.",
+    subTitle: "Bu bir uyarı bildirimidir.",
     buttonUrl: "/",
     buttonText: "Anasayfa"
   });
@@ -104,7 +104,7 @@ export default function LoginComponent({pageRole}) {
                 const timeOut = setInterval(() => {
                   router.push('/');
                   clearInterval(timeOut);
-                }, 3000);
+                }, 2000);
               }
             })
             

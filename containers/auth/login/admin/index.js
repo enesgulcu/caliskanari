@@ -3,7 +3,7 @@ import AdminLoginComponent from '@/components/auth/login/admin'
 export default function AdminLoginContainer() {
   return (
     <>
-        <AdminLoginComponent />
+        <AdminLoginComponent pageRole="Admin"/>
     </>
   )
 }
