@@ -13,7 +13,7 @@ import forgotPasswordValidationSchema from "./formikData";
 import ErrorText from '@/components/formElements/errorText';
 
 
-const ForgotPasswordComponent = () => {
+const ForgotPasswordComponent:React.FC = () => {
 
   const [isAccessing, setIsAccessing] = useState <boolean> (false);
   const [isloading, setIsloading] = useState <boolean> (false);

@@ -1,6 +1,6 @@
 "use client";
 import { Formik, Form } from "formik";
-import adminValidationSchema from "./formikData";
+import studentValidationSchema from "./formikData";
 import { ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
 import { useRouter } from 'next/navigation';
@@ -8,12 +8,17 @@ import { useState } from 'react';
 import styles from "./styles.module.css";
 import Link from "next/link";
 import LoadingScreen from '@/components/loading';
+import PopupScreen from "@/components/popup";
 
 // session: giriş yapmış kullanıcıyı temsil eder varsa bilgileri içinde barındırır.
 // signIn:  kullanıcıyı giriş yapmaya yönlendirmek için kullanılır.
 import { signIn } from "next-auth/react";
 
-export default function LoginComponent({pageRole}) {
+interface Props {
+  pageRole: string;
+}
+
+const StudentLoginComponent:React.FC <Props> = ({pageRole}) => {
 
   const [popupData, setPopupData] = useState({
     popupIsActive: false,
@@ -30,6 +35,15 @@ export default function LoginComponent({pageRole}) {
 
   return (
     <>
+      <PopupScreen
+          isVisible={popupData.popupIsActive}
+          Title={popupData.Title}
+          subTitle={popupData.subTitle}
+          buttonUrl={popupData.buttonUrl}
+          buttonText={popupData.buttonText}
+      >
+      </PopupScreen>
+
       { isloading && (<LoadingScreen isloading={isloading}/>) }
 
       <div className={styles.main}>
@@ -54,7 +68,7 @@ export default function LoginComponent({pageRole}) {
             activationCode: ""
           }}
           // input check
-          validationSchema={adminValidationSchema}
+          validationSchema={studentValidationSchema}
 
           onSubmit={(values) => {
             setIsloading(true);
@@ -65,7 +79,7 @@ export default function LoginComponent({pageRole}) {
               role: pageRole,
               callbackUrl:"/", 
               redirect: false, 
-            }).then((res) => {   
+            }).then((res : any) => {   
               if(!res){
                 toast.error("Bir hata oluştu. Lütfen tekrar deneyiniz.");
                 setIsloading(false);
@@ -118,8 +132,6 @@ export default function LoginComponent({pageRole}) {
                       <div className={styles.right_side_logo}>
                         <div
                           className={styles.right_side_logoImage}
-                          fill="none"
-                          stroke="currentColor"
                         >
                           <Image
                             src="/logo.png"
@@ -131,7 +143,7 @@ export default function LoginComponent({pageRole}) {
                         </div>
                       </div>
                       <h1 className="mb-4 mt-4 text-2xl font-bold text-center text-gray-700">
-                        Yetkili Giriş
+                        Öğrenci Giriş
                       </h1>
                       <div className="mt-4">
                         <label className="block text-sm">Email</label>
@@ -162,10 +174,22 @@ export default function LoginComponent({pageRole}) {
                       <button
                       disabled={isAccessing}
                         className={`${isAccessing ? "bg-gray-600 active:bg-gray-600 hover:bg-gray-600" : "bg-blue-600 active:bg-blue-600 hover:bg-blue-700"} block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150  border border-transparent rounded-lg  focus:outline-none focus:shadow-outline-blue`}
-                        href="#"
+                        type="submit"
                       >
                         Giriş Yap
                       </button>
+
+                      <div className="mt-4 text-center gap-2 flex justify-center items-center flex-col">
+                      <p className="text-md">
+                      Kayıtlı hesabınız yok mu?<Link href={`/auth/register/${pageRole.toLowerCase()}`} className="text-blue-600 hover:underline"> Öğrenci Kayıt.</Link>
+                      </p>
+                      <p className="text-md">
+                      Şifrenizi mi unuttunuz?<Link href={`/auth/forgotPassword/`} className="text-blue-600 hover:underline"> Şifremi Unuttum.</Link>
+                      </p>
+                      <p className={`text-md bg-red-100 p-2 rounded ${popupData.popupIsActive ? "block" : "hidden"}`}>
+                      Mailiniz Doğrulanmamış mı?<Link href={`/auth/sendVerifyEmail`} className="text-blue-600 hover:underline"> Mail Doğrulama.</Link>
+                      </p>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -176,3 +200,5 @@ export default function LoginComponent({pageRole}) {
     </>
   );
 }
+
+export default StudentLoginComponent;

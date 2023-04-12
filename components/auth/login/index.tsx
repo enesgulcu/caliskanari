@@ -1,7 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 
-export default function LoginComponent() {
+ const LoginComponent = () => {
   return (
     <>
       <Link href="/auth/login/admin">Admin Login Page</Link>
@@ -12,3 +12,5 @@ export default function LoginComponent() {
     </>
   )
 }
+
+export default LoginComponent
