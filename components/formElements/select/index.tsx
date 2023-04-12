@@ -8,8 +8,11 @@ interface Props{
   }
   optionLabel?: string
   labelValue?: string
+  name : string
   id?: string
-
+  value?: string
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void
+  disabled ?: boolean
 }
 
  const Select = ({children, Class, optionLabel, labelValue,  ...props}:Props) => {

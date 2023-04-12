@@ -1,4 +1,4 @@
-import RegisterContainer from '@/containers/auth/register/index'
+import RegisterContainer from '@/containers/auth/register/'
 
  const Register:React.FC = () => {
   return (

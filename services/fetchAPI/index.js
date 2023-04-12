@@ -1,5 +1,5 @@
 // Öğrenci (kayıt) işlemleri için kullanılan servis
-export async function postAPI(URL, body = "", method="POST", headers = {'Content-Type': 'application/json'}){
+export async function postAPI(URL, body = {}, method="POST", headers = {'Content-Type': 'application/json'}){
 
 
     try {

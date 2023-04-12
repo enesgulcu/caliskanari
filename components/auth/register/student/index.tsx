@@ -1,48 +1,65 @@
 'use client';
-import {postAPI} from '@/services/fetchAPI/index';
-import getAdress from '@/services/auth/register/getAdress';
-import { ToastContainer, toast } from 'react-toastify';
-import studentValidationSchema from './formikData';
+import Link from 'next/link';
+import Image from 'next/image';
+import { Formik, Form, FormikProps } from 'formik';
+import { FaCheck } from 'react-icons/fa';
 import styles from './styles.module.css';
-import LoadingScreen from '@/components/loading';
-import { Transition } from '@headlessui/react';
+import Stepper from "@/components/Stepper";
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
-import { FaCheck } from 'react-icons/fa';
-import { Formik, Form } from 'formik';
-import Image from 'next/image';
-import Link from 'next/link';
+import { Transition } from '@headlessui/react';
+import LoadingScreen from '@/components/loading';
+import {postAPI} from '@/services/fetchAPI/index';
+import studentValidationSchema from './formikData';
 import Input from '@/components/formElements/input';
-import ErrorText from '@/components/formElements/errorText';
 import Select from '@/components/formElements/select';
-import Stepper from "@/components/Stepper";
+import { ToastContainer, toast } from 'react-toastify';
+import getAdress from '@/services/auth/register/getAdress';
+import ErrorText from '@/components/formElements/errorText';
 
+interface FormValues {
+  role: string,
+  name: string,
+  surname: string,
+  phone: string,
+  city: string,
+  town: string,
+  schooltype: string,
+  schollName: string,
+  class: string,
+  email: string,
+  password: string,
+  passwordConfirm?: string,
+}
 
+interface Props {
+  CitiesData: string[]
+}
 
-export default function StudentRegisterComponent({ CitiesData }) {
+ const StudentRegisterComponent:React.FC <Props>  = ({ CitiesData }) => {
 
-  const PageRole = 'student';
-  const PageLabelUpper = 'ÖĞRENCİ';
-  const PageLabelLover = 'öğrenci';
-  const PageLabelNormal = 'Öğrenci';
+  const PageRole:string = 'student';
+  const PageLabelUpper:string = 'ÖĞRENCİ';
+  const PageLabelLover:string = 'öğrenci';
+  const PageLabelNormal:string = 'Öğrenci';
 
   // şehirlerin listesini containerdan prop olarak alırız.
-  const cities = CitiesData.data;
+  const cities:string[] = CitiesData.map(city => city);
 
-  const [city, setCity] = useState('');
-  const [town, setTown] = useState('');
-  const [towns, setTowns] = useState('');
-  const [schooltype, setSchooltype] = useState('');
+  const [city, setCity] = useState <string>('');
+  const [town, setTown] = useState <string>('');
+  const [towns, setTowns] = useState<string[]>([]);
+  const [schooltype, setSchooltype] = useState<string>('');
 
 
 
   // yükleme ekranları tetikleneceği zaman çalışan state.
-  const [isloading, setIsloading] = useState(false);
-  const [isRegister, setIsRegister] = useState(false);
+  const [isloading, setIsloading] = useState<boolean>(false);
+  const [isRegister, setIsRegister] = useState<boolean>(false);
 
-  const [schollNames, setschollNames] = useState('');
+  const [schollNames, setschollNames] = useState <string[]>([]);
   
-  const [activeTab, setActiveTab] = useState(1);
+  const [activeTab, setActiveTab] = useState<number>(1);
 
   useEffect(() => {
     setIsloading(true);
@@ -57,13 +74,13 @@ export default function StudentRegisterComponent({ CitiesData }) {
         });
     }
     setTown('');
-    setTowns('');
-    setschollNames('');
+    setTowns([]);
+    setschollNames([]);
     setSchooltype('');
   }, [city]);
 
   useEffect(() => {
-    setschollNames('');
+    setschollNames([]);
     setSchooltype('');
     
   }, [town]);
@@ -79,7 +96,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
     if (city != '' && town != '') {
       setIsloading(true);
       if (schooltype == 'Özel Okul / Kolej') {
-        setschollNames('');
+        setschollNames([]);
       } else {
         if (town !== '') {
           getAdress(`${city}/${town}/${schooltype}`)
@@ -96,7 +113,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
 
   const router = useRouter();
 
-  function nextActiveTab(e, props) {
+  function nextActiveTab(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, props: FormikProps<any>) {
     e.preventDefault();
     const { errors } = props;
     props.handleSubmit();
@@ -128,7 +145,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
     setActiveTab((activeTab) => activeTab + 1);
   }
 
-  function prevActiveTab(e) {
+  function prevActiveTab(e: React.MouseEvent<HTMLButtonElement, MouseEvent>) {
     e.preventDefault();
     if (activeTab === 1) return;
     setActiveTab((activeTab) => activeTab - 1);
@@ -171,7 +188,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
           }}
           // input check
           validationSchema={studentValidationSchema}
-          onSubmit={(values) => {
+          onSubmit={(values: FormValues) => {
             setIsloading(true);
             // kullanıcı 2 şifresini de doğru girerse artık "passwordConfirm" değerine ihtiyacımız olmayacak.
             // burada temizleriz. prisma hata veriyor (veri tabanında olmayan bir değer) gönderidğimiz için.
@@ -179,7 +196,8 @@ export default function StudentRegisterComponent({ CitiesData }) {
 
             // girilen telefonlarda boşlukları siler ve sonrasında son 10 haniesini alma
             values.phone = values.phone.replace(/\s/g, "").slice(-10);
-
+            
+            
             postAPI("/auth/register", values).then((res) => {
               if (res.status === 'success') {
                 // Giriş başarılı ise ekrana "blur" efekti verir
@@ -188,7 +206,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
 
                 toast.success(res.message);
                 //Bilgi verir ve 5 saniye sonra login sayfasına yönlendirir.
-                const timeOut = setInterval(() => {
+                const timeOut:NodeJS.Timer = setInterval(() => {
                   router.push(`/auth/login/${values.role}`);
                   clearInterval(timeOut);
                 }, 4000);
@@ -229,8 +247,6 @@ export default function StudentRegisterComponent({ CitiesData }) {
                     <div className={styles.right_side_logo}>
                       <div
                         className={styles.right_side_logoImage}
-                        fill='none'
-                        stroke='currentColor'
                       >
                         <Image
                           src='/logo.png'
@@ -255,6 +271,7 @@ export default function StudentRegisterComponent({ CitiesData }) {
                         showIcon={activeTab != 1}
                         icon={<FaCheck size={46} />}
                         stepCompleted={activeTab != 1}
+                        
                       />
                       {/* Progress Bar Step 2 */}
                       <Stepper
@@ -365,11 +382,10 @@ export default function StudentRegisterComponent({ CitiesData }) {
                             labelValue='Okulun Bulunduğu İl'
                               id='city'
                               name='city'
-                              
                               optionLabel='İl Seç'
                               onChange={(e) => {
                                 props.handleChange(e);
-                                setCity(e.target.value);
+                                setCity(e.target.value.toString());
                                 props.values.town = '';
                               }}
                             >
@@ -394,13 +410,12 @@ export default function StudentRegisterComponent({ CitiesData }) {
                             <Select
                             labelValue='Okulun Bulunduğu İlçe'
                               id='town'
-                              name='town'
-                              
+                              name='town'                              
                               disabled={city ? false : true}
                               optionLabel='İlçe Seç'
                               onChange={(e) => {
                                 props.handleChange(e);
-                                setTown(e.target.value);
+                                setTown(e.target.value.toString());
                                 props.values.schollName = '';
                                 props.values.schooltype = '';
                               }}
@@ -730,3 +745,5 @@ export default function StudentRegisterComponent({ CitiesData }) {
     
   );
 }
+
+export default StudentRegisterComponent;

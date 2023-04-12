@@ -1,6 +1,20 @@
 import React from 'react';
 import styles from './styles.module.css';
-export default function Stepper({ children, ...props }) {
+import { IconType } from 'react-icons';
+
+interface Props{
+  children?: React.ReactNode;
+  activeTab: number;
+  title: string;
+  activeTitle: boolean;
+  stepCompleted: boolean;
+  showIcon: boolean;
+  icon: any;
+  lastStep?: boolean; 
+  
+}
+
+const Stepper:React.FC <Props> = ({ children, ...props }) => {
 
   return (
     <>
@@ -36,3 +50,5 @@ export default function Stepper({ children, ...props }) {
     </>
   );
 }
+
+export default Stepper;

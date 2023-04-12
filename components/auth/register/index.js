@@ -1,6 +1,6 @@
 import React from 'react'
-import StudentRegisterComponent from '@/components/auth/register/teacher/index.js'
-import TeacherRegisterComponent from '@/components/auth/register/teacher'
+import StudentRegisterComponent from '@/components/auth/register/student/'
+import TeacherRegisterComponent from '@/components/auth/register/teacher/'
 import Link from 'next/link'
 
 export default function RegisterComponent() {

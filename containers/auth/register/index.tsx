@@ -1,10 +1,12 @@
 import React from 'react'
 import RegisterComponent from '@/components/auth/register/index'
 
-export default function RegisterContainer() {
+ const RegisterContainer:React.FC = () => {
   return (
     <div>
       <RegisterComponent />
     </div>
   )
 }
+
+export default RegisterContainer;

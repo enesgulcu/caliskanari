@@ -47,7 +47,7 @@ const studentValidationSchema = Yup.object({
 
   passwordConfirm: Yup.string()
     .required('Şifre doğrulama boş bırakılamaz!')
-    .oneOf([Yup.ref('password'), null], 'Şifre Eşleşmiyor!'),
+    .oneOf([Yup.ref('password')], 'Şifre Eşleşmiyor!'),
 });
 
 export default studentValidationSchema;
