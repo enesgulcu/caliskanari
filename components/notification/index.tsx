@@ -1,9 +1,10 @@
 "use client"
-import {MdDone, MdWarningAmber, MdCircleNotifications, MdOutlineErrorOutline } from "react-icons/md";
-import { useState , useEffect, useCallback} from "react";
-import { useSearchParams, usePathname } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import LoadingScreen from '@/components/loading';
+import { useState , useEffect, useCallback} from "react";
+import { useSearchParams, usePathname } from 'next/navigation';
+import {MdDone, MdWarningAmber, MdCircleNotifications, MdOutlineErrorOutline } from "react-icons/md";
+
 
 // targetUrl = yönlendirilecek sayfa
 // label = başlık
@@ -11,7 +12,19 @@ import LoadingScreen from '@/components/loading';
 // message = gösterilecek mesaj
 // targetUrl = buton yazısı
 
-export default function Notification({
+ interface Props {
+  type?: string;
+  message?: string;
+  label?: string;
+  targetUrl?: string;
+  targetButtonName?: string;
+  backButtonName?: string;
+  backUrl?: string;
+  remainingTime?: number;
+}
+
+
+ const Notification:React.FC<Props> = ({
   type="info", 
   message="Lütfen tekrar deneyiniz.", 
   label="Bir Hata Oluştu.", 
@@ -20,23 +33,25 @@ export default function Notification({
   backButtonName="Geri Dön",
   backUrl = "/",
   remainingTime = 20
-}){
-  const [isloading, setIsloading] = useState(false);
+}) =>{
+  const [isloading, setIsloading] = useState<boolean>(false);
   const router = useRouter();
   
   const searchParams = useSearchParams();
   const pathname = usePathname();
  
-  if(searchParams.get("type") || searchParams.get("message")){
-    type = searchParams.get("type") || "error";
-    message = searchParams.get("message") || "Bir hata oluştu.";
-    label = searchParams.get("label") || "Lütfen tekrar deneyiniz.";
-    targetButtonName = searchParams.get("targetButtonName") || "Ana Sayfa";
-    backButtonName = searchParams.get("backButtonName") || "Geri Dön";
-    remainingTime = searchParams.get("remainingTime") || 10;
-    targetUrl = searchParams.get("targetUrl") || "/";
-    backUrl = searchParams.get("backUrl") || "/";
-  } 
+  if(searchParams){
+    if(searchParams.get("type") || searchParams.get("message")){
+      type = searchParams.get("type") || "error";
+      message = searchParams.get("message") || "Bir hata oluştu.";
+      label = searchParams.get("label") || "Lütfen tekrar deneyiniz.";
+      targetButtonName = searchParams.get("targetButtonName") || "Ana Sayfa";
+      backButtonName = searchParams.get("backButtonName") || "Geri Dön";
+      remainingTime = Number(searchParams.get("remainingTime")) || 10;
+      targetUrl = searchParams.get("targetUrl") || "/";
+      backUrl = searchParams.get("backUrl") || "/";
+    } 
+  }
 
 
   const  [countDown, setCountDown] = useState(  remainingTime );
@@ -45,18 +60,20 @@ export default function Notification({
   // useCallback hook'u, fonksiyonu bellekte saklar ve
   // bağımlılıklarının değişmesi durumunda yeniden oluşturulmasını sağlar.
   // Bu, React'ta performansı artırmak için kullanılan bir tekniktir.
-  const createQueryString = useCallback((name, value) => {
+  const createQueryString = useCallback((name:string, value:any) => {
+    if(searchParams){
       const params = new URLSearchParams(searchParams);
       params.set(name, value);
 
       return params.toString();
-    },
+    }
+  },
     [searchParams],
   );
 
   
   // içine gönderilen saniye kadar geri sayım sayacı çalışır.
-  function startCountdown(seconds) {
+  function startCountdown(seconds:number) {
     let countdownInterval = setInterval(() => {
       if (seconds <= -1) {
         clearInterval(countdownInterval);
@@ -177,3 +194,5 @@ export default function Notification({
     </>
   );
 }
+
+export default Notification;

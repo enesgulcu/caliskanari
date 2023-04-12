@@ -1,20 +1,21 @@
 "use client";
-import { Formik, Form } from "formik";
-import SendVerifyEmailValidationSchema from "./formikData";
-import { ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { Formik, Form } from "formik";
 import styles from "./styles.module.css";
 import {postAPI} from '@/services/fetchAPI';
-import Input from '@/components/formElements/input';
-import ErrorText from '@/components/formElements/errorText';
+import { useRouter } from 'next/navigation';
 import LoadingScreen from '@/components/loading';
+import Input from '@/components/formElements/input';
+import { ToastContainer, toast } from "react-toastify";
+import SendVerifyEmailValidationSchema from "./formikData";
+import ErrorText from '@/components/formElements/errorText';
 
-export default function SendVerifyEmailComponent() {
 
-  const [isloading, setIsloading] = useState(false);
-  const [isAccessing, setIsAccessing] = useState(false);
+ const SendVerifyEmailComponent:React.FC = () => {
+
+  const [isloading, setIsloading] = useState<boolean>(false);
+    const [isAccessing, setIsAccessing] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -59,7 +60,7 @@ export default function SendVerifyEmailComponent() {
                   
   
                   //Bilgi verir ve 5 saniye sonra login sayfasına yönlendirir.
-                  const timeOut = setInterval(() => {
+                  const timeOut:NodeJS.Timer = setInterval(() => {
                     if(data.role){
                       setIsloading(false);
                       router.push(`/auth/login/${data.role.toLowerCase()}`);
@@ -92,8 +93,6 @@ export default function SendVerifyEmailComponent() {
                     <div className={styles.right_side_logo}>
                       <div
                         className={styles.right_side_logoImage}
-                        fill="none"
-                        stroke="currentColor"
                       >
                         <Image
                           src="/logo.png"
@@ -142,3 +141,5 @@ export default function SendVerifyEmailComponent() {
     
   );
 }
+
+export default SendVerifyEmailComponent;

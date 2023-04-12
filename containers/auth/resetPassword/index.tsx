@@ -4,7 +4,14 @@ import ResetPassword from 'functions/auth/resetPassword';
 import {notFound} from 'next/navigation';
 import Notification from '@/components/notification';
 
-export default async function ResetPasswordContainer({searchParams}) {
+interface Props {
+  searchParams:{
+    key:string,
+    email:string
+  };
+}
+
+const ResetPasswordContainer = async ({searchParams}:Props) => {
 
 
 
@@ -43,3 +50,5 @@ export default async function ResetPasswordContainer({searchParams}) {
 
   
 }
+
+export default ResetPasswordContainer

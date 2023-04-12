@@ -1,24 +1,29 @@
 "use client";
-import { Formik, Form } from "formik";
-import resetPasswordValidationSchema from "./formikData";
-import { ToastContainer, toast } from "react-toastify";
 import Image from "next/image";
-import { useRouter } from 'next/navigation';
 import { useState } from 'react';
+import { Formik, Form } from "formik";
 import styles from "./styles.module.css";
-import {postAPI} from '@/services/fetchAPI';
-import Input from '@/components/formElements/input';
-import ErrorText from '@/components/formElements/errorText';
-import LoadingScreen from '@/components/loading';
 import {notFound} from 'next/navigation';
+import {postAPI} from '@/services/fetchAPI';
+import { useRouter } from 'next/navigation';
+import LoadingScreen from '@/components/loading';
+import Input from '@/components/formElements/input';
+import { ToastContainer, toast } from "react-toastify";
+import resetPasswordValidationSchema from "./formikData";
+import ErrorText from '@/components/formElements/errorText';
 
-export default function ResetPasswordComponent(email) {
+
+interface Props{
+  email: string;
+}
+
+ const ResetPasswordComponent:React.FC<Props> = (email) => {
   if(!email){
     return notFound();
   }
   else{
-    const [isloading, setIsloading] = useState(false);
-    const [isAccessing, setIsAccessing] = useState(false);
+    const [isloading, setIsloading] = useState<boolean>(false);
+    const [isAccessing, setIsAccessing] = useState<boolean>(false);
 
     const router = useRouter();
 
@@ -72,7 +77,7 @@ export default function ResetPasswordComponent(email) {
                     setIsloading(false);
   
                     //Bilgi verir ve 5 saniye sonra login sayfasına yönlendirir.
-                    const timeOut = setInterval(() => {
+                    const timeOut:NodeJS.Timer = setInterval(() => {
                       router.push(`/auth/login/${data.role.toLowerCase()}`);
                       clearInterval(timeOut);
                     }, 5000);
@@ -101,8 +106,6 @@ export default function ResetPasswordComponent(email) {
                       <div className={styles.right_side_logo}>
                         <div
                           className={styles.right_side_logoImage}
-                          fill="none"
-                          stroke="currentColor"
                         >
                           <Image
                             src="/logo.png"
@@ -168,4 +171,6 @@ export default function ResetPasswordComponent(email) {
     );
   }
 }
+
+export default ResetPasswordComponent;
 

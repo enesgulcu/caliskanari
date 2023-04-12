@@ -1,6 +1,4 @@
-import React from 'react';
 import styles from './styles.module.css';
-import { IconType } from 'react-icons';
 
 interface Props{
   children?: React.ReactNode;

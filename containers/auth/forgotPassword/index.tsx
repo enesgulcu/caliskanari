@@ -1,5 +1,5 @@
 import ForgotPasswordComponent from '@/components/auth/forgotPassword'
-export default function ForgotPasswordContainer() {
+const ForgotPasswordContainer:React.FC = () => {
 
   return (
     <>  
@@ -7,3 +7,5 @@ export default function ForgotPasswordContainer() {
     </>
   )
 }
+
+export default ForgotPasswordContainer

@@ -1,7 +1,6 @@
 'use client';
 import Link from 'next/link';
 import Image from 'next/image';
-import { Formik, Form, FormikProps } from 'formik';
 import { FaCheck } from 'react-icons/fa';
 import styles from './styles.module.css';
 import Stepper from "@/components/Stepper";
@@ -11,6 +10,7 @@ import { Transition } from '@headlessui/react';
 import LoadingScreen from '@/components/loading';
 import {postAPI} from '@/services/fetchAPI/index';
 import studentValidationSchema from './formikData';
+import { Formik, Form, FormikProps } from 'formik';
 import Input from '@/components/formElements/input';
 import Select from '@/components/formElements/select';
 import { ToastContainer, toast } from 'react-toastify';
@@ -115,7 +115,7 @@ interface Props {
 
   function nextActiveTab(e: React.MouseEvent<HTMLButtonElement, MouseEvent>, props: FormikProps<any>) {
     e.preventDefault();
-    const { errors } = props;
+    const { errors }:FormikProps<any> = props;
     props.handleSubmit();
     if (activeTab === 1) {
       

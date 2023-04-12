@@ -1,12 +1,24 @@
 "use client"
-import {useState, useEffect} from 'react'
 import Link from 'next/link'
-import LoadingScreen from '@/components/loading';
+import {useState, useEffect} from 'react'
 import { BsXCircleFill } from "react-icons/bs";
+import LoadingScreen from '@/components/loading';
 
-export default function PopupScreen({children, Title, subTitle, buttonUrl, buttonText, isVisible=false}) {
-  const [showPopup, setShowPopup] = useState(false)
-  const [isloading, setIsloading] = useState(false);
+
+interface Props {
+  Title: string;
+  subTitle: string;
+  buttonUrl: string;
+  buttonText: string;
+  isVisible?: boolean;
+
+  children?: React.ReactNode;
+}
+
+
+ const PopupScreen:React.FC<Props> = ({children, Title, subTitle, buttonUrl, buttonText, isVisible=false}) => {
+  const [showPopup, setShowPopup] = useState<boolean>(false)
+  const [isloading, setIsloading] = useState<boolean>(false);
 
   useEffect(() => {
     isVisible ? setShowPopup(true) : setShowPopup(false)
@@ -51,3 +63,5 @@ export default function PopupScreen({children, Title, subTitle, buttonUrl, butto
     </>
   )
 }
+
+export default PopupScreen

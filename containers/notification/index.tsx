@@ -1,12 +1,12 @@
-import React from 'react'
-
 import NotificationComponent from '@/components/notification'
 
-export default function NotificationContainer() {
+ const NotificationContainer:React.FC = () => {
   return (
     <>
         <NotificationComponent/>
     </>
   )
 }
+
+export default NotificationContainer;
 

@@ -6,7 +6,7 @@ interface Props{
 }
 
 // ...props dememizin sebebi: children harici gele nher şeyi props ismi altında al ve kullan.
-const ErrorText = ({children, className, ...props}: Props) => {
+const ErrorText:React.FC<Props> = ({children, className, ...props}) => {
   return (
         <p className={className ? className : styles.error }>
             {children}

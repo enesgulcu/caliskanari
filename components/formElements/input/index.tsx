@@ -1,8 +1,7 @@
 import { ChangeEvent } from 'react'
 import styles from './styles.module.css';
 
-interface functionProps{
-
+interface Props{
   labelValue?: string
   disabled?: boolean
   Class?: any
@@ -12,11 +11,10 @@ interface functionProps{
   value?: string
   onChange?: ((e: ChangeEvent<HTMLInputElement>) => void) | undefined
   placeholder?: string
-  
 }
 
 
- const Input = ({Class, labelValue, disabled, type,   ...props}: functionProps) => {
+ const Input:React.FC<Props> = ({Class, labelValue, disabled, type,   ...props}) => {
   return (
     <>
         <label

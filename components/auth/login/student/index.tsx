@@ -1,14 +1,15 @@
 "use client";
+import Link from "next/link";
+import Image from "next/image";
+import { useState } from 'react';
 import { Formik, Form } from "formik";
+import styles from "./styles.module.css";
+import { useRouter } from 'next/navigation';
+import PopupScreen from "@/components/popup";
+import LoadingScreen from '@/components/loading';
 import studentValidationSchema from "./formikData";
 import { ToastContainer, toast } from "react-toastify";
-import Image from "next/image";
-import { useRouter } from 'next/navigation';
-import { useState } from 'react';
-import styles from "./styles.module.css";
-import Link from "next/link";
-import LoadingScreen from '@/components/loading';
-import PopupScreen from "@/components/popup";
+
 
 // session: giriş yapmış kullanıcıyı temsil eder varsa bilgileri içinde barındırır.
 // signIn:  kullanıcıyı giriş yapmaya yönlendirmek için kullanılır.
@@ -18,9 +19,17 @@ interface Props {
   pageRole: string;
 }
 
+interface PopupData {
+  popupIsActive: boolean;
+  Title: string;
+  subTitle: string;
+  buttonUrl: string;
+  buttonText: string;
+}
+
 const StudentLoginComponent:React.FC <Props> = ({pageRole}) => {
 
-  const [popupData, setPopupData] = useState({
+  const [popupData, setPopupData] = useState<PopupData>({
     popupIsActive: false,
     Title: "Uyarı.",
     subTitle: "Bu bir uyarı bildirimidir.",
@@ -28,8 +37,8 @@ const StudentLoginComponent:React.FC <Props> = ({pageRole}) => {
     buttonText: "Anasayfa"
   });
 
-  const [isAccessing, setIsAccessing] = useState(false);
-  const [isloading, setIsloading] = useState(false);
+  const [isAccessing, setIsAccessing] = useState<boolean>(false);
+  const [isloading, setIsloading] = useState<boolean>(false);
 
   const router = useRouter();
 
@@ -73,7 +82,7 @@ const StudentLoginComponent:React.FC <Props> = ({pageRole}) => {
           onSubmit={(values) => {
             setIsloading(true);
             // signIn içine hangi provider ile giriş yapılacağı ve giriş bilgileri gönderilir.
-            const result = signIn('credentials', {
+            const result:Promise<any> = signIn('credentials', {
               email: values.email,
               password: values.password,
               role: pageRole,

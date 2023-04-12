@@ -8,7 +8,7 @@ import Link from 'next/link'
 // signOut: kullanıcıyı çıkış yapmaya yönlendirmek için kullanılır.
 import { signIn, signOut, useSession } from 'next-auth/react'
 
-export default function HomeContainer() {
+ const HomeContainer:React.FC = () => {
 
   // useSession ile session bilgilerine erişebiliriz.
   const {data}= useSession();
@@ -43,3 +43,4 @@ export default function HomeContainer() {
   )
 }
 
+export default HomeContainer;

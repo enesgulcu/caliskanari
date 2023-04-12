@@ -4,7 +4,7 @@ interface Props {
   isloading: boolean;
 }
 
-const LoadingScreen = ({ isloading = false }: Props) => {
+const LoadingScreen:React.FC<Props> = ({ isloading = false }) => {
   return (
     <>
     { isloading && 

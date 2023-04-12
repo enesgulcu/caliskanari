@@ -1,9 +1,11 @@
-import React from 'react'
 import TeacherLoginComponent from '@/components/auth/login/teacher'
-export default function TeacherLoginContainer() {
+ 
+const TeacherLoginContainer:React.FC = () => {
   return (
     <>
         <TeacherLoginComponent pageRole="Teacher"/>
     </>
   )
 }
+
+export default TeacherLoginContainer

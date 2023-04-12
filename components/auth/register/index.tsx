@@ -1,9 +1,7 @@
 import React from 'react'
-import StudentRegisterComponent from '@/components/auth/register/student/'
-import TeacherRegisterComponent from '@/components/auth/register/teacher/'
 import Link from 'next/link'
 
-export default function RegisterComponent() {
+ const RegisterComponent = () => {
   return (
     <div>
         <Link href="/auth/register/student">
@@ -19,3 +17,5 @@ export default function RegisterComponent() {
     </div>
   )
 }
+
+export default RegisterComponent;

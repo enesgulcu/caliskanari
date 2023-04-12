@@ -3,7 +3,16 @@ import VerifyEmailComponents from '@/components/auth/verifyEmail';
 import { postAPI } from '@/services/fetchAPI'
 import Notification from '@/components/notification';
 
-export default async function VerifyEmailContainer({searchParams}) {
+interface Props {
+  searchParams: {
+    key: string;
+    email: string;
+    role: string;
+  }
+}
+
+
+ const VerifyEmailContainer = async ({searchParams}:Props) => {
   const {key, email, role} = searchParams;
  
   
@@ -45,3 +54,5 @@ export default async function VerifyEmailContainer({searchParams}) {
  
   
 }
+
+export default VerifyEmailContainer;

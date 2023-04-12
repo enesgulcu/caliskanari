@@ -3,8 +3,6 @@ import data from '@/mocks/cities.json'
 
  const StudentRegisterContainer:React.FC = () => {
 
-  
- 
   return (
     <>
       <StudentRegisterComponent CitiesData={data.data}/>

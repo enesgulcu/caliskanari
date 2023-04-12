@@ -1,9 +1,11 @@
-import React from 'react'
 import LoginComponent from '@/components/auth/login'
-export default function LoginContainer() {
+
+const LoginContainer:React.FC = () => {
   return (
     <div>
       <LoginComponent />
     </div>
   )
 }
+
+export default LoginContainer

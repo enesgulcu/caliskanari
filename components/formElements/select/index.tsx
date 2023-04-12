@@ -15,7 +15,7 @@ interface Props{
   disabled ?: boolean
 }
 
- const Select = ({children, Class, optionLabel, labelValue,  ...props}:Props) => {
+ const Select:React.FC<Props> = ({children, Class, optionLabel, labelValue,  ...props}) => {
   return (
     <>
         <label

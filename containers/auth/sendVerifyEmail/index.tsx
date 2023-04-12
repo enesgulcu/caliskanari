@@ -1,14 +1,15 @@
-import React from 'react'
+
 import SendVerifyEmailComponent from '@/components/auth/sendVerifyEmail';
 
-export default async function SendVerifyEmailContainer() {
+ const SendVerifyEmailContainer:React.FC = () => {
     
-
   return(
     <SendVerifyEmailComponent/>
   )
 
 }
+
+export default SendVerifyEmailContainer;
 
     
   
