@@ -1,13 +1,12 @@
-import React from 'react'
 import styles from './styles.module.css';
 
-interface functionProps{
+interface Props{
   children: React.ReactNode
   className?: string
 }
 
 // ...props dememizin sebebi: children harici gele nher şeyi props ismi altında al ve kullan.
-const ErrorText = ({children, className, ...props}: functionProps) => {
+const ErrorText = ({children, className, ...props}: Props) => {
   return (
         <p className={className ? className : styles.error }>
             {children}

@@ -1,17 +1,18 @@
-import React from 'react'
+import { ChangeEvent } from 'react'
 import styles from './styles.module.css';
 
 interface functionProps{
 
-  labelValue: any
-  Class?: any
+  labelValue?: string
   disabled?: boolean
-  type?: string
+  Class?: any
   id?: string
   name?: string
+  type: 'text' | 'password' | 'email' | 'number';
   value?: string
-  onChange?: any
+  onChange?: ((e: ChangeEvent<HTMLInputElement>) => void) | undefined
   placeholder?: string
+  
 }
 
 

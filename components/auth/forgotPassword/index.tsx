@@ -5,7 +5,7 @@ import { useState } from 'react';
 import { Formik, Form } from "formik";
 import styles from "./styles.module.css";
 import {postAPI} from "@/services/fetchAPI";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import LoadingScreen from '@/components/loading';
 import Input from '@/components/formElements/input';
 import { ToastContainer, toast } from "react-toastify";

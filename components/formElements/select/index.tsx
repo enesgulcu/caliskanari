@@ -1,7 +1,18 @@
-import React from 'react'
 import styles from './styles.module.css';
 
-export default function Select({children, Class, optionLabel, labelValue,  ...props}) {
+interface Props{
+  children: React.ReactNode
+  Class?: {
+    select?: string
+    label?: string
+  }
+  optionLabel?: string
+  labelValue?: string
+  id?: string
+
+}
+
+ const Select = ({children, Class, optionLabel, labelValue,  ...props}:Props) => {
   return (
     <>
         <label
@@ -22,4 +33,6 @@ export default function Select({children, Class, optionLabel, labelValue,  ...pr
     </>
   )
 }
+
+export default Select
 
