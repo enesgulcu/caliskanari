@@ -1,7 +1,10 @@
 import ResetPasswordContainer from '@/containers/auth/resetPassword';
 
 interface Props {
-  searchParams: URLSearchParams;
+    searchParams: {
+    key: string;
+    email: string;
+  }
 }
 
  const resetPassword = async ({ searchParams }: Props) => {
