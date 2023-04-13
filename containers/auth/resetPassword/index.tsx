@@ -11,7 +11,7 @@ interface Props {
   };
 }
 
-const ResetPasswordContainer = async ({searchParams}:Props) => {
+const ResetPasswordContainer = async ({searchParams}:Props) : Promise<JSX.Element> => {
 
 
 

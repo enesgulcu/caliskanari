@@ -3,13 +3,13 @@ import SendVerifyEmailContainer  from '@/containers/auth/sendVerifyEmail';
 // buradan da apiye verileri gönderip doğrulama işlemini tamamlıyoruz.
 
 //NOT: mailden tıklanan buton ile searchParams'a veriler gelir.
-const SendVerifyEmailPage = async () => {
-  
-  const sendVerifyEmailContainer = await SendVerifyEmailContainer();
+
+
+const SendVerifyEmailPage = () => {
 
   return (
     <>
-      {sendVerifyEmailContainer}
+      <SendVerifyEmailContainer/>
     </>
   )
 }

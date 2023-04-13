@@ -12,7 +12,7 @@ interface Props {
 }
 
 
- const VerifyEmailContainer = async ({searchParams}:Props) => {
+ const VerifyEmailContainer = async ({searchParams}:Props): Promise<JSX.Element> => {
   const {key, email, role} = searchParams;
  
   

@@ -7,7 +7,7 @@ interface Props {
   }
 }
 
- const resetPassword = async ({ searchParams }: Props) => {
+ const resetPassword = async ({ searchParams }: Props): Promise<JSX.Element> => {
 
     const resetPasswordComponent = await ResetPasswordContainer({ searchParams });
 
