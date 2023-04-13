@@ -1,14 +1,15 @@
 import EncryptPassword from "@/functions/auth/encryptPassword";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import  authOptions  from "@/pages/api/auth/[...nextauth]";
 import { transporter, mailOptions } from "@/pages/api/mail/nodemailer";
 import getTurkeyTime from "@/functions/other/timeNow";
 import {createNewForgotPassword} from "@/functions/auth/forgotPassword";
 import mailStringCheck from "@/functions/other/mailStringCheck";
+import { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function handler (req, res) {
+const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> => {
     
-    const session = await getServerSession(req, res, authOptions)
+    const session = await getServerSession<any, unknown>(req, res, authOptions)
     if(!session){
         const date = (await getTurkeyTime()).date;
         const time = (await getTurkeyTime()).time;
@@ -17,7 +18,7 @@ export default async function handler (req, res) {
     
         if(req.method === 'POST'){
             try {
-                const email = req.body;
+                const email:string = req.body;
 
                 if(!email || !mailStringCheck(email) || email == "" || email == null || email == undefined){
                     throw new Error("Lütfen girdiğiniz email adresini kontrol ediniz.");
@@ -66,7 +67,7 @@ export default async function handler (req, res) {
                 })
                 
                 return res.status(200).json({status: "success", message: "Şifre sıfırlama bağlantısı mail adresinize gönderildi."});
-            } catch (error) {
+            } catch (error:any) {
                 return res.status(500).json({status: "error", message: error.message}); 
            }                   
         } 
@@ -79,3 +80,5 @@ export default async function handler (req, res) {
         return res.status(401).json({status: "error", message: "Oturum açılmış kullanıcılar şifre sıfırlama işlemi yapamaz."});
     }
 };
+
+export default handler;

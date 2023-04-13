@@ -1,25 +1,67 @@
 import NextAuth from "next-auth"
-import CredentialsProvider from "next-auth/providers/credentials";
+import CredentialsProvider, { CredentialsConfig } from "next-auth/providers/credentials";
 import {postAPI} from "@/services/fetchAPI";
+import { NextApiRequest, NextApiResponse } from "next";
+
+
+
+interface AuthOptions{
+  providers: CredentialsConfig<{
+    email: {
+        label: string;
+        type: string;
+    };
+    password: {
+        label: string;
+        type: string;
+    };
+    role: {
+        label: string;
+        type: string;
+    }; 
+  }>[],
+  secret: string | undefined;
+  session: {
+    maxAge: number;
+    strategy: any
+  };
+  jwt: {
+    secret: string | undefined;
+    encryption: boolean;
+  };
+  callbacks: {
+    jwt({ token, user }: {
+        token: any;
+        user?: any;
+    }): Promise<any>;
+    session({ session, token }: any): Promise<any>;
+  }
+
+  pages: {
+    signIn: string;
+    encryption:boolean;
+  }
+}
+
 
 let loginPageRoute = "student";
 
-export const authOptions = {
+const authOptions:AuthOptions = {
 
   providers: [
-    // CredentialsProvider ile email veşifreyi kullanıcıdan alarak normal giriş yapmasını sağlarız.
+    // CredentialsProvider ile email ve şifreyi kullanıcıdan alarak normal giriş yapmasını sağlarız.
     // farklı giriş yöntemleri ile (google - github - facebook) giriş için hazır "provider" ları kullanabiliriz.
     CredentialsProvider({
       name: "Credentials",
-
       credentials: {
         email: { label: "email", type: "text"},
         password: { label: "Password", type: "password" },
         role: { label: "role", type: "text" },
       },
-      async authorize(credentials, req) {
+
+      async authorize(credentials): Promise<any> {
         // kontrol edilecek (email ve password) bilgilerini credentials değişkeninden alıyoruz.
-        const { email, password, role} = credentials;
+        const { email, password, role}:any = credentials;
         // giriş yapılacak sayfayı role değişkeninden alıyoruz.
         loginPageRoute = role;
         
@@ -35,9 +77,11 @@ export const authOptions = {
             }
           }
 
+          
+
           const {userFromDB, success, error, status, verifyEmail} = data;
             if(userFromDB === null || !success || userFromDB === undefined || error || !userFromDB){
-              let error2 = new Error();
+              let error2:any = new  Error();
                   error2.message = error;
                   error2.status = status;
                   error2.verifyEmail = verifyEmail;
@@ -84,7 +128,7 @@ export const authOptions = {
       return { ...token, ...user };
     },
     // session fonksiyonu ile kullanıcı giriş yaptıktan sonra giriş yapan kullanıcının bilgilerini session değişkenine atıyoruz.
-    async session({ session, token }) {
+    async session({ session, token }:any) {
       session.user = token;
       return session;
     },

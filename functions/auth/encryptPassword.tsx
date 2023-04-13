@@ -1,6 +1,6 @@
-import bcrypt from 'bcryptjs'; 
+import bcrypt from 'bcryptjs';
 
-export default async function EncryptPassword(password) {
+const EncryptPassword = async (password:any): Promise<any> =>  {
     try {
         if(!password) throw new Error("Error: Password is empty");
         const salt = await bcrypt.genSalt(10);
@@ -9,8 +9,9 @@ export default async function EncryptPassword(password) {
         return password;
 
     } catch (error) {
-    
         return {error: error};    
     }
 }
+
+export default EncryptPassword;
 
