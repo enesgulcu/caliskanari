@@ -1,14 +1,15 @@
 import { createNewUser } from "@/functions/auth/register/index";
 import EncryptPassword from "@/functions/auth/encryptPassword";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import  authOptions  from "@/pages/api/auth/[...nextauth]";
 import { transporter, mailOptions } from "@/pages/api/mail/nodemailer";
 import getTurkeyTime from "@/functions/other/timeNow";
 import mailStringCheck from "@/functions/other/mailStringCheck";
+import { NextApiRequest, NextApiResponse } from 'next';
 
 
 
-export default async function handler (req, res) {
+const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> =>  {
 
     if(!req){
         return res.status(500).json({status: "error", message: "Bir hata oluştu!"});
@@ -24,7 +25,6 @@ export default async function handler (req, res) {
         if(req.method === 'POST' && req.body){
             try {
                 const data = req.body;
-
 
                 // istek yapılan sayfa içerisinden rol bilgisini alır ve atamasını yaparız.
                 if(req.headers.referer){                
@@ -105,7 +105,7 @@ export default async function handler (req, res) {
                 })
                 
                 return res.status(200).json({status: "success",role: data.role,  message: "Kayıt işlemi başarılı. Lütfen Mail adresinize gönderilen linke tıklayarak hesabınızı onaylayınız."});
-            } catch (error) {
+            } catch (error:any) {
                 return res.status(500).json({status: "error", message: error.message}); 
            }                   
         }
@@ -117,3 +117,5 @@ export default async function handler (req, res) {
         return res.status(401).json({status: "error", message: "Oturum açılmış kullanıcılar kayıt olamaz!"});
     }
 };
+
+export default handler;

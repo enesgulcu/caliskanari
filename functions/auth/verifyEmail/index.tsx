@@ -2,9 +2,15 @@ import { getDataByUnique, updateDataByAny, deleteDataByMany } from "@/services/s
 
 import DecryptPassword from "@/functions/auth/decryptPassword"
 
+interface Props {
+   key: string;
+   email: string;
+   role: string;
+}
 
 
-export default async function VerifyEmail({key, email, role}) {
+const VerifyEmail = async ({key, email, role}:Props): Promise<any> =>{
+
    try {
     const verifyEmailData = await getDataByUnique("VerifyEmail", {secretKey: key});
     
@@ -27,9 +33,9 @@ export default async function VerifyEmail({key, email, role}) {
       }
 
       // mail adresi doğrulama işlemi
-      const  verify = await DecryptPassword(verifyEmailData.email, email)
+      const  verify:boolean = await DecryptPassword(verifyEmailData.email, email)
       
-      if(!verify || verify.error) {
+      if(!verify) {
          throw new Error("Girdiğiniz Mail Adresi Geçersizdir.");
       }
 
@@ -61,9 +67,11 @@ export default async function VerifyEmail({key, email, role}) {
 
     return {status: "success", message: "Mail adresiniz başarıyla onaylandı!"};
 
-   } catch (error) {
+   } catch (error:any) {
       
       return {error: error?.message, status: "error"};
    }
 
 }
+
+export default VerifyEmail;

@@ -1,5 +1,5 @@
 // Öğrenci (kayıt) işlemleri için kullanılan servis
-export async function postAPI(URL, body = {}, method="POST", headers = {'Content-Type': 'application/json'}){
+const postAPI = async (URL:string, body = {}, method="POST", headers = {'Content-Type': 'application/json'}):Promise<any> => {
 
 
     try {
@@ -26,9 +26,7 @@ export async function postAPI(URL, body = {}, method="POST", headers = {'Content
 }
 
 // Öğrenci (kayıt) işlemleri için kullanılan servis
-export async function getAPI(URL, headers = {'Content-Type': 'application/json'}){
-
-
+const getAPI = async (URL:string, headers = {'Content-Type': 'application/json'}):Promise<any> => {
 
     const data = await fetch (`${process.env.NEXT_PUBLIC_API_URL + URL}`,{
         method: "GET",
@@ -48,6 +46,8 @@ export async function getAPI(URL, headers = {'Content-Type': 'application/json'}
 
     return data;
 }
+
+export {postAPI, getAPI}
 
 
 

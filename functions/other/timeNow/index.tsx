@@ -1,4 +1,5 @@
-export default async function getTurkeyTime() {
+
+const getTurkeyTime = async (): Promise<any> =>{
     const now = new Date();
     const options = { timeZone: 'Europe/Istanbul', hour12: false };
     const timeString = now.toLocaleTimeString('tr-TR', options);
@@ -7,4 +8,7 @@ export default async function getTurkeyTime() {
         time: timeString,
         date: dateString,
     };
-  }
+}
+
+export default getTurkeyTime;
+

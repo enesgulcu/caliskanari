@@ -1,4 +1,4 @@
-export default function mailStringCheck(email) {
+const mailStringCheck = async (email:string): Promise<any> =>{
   // @ işareti kontrolü
   if (email.indexOf("@") === -1) {
     return false;
@@ -19,3 +19,4 @@ export default function mailStringCheck(email) {
   return emailRegex.test(email);
 }
 
+export default mailStringCheck;

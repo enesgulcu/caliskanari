@@ -1,10 +1,17 @@
 import VerifyEmail from  "@/functions/auth/verifyEmail";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import  authOptions  from "@/pages/api/auth/[...nextauth]";
+import { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function handler (req, res) {
+interface VerifyEmailResponse {
+    error?: any;
+    status: string;
+    message?: string;
+  }
 
-        const {key, email, role} = req.body;
+const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> =>{
+
+        const {key, email, role}: { key:string, email:string, role:string } = req.body;
         
     if(req.method !== "POST"){
         return res.status(405).json({status: "error", error: "Method Not Allowed", message: "Method Not Allowed"});
@@ -25,7 +32,7 @@ export default async function handler (req, res) {
 
                 // Mailden gönderilen parametreleri fonksiyona gönderip kontrol ederiz.
                 // Eğer kontrol edilen parametreler doğruysa kullanıcının email adresini onaylarız.
-                const {error, status, message} = await VerifyEmail({key, email, role});
+                const {error, status, message}:VerifyEmailResponse = await VerifyEmail({key, email, role});
                 if(error && status != "success"){
                     throw new Error(error);
                 }
@@ -35,7 +42,7 @@ export default async function handler (req, res) {
                 }
                 
             }
-            catch (error) {
+            catch (error:any) {
         
                 return res.status(401).json({status: "error", error: error?.message, message: error?.message});
             }

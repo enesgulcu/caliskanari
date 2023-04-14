@@ -1,7 +1,18 @@
 // INFO PAGE: // https://www.prisma.io/docs/concepts/components/prisma-client/crud#update-a-single-record
 import { getDataByUnique, createNewData } from "@/services/serviceOperations";
 
-export async function createNewUser(user, mailKey) {
+interface User {
+  role: string;
+  email: string;
+  verified: boolean;
+  name: string;
+  surname: string;
+  phone?: string;
+
+  // ... diğer özellikler
+}
+
+const createNewUser = async (user:User, mailKey:string): Promise<any> =>{
   try {
     
     // kullanıcı kontrolü
@@ -39,10 +50,12 @@ export async function createNewUser(user, mailKey) {
       return { success: "Kayıt başarılı. E-mail adresinize doğrulama kodu gönderildi." };
     }          
   } 
-  catch (error) {
+  catch (error:any) {
     return { error: error.message };
   }
 }
+
+export default createNewUser;
 
 
       // TELEFON KONTROL İSTEĞİ (DURDURULDU ŞİMDİLİK!)

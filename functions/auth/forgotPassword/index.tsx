@@ -1,8 +1,9 @@
 import { getDataByUnique, createNewData, getDataByMany, deleteDataByMany } from "@/services/serviceOperations";
 // INFO PAGE: // https://www.prisma.io/docs/concepts/components/prisma-client/crud#update-a-single-record
 
-export async function createNewForgotPassword(email, {mailKey}) {
 
+
+const createNewForgotPassword = async (email:string, {mailKey}:{mailKey:string}): Promise<any> =>{
   try {
 
     if(!email || !mailKey){
@@ -22,12 +23,12 @@ export async function createNewForgotPassword(email, {mailKey}) {
       //ve 3 kere şifre sıfırlama talebinde bulunmuşsa son kalan zamanı hesapla ve hata döndür
       // sorun yoksa yeni bir kayıt oluştur
       const ForgotPasswordCheck = await getDataByMany("ForgotPassword", {email: email});
-      let currentTimes = [];
-      let oldTimes = [];
+      let currentTimes:number [] = [];
+      let oldTimes:number [] = [];
       
       if(mailCheck && ForgotPasswordCheck && !ForgotPasswordCheck.error){
        
-        ForgotPasswordCheck.map(async (item) => {
+        ForgotPasswordCheck.map(async (item:any) => {
           const lifeTime = Date.now() - item.validTime;
           const pastHour = Math.floor((lifeTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 
@@ -70,3 +71,5 @@ export async function createNewForgotPassword(email, {mailKey}) {
     return { error };
   }
 }
+
+export default createNewForgotPassword;

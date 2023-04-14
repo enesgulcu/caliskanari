@@ -1,6 +1,9 @@
 import RateLimit from '@/functions/other/rateLimit';
+import { NextApiRequest, NextApiResponse } from 'next';
 
-const pageConfig = {
+
+
+const pageConfig:any = {
     login: {
         maxRequest: 3,
         timeLimit: "15 s",  
@@ -58,8 +61,9 @@ const pageConfig = {
     }
 };
 
-export  default async function rateLimitPageConfig(req, pathname) {
 
+
+const rateLimitPageConfig = async (req:NextApiRequest, pathname:string): Promise<any> =>{
     try {
         // kullanıcının gittiği sayfanın path bilgisini alırız.
         const path = pathname;
@@ -77,7 +81,7 @@ export  default async function rateLimitPageConfig(req, pathname) {
             }
 
             if (!success) {
-                let error =  new Error();
+                let error:any =  new Error();
                 error.message = errorMessage;
                 error.reset = reset;
                 error.targetUrl = targetUrl;
@@ -96,7 +100,7 @@ export  default async function rateLimitPageConfig(req, pathname) {
             return {success: true};
         } 
 
-    } catch (error) {
+    } catch (error:any) {
         return {
             error: error.message, 
             success: false, 
@@ -109,3 +113,5 @@ export  default async function rateLimitPageConfig(req, pathname) {
         };
     }
 }
+
+export default rateLimitPageConfig;

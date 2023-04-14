@@ -1,7 +1,8 @@
 import React from 'react'
 
-export default async function secondCountDown(saniye) {
-    var interval = setInterval(function() {
+
+const secondCountDown = async (saniye:number): Promise<any> =>{
+    var interval:NodeJS.Timer = setInterval(function() {
       if (saniye <= 0) {
         clearInterval(interval);
         return {second: 0, status: "done"};
@@ -11,4 +12,6 @@ export default async function secondCountDown(saniye) {
         
       }
     }, 1000);
-  }
+}
+
+export default secondCountDown;

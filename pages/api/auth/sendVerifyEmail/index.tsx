@@ -1,10 +1,11 @@
 import { transporter, mailOptions } from "@/pages/api/mail/nodemailer";
 import SendVerifyEmail from "@/functions/auth/sendVerifyEmail";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import authOptions from "@/pages/api/auth/[...nextauth]";
 import { getServerSession } from "next-auth/next";
 import mailStringCheck from "@/functions/other/mailStringCheck";
+import { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function handler (req, res) {
+const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> => {
 
     if(req.method != "POST"){
         return res.status(200).json({message: "Method not allowed"})
@@ -13,7 +14,7 @@ export default async function handler (req, res) {
     const session = await getServerSession(req, res, authOptions)
     if(!session){
         
-        const {email} = req.body;
+        const {email}:{email:string} = req.body;
         
         try {
             
@@ -64,7 +65,7 @@ export default async function handler (req, res) {
             }
 
         }
-        catch (error) {
+        catch (error:any) {
     
             return res.status(401).json({status: "error", error: error?.message, message: error?.message});
         }
@@ -73,4 +74,6 @@ export default async function handler (req, res) {
         return res.status(401).json({status: "error", error: "Zaten giriş yapmış durumdasınız.", message: "Zaten giriş yapmış durumdasınız."});
     }
 }
+
+export default handler;
 

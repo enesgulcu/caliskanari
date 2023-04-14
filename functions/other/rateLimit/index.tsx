@@ -1,7 +1,8 @@
 import {Ratelimit} from "@upstash/ratelimit";
 import {Redis} from "@upstash/redis";
 
-export default async function rateLimit(req, maxRequest=10, timeLimit="30 s") {
+
+const rateLimit = async (req:any, maxRequest=10, timeLimit:any="30 s"): Promise<any> =>{
 
   try {
     if(!req){
@@ -29,9 +30,11 @@ export default async function rateLimit(req, maxRequest=10, timeLimit="30 s") {
     });
   
     return result;
-  } catch (error) {
+  } catch (error:any) {
     
 
     return {success:false, reset:0, error:error.message};
   }
 }
+
+export default rateLimit;

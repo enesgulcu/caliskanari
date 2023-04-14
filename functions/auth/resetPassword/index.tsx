@@ -1,7 +1,13 @@
 import {getDataByUnique,deleteDataByMany} from "@/services/serviceOperations";
 import DecryptPassword from "@/functions/auth/decryptPassword";
 
-export default async function ResetPassword(searchParams) {
+interface SearchParams {
+  key: string;
+  email: string;
+}
+
+
+const ResetPassword = async (searchParams:SearchParams): Promise<any> =>{
   try {
     if (!searchParams) {
       throw new Error("Eksik yada yanlış bir işlem başlattınız.");
@@ -41,17 +47,19 @@ export default async function ResetPassword(searchParams) {
     }
 
     // ForgotPassword tablosundan gelen değerler ile DecryptPassword fonksiyonunu kullanarak şifreleri karşılaştırıyoruz.
-    const verify = await DecryptPassword(
+    const verify:boolean = await DecryptPassword(
       forgotPasswordData.email,
       searchParams.email
     );
 
-    if (!verify || verify.error) {
+    if (!verify) {
       throw new Error("Bu mail adresi ile ilgili bir şifre sıfırlama talebi bulunmamaktadır.");
     }
 
     return { success: true, email: forgotPasswordData.email };
-  } catch (error) {
+  } catch (error:any) {
     return { error: error.message };
   }
 }
+
+export default ResetPassword;

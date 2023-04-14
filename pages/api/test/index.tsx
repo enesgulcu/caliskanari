@@ -1,4 +1,7 @@
-export default async function handler (req, res) {
+import { NextApiRequest, NextApiResponse } from 'next';
+
+const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> => {
+
     if(req.method === "POST") {
         console.log("Method POST")
         return res.status(200).json({message: "Method POST"})
@@ -9,3 +12,5 @@ export default async function handler (req, res) {
     }
 
 }
+
+export default handler;

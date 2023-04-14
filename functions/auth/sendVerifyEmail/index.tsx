@@ -2,7 +2,7 @@ import { getDataByUnique, createNewData, deleteDataByMany } from "@/services/ser
 import getTurkeyTime from "@/functions/other/timeNow";
 import EncryptPassword from "@/functions/auth/encryptPassword";
 
-export default async function SendVerifyEmail(email) {
+const SendVerifyEmail = async (email:string): Promise<any> =>{
 
     try {
         if(!email) {
@@ -12,10 +12,10 @@ export default async function SendVerifyEmail(email) {
         const date = (await getTurkeyTime()).date;
         const time = (await getTurkeyTime()).time;
     
-        const mailKey = await EncryptPassword(process.env.MAIL_SECRET); 
-        const hashedEmail = await EncryptPassword(email);
+        const mailKey:string = await EncryptPassword(process.env.MAIL_SECRET); 
+        const hashedEmail:string = await EncryptPassword(email);
     
-        if(!mailKey || !hashedEmail || !mailKey || !hashedEmail || hashedEmail.error || mailKey.error) {
+        if(!mailKey || !hashedEmail || !mailKey || !hashedEmail) {
             throw new Error("Mail gönderilemedi! Lütfen daha sonra tekrar deneyiniz!");
         }
 
@@ -51,8 +51,10 @@ export default async function SendVerifyEmail(email) {
 
         return {status: "success", mailKey, hashedEmail, mailCheck, date, time}
   
-    } catch (error) {
+    } catch (error:any) {
         
         return {error: error.message }  
     }
 }
+
+export default SendVerifyEmail;

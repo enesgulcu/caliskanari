@@ -1,4 +1,4 @@
-export default async function getAdress(route="") {
+const getAdress = async (route : string  ="") : Promise<string[] | undefined> => {
     
     try {
         const adressRoute = `https://schoolapi.herokuapp.com/${route}`;
@@ -12,4 +12,6 @@ export default async function getAdress(route="") {
     }
 
 }
+
+export default getAdress;
 

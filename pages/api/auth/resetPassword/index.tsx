@@ -1,10 +1,11 @@
 import { updateDataByAny, getDataByUnique, deleteDataByMany } from "@/services/serviceOperations";
 import EncryptPassword from "@/functions/auth/encryptPassword";
 import { getServerSession } from "next-auth/next";
-import { authOptions } from "@/pages/api/auth/[...nextauth]";
+import authOptions from "@/pages/api/auth/[...nextauth]";
 import mailStringCheck from "@/functions/other/mailStringCheck";
+import { NextApiRequest, NextApiResponse } from 'next';
 
-export default async function handler (req, res) {
+const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> => {
    
    
     //getServerSession:  Kullanıcının oturum açıp açmadığını kontrol eder. Eğer açılmışsa session değişkenine atar.
@@ -14,9 +15,9 @@ export default async function handler (req, res) {
         if(req.method === 'POST'){
 
             const body = req.body;
-            const email = body.email.email;
-            const password = body.password;
-            const passwordConfirm = body.passwordConfirm;
+            const email:string = body.email.email;
+            const password:string = body.password;
+            const passwordConfirm:string = body.passwordConfirm;
                
             try {
                 if(!mailStringCheck(email) || !email){
@@ -53,7 +54,7 @@ export default async function handler (req, res) {
 
                 // Eğer kullanıcı gerekli alanları doldurmadan kayıt olmaya çalışırsa hata fırlatır.
 
-            } catch (error) {
+            } catch (error:any) {
                 return res.status(500).json({status: "error", error: error.message});       
             }      
 
@@ -66,3 +67,5 @@ export default async function handler (req, res) {
         return res.status(500).json({status: "error", error: "Şifre sıfırlama işleminde bir hata oluştu!"});
     }
 }
+
+export default handler;
