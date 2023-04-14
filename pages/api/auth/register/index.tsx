@@ -1,4 +1,4 @@
-import { createNewUser } from "@/functions/auth/register/index";
+import  createNewUser  from "@/functions/auth/register/index";
 import EncryptPassword from "@/functions/auth/encryptPassword";
 import { getServerSession } from "next-auth/next";
 import  authOptions  from "@/pages/api/auth/[...nextauth]";
