@@ -65,7 +65,7 @@ interface Props {
     setIsloading(true);
     if (city !== '') {
       getAdress(city)
-        .then((res) => {
+        .then((res:any) => {
           setTowns(res);
           
         })
@@ -100,7 +100,7 @@ interface Props {
       } else {
         if (town !== '') {
           getAdress(`${city}/${town}/${schooltype}`)
-            .then((res) => {
+            .then((res:any) => {
               setschollNames(res);
             })
             .catch((err) => {

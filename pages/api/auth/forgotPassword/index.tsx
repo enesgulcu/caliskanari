@@ -3,7 +3,7 @@ import { getServerSession } from "next-auth/next";
 import  authOptions  from "@/pages/api/auth/[...nextauth]";
 import { transporter, mailOptions } from "@/pages/api/mail/nodemailer";
 import getTurkeyTime from "@/functions/other/timeNow";
-import {createNewForgotPassword} from "@/functions/auth/forgotPassword";
+import createNewForgotPassword from "@/functions/auth/forgotPassword";
 import mailStringCheck from "@/functions/other/mailStringCheck";
 import { NextApiRequest, NextApiResponse } from 'next';
 
