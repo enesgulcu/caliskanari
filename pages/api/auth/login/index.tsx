@@ -4,13 +4,15 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 
 const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> => {
+    console.log("api/auth/login ##########################")
     if(!req){
          return res.status(500).json({error: "İstek bulunamadı."});
     }
     if(req.method === 'POST'){
         try {
             const data = req.body;
-
+            console.log("req.body -> datayı aldık ##########################")
+            console.log(data)
             if(!data.email || !data.password || !data || !mailStringCheck(data.email)){
                 throw new Error("Girdiğiniz bilgilerde hata var. Lütfen kontrol ediniz.");
             }
@@ -25,7 +27,7 @@ const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> =
                 error2.verify = verifyEmail;
                 throw error2;
             }
-        
+            console.log("BAŞARILI!")
             return res.status(200).json({success: true,verifyEmail: userFromDB.verified , userFromDB: userFromDB, message: "Giriş işlemi başarılı"});
 
         } catch (error:any) {   

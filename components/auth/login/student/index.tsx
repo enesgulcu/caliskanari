@@ -89,6 +89,8 @@ const StudentLoginComponent:React.FC <Props> = ({pageRole}) => {
               callbackUrl:"/", 
               redirect: false, 
             }).then((res : any) => {   
+              console.log("page.js den veri gönderildi. RES AŞAĞIDA")
+              console.log(res);
               if(!res){
                 toast.error("Bir hata oluştu. Lütfen tekrar deneyiniz.");
                 setIsloading(false);
