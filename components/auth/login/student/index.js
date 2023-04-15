@@ -1,47 +1,30 @@
 "use client";
-import Link from "next/link";
-import Image from "next/image";
-import { useState } from 'react';
 import { Formik, Form } from "formik";
-import styles from "./styles.module.css";
-import { useRouter } from 'next/navigation';
-import PopupScreen from "@/components/popup";
-import LoadingScreen from '@/components/loading';
 import studentValidationSchema from "./formikData";
 import { ToastContainer, toast } from "react-toastify";
-
-
+import Image from "next/image";
+import { useRouter } from 'next/navigation';
+import { useState } from 'react';
+import styles from "./styles.module.css";
+import Link from "next/link";
+import LoadingScreen from '@/components/loading';
+import PopupScreen from "@/components/popup";
 // session: giriş yapmış kullanıcıyı temsil eder varsa bilgileri içinde barındırır.
 // signIn:  kullanıcıyı giriş yapmaya yönlendirmek için kullanılır.
 import { signIn } from "next-auth/react";
 
-interface Props {
-  pageRole: string;
-}
+export default function LoginComponent({pageRole}) {
 
-interface PopupData {
-  popupIsActive: boolean;
-  Title: string;
-  subTitle: string;
-  buttonUrl: string;
-  buttonText: string;
-}
-
-const StudentLoginComponent:React.FC <Props> = ({pageRole}) => {
-
-  const [popupData, setPopupData] = useState<PopupData>({
+  const [popupData, setPopupData] = useState({
     popupIsActive: false,
     Title: "Uyarı.",
     subTitle: "Bu bir uyarı bildirimidir.",
     buttonUrl: "/",
     buttonText: "Anasayfa"
   });
-
-  const [isAccessing, setIsAccessing] = useState<boolean>(false);
-  const [isloading, setIsloading] = useState<boolean>(false);
-
+  const [isAccessing, setIsAccessing] = useState(false);
+  const [isloading, setIsloading] = useState(false);
   const router = useRouter();
-
   return (
     <>
       <PopupScreen
@@ -52,9 +35,7 @@ const StudentLoginComponent:React.FC <Props> = ({pageRole}) => {
           buttonText={popupData.buttonText}
       >
       </PopupScreen>
-
       { isloading && (<LoadingScreen isloading={isloading}/>) }
-
       <div className={styles.main}>
         <ToastContainer
           position="top-right"
@@ -68,7 +49,6 @@ const StudentLoginComponent:React.FC <Props> = ({pageRole}) => {
           pauseOnHover
           theme="dark"
         />
-
         <Formik
           // input verileri
           initialValues={{          
@@ -78,7 +58,6 @@ const StudentLoginComponent:React.FC <Props> = ({pageRole}) => {
           }}
           // input check
           validationSchema={studentValidationSchema}
-
           onSubmit={(values) => {
             setIsloading(true);
             // signIn içine hangi provider ile giriş yapılacağı ve giriş bilgileri gönderilir.
@@ -89,8 +68,6 @@ const StudentLoginComponent:React.FC <Props> = ({pageRole}) => {
               callbackUrl:"/", 
               redirect: false, 
             }).then((res) => {   
-              console.log("page.js den veri gönderildi. RES AŞAĞIDA")
-              console.log(res);
               if(!res){
                 toast.error("Bir hata oluştu. Lütfen tekrar deneyiniz.");
                 setIsloading(false);
@@ -99,19 +76,16 @@ const StudentLoginComponent:React.FC <Props> = ({pageRole}) => {
               else if(!res.ok){
                 toast.error(res.error);
                 setIsloading(false);
-
                 // verifyEmail şuanda nextauth error içerisinden gelmiyor kontrol et.
-                if(res.error){
-                  if(res.error.includes("doğrulanmamış") || res.error.includes("doğrulayınız")){
-                    setPopupData({ 
-                    
-                      popupIsActive: true,
-                      Title: "Mail Adresiniz Doğrulanmamış!",
-                      subTitle: "Girdiğiniz mail adresi henüz doğrulanmamış. Mail adresinize gelen doğrulama kodunu girerek hesabınızı aktif edebilir, veya aşağıdaki butona basarak yeni bir doğrulama maili talep edebilirsiniz.",
-                      buttonUrl: "/auth/sendVerifyEmail",
-                      buttonText: "Mail Doğrulama"
-                    });               
-                  }
+                if(res.error.includes("doğrulanmamış") || res.error.includes("doğrulayınız")){
+                  setPopupData({ 
+                  
+                    popupIsActive: true,
+                    Title: "Mail Adresiniz Doğrulanmamış!",
+                    subTitle: "Girdiğiniz mail adresi henüz doğrulanmamış. Mail adresinize gelen doğrulama kodunu girerek hesabınızı aktif edebilir, veya aşağıdaki butona basarak yeni bir doğrulama maili talep edebilirsiniz.",
+                    buttonUrl: "/auth/sendVerifyEmail",
+                    buttonText: "Mail Doğrulama"
+                  });               
                 }
               }
               else{
@@ -128,7 +102,6 @@ const StudentLoginComponent:React.FC <Props> = ({pageRole}) => {
           
           }}
         >
-
           {(props) => (
             <Form onSubmit={props.handleSubmit} className={`${isAccessing ? "blur"  : ""} ${styles.main_container}`} >
               
@@ -145,6 +118,8 @@ const StudentLoginComponent:React.FC <Props> = ({pageRole}) => {
                       <div className={styles.right_side_logo}>
                         <div
                           className={styles.right_side_logoImage}
+                          fill="none"
+                          stroke="currentColor"
                         >
                           <Image
                             src="/logo.png"
@@ -173,7 +148,6 @@ const StudentLoginComponent:React.FC <Props> = ({pageRole}) => {
                       </div>
                       <div>
                         <label className="block mt-4 text-sm">Şifre</label>
-
                         <input 
                           id='password'
                           name='password'
@@ -187,11 +161,10 @@ const StudentLoginComponent:React.FC <Props> = ({pageRole}) => {
                       <button
                       disabled={isAccessing}
                         className={`${isAccessing ? "bg-gray-600 active:bg-gray-600 hover:bg-gray-600" : "bg-blue-600 active:bg-blue-600 hover:bg-blue-700"} block w-full px-4 py-2 mt-4 text-sm font-medium leading-5 text-center text-white transition-colors duration-150  border border-transparent rounded-lg  focus:outline-none focus:shadow-outline-blue`}
-                        type="submit"
+                        href="#"
                       >
                         Giriş Yap
                       </button>
-
                       <div className="mt-4 text-center gap-2 flex justify-center items-center flex-col">
                       <p className="text-md">
                       Kayıtlı hesabınız yok mu?<Link href={`/auth/register/${pageRole.toLowerCase()}`} className="text-blue-600 hover:underline"> Öğrenci Kayıt.</Link>
@@ -213,5 +186,3 @@ const StudentLoginComponent:React.FC <Props> = ({pageRole}) => {
     </>
   );
 }
-
-export default StudentLoginComponent;
