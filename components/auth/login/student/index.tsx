@@ -82,13 +82,13 @@ const StudentLoginComponent:React.FC <Props> = ({pageRole}) => {
           onSubmit={(values) => {
             setIsloading(true);
             // signIn içine hangi provider ile giriş yapılacağı ve giriş bilgileri gönderilir.
-            const result:Promise<any> = signIn('credentials', {
+            const result = signIn('credentials', {
               email: values.email,
               password: values.password,
               role: pageRole,
               callbackUrl:"/", 
               redirect: false, 
-            }).then((res : any) => {   
+            }).then((res) => {   
               console.log("page.js den veri gönderildi. RES AŞAĞIDA")
               console.log(res);
               if(!res){
@@ -101,15 +101,17 @@ const StudentLoginComponent:React.FC <Props> = ({pageRole}) => {
                 setIsloading(false);
 
                 // verifyEmail şuanda nextauth error içerisinden gelmiyor kontrol et.
-                if(res.error.includes("doğrulanmamış") || res.error.includes("doğrulayınız")){
-                  setPopupData({ 
-                  
-                    popupIsActive: true,
-                    Title: "Mail Adresiniz Doğrulanmamış!",
-                    subTitle: "Girdiğiniz mail adresi henüz doğrulanmamış. Mail adresinize gelen doğrulama kodunu girerek hesabınızı aktif edebilir, veya aşağıdaki butona basarak yeni bir doğrulama maili talep edebilirsiniz.",
-                    buttonUrl: "/auth/sendVerifyEmail",
-                    buttonText: "Mail Doğrulama"
-                  });               
+                if(res.error){
+                  if(res.error.includes("doğrulanmamış") || res.error.includes("doğrulayınız")){
+                    setPopupData({ 
+                    
+                      popupIsActive: true,
+                      Title: "Mail Adresiniz Doğrulanmamış!",
+                      subTitle: "Girdiğiniz mail adresi henüz doğrulanmamış. Mail adresinize gelen doğrulama kodunu girerek hesabınızı aktif edebilir, veya aşağıdaki butona basarak yeni bir doğrulama maili talep edebilirsiniz.",
+                      buttonUrl: "/auth/sendVerifyEmail",
+                      buttonText: "Mail Doğrulama"
+                    });               
+                  }
                 }
               }
               else{

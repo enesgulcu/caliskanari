@@ -1,7 +1,6 @@
 import NextAuth from "next-auth"
 import CredentialsProvider, { CredentialsConfig } from "next-auth/providers/credentials";
 import {postAPI} from "@/services/fetchAPI";
-import { NextApiRequest, NextApiResponse } from "next";
 
 
 
