@@ -1,5 +1,4 @@
-// Öğrenci (kayıt) işlemleri için kullanılan servis
-const postAPI = async (URL:string, body = {}, method="POST", headers = {'Content-Type': 'application/json'}):Promise<any> => {
+export async function postAPI(URL, body = {}, method="POST", headers = {'Content-Type': 'application/json'}){
 
 
     try {
@@ -19,19 +18,19 @@ const postAPI = async (URL:string, body = {}, method="POST", headers = {'Content
         }).catch(err => console.log(err))
         
         return data;
-
     } catch (err) {
         throw new Error(`API request failed: ${err}`);
     }        
 }
 
 // Öğrenci (kayıt) işlemleri için kullanılan servis
-const getAPI = async (URL:string, headers = {'Content-Type': 'application/json'}):Promise<any> => {
+export async function getAPI(URL, headers = {'Content-Type': 'application/json'}){
+
+
 
     const data = await fetch (`${process.env.NEXT_PUBLIC_API_URL + URL}`,{
         method: "GET",
         headers:headers
-
     }).then(res =>{
         if(res.redirected){
             
@@ -43,11 +42,5 @@ const getAPI = async (URL:string, headers = {'Content-Type': 'application/json'}
         }
         
     }).catch(err => console.log(err))
-
     return data;
 }
-
-export {postAPI, getAPI}
-
-
-
