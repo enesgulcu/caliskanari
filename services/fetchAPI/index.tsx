@@ -1,5 +1,5 @@
 // Öğrenci (kayıt) işlemleri için kullanılan servis
-const postAPI = async (URL:string, body = {}, method="POST", headers = {'Content-Type': 'application/json'}):Promise<any> => {
+const postAPI = async (URL:any, body:any = {}, method:any="POST", headers:any = {'Content-Type': 'application/json'}) => {
 
 
     try {
