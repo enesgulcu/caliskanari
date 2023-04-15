@@ -3,7 +3,7 @@ const postAPI = async (URL:string, body = {}, method="POST", headers = {'Content
 
 
     try {
-        const data = await fetch (`${URL}`,{
+        const data = await fetch (`${process.env.NEXT_PUBLIC_API_URL + URL}`,{
             method: method,
             headers: headers,
             body: JSON.stringify(body)
