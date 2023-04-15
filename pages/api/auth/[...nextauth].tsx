@@ -5,49 +5,11 @@ import { NextApiRequest, NextApiResponse } from "next";
 
 
 
-interface AuthOptions{
-  providers: CredentialsConfig<{
-    email: {
-        label: string;
-        type: string;
-    };
-    password: {
-        label: string;
-        type: string;
-    };
-    role: {
-        label: string;
-        type: string;
-    }; 
-  }>[],
-  secret: string | undefined;
-  session: {
-    maxAge: number;
-    strategy: any
-  };
-  jwt: {
-    secret: string | undefined;
-    encryption: boolean;
-  };
-  callbacks: {
-    jwt({ token, user }: {
-        token: any;
-        user?: any;
-    }): Promise<any>;
-    session({ session, token }: any): Promise<any>;
-  }
 
-  pages: {
-    signIn: string;
-    encryption:boolean;
-  }
-}
-
-
+console.log("[...nextauth] ########################## 1")
 let loginPageRoute = "student";
 
-const authOptions:AuthOptions = {
-
+const authOptions:any = {
   providers: [
     // CredentialsProvider ile email ve şifreyi kullanıcıdan alarak normal giriş yapmasını sağlarız.
     // farklı giriş yöntemleri ile (google - github - facebook) giriş için hazır "provider" ları kullanabiliriz.
@@ -60,15 +22,16 @@ const authOptions:AuthOptions = {
       },
 
       async authorize(credentials): Promise<any> {
+        console.log("[...nextauth] ########################## 2")
         // kontrol edilecek (email ve password) bilgilerini credentials değişkeninden alıyoruz.
         const { email, password, role}:any = credentials;
         // giriş yapılacak sayfayı role değişkeninden alıyoruz.
         loginPageRoute = role;
-        console.log("[...nextauth] ##########################")
+        console.log("[...nextauth] ########################## 3")
         console.log(email)
         console.log(password)
         console.log(role)
-        console.log("[...nextauth] ##########################")
+        console.log("[...nextauth] ########################## 4")
         if(email){
           // yukarıda aldığımız giriş bilgilerini => [email eşleşmesi, password doğrulaması] için fonksiyonumuza gönderiyoruz.
           const data = await postAPI(`/auth/login`, {role, email, password});
@@ -128,7 +91,7 @@ const authOptions:AuthOptions = {
   callbacks: {
     // jwt fonksiyonu ile kullanıcı giriş yaptıktan sonra giriş yapan kullanıcının bilgilerini token değişkenine atıyoruz.
     // bu bilgileri session fonksiyonunda kullanacağız.
-    async jwt({ token, user }) {
+    async jwt({ token, user }:{token:any, user:any}) {
       return { ...token, ...user };
     },
     // session fonksiyonu ile kullanıcı giriş yaptıktan sonra giriş yapan kullanıcının bilgilerini session değişkenine atıyoruz.
