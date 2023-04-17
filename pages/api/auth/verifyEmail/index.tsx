@@ -9,7 +9,7 @@ interface VerifyEmailResponse {
     message?: string;
   }
 
-const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> =>{
+const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<any> =>{
 
         const {key, email, role}: { key:string, email:string, role:string } = req.body;
         
