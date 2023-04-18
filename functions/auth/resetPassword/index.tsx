@@ -7,7 +7,7 @@ interface SearchParams {
 }
 
 
-const ResetPassword = async (searchParams:SearchParams): Promise<{ success: boolean, email: string } | { error:string }> =>{
+const ResetPassword = async (searchParams:SearchParams): Promise<{ success?: boolean, email?: string, error?:string } > =>{
   try {
     if (!searchParams) {
       throw new Error("Eksik yada yanlış bir işlem başlattınız.");
