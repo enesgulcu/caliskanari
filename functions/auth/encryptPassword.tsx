@@ -1,6 +1,6 @@
 import bcrypt from 'bcryptjs';
 
-const EncryptPassword = async (password:any): Promise<any> =>  {
+const EncryptPassword = async (password:string): Promise<string | {error:any}> =>  {
     try {
         if(!password) throw new Error("Error: Password is empty");
         const salt = await bcrypt.genSalt(10);

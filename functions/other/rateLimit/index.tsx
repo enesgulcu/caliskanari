@@ -2,7 +2,7 @@ import {Ratelimit} from "@upstash/ratelimit";
 import {Redis} from "@upstash/redis";
 
 
-const rateLimit = async (req:any, maxRequest=10, timeLimit:any="30 s"): Promise<any> =>{
+const rateLimit = async (req:string, maxRequest=10, timeLimit:any="30 s"): Promise<{success:boolean, reset:number} | {error:any}> =>{
 
   try {
     if(!req){

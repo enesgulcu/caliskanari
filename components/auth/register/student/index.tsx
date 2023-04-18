@@ -48,7 +48,7 @@ interface Props {
 
   const [city, setCity] = useState <string>('');
   const [town, setTown] = useState <string>('');
-  const [towns, setTowns] = useState<any>('');
+  const [towns, setTowns] = useState<string[]>([]);
   const [schooltype, setSchooltype] = useState<string>('');
 
 
@@ -57,7 +57,7 @@ interface Props {
   const [isloading, setIsloading] = useState<boolean>(false);
   const [isRegister, setIsRegister] = useState<boolean>(false);
 
-  const [schollNames, setschollNames] = useState <any>('');
+  const [schollNames, setschollNames] = useState<string[]>([]);
   
   const [activeTab, setActiveTab] = useState<number>(1);
 
@@ -65,9 +65,10 @@ interface Props {
     setIsloading(true);
     if (city !== '') {
       getAdress(city)
-        .then((res:any) => {
-          setTowns(res);
-          
+        .then((res) => {
+          if(res && res.length > 0){
+            setTowns(res);
+          }          
         })
         .catch((err) => {
           console.log(err);
@@ -100,8 +101,10 @@ interface Props {
       } else {
         if (town !== '') {
           getAdress(`${city}/${town}/${schooltype}`)
-            .then((res:any) => {
-              setschollNames(res);
+            .then((res) => {
+              if(res && res.length > 0){
+                setschollNames(res);
+              }               
             })
             .catch((err) => {
               console.log(err);
@@ -422,7 +425,7 @@ interface Props {
                             >
                               <option disabled={true} className=' hidden md:block bg-gray-200 text-[5px]'></option>
                               {towns?.length > 0 &&
-                                towns.map((item:any, index:number) => {
+                                towns.map((item:string, index:number) => {
                                   return (
                                     <option key={index} value={item}>
                                       {item}
@@ -514,7 +517,7 @@ interface Props {
                               {schollNames.length > 0 &&
                                   props.values.schooltype &&
                                   
-                                  schollNames.map((item:any, index:number) => {
+                                  schollNames.map((item:string, index:number) => {
                                     return (
                                       <option key={index} value={item}>
                                         {item}

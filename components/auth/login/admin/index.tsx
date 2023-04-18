@@ -80,7 +80,7 @@ const AdminLoginComponent:React.FC <Props> = ({pageRole}) => {
           onSubmit={(values) => {
             setIsloading(true);
             // signIn içine hangi provider ile giriş yapılacağı ve giriş bilgileri gönderilir.
-            const result:Promise<any> = signIn('credentials', {
+            const result = signIn('credentials', {
               email: values.email,
               password: values.password,
               role: pageRole,

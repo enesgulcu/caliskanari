@@ -8,8 +8,31 @@ import DecryptPassword from '@/functions/auth/decryptPassword'
     password: string;
  }
 
+ interface pageReturnPromise{
+    success:boolean,
+    userFromDB:{
+        id: string,
+        verified:boolean,
+        role:string,
+        name:string,
+        surname:string,
+        phone:number,
+        city:string,
+        town:string,
+        schooltype?:string,
+        schoolName?:string,
+        class?:string,
+        email:string,
+        password:string,
+        createdAt:Date,
+        updateAt:Date,
+    },
+    status?:string,
+    verifyEmail?:boolean
+ }
+
 // POST
-const loginFunction = async ({role, email, password}:Props): Promise<any> => {
+const loginFunction = async ({role, email, password}:Props): Promise< pageReturnPromise | {error:any}> => {
     
 
     try {
@@ -39,9 +62,9 @@ const loginFunction = async ({role, email, password}:Props): Promise<any> => {
             throw error2;
          }
 
-        return {success: true, userFromDB: userFromDB};
+        return {success: true, userFromDB: userFromDB, status: "success"};
     } catch (error:any) {   
-        return {success: false, error: error, status: error.status, verifyEmail: error.verify};
+        return {success: false, error: error, status: "error", verifyEmail: false};
     }
 
 }

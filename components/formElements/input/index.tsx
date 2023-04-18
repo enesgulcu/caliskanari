@@ -4,7 +4,10 @@ import styles from './styles.module.css';
 interface Props{
   labelValue?: string
   disabled?: boolean
-  Class?: any
+  Class?: {
+    label?: string
+    input?: string
+  }
   id?: string
   name?: string
   type: 'text' | 'password' | 'email' | 'number';

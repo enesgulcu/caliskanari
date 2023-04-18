@@ -1,4 +1,4 @@
-const mailStringCheck = async (email:string): Promise<any> =>{
+const mailStringCheck = async (email:string): Promise<boolean> =>{
   // @ işareti kontrolü
   if (email.indexOf("@") === -1) {
     return false;

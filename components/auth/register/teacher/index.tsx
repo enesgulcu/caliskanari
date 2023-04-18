@@ -9,7 +9,7 @@ import { useState, useEffect } from 'react';
 import { Transition } from '@headlessui/react';
 import LoadingScreen from '@/components/loading';
 import {postAPI} from '@/services/fetchAPI/index';
-import studentValidationSchema from './formikData';
+import teacherValidationSchema from './formikData';
 import { Formik, Form, FormikProps } from 'formik';
 import Input from '@/components/formElements/input';
 import Select from '@/components/formElements/select';
@@ -36,7 +36,7 @@ interface Props {
   CitiesData: string[]
 }
 
- const StudentRegisterComponent:React.FC <Props>  = ({ CitiesData }) => {
+ const TeacherRegisterComponent:React.FC <Props>  = ({ CitiesData }) => {
 
   const PageRole:string = 'teacher';
   const PageLabelUpper:string = 'ÖĞRETMEN';
@@ -57,7 +57,7 @@ interface Props {
   const [isloading, setIsloading] = useState<boolean>(false);
   const [isRegister, setIsRegister] = useState<boolean>(false);
 
-  const [schollNames, setschollNames] = useState <string[]>([]);
+  const [schollNames, setschollNames] = useState<string[]>([]);
   
   const [activeTab, setActiveTab] = useState<number>(1);
 
@@ -65,9 +65,10 @@ interface Props {
     setIsloading(true);
     if (city !== '') {
       getAdress(city)
-        .then((res:any) => {
-          setTowns(res);
-          
+        .then((res) => {
+          if(res && res.length > 0){
+            setTowns(res);
+          }          
         })
         .catch((err) => {
           console.log(err);
@@ -100,8 +101,10 @@ interface Props {
       } else {
         if (town !== '') {
           getAdress(`${city}/${town}/${schooltype}`)
-            .then((res:any) => {
-              setschollNames(res);
+            .then((res) => {
+              if(res && res.length > 0){
+                setschollNames(res);
+              }               
             })
             .catch((err) => {
               console.log(err);
@@ -187,7 +190,7 @@ interface Props {
             passwordConfirm: '',
           }}
           // input check
-          validationSchema={studentValidationSchema}
+          validationSchema={teacherValidationSchema}
           onSubmit={(values: FormValues) => {
             setIsloading(true);
             // kullanıcı 2 şifresini de doğru girerse artık "passwordConfirm" değerine ihtiyacımız olmayacak.
@@ -422,7 +425,7 @@ interface Props {
                             >
                               <option disabled={true} className=' hidden md:block bg-gray-200 text-[5px]'></option>
                               {towns?.length > 0 &&
-                                towns.map((item, index) => {
+                                towns.map((item:string, index:number) => {
                                   return (
                                     <option key={index} value={item}>
                                       {item}
@@ -514,7 +517,7 @@ interface Props {
                               {schollNames.length > 0 &&
                                   props.values.schooltype &&
                                   
-                                  schollNames.map((item, index) => {
+                                  schollNames.map((item:string, index:number) => {
                                     return (
                                       <option key={index} value={item}>
                                         {item}
@@ -746,4 +749,4 @@ interface Props {
   );
 }
 
-export default StudentRegisterComponent;
+export default TeacherRegisterComponent;

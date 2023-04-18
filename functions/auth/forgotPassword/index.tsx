@@ -1,7 +1,17 @@
 import { getDataByUnique, createNewData, getDataByMany, deleteDataByMany } from "@/services/serviceOperations";
 // INFO PAGE: // https://www.prisma.io/docs/concepts/components/prisma-client/crud#update-a-single-record
 
-export default async function createNewForgotPassword(email: string, { mailKey }: { mailKey: string }): Promise<any> {
+
+  interface pageReturnPromise{
+    id: string,
+    email: string,
+    secretKey: string,
+    validTime: number,
+    createdAt: Date,
+    updatedAt: Date
+  }
+
+export default async function createNewForgotPassword(email: string, { mailKey }: { mailKey: string }): Promise<pageReturnPromise | {error:any}> {
   try {
 
     if (!email || !mailKey) {
@@ -26,7 +36,7 @@ export default async function createNewForgotPassword(email: string, { mailKey }
 
       if (mailCheck && ForgotPasswordCheck && !ForgotPasswordCheck.error) {
 
-        ForgotPasswordCheck.map(async (item: any) => {
+        ForgotPasswordCheck.map(async (item: pageReturnPromise) => {
           const lifeTime = Date.now() - item.validTime;
           const pastHour = Math.floor((lifeTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 
@@ -59,6 +69,7 @@ export default async function createNewForgotPassword(email: string, { mailKey }
       // yeni bir kayıt oluştur
       const validTime = Date.now();
       const forgotPasswordFromDB = await createNewData("ForgotPassword", { email: email, secretKey: mailKey, validTime: validTime });
+      console.log(forgotPasswordFromDB);
       if (forgotPasswordFromDB.error || forgotPasswordFromDB == null || forgotPasswordFromDB == undefined) {
         throw new Error(forgotPasswordFromDB.error);
       }

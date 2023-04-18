@@ -1,9 +1,20 @@
 import RateLimit from '@/functions/other/rateLimit';
-import { NextApiRequest, NextApiResponse } from 'next';
 
+interface PageConfig {
+    [key: string]: {
+      maxRequest: number;
+      timeLimit: string;
+      errorMessage: string;
+      backUrl: string;
+      targetUrl: string;
+      targetButtonName: string;
+      backButtonName: string;
+      label: string;
+    };
+  }
+  
 
-
-const pageConfig:any = {
+const pageConfig:PageConfig = {
     login: {
         maxRequest: 3,
         timeLimit: "15 s",  
@@ -61,9 +72,25 @@ const pageConfig:any = {
     }
 };
 
+interface RateLimitResponse {
+    success: boolean;
+    reset: number;
+    error?: any;
+  }
 
+  interface ErrorData {
+    error: string;
+    message: string;
+    success: boolean;
+    reset: number;
+    backUrl: string;
+    targetUrl: string;
+    targetButtonName: string;
+    backButtonName: string;
+    label: string;
+  }
 
-const rateLimitPageConfig = async (req:NextApiRequest, pathname:string): Promise<any> =>{
+const rateLimitPageConfig = async (req:string, pathname:string): Promise<{success: boolean} | ErrorData> =>{
     try {
         // kullanıcının gittiği sayfanın path bilgisini alırız.
         const path = pathname;
@@ -74,7 +101,7 @@ const rateLimitPageConfig = async (req:NextApiRequest, pathname:string): Promise
             // sayfa başlangıç kısmı ile eşleşen sayfa var ise rate limit kontrolü yapılır.
             const {maxRequest, timeLimit, errorMessage, backUrl, targetUrl, targetButtonName, backButtonName, label} = pageConfig[currentPage];
             
-            const {error, success, reset} = await RateLimit(req, maxRequest, timeLimit);
+            const {error, success, reset} = await RateLimit(req, maxRequest, timeLimit) as RateLimitResponse;
 
             if (error) {
                 throw new Error(error);
@@ -102,14 +129,14 @@ const rateLimitPageConfig = async (req:NextApiRequest, pathname:string): Promise
 
     } catch (error:any) {
         return {
-            error: error.message, 
-            success: false, 
-            reset: error.reset, 
-            backUrl: error.backUrl, 
-            targetUrl: error.targetUrl, 
-            targetButtonName: error.targetButtonName, 
-            backButtonName: error.backButtonName,
-            label: error.label,   
+            error: error.message, // string
+            success: false, // boolean
+            reset: error.reset,  // number
+            backUrl: error.backUrl,  // string
+            targetUrl: error.targetUrl,  // string
+            targetButtonName: error.targetButtonName, // string 
+            backButtonName: error.backButtonName, // string
+            label: error.label, // string
         };
     }
 }

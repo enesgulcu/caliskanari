@@ -24,14 +24,18 @@ const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<any> =>
                     throw new Error("Lütfen girdiğiniz email adresini kontrol ediniz.");
                 }
 
-                const mailKey = await EncryptPassword(process.env.MAIL_SECRET);
-                const hashedEmail = await EncryptPassword(email); 
-
-                if(!mailKey || !hashedEmail || hashedEmail.error || mailKey.error){
+                if(!process.env.MAIL_SECRET){
                     throw new Error("Şifre sıfırlama işlemi sırasında bir hata oluştu!");
                 }
 
-                const NewPasswordData = await createNewForgotPassword(email,{mailKey});
+                const mailKey:string | { error: any } = await EncryptPassword(process.env.MAIL_SECRET);
+                const hashedEmail:string | { error: any } = await EncryptPassword(email); 
+
+                if(typeof(hashedEmail) != "string" || typeof(mailKey) != "string" ||!mailKey || !hashedEmail || mailKey == null || mailKey == undefined || hashedEmail == null || hashedEmail == undefined){
+                    throw new Error("Şifre sıfırlama işlemi sırasında bir hata oluştu!");
+                }
+
+                const NewPasswordData:any = await createNewForgotPassword(email,{mailKey});
 
                 if(NewPasswordData.error || NewPasswordData == null || NewPasswordData == undefined){
                     throw new Error(NewPasswordData.error.message);

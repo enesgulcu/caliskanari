@@ -28,7 +28,7 @@ interface Props {
  }
 
  else{
-    const {status, message, error}:{status:any, message:string, error:any} = await postAPI("/auth/verifyEmail", {key, email, role});
+    const {status, message, error}:{status:string, message:string, error:string} = await postAPI("/auth/verifyEmail", {key, email, role});
 
   return (
     <div>

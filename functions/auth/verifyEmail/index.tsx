@@ -9,7 +9,7 @@ interface Props {
 }
 
 
-const VerifyEmail = async ({key, email, role}:Props): Promise<any> =>{
+const VerifyEmail = async ({key, email, role}:Props): Promise<{status: string, message: string} | {error:any}> =>{
 
    try {
     const verifyEmailData = await getDataByUnique("VerifyEmail", {secretKey: key});

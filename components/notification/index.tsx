@@ -60,10 +60,10 @@ import {MdDone, MdWarningAmber, MdCircleNotifications, MdOutlineErrorOutline } f
   // useCallback hook'u, fonksiyonu bellekte saklar ve
   // bağımlılıklarının değişmesi durumunda yeniden oluşturulmasını sağlar.
   // Bu, React'ta performansı artırmak için kullanılan bir tekniktir.
-  const createQueryString = useCallback((name:string, value:any) => {
+  const createQueryString = useCallback((name:string, value:number) => {
     if(searchParams){
       const params = new URLSearchParams(searchParams);
-      params.set(name, value);
+      params.set(name, value.toString());
 
       return params.toString();
     }

@@ -12,7 +12,7 @@ interface User {
   // ... diğer özellikler
 }
 
-const createNewUser = async (user:User, mailKey:string): Promise<any> =>{
+const createNewUser = async (user:User, mailKey:string): Promise<{ success:string } | {error:string}> =>{
   try {
     
     // kullanıcı kontrolü
