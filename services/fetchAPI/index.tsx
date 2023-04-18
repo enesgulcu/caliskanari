@@ -1,7 +1,5 @@
 // Öğrenci (kayıt) işlemleri için kullanılan servis
-import { NextApiRequest, NextApiResponse } from 'next';
-
-const postAPI = async (URL:string, body = {}, method="POST", headers = {'Content-Type': 'application/json'}) => {
+const postAPI = async (URL:any, body:any = {}, method:any="POST", headers:any = {'Content-Type': 'application/json'}) => {
 
 
     try {
@@ -28,7 +26,7 @@ const postAPI = async (URL:string, body = {}, method="POST", headers = {'Content
 }
 
 // Öğrenci (kayıt) işlemleri için kullanılan servis
-const getAPI = async (URL:string, headers = {'Content-Type': 'application/json'}) => {
+const getAPI = async (URL:string, headers = {'Content-Type': 'application/json'}):Promise<any> => {
 
     const data = await fetch (`${process.env.NEXT_PUBLIC_API_URL + URL}`,{
         method: "GET",
