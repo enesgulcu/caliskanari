@@ -7,7 +7,7 @@ import createNewForgotPassword from "@/functions/auth/forgotPassword";
 import mailStringCheck from "@/functions/other/mailStringCheck";
 import { NextApiRequest, NextApiResponse } from 'next';
 
-const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<any> => {
+const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> => {
     
     const session = await getServerSession<any, unknown>(req, res, authOptions)
     if(!session){
@@ -35,8 +35,8 @@ const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<any> =>
                     throw new Error("Şifre sıfırlama işlemi sırasında bir hata oluştu!");
                 }
 
-                const NewPasswordData:any = await createNewForgotPassword(email,{mailKey});
-
+                const NewPasswordData = await createNewForgotPassword(email,{mailKey});
+               
                 if(NewPasswordData.error || NewPasswordData == null || NewPasswordData == undefined){
                     throw new Error(NewPasswordData.error.message);
                 }

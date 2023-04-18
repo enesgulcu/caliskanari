@@ -58,7 +58,13 @@ const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<any> =>
                     throw new Error("pass: Kayıt sırasında bir hata oluştu.");
                 }
                 
+                if(!process.env.MAIL_SECRET){
+                    throw new Error("Kayıt sırasında bir hata oluştu...");
+                }
+
                 const mailKey = await EncryptPassword(process.env.MAIL_SECRET); 
+
+                
                 if(!mailKey || mailKey.error){
                     throw new Error("key: Kayıt sırasında bir hata oluştu.");
                 }

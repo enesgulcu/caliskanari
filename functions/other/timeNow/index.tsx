@@ -1,5 +1,5 @@
 
-const getTurkeyTime = async (): Promise<any> =>{
+const getTurkeyTime = async (): Promise<{time:string, date:string}> =>{
     const now = new Date();
     const options = { timeZone: 'Europe/Istanbul', hour12: false };
     const timeString = now.toLocaleTimeString('tr-TR', options);

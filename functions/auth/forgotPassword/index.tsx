@@ -9,6 +9,7 @@ import { getDataByUnique, createNewData, getDataByMany, deleteDataByMany } from 
     validTime: number,
     createdAt: Date,
     updatedAt: Date
+    error?:any
   }
 
 export default async function createNewForgotPassword(email: string, { mailKey }: { mailKey: string }): Promise<pageReturnPromise | {error:any}> {

@@ -10,7 +10,7 @@ import DecryptPassword from '@/functions/auth/decryptPassword'
 
  interface pageReturnPromise{
     success:boolean,
-    userFromDB:{
+    userFromDB?:{
         id: string,
         verified:boolean,
         role:string,
@@ -28,11 +28,12 @@ import DecryptPassword from '@/functions/auth/decryptPassword'
         updateAt:Date,
     },
     status?:string,
-    verifyEmail?:boolean
+    verifyEmail?:boolean,
+    error?:any
  }
 
 // POST
-const loginFunction = async ({role, email, password}:Props): Promise< pageReturnPromise | {error:any}> => {
+const loginFunction = async ({role, email, password}:Props): Promise< pageReturnPromise> => {
     
 
     try {
