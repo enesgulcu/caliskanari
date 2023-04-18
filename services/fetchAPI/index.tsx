@@ -26,7 +26,7 @@ const postAPI = async (URL:any, body:any = {}, method:any="POST", headers:any = 
 }
 
 // Öğrenci (kayıt) işlemleri için kullanılan servis
-const getAPI = async (URL:string, headers = {'Content-Type': 'application/json'}):Promise<any> => {
+const getAPI = async (URL:string, headers = {'Content-Type': 'application/json'}) => {
 
     const data = await fetch (`${process.env.NEXT_PUBLIC_API_URL + URL}`,{
         method: "GET",

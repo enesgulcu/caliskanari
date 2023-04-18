@@ -51,8 +51,8 @@ const ForgotPasswordComponent:React.FC = () => {
             
             postAPI("/auth/forgotPassword",  values.email ).then(data => {
 
-              if(data && typeof data === "object"){
-                if (data?.status === "success") {
+              
+                if (data && typeof data === "object" && data?.status === "success") {
                   toast.success(data.message);
                   setIsloading(false);
                   setIsAccessing(true);
@@ -61,11 +61,11 @@ const ForgotPasswordComponent:React.FC = () => {
                     router.push('/');
                   }, 5000);
 
-                } else {
+                } else if(data && typeof data === "object" && data?.status === "error") {
                     toast.error(data?.message);
                     setIsloading(false);
                 }
-              }
+              
               else{
                 toast.error("Bir hata oluştu. Lütfen daha sonra tekrar deneyiniz.");
                 setIsloading(false);
