@@ -70,7 +70,6 @@ export default async function createNewForgotPassword(email: string, { mailKey }
       // yeni bir kayıt oluştur
       const validTime = Date.now();
       const forgotPasswordFromDB = await createNewData("ForgotPassword", { email: email, secretKey: mailKey, validTime: validTime });
-      console.log(forgotPasswordFromDB);
       if (forgotPasswordFromDB.error || forgotPasswordFromDB == null || forgotPasswordFromDB == undefined) {
         throw new Error(forgotPasswordFromDB.error);
       }
