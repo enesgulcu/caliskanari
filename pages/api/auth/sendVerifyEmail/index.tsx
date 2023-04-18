@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth/next";
 import mailStringCheck from "@/functions/other/mailStringCheck";
 import { NextApiRequest, NextApiResponse } from 'next';
 
-const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<any> => {
+const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> => {
 
     if(req.method != "POST"){
         return res.status(200).json({message: "Method not allowed"})
@@ -21,14 +21,14 @@ const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<any> =>
             if(!email && !mailStringCheck(email) ) {
                 throw new Error("Lütfen email adresini doğru girin.");
             }
-
+            
             const {error, status, mailKey, hashedEmail, mailCheck, date, time} = await SendVerifyEmail(email);
 
             if(error){
                 throw new Error(error);
             }
 
-            if(status == "success"){
+            if(status == "success" && mailKey && hashedEmail && mailCheck && date && time){
                 transporter.sendMail({
                     ...mailOptions,
                     subject: `${process.env.NEXT_PUBLIC_COMPANY_NAME} Mail Onaylama Bağlantısı`,

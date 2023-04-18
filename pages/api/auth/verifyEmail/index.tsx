@@ -5,11 +5,11 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 interface VerifyEmailResponse {
     error?: any;
-    status: string;
+    status?: string;
     message?: string;
   }
 
-const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<any> =>{
+const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> =>{
 
         const {key, email, role}: { key:string, email:string, role:string } = req.body;
         

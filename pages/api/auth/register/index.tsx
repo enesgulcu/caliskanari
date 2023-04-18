@@ -9,7 +9,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 
 
-const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<any> =>  {
+const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> =>  {
 
     if(!req){
         return res.status(500).json({status: "error", message: "Bir hata oluştu!"});
@@ -63,24 +63,24 @@ const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<any> =>
                 }
 
                 const mailKey = await EncryptPassword(process.env.MAIL_SECRET); 
-
                 
-                if(!mailKey || mailKey.error){
+                if(!mailKey || typeof mailKey === "object" && mailKey.error){
                     throw new Error("key: Kayıt sırasında bir hata oluştu.");
                 }
 
                 const hashedEmail = await EncryptPassword(data.email);
                 
-                if(!hashedEmail || hashedEmail.error){
+                if(!hashedEmail || typeof hashedEmail === "object" && hashedEmail.error){
                     throw new Error("hash: Kayıt sırasında bir hata oluştu.");
                 }
 
-                const {error} = await createNewUser(data, mailKey);
-                if(error){
-                    throw new Error(error);
+                if(typeof mailKey == "string"){
+                    const createUser: {success: string} | {error: string} = await createNewUser(data, mailKey);
+                    if('error' in createUser){
+                      throw new Error("Kayıt işlemi sırasında bir hata oluştu.");
+                    }
                 }
 
-                
 
                 //mail gönderme işlemi
                 transporter.sendMail({

@@ -3,10 +3,10 @@ import getTurkeyTime from "@/functions/other/timeNow";
 import EncryptPassword from "@/functions/auth/encryptPassword";
 
 interface pageReturnPromise{
-    status: string;
-    mailKey: string | { error: any; };
-    hashedEmail: string | { error: any; };
-    mailCheck:{
+    status?: string;
+    mailKey?: string | { error: any; };
+    hashedEmail?: string | { error: any; };
+    mailCheck?:{
         id: string;
         role: string;
         name: string;
@@ -15,12 +15,12 @@ interface pageReturnPromise{
         createdAt: Date;
         updatedAt: Date;
     }
-    date: string | Date | number;
-    time: string | Date | number;
+    date?: string | Date | number;
+    time?: string | Date | number;
     error?:any
 }
 
-const SendVerifyEmail = async (email:string): Promise< pageReturnPromise | {error:any}> =>{
+const SendVerifyEmail = async (email:string): Promise< pageReturnPromise > =>{
 
     try {
         if(!email) {

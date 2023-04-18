@@ -1,5 +1,3 @@
-import React from 'react'
-
 
 const secondCountDown = async (saniye:number): Promise<void> =>{
     var interval:NodeJS.Timer = setInterval(function() {

@@ -5,7 +5,7 @@ import authOptions from "@/pages/api/auth/[...nextauth]";
 import mailStringCheck from "@/functions/other/mailStringCheck";
 import { NextApiRequest, NextApiResponse } from 'next';
 
-const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<any> => {
+const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> => {
    
    
     //getServerSession:  Kullanıcının oturum açıp açmadığını kontrol eder. Eğer açılmışsa session değişkenine atar.
@@ -28,12 +28,10 @@ const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<any> =>
                     passwordConfirm == null || passwordConfirm == "" ||  passwordConfirm == undefined ||
                     password != passwordConfirm || !passwordConfirm || !password
                 ){ 
-                    
                     throw new Error("Şifreler uyuşmuyor!");
                 }
                 const hashedNewPassword = await EncryptPassword(password);
-                if(!hashedNewPassword || hashedNewPassword.error){
-                    
+                if(!hashedNewPassword || typeof hashedNewPassword === "object" && hashedNewPassword.error){
                     throw new Error("Şifre oluşturulamadı!");
                 }
                 const allUserFromDB = await getDataByUnique("AllUser", {email: email});
