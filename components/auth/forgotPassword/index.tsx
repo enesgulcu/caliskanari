@@ -52,7 +52,7 @@ const ForgotPasswordComponent:React.FC = () => {
             postAPI("/auth/forgotPassword",  values.email ).then(data => {
 
               
-                if (data && typeof data === "object" && data?.status === "success") {
+                if (data?.status === "success") {
                   toast.success(data.message);
                   setIsloading(false);
                   setIsAccessing(true);
