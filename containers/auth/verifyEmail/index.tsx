@@ -20,7 +20,7 @@ interface Props {
   if(!key || !email || !role){
     return (
       <div>
-        {`key: ${key}, email: ${email}, role: ${role}`}
+        {`key: ${key}, email: ${email}, role: ${role} - ALL: ${searchParams}`}
           <VerifyEmailComponents>
               <Notification type="error" message="Doğrulama Verileri Eksik Lütfen Tekrar Deneyin." label="Doğrulama Başarısız!" remainingTime={0} targetButtonName="Ana Sayfa" targetUrl="/"/>
           </VerifyEmailComponents>
