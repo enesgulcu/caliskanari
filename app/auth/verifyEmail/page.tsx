@@ -1,12 +1,14 @@
 import VerifyEmailContainer from '@/containers/auth/verifyEmail';
 
+interface SearchParams {
+  key: string;
+  email: string;
+  role: string;
+  time: number;
+}
+
 interface Props {
-  searchParams:{
-    key: string;
-    email: string;
-    role: string;
-    time:number
-  }
+  searchParams: SearchParams;
 }
 
 const VerifyEmailPage = async ({searchParams}: Props) : Promise<JSX.Element> => {
