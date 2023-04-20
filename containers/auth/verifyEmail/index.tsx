@@ -5,7 +5,6 @@ import Notification from '@/components/notification';
 
 interface Props {
   searchParams: {
-    [x: string]: any;
     key: string;
     email: string;
     role: string;
@@ -22,13 +21,6 @@ interface Props {
     return (
       <div>
         {`key: ${key}, email: ${email}, role: ${role}`}
-        {
-          searchParams.map((item:any, index:any) => {
-            <div key={index}>
-             eeeeee {item}
-            </div>
-          })
-        }
           <VerifyEmailComponents>
               <Notification type="error" message="Doğrulama Verileri Eksik Lütfen Tekrar Deneyin." label="Doğrulama Başarısız!" remainingTime={0} targetButtonName="Ana Sayfa" targetUrl="/"/>
           </VerifyEmailComponents>
