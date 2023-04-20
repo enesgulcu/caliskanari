@@ -5,6 +5,7 @@ import Notification from '@/components/notification';
 
 interface Props {
   searchParams: {
+    [x: string]: any;
     key: string;
     email: string;
     role: string;
@@ -20,7 +21,14 @@ interface Props {
   if(!key || !email || !role){
     return (
       <div>
-        {`key: ${key}, email: ${email}, role: ${role} - ALL: ${searchParams}`}
+        {`key: ${key}, email: ${email}, role: ${role}`}
+        {
+          searchParams.map((item:any, index:any) => {
+            <div key={index}>
+              {item}
+            </div>
+          })
+        }
           <VerifyEmailComponents>
               <Notification type="error" message="Doğrulama Verileri Eksik Lütfen Tekrar Deneyin." label="Doğrulama Başarısız!" remainingTime={0} targetButtonName="Ana Sayfa" targetUrl="/"/>
           </VerifyEmailComponents>
