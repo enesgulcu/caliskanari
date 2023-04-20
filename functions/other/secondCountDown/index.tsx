@@ -1,5 +1,5 @@
 
-const secondCountDown = async (saniye:number): Promise<void> =>{
+const secondCountDown = async (saniye:number): Promise<any> =>{
     var interval:NodeJS.Timer = setInterval(function() {
       if (saniye <= 0) {
         clearInterval(interval);
