@@ -3,10 +3,17 @@ import VerifyEmailComponents from '@/components/auth/verifyEmail';
 import { postAPI } from '@/services/fetchAPI'
 import Notification from '@/components/notification';
 
+interface Props {
+  searchParams: {
+    key: string;
+    email: string;
+    role: string;
+    time?:number;
+  }
+}
 
 
-
- const VerifyEmailContainer = async ({searchParams}:any): Promise<JSX.Element> => {
+ const VerifyEmailContainer = async ({searchParams}:Props): Promise<JSX.Element> => {
   const {key, email, role} = searchParams;
   
   
