@@ -20,7 +20,7 @@ const VerifyEmailPage = async ({searchParams}: Props) : Promise<JSX.Element> => 
           searchParams && searchParams.map((item:any, index:number) => {
             return (
               <div key={index}>
-                {item}
+                TEST: {item}
               </div>
             )
           })
