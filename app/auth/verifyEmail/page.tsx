@@ -1,12 +1,12 @@
 import VerifyEmailContainer from '@/containers/auth/verifyEmail';
+
 interface Props {
-  searchParams: {
-    [key: string]: any;
+  searchParams:{
     key: string;
     email: string;
     role: string;
-    time: number;
-  };
+    time:number
+  }
 }
 
 const VerifyEmailPage = async ({searchParams}: Props) : Promise<JSX.Element> => {
@@ -15,11 +15,7 @@ const VerifyEmailPage = async ({searchParams}: Props) : Promise<JSX.Element> => 
     
   return (
     <>
-        {Object.keys(searchParams).map((key: string, index: number) => (
-        <div key={index}>
-          {key}: {searchParams[key]}
-        </div>
-      ))}
+        {verifyEmailContainer}
     </>
   )
 }
