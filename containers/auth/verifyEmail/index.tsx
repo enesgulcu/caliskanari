@@ -25,7 +25,7 @@ interface Props {
         {
           searchParams.map((item:any, index:any) => {
             <div key={index}>
-              {item}
+             eeeeee {item}
             </div>
           })
         }
