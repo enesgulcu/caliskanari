@@ -9,7 +9,7 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 
 
-const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<any> =>  {
+const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> =>  {
 
     if(!req){
         return res.status(500).json({status: "error", message: "Bir hata oluştu!"});
