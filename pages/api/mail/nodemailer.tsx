@@ -10,5 +10,4 @@ export const transporter = nodemailer.createTransport({
 
 export const mailOptions:any = {
     from: process.env.EMAIL,
-
 }

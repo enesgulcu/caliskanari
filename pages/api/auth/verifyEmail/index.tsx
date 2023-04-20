@@ -10,7 +10,6 @@ interface VerifyEmailResponse {
   }
 
 const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> =>{
-
         const {key, email, role}: { key:string, email:string, role:string } = req.body;
         
     if(req.method !== "POST"){
@@ -53,4 +52,6 @@ const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> =
         }
     }
 }
+
+export default handler;
 

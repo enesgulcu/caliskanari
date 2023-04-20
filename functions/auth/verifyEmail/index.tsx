@@ -13,7 +13,6 @@ const VerifyEmail = async ({key, email, role}:Props): Promise<{status: string, m
 
    try {
     const verifyEmailData = await getDataByUnique("VerifyEmail", {secretKey: key});
-    
      if(!verifyEmailData || verifyEmailData.error  || verifyEmailData == null) {
         throw new Error("Mail Doğrulama Linki Geçersizdir.");
      }

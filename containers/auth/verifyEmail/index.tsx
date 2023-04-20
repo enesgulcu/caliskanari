@@ -15,7 +15,7 @@ interface Props {
 
  const VerifyEmailContainer = async ({searchParams}:Props): Promise<JSX.Element> => {
   const {key, email, role} = searchParams;
- 
+  
   
   if(!key || !email || !role){
     return (
@@ -28,8 +28,8 @@ interface Props {
  }
 
  else{
-    const {status, message, error}:{status:string, message:string, error:string} = await postAPI("/auth/verifyEmail", {key, email, role});
-
+    const {error, status, message}:{error?:any, status?:string, message?:string} = await postAPI("/auth/verifyEmail", {key, email, role});
+  
   return (
     <div>
         <VerifyEmailComponents>
@@ -42,10 +42,11 @@ interface Props {
               // backButtonName="Geri Dön",
               // backUrl = "/",
               // remainingTime = 10
+              
                 status == "success" && !error ?
                 <Notification type="success" message={message} label="Doğrulama Başarılı!" remainingTime={0} backButtonName="Ana Sayfa" targetButtonName="Giriş Yap" backUrl="/" targetUrl={`/auth/login/${role}`} />
                 :
-                <Notification type="error" message={message} label="Doğrulama Başarısız!" remainingTime={0} backButtonName="Ana Sayfa" targetButtonName="Yeniden Doğrulama" backUrl="/" targetUrl={`/auth/sendVerifyEmail`}/>
+                <Notification type="error" message={message ? message : " Bir hata oluştu. Lütfen tekrar deneyiniz."} label="Doğrulama Başarısız!" remainingTime={0} backButtonName="Ana Sayfa" targetButtonName="Yeniden Doğrulama" backUrl="/" targetUrl={`/auth/sendVerifyEmail`}/>
             }
             
         </VerifyEmailComponents>

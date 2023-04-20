@@ -3,11 +3,13 @@ const postAPI = async (URL:any, body:any = {}, method:any="POST", headers:any = 
 
 
     try {
+        if(!process.env.NEXT_PUBLIC_API_URL || !URL){
+            throw new Error("URL bulunamadı!");
+        }
         const data = await fetch (`${process.env.NEXT_PUBLIC_API_URL + URL}`,{
             method: method,
             headers: headers,
-            body: JSON.stringify(body)
-            
+            body: JSON.stringify(body)            
         }).then(res =>{
             if(res.url.includes("/notification") && res.redirected){
                 return window.location.href = res.url;

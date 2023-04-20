@@ -23,6 +23,7 @@ const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> =
     const time = (await getTurkeyTime()).time;
         
         if(req.method === 'POST' && req.body){
+                        
             try {
                 const data = req.body;
 
@@ -61,7 +62,7 @@ const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> =
                 if(!process.env.MAIL_SECRET){
                     throw new Error("Kayıt sırasında bir hata oluştu...");
                 }
-
+                
                 const mailKey = await EncryptPassword(process.env.MAIL_SECRET); 
                 
                 if(!mailKey || typeof mailKey === "object" && mailKey.error){
@@ -73,15 +74,17 @@ const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> =
                 if(!hashedEmail || typeof hashedEmail === "object" && hashedEmail.error){
                     throw new Error("hash: Kayıt sırasında bir hata oluştu.");
                 }
-
+                
                 if(typeof mailKey == "string"){
+                    
                     const createUser: {success: string} | {error: string} = await createNewUser(data, mailKey);
                     if('error' in createUser){
-                      throw new Error("Kayıt işlemi sırasında bir hata oluştu.");
+                      throw new Error(createUser.error);
                     }
+                    
                 }
 
-
+                
                 //mail gönderme işlemi
                 transporter.sendMail({
                     ...mailOptions,
