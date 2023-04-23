@@ -9,7 +9,6 @@ interface Props {
   searchParams: SearchParams;
 }
 
-// kontrol edilecek
 
  const resetPassword = async ({ searchParams }: Props): Promise<JSX.Element> => {
 
