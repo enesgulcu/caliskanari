@@ -13,6 +13,7 @@ const postAPI = async (URL:any, body:any, method:any="POST", headers:any = {'Con
             cache: 'no-store' 
             // cache önemli! her çalıştığında cache'deki veri yerine -> güncel veriyi almasını sağlar. 
             // bu olmaz ise üncel veriyi almayabiliyor dikkat et.
+            // Dinamik sayfalarda burası kullanılıyorsa o sayfalara -> export const dynamic = 'force-dynamic' ekle! 
 
         }).then(res =>{
             if(res.url.includes("/notification") && res.redirected){
