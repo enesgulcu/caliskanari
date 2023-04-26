@@ -3,111 +3,111 @@ import { getToken } from 'next-auth/jwt';
 import RateLimitPageConfig from '@/functions/other/rateLimitPageConfig';
 
 // kullanıcıların gidebileceği sayfaların başlangıç kısmını belirleriz.
-// const roles = {
-//   student: '/student',
-//   teacher: '/teacher',
-//   admin: '/admin',
-// };
+const roles = {
+  student: '/student',
+  teacher: '/teacher',
+  admin: '/admin',
+};
 
 
 export default async function middleware(req) {
-  return NextResponse.next();
-  // // Tüm istekleri burada yakalarız.
-  // const { pathname } = new URL(req.url) || new URL(req.nextUrl);
-  //   //########################################################################################################
-  //   // Sistemin kendi API isteklerini görmezden gelir.########################################################
-  //   if (
-  //     pathname.startsWith("/_next") ||
-  //     pathname.startsWith("/api/auth/session") ||
-  //     pathname.startsWith("/api/auth/signin") ||
-  //     pathname.startsWith("/api/auth/signout") ||
-  //     pathname.startsWith("/api/auth/providers") ||
-  //     pathname.startsWith("/api/auth/callback") ||
-  //     pathname.startsWith("/api/auth/csrf") ||
-  //     pathname.startsWith("/api/auth/error") ||
-  //     pathname.startsWith("/api/auth/_log") ||
-  //     pathname.startsWith("/api/auth/_")
-  //   ) {
-  //     // Bu bir dosya isteği, atla.
-  //     return NextResponse.next();
-  //   }
 
-  //   //########################################################################################################
-  //   // sistem API istekleri haricinde...######################################################################
-  //   // /api/auth ile başlayan tüm gelen isteklerin hepsini kontrol eder. #####################################
-  //   else if (pathname.startsWith("/api/") && !pathname.startsWith("/api/mail")) {
+  // Tüm istekleri burada yakalarız.
+  const { pathname } = new URL(req.url) || new URL(req.nextUrl);
+    //########################################################################################################
+    // Sistemin kendi API isteklerini görmezden gelir.########################################################
+    if (
+      pathname.startsWith("/_next") ||
+      pathname.startsWith("/api/auth/session") ||
+      pathname.startsWith("/api/auth/signin") ||
+      pathname.startsWith("/api/auth/signout") ||
+      pathname.startsWith("/api/auth/providers") ||
+      pathname.startsWith("/api/auth/callback") ||
+      pathname.startsWith("/api/auth/csrf") ||
+      pathname.startsWith("/api/auth/error") ||
+      pathname.startsWith("/api/auth/_log") ||
+      pathname.startsWith("/api/auth/_")
+    ) {
+      // Bu bir dosya isteği, atla.
+      return NextResponse.next();
+    }
 
-  //     // rate limit kontrolü burada başlar.
-  //     const { success, error, reset, backUrl, targetUrl, targetButtonName, backButtonName, label } = await RateLimitPageConfig(req, pathname);
+    //########################################################################################################
+    // sistem API istekleri haricinde...######################################################################
+    // /api/auth ile başlayan tüm gelen isteklerin hepsini kontrol eder. #####################################
+    else if (pathname.startsWith("/api/") && !pathname.startsWith("/api/mail")) {
 
-  //     if (!success || error && false) {
-  //       // kullanıcı limiti aştı ise kullanıcıyı başka bir sayfaya yönlendirir.
-  //       return NextResponse.redirect(new URL(
-  //         `/notification?type=error&message=${error}&label=${label}&remainingTime=${reset}&targetButtonName=${targetButtonName}&backButtonName=${backButtonName}&targetUrl=${targetUrl}&backUrl=${backUrl}`,req.url));
-  //     } else {
-  //       // kullanıcı limiti aşmadı ise isteği gönderir.
-  //       return NextResponse.next();
-  //     }
-  //   }
-  //   //########################################################################################################
-  //   // kullanıcının gittiği sayfaları (oturum açılmış) ve (oturum kapalı) durumuna göre kontrol eder. ########
-  //   else {
-  //     // kullanıcının oturum bilgilerini alır.
-  //     const session =  await getToken({ req, secret: process.env.NEXTAUTH_SECRET});
+      // rate limit kontrolü burada başlar.
+      const { success, error, reset, backUrl, targetUrl, targetButtonName, backButtonName, label } = await RateLimitPageConfig(req, pathname);
 
-  //     //########################################################################################################
-  //     // kullanıcı oturum açmış ise. ###########################################################################
-  //     if (session) {
-  //       if (
+      if (!success || error && false) {
+        // kullanıcı limiti aştı ise kullanıcıyı başka bir sayfaya yönlendirir.
+        return NextResponse.redirect(new URL(
+          `/notification?type=error&message=${error}&label=${label}&remainingTime=${reset}&targetButtonName=${targetButtonName}&backButtonName=${backButtonName}&targetUrl=${targetUrl}&backUrl=${backUrl}`,req.url));
+      } else {
+        // kullanıcı limiti aşmadı ise isteği gönderir.
+        return NextResponse.next();
+      }
+    }
+    //########################################################################################################
+    // kullanıcının gittiği sayfaları (oturum açılmış) ve (oturum kapalı) durumuna göre kontrol eder. ########
+    else {
+      // kullanıcının oturum bilgilerini alır.
+      const session =  await getToken({ req, secret: process.env.NEXTAUTH_SECRET});
 
-  //         !pathname.startsWith(roles[session.role]) ||
-  //         pathname.startsWith("/auth/login") ||
-  //         pathname.startsWith("/auth/register") ||
-  //         pathname.startsWith("/auth/sendVerifyEmail") ||
-  //         pathname.startsWith("/auth/forgotPassword") ||
-  //         pathname.startsWith("/auth/resetPassword") ||
-  //         pathname.startsWith("/auth/verifyEmail")
-  //       ) {
-  //          return NextResponse.rewrite(new URL("/", req.url));
-  //       }
-  //     }
+      //########################################################################################################
+      // kullanıcı oturum açmış ise. ###########################################################################
+      if (session) {
+        if (
 
-  //     //########################################################################################################
-  //     // kullanıcı oturum açmamış ise. #########################################################################
-  //     if (
-  //       !session &&
-  //       (!pathname.startsWith("/auth/") ||
-  //       !pathname.startsWith("/api/")) &&
-  //       !pathname.startsWith("/auth/login") &&
-  //       !pathname.startsWith("/notification") &&
-  //       !pathname.startsWith("/auth/register") &&
-  //       !pathname.startsWith("/auth/verifyEmail") &&
-  //       !pathname.startsWith("/auth/forgotPassword") &&
-  //       !pathname.startsWith("/auth/sendVerifyEmail") &&
-  //       !pathname.startsWith("/auth/resetPassword")
-  //     ) {
-  //       return NextResponse.rewrite(new URL("/", req.url));
-  //     }
-  //     else{
-  //       return NextResponse.next();
-  //     }
-  //   }
+          !pathname.startsWith(roles[session.role]) ||
+          pathname.startsWith("/auth/login") ||
+          pathname.startsWith("/auth/register") ||
+          pathname.startsWith("/auth/sendVerifyEmail") ||
+          pathname.startsWith("/auth/forgotPassword") ||
+          pathname.startsWith("/auth/resetPassword") ||
+          pathname.startsWith("/auth/verifyEmail")
+        ) {
+           return NextResponse.rewrite(new URL("/", req.url));
+        }
+      }
+
+      //########################################################################################################
+      // kullanıcı oturum açmamış ise. #########################################################################
+      if (
+        !session &&
+        (!pathname.startsWith("/auth/") ||
+        !pathname.startsWith("/api/")) &&
+        !pathname.startsWith("/auth/login") &&
+        !pathname.startsWith("/notification") &&
+        !pathname.startsWith("/auth/register") &&
+        !pathname.startsWith("/auth/verifyEmail") &&
+        !pathname.startsWith("/auth/forgotPassword") &&
+        !pathname.startsWith("/auth/sendVerifyEmail") &&
+        !pathname.startsWith("/auth/resetPassword")
+      ) {
+        return NextResponse.rewrite(new URL("/", req.url));
+      }
+      else{
+        return NextResponse.next();
+      }
+    }
   }
 
 
-// export const config = {
-//   // kontrol işleminin hangi sayfalarda olacağını belirleriz.
-//   // aşağıda örnek olarak belirtilen sayfanın ve ona bağlı tüm alt sayfaların kontrolü yapılıyor.
-//   // buraya sayfayı yazmazsanız -> hiçbir zaman kontrol edilmeyecektir.
-//   matcher: [
-//     '/admin/:path*',
-//     '/student/:path*',
-//     '/teacher/:path*',
-//     '/auth/:path*',
-//     '/api/:path*',
+export const config = {
+  // kontrol işleminin hangi sayfalarda olacağını belirleriz.
+  // aşağıda örnek olarak belirtilen sayfanın ve ona bağlı tüm alt sayfaların kontrolü yapılıyor.
+  // buraya sayfayı yazmazsanız -> hiçbir zaman kontrol edilmeyecektir.
+  matcher: [
+    '/admin/:path*',
+    '/student/:path*',
+    '/teacher/:path*',
+    '/auth/:path*',
+    '/api/:path*',
 
 
-//     // aşağıdaki isteklerden birisi geliyorsa o zaman çalışma dedik!.   NOT: YİNEDE GİDİYOR AMA DURMASINDA FAYDA VAR!
-//     //'/((?!api/auth/session|_next|api/auth/signin|api/auth/signout|api/auth/providers|api/auth/callback|api/auth/csrf|api/auth/error|api/auth/_log|api/auth/_|favicon.ico).*)',
-//   ],
-// };
+    // aşağıdaki isteklerden birisi geliyorsa o zaman çalışma dedik!.   NOT: YİNEDE GİDİYOR AMA DURMASINDA FAYDA VAR!
+    //'/((?!api/auth/session|_next|api/auth/signin|api/auth/signout|api/auth/providers|api/auth/callback|api/auth/csrf|api/auth/error|api/auth/_log|api/auth/_|favicon.ico).*)',
+  ],
+};
