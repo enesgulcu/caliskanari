@@ -202,6 +202,7 @@ interface Props {
             
             
             postAPI("/auth/register", values).then((res) => {
+              console.log(res);
               if (res.status === 'success') {
                 // Giriş başarılı ise ekrana "blur" efekti verir
                 setIsloading(false);
