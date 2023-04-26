@@ -5,7 +5,7 @@ import { getServerSession } from "next-auth/next";
 import mailStringCheck from "@/functions/other/mailStringCheck";
 import { NextApiRequest, NextApiResponse } from 'next';
 
-const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> => {
+const handler = async (req:NextApiRequest, res:NextApiResponse) => {
 
     if(req.method != "POST"){
         return res.status(200).json({message: "Method not allowed"})

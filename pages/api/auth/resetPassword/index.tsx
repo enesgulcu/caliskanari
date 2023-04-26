@@ -5,7 +5,7 @@ import authOptions from "@/pages/api/auth/[...nextauth]";
 import mailStringCheck from "@/functions/other/mailStringCheck";
 import { NextApiRequest, NextApiResponse } from 'next';
 
-const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> => {
+const handler = async (req:NextApiRequest, res:NextApiResponse) => {
    
    
     //getServerSession:  Kullanıcının oturum açıp açmadığını kontrol eder. Eğer açılmışsa session değişkenine atar.
