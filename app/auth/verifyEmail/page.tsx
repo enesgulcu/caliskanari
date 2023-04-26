@@ -1,4 +1,4 @@
-export const dynamic = 'force-dynamic'
+//export const dynamic = 'force-dynamic'
 import VerifyEmailContainer from '@/containers/auth/verifyEmail';
 
 interface Props {
