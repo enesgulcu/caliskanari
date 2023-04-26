@@ -200,9 +200,9 @@ interface Props {
             // girilen telefonlarda boşlukları siler ve sonrasında son 10 haniesini alma
             values.phone = values.phone.replace(/\s/g, "").slice(-10);
             
-            
+
             postAPI("/auth/register", values).then((res) => {
-              console.log(res);
+              
               if (res.status === 'success') {
                 // Giriş başarılı ise ekrana "blur" efekti verir
                 setIsloading(false);
