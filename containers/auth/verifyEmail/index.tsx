@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import React from 'react'
 import VerifyEmailComponents from '@/components/auth/verifyEmail';
 import { postAPI } from '@/services/fetchAPI'

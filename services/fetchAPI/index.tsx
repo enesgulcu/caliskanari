@@ -1,5 +1,5 @@
 // Öğrenci (kayıt) işlemleri için kullanılan servis
-const postAPI = async (URL:any, body:any = {}, method:any="POST", headers:any = {'Content-Type': 'application/json'}) => {
+const postAPI = async (URL:any, body:any, method:any="POST", headers:any = {'Content-Type': 'application/json'}) => {
 
 
     try {
