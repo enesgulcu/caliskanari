@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import React from 'react'
 import VerifyEmailComponents from '@/components/auth/verifyEmail';
 import { postAPI } from '@/services/fetchAPI'
@@ -15,7 +17,6 @@ interface Props {
 
  const VerifyEmailContainer = async ({searchParams}:Props): Promise<JSX.Element> => {
   const {key, email, role} = searchParams;
-  
   
   if(!key || !email || !role){
     return (
