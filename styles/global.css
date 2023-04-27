@@ -8,3 +8,23 @@
     md:max-w-none
     !w-[35rem];
 }
+
+::-webkit-scrollbar {
+    @apply
+    w-1
+
+}
+  
+::-webkit-scrollbar-track {
+    @apply
+    rounded
+    
+
+}
+  
+::-webkit-scrollbar-thumb {
+    @apply
+    bg-secondary
+    rounded
+    
+}
