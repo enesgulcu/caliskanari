@@ -4,7 +4,6 @@ import AdminContainer from '@/containers/dashboard/admin'
  return(
   <>
     <AdminContainer/>
-
   </>
  )
 }

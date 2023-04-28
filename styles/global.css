@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+*{
+    font-family: 'Public Sans', sans-serif;
+}
+
 .Toastify__toast-container{
     @apply
     max-w-full
@@ -28,3 +32,14 @@
     rounded
     
 }
+
+.shadow-custom {
+    --shadow-x-offset: 0px;
+    --shadow-y-offset: 0px;
+    --shadow-blur: 10px;
+    --shadow-spread: 4px;
+    --shadow-color: rgba(0, 0, 0, 0.30);
+  
+    box-shadow: var(--shadow-x-offset) var(--shadow-y-offset) var(--shadow-blur) var(--shadow-spread) var(--shadow-color);
+  }
+  
