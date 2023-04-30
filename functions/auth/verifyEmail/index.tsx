@@ -10,13 +10,11 @@ interface Props {
 
 
 const VerifyEmail = async ({key, email, role}:Props): Promise<{status: string, message: string} | {error:any}> =>{
-
    try {
     const verifyEmailData = await getDataByUnique("VerifyEmail", {secretKey: key});
      if(!verifyEmailData || verifyEmailData.error  || verifyEmailData == null) {
         throw new Error("Mail Doğrulama Linki Geçersizdir.");
      }
-
       const now = Date.now();
       const LifeTime = now - verifyEmailData.validTime;
       const pastHour = Math.floor((LifeTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -30,7 +28,6 @@ const VerifyEmail = async ({key, email, role}:Props): Promise<{status: string, m
             }
          throw new Error("Mail Doğrulama Linkinin Geçerlilik Süresi Bitmiştir. Lütfen Yeni Bir Mail Doğrulama Talebinde Bulununuz.");
       }
-
       // mail adresi doğrulama işlemi
       const  verify:boolean = await DecryptPassword(verifyEmailData.email, email)
       
@@ -41,7 +38,6 @@ const VerifyEmail = async ({key, email, role}:Props): Promise<{status: string, m
       // mail adresi doğrulama işlemi
       const mailCheck = await getDataByUnique(role, {email: verifyEmailData.email});
 
-
     if (!mailCheck || mailCheck.role !== role || mailCheck == null || mailCheck.error) {
       throw new Error("Kullanıcı kaydı bulunamadı.");
     }
@@ -49,10 +45,9 @@ const VerifyEmail = async ({key, email, role}:Props): Promise<{status: string, m
     if (mailCheck.verified){ 
       throw new Error("Mail adresiniz zaten onaylanmış.");
     }
-
     // Veri tabanında mail adresi onaylanmış olarak güncelle.
     const userFromDB = await updateDataByAny(role, {email: verifyEmailData.email}, { verified: true});
-   
+      
       if (!userFromDB || userFromDB.error) {
          throw new Error("Mail adresiniz onaylanamadı bir hata ile karşılaşıldı!");
       }
@@ -67,7 +62,7 @@ const VerifyEmail = async ({key, email, role}:Props): Promise<{status: string, m
     return {status: "success", message: "Mail adresiniz başarıyla onaylandı!"};
 
    } catch (error:any) {
-      
+
       return {error: error?.message, status: "error"};
    }
 

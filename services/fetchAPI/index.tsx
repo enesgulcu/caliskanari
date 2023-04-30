@@ -1,5 +1,5 @@
 // Öğrenci (kayıt) işlemleri için kullanılan servis
-const postAPI = async (URL:any, body:any = {}, method:any="POST", headers:any = {'Content-Type': 'application/json'}) => {
+const postAPI = async (URL:any, body:any, method:any="POST", headers:any = {'Content-Type': 'application/json'}) => {
 
 
     try {
@@ -9,7 +9,12 @@ const postAPI = async (URL:any, body:any = {}, method:any="POST", headers:any = 
         const data = await fetch (`${process.env.NEXT_PUBLIC_API_URL + URL}`,{
             method: method,
             headers: headers,
-            body: JSON.stringify(body)            
+            body: JSON.stringify(body),
+            cache: 'no-store' 
+            // cache önemli! her çalıştığında cache'deki veri yerine -> güncel veriyi almasını sağlar. 
+            // bu olmaz ise üncel veriyi almayabiliyor dikkat et.
+            // Dinamik sayfalarda burası kullanılıyorsa o sayfalara -> export const dynamic = 'force-dynamic' ekle! 
+
         }).then(res =>{
             if(res.url.includes("/notification") && res.redirected){
                 return window.location.href = res.url;
@@ -32,7 +37,8 @@ const getAPI = async (URL:string, headers = {'Content-Type': 'application/json'}
 
     const data = await fetch (`${process.env.NEXT_PUBLIC_API_URL + URL}`,{
         method: "GET",
-        headers:headers
+        headers:headers,
+        cache: 'no-store'
 
     }).then(res =>{
         if(res.redirected){

@@ -10,6 +10,7 @@ import Input from '@/components/formElements/input';
 import { ToastContainer, toast } from "react-toastify";
 import forgotPasswordValidationSchema from "./formikData";
 import ErrorText from '@/components/formElements/errorText';
+import React from 'react';
 
 
 const ForgotPasswordComponent:React.FC = () => {

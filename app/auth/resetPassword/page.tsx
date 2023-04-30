@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import ResetPasswordContainer from '@/containers/auth/resetPassword';
 
 interface SearchParams {
