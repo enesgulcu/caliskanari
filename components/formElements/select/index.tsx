@@ -11,7 +11,7 @@ interface Props{
   name : string
   id?: string
   value?: string
-  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => any
+  onChange?: (e: React.ChangeEvent<HTMLSelectElement>) => void
   disabled ?: boolean
 }
 

@@ -7,7 +7,7 @@ import createNewForgotPassword from "@/functions/auth/forgotPassword";
 import mailStringCheck from "@/functions/other/mailStringCheck";
 import { NextApiRequest, NextApiResponse } from 'next';
 
-const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> => {
+const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<any> => {
     
     const session = await getServerSession<any, unknown>(req, res, authOptions)
     if(!session){

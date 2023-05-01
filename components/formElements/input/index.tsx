@@ -12,7 +12,7 @@ interface Props{
   name?: string
   type: 'text' | 'password' | 'email' | 'number';
   value?: string
-  onChange?: ((e: ChangeEvent<HTMLInputElement>) => any) | undefined
+  onChange?: ((e: ChangeEvent<HTMLInputElement>) => void) | undefined
   placeholder?: string
 }
 

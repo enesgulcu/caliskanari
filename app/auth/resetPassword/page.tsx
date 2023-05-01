@@ -1,15 +1,12 @@
 export const dynamic = 'force-dynamic'
 import ResetPasswordContainer from '@/containers/auth/resetPassword';
 
-interface SearchParams {
-  key: string;
-  email: string;
-}
-
 interface Props {
-  searchParams: SearchParams;
+    searchParams: {
+    key: string;
+    email: string;
+  }
 }
-
 
  const resetPassword = async ({ searchParams }: Props): Promise<JSX.Element> => {
 

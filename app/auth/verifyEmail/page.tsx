@@ -1,15 +1,13 @@
 export const dynamic = 'force-dynamic'
 import VerifyEmailContainer from '@/containers/auth/verifyEmail';
 
-interface SearchParams {
-  key: string;
-  email: string;
-  role: string;
-  time: number;
-}
-
 interface Props {
-  searchParams: SearchParams;
+  searchParams:{
+    key: string;
+    email: string;
+    role: string;
+    time:number
+  }
 }
 
 const VerifyEmailPage = async ({searchParams}: Props) : Promise<JSX.Element> => {
