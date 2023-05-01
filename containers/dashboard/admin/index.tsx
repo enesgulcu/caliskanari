@@ -6,9 +6,10 @@ import Content from '@/components/dashboard/content';
   return (
     <>
       <Header/>
-      <div className='flex flex-row pt-16'>
+      <div className='flex pt-16'>
         <Sidebar/>
         <Content/>
+        
       </div>
 
     </>
