@@ -13,12 +13,12 @@ const Sidebar:React.FC = () => {
 
   return (
     <>
-      <div className={`${collapsedSidebar ? "w-[40px]" : "w-0 hidden"}`}></div>
-      <div onClick={()=> collapsedSidebar && setCollapsedSidebar(!collapsedSidebar)} className={`${collapsedSidebar ? "absolute -left-[210px]" : "block"} w-[250px]`}>
-      <div className={` ${collapsedSidebar ? "bg-primary" : "bg-white"} min-w-250px  max-w-[250px] w-full min-h-[calc(100vh-64px)] max-h-[calc(100vh-64px)] overflow-y-auto`}>
-      <div onClick={()=> setCollapsedSidebar(!collapsedSidebar)} className={`${collapsedSidebar ? "bg-primary" : "bg-secondary"} cursor-pointer w-full  h-12 flex justify-between p-2 items-center`}>
-          <div className='text-white font-bold'>YÖNETİCİ PANELİ</div>
-            <button onClick={()=>setCollapsedSidebar(!collapsedSidebar)} className='hover:scale-110 transition-all'><CgMenu color='white' size={25}/></button>
+      <button onClick={()=>setCollapsedSidebar(!collapsedSidebar)} className='hover:scale-110 transition-all ml-4 absolute left-0 top-5 z-40'><CgMenu color='white' size={25}/></button>
+      
+      <div onClick={()=> collapsedSidebar && setCollapsedSidebar(!collapsedSidebar)} className={`${collapsedSidebar ? "absolute hidden" : " absolute sm:relative sm:block"} w-full sm:w-[300px]`}>
+      <div className={` ${collapsedSidebar ? "bg-primary" : "bg-white"} min-w-300px  sm:max-w-[300px] w-full min-h-[calc(100vh-64px)] max-h-[calc(100vh-64px)] overflow-y-auto`}>
+      <div onClick={()=> setCollapsedSidebar(!collapsedSidebar)} className={`${collapsedSidebar ? "bg-primary" : "bg-secondary"} cursor-pointer w-full  h-12 flex justify-center p-2 items-center`}>
+            <div className='text-white font-bold flex justify-center items-center content-center'>YÖNETİCİ PANELİ</div>
             </div>
             <div className='flex justify-between flex-col content-between w-full min-h-[calc(100vh-130px)]'>
                     <div className={`${collapsedSidebar ? "hidden" : "block"} pl-1`}>
