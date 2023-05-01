@@ -4,6 +4,8 @@
 
 *{
     font-family: 'Public Sans', sans-serif;
+    @apply
+    select-none
 }
 
 .Toastify__toast-container{
