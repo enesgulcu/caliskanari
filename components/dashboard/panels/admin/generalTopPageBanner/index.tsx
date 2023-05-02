@@ -38,12 +38,20 @@ const GeneralTopPageBanner: React.FC = () => {
               <HexColorPicker color={color} onChange={setColor}/>
               {color}
             </div>
-            <div>
-              <input type="datetime-local" id="meeting-time"
+            <div className="relative">
+              <input  type="datetime-local" id="meeting-time" placeholder="Select.." 
+              className=" bg-white p-4 text-lg text-secondary rounded fill-secondary"
               name="meeting-time" value={time} onChange={(e)=>setTime(e.target.value)}
               min={Date.now()} />
-              
-
+              <span className="absolute inset-y-0 left-0 flex items-center pl-3">
+    <svg className="h-6 w-6 fill-current text-white" viewBox="0 0 20 20">
+      <path
+        fillRule="evenodd"
+        d="M14 2a2 2 0 012 2v12a2 2 0 01-2 2H6a2 2 0 01-2-2V4a2 2 0 012-2h8zm-2.293 1.293a1 1 0 00-1.414 0L10 4.586l-1.293-1.293a1 1 0 00-1.414 1.414L8.586 6l-1.293 1.293a1 1 0 000 1.414 1 1 0 001.414 0L10 7.414l1.293 1.293a1 1 0 001.414-1.414L11.414 6l1.293-1.293a1 1 0 000-1.414z"
+        clipRule="evenodd"
+      />
+    </svg>
+  </span>
             </div>
             <div className="mt-4">
               <label className="block text-sm">Email</label>

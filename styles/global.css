@@ -35,6 +35,33 @@
     
 }
 
+input[type="datetime-local"]::-webkit-calendar-picker-indicator {
+    filter: invert(1);
+    @apply
+    hidden
+    text-secondary
+    rounded
+    cursor-pointer    
+}
+
+input[type="datetime-local"]::before{
+    z-index:-1;
+  content:'📅';
+  display: block;
+  font-size:2rem;
+  color:STEELBLUE;
+  background: none;
+  background: url('') no-repeat;
+  background-size: 10%;
+  width: 50px;
+  height: 50px;
+
+
+}
+
+
+
+
 .shadow-custom {
     --shadow-x-offset: 0px;
     --shadow-y-offset: 0px;
