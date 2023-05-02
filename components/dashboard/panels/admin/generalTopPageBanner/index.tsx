@@ -1,13 +1,23 @@
-import React from "react";
+import React, { useState } from "react";
 import { Formik, Form } from "formik";
+import { HexColorPicker } from "react-colorful";
+import calculateTime from "@/functions/other/calculateTime"
 
 const GeneralTopPageBanner: React.FC = () => {
+
+  
+  const [color, setColor] = useState("#aabbcc");
+  const [time, setTime] = useState("");
+
+  const {months, days, hours, minutes, seconds} = calculateTime(time);
+
+
   // Arkaplan rengi, arkaplan resmi veya arkaplan videosu
   // ay, gün, saat, dakika, saniye geri sayımı yapan yapı (takvimden seçilen tarihe göre)
   // paragraf yazısı - yazının rengi -
   // button - butonun gideceği adres - butonun yazısı - butonun rengi - butonun ikonu - butonun ikonunun rengi
   return (
-    <div className="w-full p-2 bg-red-600">
+    <div style={{background:color}} className={`w-full p-2`}>
       <Formik
         // input verileri
         initialValues={{
@@ -24,6 +34,17 @@ const GeneralTopPageBanner: React.FC = () => {
           <Form
             onSubmit={props.handleSubmit}
           >
+            <div>
+              <HexColorPicker color={color} onChange={setColor}/>
+              {color}
+            </div>
+            <div>
+              <input type="datetime-local" id="meeting-time"
+              name="meeting-time" value={time} onChange={(e)=>setTime(e.target.value)}
+              min={Date.now()} />
+              
+
+            </div>
             <div className="mt-4">
               <label className="block text-sm">Email</label>
               <input
