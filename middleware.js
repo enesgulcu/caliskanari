@@ -11,7 +11,6 @@ const roles = {
 
 
 export default async function middleware(req) {
-
   // Tüm istekleri burada yakalarız.
   const { pathname } = new URL(req.url) || new URL(req.nextUrl);
     //########################################################################################################
@@ -36,11 +35,11 @@ export default async function middleware(req) {
     // sistem API istekleri haricinde...######################################################################
     // /api/auth ile başlayan tüm gelen isteklerin hepsini kontrol eder. #####################################
     else if (pathname.startsWith("/api/") && !pathname.startsWith("/api/mail")) {
-
       // rate limit kontrolü burada başlar.
       const { success, error, reset, backUrl, targetUrl, targetButtonName, backButtonName, label } = await RateLimitPageConfig(req, pathname);
 
       if (!success || error && false) {
+
         // kullanıcı limiti aştı ise kullanıcıyı başka bir sayfaya yönlendirir.
         return NextResponse.redirect(new URL(
           `/notification?type=error&message=${error}&label=${label}&remainingTime=${reset}&targetButtonName=${targetButtonName}&backButtonName=${backButtonName}&targetUrl=${targetUrl}&backUrl=${backUrl}`,req.url));
@@ -52,15 +51,16 @@ export default async function middleware(req) {
     //########################################################################################################
     // kullanıcının gittiği sayfaları (oturum açılmış) ve (oturum kapalı) durumuna göre kontrol eder. ########
     else {
+
       // kullanıcının oturum bilgilerini alır.
       const session =  await getToken({ req, secret: process.env.NEXTAUTH_SECRET});
 
       //########################################################################################################
-      // kullanıcı oturum açmış ise. ###########################################################################
+      // kullanıcı oturum açmış ise. aşağıdaki sayfalara gitmesine izin VERMEZ! ################################
       if (session) {
         if (
-
-          !pathname.startsWith(roles[session.role]) ||
+          (!pathname.startsWith(roles[session.role]) &&
+          !pathname.startsWith(`/dashboard${(roles[session.role])}`)) ||
           pathname.startsWith("/auth/login") ||
           pathname.startsWith("/auth/register") ||
           pathname.startsWith("/auth/sendVerifyEmail") ||
@@ -70,13 +70,18 @@ export default async function middleware(req) {
         ) {
            return NextResponse.rewrite(new URL("/", req.url));
         }
+        else{
+
+          return NextResponse.next();
+        }
       }
 
       //########################################################################################################
-      // kullanıcı oturum açmamış ise. #########################################################################
+      // kullanıcı oturum açmamış ise. aşağıdakileri kontrol eder ##############################################
       if (
-        !session &&
-        (!pathname.startsWith("/auth/") ||
+        !session && 
+        (
+        !pathname.startsWith("/auth/") ||
         !pathname.startsWith("/api/")) &&
         !pathname.startsWith("/auth/login") &&
         !pathname.startsWith("/notification") &&
@@ -84,11 +89,14 @@ export default async function middleware(req) {
         !pathname.startsWith("/auth/verifyEmail") &&
         !pathname.startsWith("/auth/forgotPassword") &&
         !pathname.startsWith("/auth/sendVerifyEmail") &&
-        !pathname.startsWith("/auth/resetPassword")
-      ) {
+        !pathname.startsWith("/auth/resetPassword") &&
+        pathname.startsWith("/dashboard")
+        
+      ) {        
         return NextResponse.rewrite(new URL("/", req.url));
       }
       else{
+        
         return NextResponse.next();
       }
     }
@@ -105,6 +113,7 @@ export const config = {
     '/teacher/:path*',
     '/auth/:path*',
     '/api/:path*',
+    '/dashboard/:path*',
 
 
     // aşağıdaki isteklerden birisi geliyorsa o zaman çalışma dedik!.   NOT: YİNEDE GİDİYOR AMA DURMASINDA FAYDA VAR!
