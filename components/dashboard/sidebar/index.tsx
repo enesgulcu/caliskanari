@@ -38,13 +38,15 @@ const Sidebar:React.FC<Props> = ({setContentData, contentData}) => {
   return (
     <>
       {/* side barın açılıp kapanmasını sağlayan buton */}
-      <button onClick={()=>setCollapsedSidebar(!collapsedSidebar)} className={`${collapsedSidebar ? "text-secondary  bg-white rounded" : "text-white bg-secondary rounded"} hover:scale-110 transition-all ml-12 absolute left-0 top-[12px] z-40 flex gap-4 p-2`}><span className='hidden sm:block'>İşlem Paneli</span><CgMenu size={25}/></button>
+      <button onClick={()=>setCollapsedSidebar(!collapsedSidebar)} className={`${collapsedSidebar ? "text-secondary  bg-white rounded" : "text-white bg-secondary rounded"} hover:scale-110 transition-all ml-12 absolute left-0 top-[12px] z-50 flex gap-4 p-2`}><span className='hidden sm:block'>İşlem Paneli</span><CgMenu size={25}/></button>
       
 
 
 
       {/* Sidebar button yapısının ana yapısı aşağıdadır */}
-      <div onClick={()=> collapsedSidebar && setCollapsedSidebar(!collapsedSidebar)} className={`${collapsedSidebar ? "absolute hidden" : " absolute sm:relative sm:block"} w-full sm:w-[300px]`}>
+      {
+        !collapsedSidebar &&
+        <div onClick={()=> collapsedSidebar && setCollapsedSidebar(!collapsedSidebar)} className={`${collapsedSidebar ? "absolute hidden" : " absolute z-50 sm:relative sm:block"} w-full sm:w-[300px]`}>
       <div className={` ${collapsedSidebar ? "bg-primary" : "bg-white"} min-w-300px  sm:max-w-[300px] w-full min-h-[calc(100vh-64px)] max-h-[calc(100vh-64px)] overflow-y-auto`}>
         
         <div onClick={()=> setCollapsedSidebar(!collapsedSidebar)} className={`${collapsedSidebar ? "bg-primary" : "bg-secondary"} cursor-pointer w-full  h-12 flex justify-center p-2 items-center`}>
@@ -53,15 +55,6 @@ const Sidebar:React.FC<Props> = ({setContentData, contentData}) => {
 
         <div className='flex justify-between flex-col content-between w-full min-h-[calc(100vh-130px)]'>
           <div className={`${collapsedSidebar ? "hidden" : "block"}`}>
-
-
-
-
-
-
-
-
-
 
 
             {/* Buttonları ve çağıracakları componentleri burada tanımlarız
@@ -104,7 +97,8 @@ const Sidebar:React.FC<Props> = ({setContentData, contentData}) => {
           </div>
         </div>                  
       </div>            
-    </div>
+        </div>
+      }
     </>
   ) 
 }
