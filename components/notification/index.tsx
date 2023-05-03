@@ -62,7 +62,7 @@ import {MdDone, MdWarningAmber, MdCircleNotifications, MdOutlineErrorOutline } f
   // Bu, React'ta performansı artırmak için kullanılan bir tekniktir.
   const createQueryString = useCallback((name:string, value:number) => {
     if(searchParams){
-      const params = new URLSearchParams(searchParams);
+      const params = new URLSearchParams(searchParams.toString());
       params.set(name, value.toString());
 
       return params.toString();
