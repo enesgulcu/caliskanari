@@ -47,6 +47,10 @@ const GeneralTopPageBanner: React.FC = () => {
           isActive: false,
 
           mainTextColor: mainTextColor,
+          underTextColor:underTextColor,
+          buttonColor:buttonColor,
+          backgroundColor:backgroundColor,
+
         }}
         // input check
         //validationSchema={ValidationSchema}
@@ -93,8 +97,8 @@ const GeneralTopPageBanner: React.FC = () => {
                   <input
                     type="datetime-local"
                     className=" bg-white w-full rounded  border-secondary p-2 text-lg text-secondary"
-                    name="startBannerTime"
-                    onChange={(e) => props.handleChange({ target: { name: 'startBannerTime', value: e.target.value } })}
+                    name="endBannerTime"
+                    onChange={(e) => props.handleChange({ target: { name: 'endBannerTime', value: e.target.value } })}
                     min={formattedDate()}
                   />
                 </div>
