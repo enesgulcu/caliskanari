@@ -9,6 +9,9 @@ const rateLimit = async (req:string, maxRequest=10, timeLimit:any="30 s"): Promi
       throw new Error("Request is not found");
     }
 
+  if(!process.env.UPSTASH_REDIS_REST_URL || !process.env.UPSTASH_REDIS_REST_TOKEN){
+    throw new Error("Redis url or token is not found");
+  }
     const redis = new Redis({
       url: process.env.UPSTASH_REDIS_REST_URL,
       token: process.env.UPSTASH_REDIS_REST_TOKEN,
