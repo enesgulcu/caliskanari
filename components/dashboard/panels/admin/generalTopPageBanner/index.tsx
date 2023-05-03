@@ -79,7 +79,7 @@ const GeneralTopPageBanner: React.FC = () => {
               {/* BANNER START TIME */}
               <div className=" shadow w-full p-2 rounded-xl bg-white flex flex-col justify-center items-center mt-4 sm:mt-4">
                 <label className="mb-2 block text-center text-xl">Başlangıç Tarihi</label>
-                <div className="relative bg-white w-60 rounded shadow border-gray-200 border">
+                <div className="relative bg-white w-60 rounded shadow border-blue-200 border">
                   <input
                     type="datetime-local"
                     className=" bg-white w-full rounded  border-secondary p-2 text-lg text-secondary"
@@ -93,7 +93,7 @@ const GeneralTopPageBanner: React.FC = () => {
               {/* BANNER END TIME */}
               <div className=" shadow w-full p-2 rounded-xl bg-white flex flex-col justify-center items-center mt-4 sm:mt-4">
                 <label className="mb-2 block text-center text-xl">Bitiş Tarihi</label>
-                <div className="relative bg-white w-60 rounded shadow border-gray-200 border">
+                <div className="relative bg-white w-60 rounded shadow border-blue-200 border">
                   <input
                     type="datetime-local"
                     className=" bg-white w-full rounded  border-secondary p-2 text-lg text-secondary"
@@ -118,7 +118,7 @@ const GeneralTopPageBanner: React.FC = () => {
                   type="text"
                   onChange={props.handleChange}
                   placeholder="Ana Başlığınızı giriniz."
-                  className="mb-4 shadow w-full px-4 py-2 text-md border rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                  className="min-w-[200px] mb-4 shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                 />
 
 
@@ -129,7 +129,7 @@ const GeneralTopPageBanner: React.FC = () => {
                   autoComplete="off"
                   onChange={props.handleChange}
                   placeholder="Alt başlığınızı giriniz."
-                  className="resize overflow shadow max-w-full w-full px-4 py-2 text-md border rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                  className="min-w-[200px] resize overflow shadow max-w-full w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                 />
               </div>
 
@@ -161,9 +161,9 @@ const GeneralTopPageBanner: React.FC = () => {
                <div className="flex flex-row flex-wrap items-center justify-center gap-2">
                   
                   {/* Ana Başlık Rengi */}
-                  <div className="sm:min-w-[350px] min-w-[150px] w-full sm:w-auto flex flex-row justify-between items-center border-gray-200 border-2 shadow p-4 gap-4 rounded-xl">
+                  <div className="sm:min-w-[350px] min-w-[150px] w-full sm:w-auto flex flex-row justify-between items-center border-blue-200 border shadow p-4 gap-4 rounded-xl">
                     <label className="text-center">Ana Başlık Rengi</label>
-                    <div style={{background:mainTextColor}} className="p-6 border-2 border-gray-200 rounded inline-block"></div>
+                    <div style={{background:mainTextColor}} className="p-6  rounded inline-block"></div>
                     <button
                       onClick={() => {setMainTextColor(color), props.handleChange({ target: { name: 'mainTextColor', value: color } })}}
                       className={`bg-gray-500 hover:bg-primary hover:scale-105 transition-all block px-2 py-2 text-center text-white  rounded-lg focus:shadow-outline-blue`}>
@@ -172,9 +172,9 @@ const GeneralTopPageBanner: React.FC = () => {
                   </div>
 
                   {/* Alt Metin Rengi */}
-                  <div className="sm:min-w-[350px] min-w-[150px] w-full sm:w-auto flex flex-row justify-between items-center border-gray-200 border-2 shadow p-4 gap-4 rounded-xl">
+                  <div className="sm:min-w-[350px] min-w-[150px] w-full sm:w-auto flex flex-row justify-between items-center border-blue-200 border shadow p-4 gap-4 rounded-xl">
                     <label className="text-center">Alt Metin Rengi</label>
-                    <div style={{background:underTextColor}} className="p-6 border-2 border-gray-200 rounded inline-block"></div>
+                    <div style={{background:underTextColor}} className="p-6  rounded inline-block"></div>
                     <button
                       onClick={() => {setUnderTextColor(color), props.handleChange({ target: { name: 'underTextColor', value: color } })}}
                       className={`bg-gray-500 hover:bg-primary hover:scale-105 transition-all block px-2 py-2 text-center text-white  rounded-lg focus:shadow-outline-blue`}>
@@ -183,9 +183,9 @@ const GeneralTopPageBanner: React.FC = () => {
                   </div>
 
                   {/* Buton Rengi */}
-                  <div className="sm:min-w-[350px] min-w-[150px] w-full sm:w-auto flex flex-row justify-between items-center border-gray-200 border-2 shadow p-4 gap-4 rounded-xl">
+                  <div className="sm:min-w-[350px] min-w-[150px] w-full sm:w-auto flex flex-row justify-between items-center border-blue-200 border shadow p-4 gap-4 rounded-xl">
                     <label className="text-center">Buton Rengi</label>
-                    <div style={{background:buttonColor}} className="p-6 border-2 border-gray-200 rounded inline-block"></div>
+                    <div style={{background:buttonColor}} className="p-6  rounded inline-block"></div>
                     <button
                       onClick={() => {setButtonColor(color), props.handleChange({ target: { name: 'buttonColor', value: color } })}}
                       className={`bg-gray-500 hover:bg-primary hover:scale-105 transition-all block px-2 py-2 text-center text-white  rounded-lg focus:shadow-outline-blue`}>
@@ -194,9 +194,9 @@ const GeneralTopPageBanner: React.FC = () => {
                   </div>
 
                   {/* Arkaplan Rengi */}
-                  <div className="sm:min-w-[350px] min-w-[150px] w-full sm:w-auto flex flex-row justify-between items-center border-gray-200 border-2 shadow p-4 gap-4 rounded-xl">
+                  <div className="sm:min-w-[350px] min-w-[150px] w-full sm:w-auto flex flex-row justify-between items-center border-blue-200 border shadow p-4 gap-4 rounded-xl">
                     <label className="text-center">Arkaplan Rengi</label>
-                    <div style={{background:backgroundColor}} className="p-6 border-2 border-gray-200 rounded inline-block"></div>
+                    <div style={{background:backgroundColor}} className="p-6  rounded inline-block"></div>
                     <button
                       onClick={() => {setBackgroundColor(color), props.handleChange({ target: { name: 'backgroundColor', value: color } })}}
                       className={`bg-gray-500 hover:bg-primary hover:scale-105 transition-all block px-2 py-2 text-center text-white rounded-lg focus:shadow-outline-blue`}>
