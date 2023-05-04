@@ -1,6 +1,6 @@
 'use client'
 import { useState } from 'react';
-import Button from '@/components/sidebarButton';
+import Button from '@/components/other/sidebarButton';
 import Link from 'next/link';
 import { CgMenu } from "react-icons/cg";
 import { AiFillHome } from "react-icons/ai";

@@ -1,7 +1,6 @@
 import NextAuth from "next-auth"
 import CredentialsProvider, { CredentialsConfig } from "next-auth/providers/credentials";
 import {postAPI} from "@/services/fetchAPI";
-import { NextApiRequest, NextApiResponse } from "next";
 
 
 
@@ -87,11 +86,13 @@ const authOptions:AuthOptions = {
                   error2.verifyEmail = verifyEmail;
                   throw error2;
             }
-  
+            if(!userFromDB.role || !userFromDB.name || !userFromDB.surname || !userFromDB.email){
+              throw new Error("Giriş işleminde bir hata oluştu.");
+            }
             const user =  {
-              name: userFromDB.name,
-              surname: userFromDB.surname, 
               role: userFromDB.role,
+              name: userFromDB.name,
+              surname: userFromDB.surname,               
               email: userFromDB.email,  
             };
             
@@ -129,6 +130,7 @@ const authOptions:AuthOptions = {
     },
     // session fonksiyonu ile kullanıcı giriş yaptıktan sonra giriş yapan kullanıcının bilgilerini session değişkenine atıyoruz.
     async session({ session, token }:any) {
+      
       session.user = token;
       return session;
     },

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { FaCheck } from 'react-icons/fa';
 import styles from './styles.module.css';
-import Stepper from "@/components/Stepper";
+import Stepper from "@/components/other/Stepper";
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Transition } from '@headlessui/react';
