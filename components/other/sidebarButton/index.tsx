@@ -5,6 +5,10 @@ import { RiArrowDropDownLine} from "react-icons/ri";
 import style from './styles.module.css';
 
 // YAPILACAKLAR: https://www.framer.com/motion/ EFEKTLERİ İLE DAHA EFEKTİF CSS YAZILACAK.
+interface ContentData {
+  name?: string;
+  component?: JSX.Element;
+}
 
 interface Props{
   children?: any
@@ -13,12 +17,12 @@ interface Props{
   label?:string
   buttonDisabled?: boolean
   onClick?: () => void
+  contentData?: ContentData
 }
 
 
 // ...props dememizin sebebi: children harici gele nher şeyi props ismi altında al ve kullan.
-const Button:React.FC<Props> = ({text, label="", icon, buttonDisabled=false, children=null}) => {
-
+const Button:React.FC<Props> = ({text, label="", icon, buttonDisabled=false, children=null, contentData}) => {
 
   const [dropdownIsActive, setDropdownIsActive] = useState<boolean>(false);
   return (  
@@ -28,9 +32,10 @@ const Button:React.FC<Props> = ({text, label="", icon, buttonDisabled=false, chi
       
       <button id={`${text + label}`} disabled={buttonDisabled} className={`group px-2 h-12 flex w-full flex-row justify-between items-center text-secondary ${children ? "hover:bg-primary hover hover:text-white mt-[-2px]" : style.test + " hover:bg-secondary hover:text-white"} ${children && dropdownIsActive && "bg-primary text-white"}`} onClick={() => setDropdownIsActive(!dropdownIsActive)}>
         
-        <div className={`flex w-full flex-row items-center gap-2 group-hover:text-white group-hover:font-bold ${!children && "text-gray-500 group-focus:text-primary group-focus:font-bold group-focus:border-r-4 mr-4 group-focus:border-primary"}`}>
+        <div className={`flex w-full flex-row items-center gap-2 group-hover:text-white group-hover:font-bold ${contentData?.name == text  && "text-primary font-bold border-r-4 mr-4 border-primary"}`}>
           {!children && !label && <div className={`${style.test2}`}></div>}
-          {!children && <VscCircleFilled size={10} className={`text-[rgba(185,199,212)] opacity-0 group-focus:opacity-100 group-focus:text-primary`}/>}
+          
+          {!children && <VscCircleFilled size={10} className={`text-[rgba(185,199,212)] opacity-0  ${contentData?.name == text && "opacity-100 text-primary"}`}/>}
           {icon && <div>{icon}</div>}
           <div>{text}</div>
         </div>

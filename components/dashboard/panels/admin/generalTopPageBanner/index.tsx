@@ -141,7 +141,7 @@ const GeneralTopPageBanner: React.FC = () => {
                 <div className="flex flex-col w-full sm:max-w-[750px] mx-auto">
                 
                   <div className="w-full p-4 flex bg-secondary rounded justify-center items-center">
-                    <label className="text-white font-bold text-4xl">
+                    <label className="text-white font-bold text-xl md:text-4xl">
                       Genel Duyuru Paneli
                     </label>
                   </div>

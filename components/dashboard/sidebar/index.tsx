@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Button from '@/components/other/sidebarButton';
 import Link from 'next/link';
 import { CgMenu } from "react-icons/cg";
@@ -25,14 +25,24 @@ interface ContentData {
 }
 
 const Sidebar:React.FC<Props> = ({setContentData, contentData}) => {
+  
+  const [width, setWidth] = useState(window.innerWidth);
+
+  useEffect(() => {
+      setWidth(window.innerWidth);
+  }, []);
+
 
   // sidebarın açılıp kapanmasını sağlayan state
   const [collapsedSidebar, setCollapsedSidebar] = useState<boolean>(false);
 
+
   // butona tıklandığında çalışacak fonksiyon.
   const handeButtonClick = (name:string, component:JSX.Element) => {
-    setContentData({name: name,component: component}); 
-    setCollapsedSidebar(!collapsedSidebar);
+    setContentData({name: name, component: component}); 
+
+    //width < 640 mobil görünümler için tıklandığında sidebarı hidden yapar. masaüstü için gizlemez.
+    width < 640 && setCollapsedSidebar(!collapsedSidebar);
   }
 
   return (
@@ -54,7 +64,7 @@ const Sidebar:React.FC<Props> = ({setContentData, contentData}) => {
         </div>
 
         <div className='flex justify-between flex-col content-between w-full min-h-[calc(100vh-130px)]'>
-          <div className={`${collapsedSidebar ? "hidden" : "block"}`}>
+          <div className={`${width < 640 && collapsedSidebar ? "hidden" : "block"}`}>
 
 
             {/* Buttonları ve çağıracakları componentleri burada tanımlarız
@@ -72,22 +82,11 @@ const Sidebar:React.FC<Props> = ({setContentData, contentData}) => {
             <Button text={"Anasayfa İşlemleri"} icon={<AiFillHome/>}>
               
               <div onClick={()=>handeButtonClick("Genel Duyuru", <GeneralTopPageBanner/>)}>
-                <Button text={"Genel Duyuru"}/>
-              </div>
-              
+                <Button text={"Genel Duyuru"} contentData={contentData}/>
+              </div>              
 
             </Button>
           </div>
-
-
-
-
-
-
-
-
-
-
 
 
           {/* Alt Logo ve Link bölümü */}
