@@ -44,6 +44,7 @@ export async function getDataByMany(tableName, where) {
   }
 }
 
+
 // UPDATE
 export async function updateDataByAny(tableName, where, newData) {
   try {
@@ -78,6 +79,16 @@ export async function deleteDataByMany(tableName, where) {
   }
 }
 
+//DELETE ALL
+export async function deleteDataAll(tableName) {
+  try {
+    const data = await prisma[tableName].deleteMany({})
+    return data;
+  } catch (error) {
+    return  { error: error.message};
+  }
+}
+
 export default {
   getAllData,
 
@@ -89,5 +100,8 @@ export default {
   
   deleteDataByAny,
 
-  deleteDataByMany
+  deleteDataByMany,
+
+  deleteDataAll
+  
 };

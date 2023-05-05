@@ -1,12 +1,5 @@
 import * as Yup from 'yup';
-
 const ValidationSchema = Yup.object({
-  role: Yup.string()
-    .required('rol alanı boş bırakılamaz.')
-    .typeError('Yanlış bir değer girdiniz.')
-    .matches(/^[a-zA-ZğüşöçıİĞÜŞÖÇ ]*$/, 'rol sadece harf içerebilir.')
-    .trim('rol alanı boşluk içeremez.'),
-
     startBannerTime: Yup.string()
     .typeError('Yanlış bir değer girdiniz.')
     .trim('rol alanı boşluk içeremez.'),

@@ -89,3 +89,20 @@ model Teacher {
   updatedAt  DateTime @updatedAt
 }
 
+model GeneralTopPageBanner{
+  id                String   @id @default(auto()) @map("_id") @db.ObjectId
+  
+  startBannerTime   String?
+  endBannerTime     String?
+  mainText          String?
+  detailText        String?
+
+  isActive          Boolean
+  mainTextColor     String
+  underTextColor    String
+  buttonColor       String
+  backgroundColor   String
+
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt  
+}
