@@ -51,6 +51,12 @@ const GeneralTopPageBanner  = () => {
     </>  
     )
   }
+  else{
+    return(
+      <div className='hidden p-0 m-0 opacity-0'>
+      </div>
+    )
+  }
   
   
 }
