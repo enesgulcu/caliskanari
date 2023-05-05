@@ -26,10 +26,12 @@ interface ContentData {
 
 const Sidebar:React.FC<Props> = ({setContentData, contentData}) => {
   
-  const [width, setWidth] = useState(window.innerWidth);
+  const [width, setWidth] = useState<any>();
 
   useEffect(() => {
-      setWidth(window.innerWidth);
+      if(typeof window !== "undefined" && window.innerWidth){
+          setWidth(window.innerWidth);
+      }
   }, []);
 
 
