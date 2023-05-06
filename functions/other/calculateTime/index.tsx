@@ -1,5 +1,5 @@
 import React from "react";
-
+// string olan gelen tarih ve saat bilgisini gün - saat - dakika - saniye cinsinden hesaplayıp döndürür.
 interface dateTypes {
     months?: number;
     days?: number;
