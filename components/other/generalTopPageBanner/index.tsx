@@ -20,6 +20,7 @@ interface dataProps {
 
 const GeneralTopPageBanner  = () => {
 
+  // veri tabanından banner için gelen verileri içinde tutar.
   const [data, setData] = useState<dataProps>();
 
   const datafetch = async () => {
