@@ -25,12 +25,16 @@ const GeneralTopPageBanner  = () => {
 
   const datafetch = async () => {
     const {data} = await getAPI("/other/generalTopPageBanner"); // veri tabanından verileri alma
-
+    if(data.length > 0 && data[0]){
     const futureDate =  new Date(data[0].startBannerTime); // başlangıç tarihini kontrol etme
     const currentDate = new Date();
     if(futureDate <= currentDate){ // başlangıç tarihi gelmişse ve geçmişse aktif et!
       setData(data[0]);
   }}
+  else{
+    setData(undefined);
+  }
+}
 
   useEffect(() => {
 
@@ -45,7 +49,7 @@ const GeneralTopPageBanner  = () => {
   }, [data])
   
   
-  if(data && data.isActive){  
+  if(data != undefined && data  && data.isActive){  
     return (
     <>
       <TimeCountDown data={data}/>
