@@ -85,7 +85,7 @@ const Sidebar:React.FC<Props> = ({setContentData, contentData}) => {
               
               <div onClick={()=>handeButtonClick("Genel Duyuru", <GeneralTopPageBanner/>)}>
                 <Button text={"Genel Duyuru"} contentData={contentData}/>
-              </div>   
+              </div>    
           
 
             </Button>

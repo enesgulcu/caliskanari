@@ -1,17 +1,25 @@
+"use client";
+export const dynamic = 'force-dynamic';
+
 import { ToastContainer, toast } from 'react-toastify';
+import React, { useState, useEffect } from "react";
 import {postAPI} from '@/services/fetchAPI/index';
 import { HexColorPicker } from "react-colorful";
 import { useSession } from 'next-auth/react';
 import ValidationSchema from './formikData';
+import {getAPI} from "@/services/fetchAPI";
 import {notFound} from 'next/navigation';
-import React, { useState } from "react";
+import GeneralTopPageBannerComponent from "@/components/other/generalTopPageBanner";
+
 import { Formik, Form } from "formik";
+
 
 
 
 //import calculateTime from "@/functions/other/calculateTime"
 
 const GeneralTopPageBanner: React.FC = () => {
+
 
 //###################################################################
 // sayfa rol kontrolü - erişim olmaz ise notfound'a yönlendirir. ####
@@ -27,15 +35,19 @@ const GeneralTopPageBanner: React.FC = () => {
 
 //###################################################################
 //###################################################################
-  else{
+  else{ 
+    const [allData, setAllData] = useState<any>();   
+    const [color, setColor] = useState<string>("");
+    const [mainTextColor, setMainTextColor] = useState<string>("");
+    const [underTextColor, setUnderTextColor] = useState<string>("");
+    const [buttonColor, setButtonColor] = useState<string>("");
+    const [backgroundColor, setBackgroundColor] = useState<string>("");
+    const [mainText, setMainText] = useState<string>("");
+    const [detailText, setDetailText] = useState<string>("");
+    const [isActive, setIsActive] = useState<boolean>();
+    const [startBannerTime, setStartBannerTime] = useState<string>("");
+    const [endBannerTime, setEndBannerTime] = useState<string>("");
 
-
-    
-    const [color, setColor] = useState<string>("#c5d2de");
-    const [mainTextColor, setMainTextColor] = useState<string>("#c5d2de");
-    const [underTextColor, setUnderTextColor] = useState<string>("#c5d2de");
-    const [buttonColor, setButtonColor] = useState<string>("#c5d2de");
-    const [backgroundColor, setBackgroundColor] = useState<string>("#c5d2de");
 
     //const {months, days, hours, minutes, seconds} = calculateTime(time);
 
@@ -66,15 +78,44 @@ const GeneralTopPageBanner: React.FC = () => {
       return formattedDate;
     };
 
+
+    // veri tabanından güncel verileri alıp state içerisine set eder.
+    
+
+    useEffect(() => {
+        // veri tabanından alınan verileri set etme işlemini yapan fonksiyonu burada çalıştırdık.
+        getAPI("/other/generalTopPageBanner").then((res) => {
+          if(res){
+            console.log(res.data[0]);
+            setAllData(res.data[0]);
+          }
+        });
+    }, [])
+
+    useEffect(() => {
+      if(allData){
+        setMainText(allData.mainText);
+        setDetailText(allData.detailText);
+        setIsActive(allData.isActive);
+        setStartBannerTime(allData.startBannerTime);
+        setEndBannerTime(allData.endBannerTime);
+        setMainTextColor(allData.mainTextColor);
+        setUnderTextColor(allData.underTextColor);
+        setButtonColor(allData.buttonColor);
+        setBackgroundColor(allData.backgroundColor);
+      }
+    }, [allData])
+    
+
+
     // Arkaplan rengi, arkaplan resmi veya arkaplan videosu
     // ay, gün, saat, dakika, saniye geri sayımı yapan yapı (takvimden seçilen tarihe göre)
     // paragraf yazısı - yazının rengi -
     // button - butonun gideceği adres - butonun yazısı - butonun rengi - butonun ikonu - butonun ikonunun rengi
+    
     return (
-      <>
-
-        
-
+      <> {
+        allData ?
         <div className={`w-full h-full rounded shadow px-4 bg-[#c5d2de]  sm:px-20 py-6 `}>
         
           <ToastContainer
@@ -111,7 +152,7 @@ const GeneralTopPageBanner: React.FC = () => {
             validationSchema={ValidationSchema}
 
             onSubmit={(values: FormValues) => {
-
+              console.log(values);
               postAPI("/dashboard/admin/generalTopPageBanner", values).then((res) =>{
                 if(res.status && (res.status === 200 || res.status === "success")){
                   const timeOut = setInterval(() => {
@@ -133,7 +174,20 @@ const GeneralTopPageBanner: React.FC = () => {
             }}
           >
             {(props) => (
+              props.values.startBannerTime = startBannerTime,
+              props.values.endBannerTime = endBannerTime,
+              props.values.mainText = mainText,
+              props.values.detailText = detailText,
+              props.values.isActive = true,
+              props.values.mainTextColor = mainTextColor,
+              props.values.underTextColor = underTextColor,
+              props.values.buttonColor = buttonColor,
+              props.values.backgroundColor = backgroundColor,
+
               <Form onSubmit={props.handleSubmit}>
+                <div>
+          {GeneralTopPageBannerComponent && <GeneralTopPageBannerComponent/>}
+          </div>
                 
                 
                 <div className="flex flex-col w-full mx-auto min-h-screen">
@@ -156,15 +210,19 @@ const GeneralTopPageBanner: React.FC = () => {
                           <div className="relative bg-white w-60 rounded shadow border-blue-200 border">
                             <input
                               type="datetime-local"
+                              value={startBannerTime}
                               className=" bg-white w-full rounded  border-secondary p-2 text-lg text-secondary"
                               name="startBannerTime"
                               onChange={(e) =>
-                                props.handleChange({
-                                  target: {
-                                    name: "startBannerTime",
-                                    value: e.target.value,
-                                  },
-                                })
+                                {
+                                  props.handleChange({
+                                    target: {
+                                      name: "startBannerTime",
+                                      value: e.target.value,
+                                    }
+                                  });
+                                  setStartBannerTime(e.target.value);
+                                }
                               }
                               min={formattedDate()}
                             />
@@ -179,15 +237,19 @@ const GeneralTopPageBanner: React.FC = () => {
                           <div className="relative bg-white w-60 rounded shadow border-blue-200 border">
                             <input
                               type="datetime-local"
+                              value={endBannerTime}
                               className=" bg-white w-full rounded  border-secondary p-2 text-lg text-secondary"
                               name="endBannerTime"
                               onChange={(e) =>
-                                props.handleChange({
-                                  target: {
-                                    name: "endBannerTime",
-                                    value: e.target.value,
-                                  },
-                                })
+                                {
+                                  props.handleChange({
+                                    target: {
+                                      name: "endBannerTime",
+                                      value: e.target.value,
+                                    },
+                                  });
+                                  setEndBannerTime(e.target.value);
+                                }
                               }
                               min={formattedDate()}
                             />
@@ -205,7 +267,16 @@ const GeneralTopPageBanner: React.FC = () => {
                           name="mainText"
                           autoComplete="off"
                           type="text"
-                          onChange={props.handleChange}
+                          value={mainText}
+                          onChange={(e)=>{
+                            props.handleChange({
+                              target: {
+                                name: "mainText",
+                                value: e.target.value,
+                              },
+                            });
+                            setMainText(e.target.value);
+                          }}
                           placeholder="Ana Başlığınızı giriniz."
                           className="min-w-[200px] mb-4 shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                         />
@@ -217,7 +288,17 @@ const GeneralTopPageBanner: React.FC = () => {
                           id="detailText"
                           name="detailText"
                           autoComplete="off"
-                          onChange={props.handleChange}
+                          value={detailText}
+                          onChange={(e)=>{
+                            props.handleChange({
+                              target: {
+                                name: "detailText",
+                                value: e.target.value,
+                              },
+                            });
+                            setDetailText(e.target.value);
+                          }}
+                          
                           placeholder="Alt başlığınızı giriniz."
                           className="min-w-[200px] resize overflow shadow max-w-full w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                         />
@@ -233,7 +314,18 @@ const GeneralTopPageBanner: React.FC = () => {
                             className="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-white before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-200 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]"
                             type="checkbox"
                             name="isActive"
-                            onChange={props.handleChange}
+                            checked={isActive ? isActive : false}
+                            onChange={(e)=>{
+                              props.handleChange({
+                                target: {
+                                  name: "isActive",
+                                  value: e.target.checked,
+                                },
+                              });
+                              setIsActive(e.target.checked);
+                            }
+                              
+                            }
                           />
                         </div>
                       </div>
@@ -364,6 +456,11 @@ const GeneralTopPageBanner: React.FC = () => {
             )}
           </Formik>
         </div>
+        : 
+        <div>Yükleniyor...</div>
+
+      }      
+        
       </>
     );
   };

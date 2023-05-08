@@ -1,4 +1,6 @@
 'use client'
+export const dynamic = 'force-dynamic'
+
 import React,{useState, useEffect} from 'react'
 import {getAPI} from "@/services/fetchAPI";
 import TimeCountDown from  "@/components/other/timeCountDown";
@@ -23,17 +25,20 @@ const GeneralTopPageBanner  = () => {
   // veri tabanından banner için gelen verileri içinde tutar.
   const [data, setData] = useState<dataProps>();
 
-  const datafetch = async () => {
-    const {data} = await getAPI("/other/generalTopPageBanner"); // veri tabanından verileri alma
-    if(data.length > 0 && data[0]){
-    const futureDate =  new Date(data[0].startBannerTime); // başlangıç tarihini kontrol etme
-    const currentDate = new Date();
-    if(futureDate <= currentDate){ // başlangıç tarihi gelmişse ve geçmişse aktif et!
-      setData(data[0]);
-  }}
-  else{
-    setData(undefined);
-  }
+  const datafetch =  () => {
+    getAPI("/other/generalTopPageBanner").then((res) => {
+      if(res){
+        const myData = res.data[0]
+      
+      if(myData){
+        const futureDate =  new Date(myData.startBannerTime); // başlangıç tarihini kontrol etme
+        const currentDate = new Date();
+        if(futureDate <= currentDate){ // başlangıç tarihi gelmişse ve geçmişse aktif et!
+          setData(myData);
+      }}
+    }
+    })
+    
 }
 
   useEffect(() => {

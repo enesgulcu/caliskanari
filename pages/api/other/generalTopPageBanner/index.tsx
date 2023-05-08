@@ -25,14 +25,14 @@ const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> =
         try {
             const data:IGeneralTopPageBanner = await getAllData("GeneralTopPageBanner");
 
-            if(!data || data.error){
+            if(!data || data.error || data === undefined){
                 throw new Error(data.error);
             }
             
             return res.status(200).json({status: "success", data: data});
 
         } catch (error:any) {
-            return res.status(500).json({status: "error", error: error.message}); 
+            return res.status(500).json({status: "error", error: error.message, data: null}); 
         }
 
     }

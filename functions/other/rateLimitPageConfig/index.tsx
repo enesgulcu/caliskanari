@@ -71,6 +71,7 @@ const pageConfig:PageConfig = {
         label: "Lütfen Dikkat!",
     },
 
+    // admin paneli için istekleri kontrol eder.
     generalTopPageBanner: {
         maxRequest: 3,
         timeLimit: "15 s",   
