@@ -10,8 +10,11 @@ interface IGeneralTopPageBanner {
     mainText?: string,
     detailText?: string,
     isActive?: boolean,
+    buttonLink?: string;
+    buttonText?: string;
 
     mainTextColor?: string,
+    buttonTextColor?: string;
     underTextColor?: string,
     buttonColor?: string,
     backgroundColor?: string,
@@ -31,7 +34,7 @@ const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> =
         try {
 
             const body:IGeneralTopPageBanner =await req.body;
-            
+            console.log(body)
             if(!body){
                 throw new Error("Bir hata oluştu!");
             }

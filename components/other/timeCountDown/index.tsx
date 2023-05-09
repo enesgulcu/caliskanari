@@ -101,45 +101,45 @@ export const TimeCountDown: React.FC<Props> = ({ data }) => {
   return (
     <div>
       {data && (
-        <div className="grid grid-flow-col gap-5 text-center auto-cols-max">
+        <div className="grid grid-flow-col gap-2 text-center auto-cols-max">
           {time.months > 0 && (
-            <div className="flex flex-col p-2 w-20 bg-neutral rounded-xl-box text-neutral-content  border-2 rounded-xl">
-              <span className="countdown font-mono text-5xl">
-                <span>{time.months < 10 && 0}{time.months}</span>
-              </span>
-              Ay
+            <div className="flex flex-col w-14 bg-neutral rounded-xl-box text-neutral-content hover:scale-110 transition-all">
+              <div className="countdown font-mono  bg-primary rounded-t-xl py-1">
+                <span className="text-white font-bold text-2xl">{time.months < 10 && 0}{time.months}</span>
+              </div>
+              <span className="text-primary font-bold text-xs border-l border-b border-r border-primary rounded-b-xl py-1 bg-white">Ay</span>
             </div>
           )}
           {(time.days > 0 || time.months > 0) && (
-            <div className="flex flex-col p-2 w-20 bg-neutral rounded-xl-box text-neutral-content  border-2 rounded-xl">
-              <span className="countdown font-mono text-5xl">
-                <span>{time.days < 10 && 0}{time.days}</span>
-              </span>
-              Gün
+            <div className="flex flex-col w-14 bg-neutral rounded-xl-box text-neutral-content hover:scale-110 transition-all">
+              <div className="countdown font-mono  bg-primary rounded-t-xl py-1">
+                <span className="text-white font-bold text-2xl">{time.days < 10 && 0}{time.days}</span>
+              </div>
+              <span className="text-primary font-bold text-xs border-l border-b border-r border-primary rounded-b-xl py-1 bg-white">Gün</span>
             </div>
           )}
           {(time.hours > 0 || time.days > 0 || time.months > 0) && (
-            <div className="flex flex-col p-2 w-20 bg-neutral rounded-xl-box text-neutral-content border-2 rounded-xl">
-              <span className="countdown font-mono text-5xl">
-                <span>{time.hours < 10 && 0}{time.hours}</span>
-              </span>
-              Saat
+            <div className="flex flex-col w-14 bg-neutral rounded-xl-box text-neutral-content hover:scale-110 transition-all">
+              <div className="countdown font-mono  bg-primary rounded-t-xl py-1">
+                <span className="text-white font-bold text-2xl">{time.hours < 10 && 0}{time.hours}</span>
+              </div>
+              <span className="text-primary font-bold text-xs border-l border-b border-r border-primary rounded-b-xl py-1 bg-white">Saat</span>
             </div>
           )}
           {(time.minutes > 0 || time.hours > 0 || time.days > 0 || time.months > 0) && (
-            <div className="flex flex-col p-2 w-20 bg-neutral rounded-xl-box text-neutral-content  border-2 rounded-xl">
-              <span className="countdown font-mono text-5xl">
-                <span>{time.minutes < 10 && 0}{time.minutes}</span>
-              </span>
-              Dakika
+            <div className="flex flex-col w-14 bg-neutral rounded-xl-box text-neutral-content hover:scale-110 transition-all">
+              <div className="countdown font-mono  bg-primary rounded-t-xl py-1">
+                <span className="text-white font-bold text-2xl">{time.minutes < 10 && 0}{time.minutes}</span>
+              </div>
+              <span className="text-primary font-bold text-xs border-l border-b border-r border-primary rounded-b-xl py-1 bg-white">Dakika</span>
             </div>
           )}
           {(time.seconds >= 0 || time.minutes > 0 || time.hours > 0 || time.days > 0 || time.months > 0) && (time.seconds != 0 || time.minutes != 0 || time.hours != 0 || time.days != 0 || time.months != 0) && (
-            <div className="flex flex-col p-2 w-20 bg-neutral rounded-xl-box text-neutral-content  border-2 rounded-xl">
-              <span className="countdown font-mono text-5xl">
-                <span>{time.seconds < 10 && 0}{time.seconds}</span>
-              </span>
-              Saniye
+            <div className="flex flex-col w-14 bg-neutral rounded-xl-box text-neutral-content hover:scale-110 transition-all">
+              <div className="countdown font-mono  bg-primary rounded-t-xl py-1">
+                <span className="text-white font-bold text-2xl">{time.seconds < 10 && 0}{time.seconds}</span>
+              </div>
+              <span className="text-primary font-bold text-xs border-l border-b border-r border-primary rounded-b-xl py-1 bg-white">Saniye</span>
             </div>
           )}
         </div>

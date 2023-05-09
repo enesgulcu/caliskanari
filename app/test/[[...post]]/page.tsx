@@ -4,7 +4,6 @@ const Posts:React.FC<any> = ({params}) => {
     const pages = [...params.post]
     
 
-    console.log(pages)
     return (
         <div>
             <div>merhaba bu header</div>

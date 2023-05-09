@@ -1,25 +1,17 @@
 "use client";
-export const dynamic = 'force-dynamic';
-
+import GeneralTopPageBannerComponent from "@/components/other/generalTopPageBanner";
 import { ToastContainer, toast } from 'react-toastify';
 import React, { useState, useEffect } from "react";
+import HashLoader from "react-spinners/HashLoader";
 import {postAPI} from '@/services/fetchAPI/index';
 import { HexColorPicker } from "react-colorful";
 import { useSession } from 'next-auth/react';
 import ValidationSchema from './formikData';
 import {getAPI} from "@/services/fetchAPI";
 import {notFound} from 'next/navigation';
-import GeneralTopPageBannerComponent from "@/components/other/generalTopPageBanner";
-
 import { Formik, Form } from "formik";
 
-
-
-
-//import calculateTime from "@/functions/other/calculateTime"
-
 const GeneralTopPageBanner: React.FC = () => {
-
 
 //###################################################################
 // sayfa rol kontrolü - erişim olmaz ise notfound'a yönlendirir. ####
@@ -36,20 +28,23 @@ const GeneralTopPageBanner: React.FC = () => {
 //###################################################################
 //###################################################################
   else{ 
-    const [allData, setAllData] = useState<any>();   
+    const [allData, setAllData] = useState<any>();
+
     const [color, setColor] = useState<string>("");
     const [mainTextColor, setMainTextColor] = useState<string>("");
     const [underTextColor, setUnderTextColor] = useState<string>("");
     const [buttonColor, setButtonColor] = useState<string>("");
     const [backgroundColor, setBackgroundColor] = useState<string>("");
     const [mainText, setMainText] = useState<string>("");
+
+    const [buttonTextColor, setButtonTextColor] = useState<string>("");
+    const [buttonLink, setButtonLink] = useState<string>("");
+    const [buttonText, setButtonText] = useState<string>("");
+
     const [detailText, setDetailText] = useState<string>("");
     const [isActive, setIsActive] = useState<boolean>();
     const [startBannerTime, setStartBannerTime] = useState<string>("");
     const [endBannerTime, setEndBannerTime] = useState<string>("");
-
-
-    //const {months, days, hours, minutes, seconds} = calculateTime(time);
 
     interface FormValues{
       startBannerTime: string;
@@ -57,6 +52,9 @@ const GeneralTopPageBanner: React.FC = () => {
       mainText: string;
       detailText:string;
       isActive: boolean;
+      buttonTextColor: string;
+      buttonLink: string;
+      buttonText: string;
       
       mainTextColor: string;
       underTextColor: string;
@@ -80,22 +78,23 @@ const GeneralTopPageBanner: React.FC = () => {
 
 
     // veri tabanından güncel verileri alıp state içerisine set eder.
-    
-
     useEffect(() => {
         // veri tabanından alınan verileri set etme işlemini yapan fonksiyonu burada çalıştırdık.
         getAPI("/other/generalTopPageBanner").then((res) => {
           if(res){
-            console.log(res.data[0]);
+            console.log(res);
             setAllData(res.data[0]);
           }
         });
     }, [])
-
+    
     useEffect(() => {
       if(allData){
         setMainText(allData.mainText);
         setDetailText(allData.detailText);
+        setButtonTextColor(allData.buttonTextColor);
+        setButtonLink(allData.buttonLink);
+        setButtonText(allData.buttonText);
         setIsActive(allData.isActive);
         setStartBannerTime(allData.startBannerTime);
         setEndBannerTime(allData.endBannerTime);
@@ -105,18 +104,13 @@ const GeneralTopPageBanner: React.FC = () => {
         setBackgroundColor(allData.backgroundColor);
       }
     }, [allData])
-    
 
 
-    // Arkaplan rengi, arkaplan resmi veya arkaplan videosu
-    // ay, gün, saat, dakika, saniye geri sayımı yapan yapı (takvimden seçilen tarihe göre)
-    // paragraf yazısı - yazının rengi -
-    // button - butonun gideceği adres - butonun yazısı - butonun rengi - butonun ikonu - butonun ikonunun rengi
     
     return (
       <> {
-        allData ?
-        <div className={`w-full h-full rounded shadow px-4 bg-[#c5d2de]  sm:px-20 py-6 `}>
+        allData || true ?
+        <div className={`w-full h-full rounded shadow px-4 bg-[#c5d2de]  sm:px-6 py-6`}>
         
           <ToastContainer
             className="4xl:text-4xl min:w-40"
@@ -141,8 +135,12 @@ const GeneralTopPageBanner: React.FC = () => {
               endBannerTime: "",
               mainText: "",
               detailText: "",
+              buttonLink: "",
+              buttonText: "",
+              
               isActive: false,
 
+              buttonTextColor: buttonTextColor,
               mainTextColor: mainTextColor,
               underTextColor: underTextColor,
               buttonColor: buttonColor,
@@ -152,7 +150,6 @@ const GeneralTopPageBanner: React.FC = () => {
             validationSchema={ValidationSchema}
 
             onSubmit={(values: FormValues) => {
-              console.log(values);
               postAPI("/dashboard/admin/generalTopPageBanner", values).then((res) =>{
                 if(res.status && (res.status === 200 || res.status === "success")){
                   const timeOut = setInterval(() => {
@@ -183,9 +180,12 @@ const GeneralTopPageBanner: React.FC = () => {
               props.values.underTextColor = underTextColor,
               props.values.buttonColor = buttonColor,
               props.values.backgroundColor = backgroundColor,
+              props.values.buttonTextColor = buttonTextColor,
+              props.values.buttonLink = buttonLink,
+              props.values.buttonText = buttonText,
 
               <Form onSubmit={props.handleSubmit}>
-                <div>
+          <div className="my-2 p-2 w-full border-2 rounded-xl bg-white">
           {GeneralTopPageBannerComponent && <GeneralTopPageBannerComponent/>}
           </div>
                 
@@ -210,7 +210,6 @@ const GeneralTopPageBanner: React.FC = () => {
                           <div className="relative bg-white w-60 rounded shadow border-blue-200 border">
                             <input
                               type="datetime-local"
-                              value={startBannerTime}
                               className=" bg-white w-full rounded  border-secondary p-2 text-lg text-secondary"
                               name="startBannerTime"
                               onChange={(e) =>
@@ -257,7 +256,7 @@ const GeneralTopPageBanner: React.FC = () => {
                         </div>
                       </div>
 
-                      {/* MAIN TEX TDETAIL TEXT */}
+                      {/* MAIN TEXT TDETAIL TEXT */}
                       <div className=" shadow p-2 rounded-xl bg-white mt-6 sm:mt-6 min-w-[200px] overflow-hidden">
                         <label htmlFor="mainText" className="pl-4 block text-xl ">
                           Ana Başlık
@@ -301,6 +300,51 @@ const GeneralTopPageBanner: React.FC = () => {
                           
                           placeholder="Alt başlığınızı giriniz."
                           className="min-w-[200px] resize overflow shadow max-w-full w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                        />
+
+
+                        <label htmlFor="buttonText" className="pl-4 mt-2 block text-xl">
+                          Buton Metni
+                        </label>
+                        <input
+                          id="buttonText"
+                          name="buttonText"
+                          autoComplete="off"
+                          type="text"
+                          value={buttonText}
+                          onChange={(e)=>{
+                            props.handleChange({
+                              target: {
+                                name: "buttonText",
+                                value: e.target.value,
+                              },
+                            });
+                            setButtonText(e.target.value);
+                          }}
+                          placeholder="Detaylı Bilgi  İçin Tıklayınız..."
+                          className="min-w-[200px] mb-4 shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                        />
+
+                        <label htmlFor="buttonLink" className="pl-4 mt-2 block text-xl">
+                          Buton Bağlantı Adresi
+                        </label>
+                        <input
+                          id="buttonLink"
+                          name="buttonLink"
+                          autoComplete="off"
+                          type="text"
+                          value={buttonLink}
+                          onChange={(e)=>{
+                            props.handleChange({
+                              target: {
+                                name: "buttonLink",
+                                value: e.target.value,
+                              },
+                            });
+                            setButtonLink(e.target.value);
+                          }}
+                          placeholder="https://www.caliskanari.com/.../..."
+                          className="min-w-[200px] mb-4 shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                         />
                       </div>
 
@@ -363,6 +407,7 @@ const GeneralTopPageBanner: React.FC = () => {
                           </label>
                         </div>
                         <div className="flex flex-row flex-wrap items-center justify-between gap-4 m-2">
+                          
                           {/* Ana Başlık Rengi */}
                           <div className="w-full sm:w-auto flex flex-col justify-between items-center border-blue-200 border shadow p-2 gap-4 rounded-xl">
                             <label className="text-center">Ana Başlık Rengi</label>
@@ -426,6 +471,27 @@ const GeneralTopPageBanner: React.FC = () => {
                             </button>
                           </div>
 
+                          {/* Buton Yazı Rengi */}
+                          <div className="w-full sm:w-auto flex flex-col justify-between items-center border-blue-200 border shadow p-2 gap-4 rounded-xl">
+                            <label className="text-center">Buton Yazı Rengi</label>
+                            <div
+                              style={{ background: buttonTextColor }}
+                              className="p-6  rounded inline-block"
+                            ></div>
+                            <button
+                            type='button'
+                              onClick={() => {
+                                setButtonTextColor(color),
+                                  props.handleChange({
+                                    target: { name: "buttonTextColor", value: color },
+                                  });
+                              }}
+                              className={`bg-gray-500 hover:bg-primary hover:scale-105 transition-all block px-2 py-2 text-center text-white  rounded-lg focus:shadow-outline-blue`}
+                            >
+                              Rengi kaydet
+                            </button>
+                          </div>
+
                           {/* Arkaplan Rengi */}
                           <div className="w-full sm:w-auto flex flex-col justify-between items-center border-blue-200 border shadow p-2 gap-4 rounded-xl">
                             <label className="text-center">Arkaplan Rengi</label>
@@ -456,8 +522,23 @@ const GeneralTopPageBanner: React.FC = () => {
             )}
           </Formik>
         </div>
-        : 
-        <div>Yükleniyor...</div>
+        :
+        //  allData yüklenene kadar ekranda "Loading.." yükleniyor yapısını gösteriyoruz.
+        <div className='w-full h-screen bg-white border-2'>
+          <div className='w-full h-full flex justify-center items-center'>
+          <div className="flex flex-col gap-4 justify-center items-center content-center rounded-full">
+          <HashLoader
+                color="#3d7bf1"
+                aria-label="Loading Spinner"
+                cssOverride={{}}
+                size={100}
+                loading={true}
+                
+                />
+                <h2 className='text-primary font-bold text-2xl'>Yükleniyor...</h2>
+          </div>
+          </div>
+        </div>
 
       }      
         

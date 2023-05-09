@@ -8,6 +8,9 @@ interface IGeneralTopPageBanner {
     mainText?: string,
     detailText?: string,
     isActive?: boolean,
+    buttonTextColor?: string;
+    buttonLink?: string;
+    buttonText?: string;
 
     mainTextColor?: string,
     underTextColor?: string,
@@ -24,7 +27,7 @@ const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> =
 
         try {
             const data:IGeneralTopPageBanner = await getAllData("GeneralTopPageBanner");
-
+            
             if(!data || data.error || data === undefined){
                 throw new Error(data.error);
             }
