@@ -30,6 +30,8 @@ const GeneralTopPageBanner: React.FC = () => {
   else{ 
     const [allData, setAllData] = useState<any>();
 
+    
+
     const [color, setColor] = useState<string>("");
     const [mainTextColor, setMainTextColor] = useState<string>("");
     const [underTextColor, setUnderTextColor] = useState<string>("");
@@ -45,6 +47,10 @@ const GeneralTopPageBanner: React.FC = () => {
     const [isActive, setIsActive] = useState<boolean>();
     const [startBannerTime, setStartBannerTime] = useState<string>("");
     const [endBannerTime, setEndBannerTime] = useState<string>("");
+
+    // panel içerisinde verileri anlık görebilmek için kullanılan state (yanlızca panelde kullanılır.)
+    const [allDataPanel, setAllDataPanel] = useState<any>();
+
 
     interface FormValues{
       startBannerTime: string;
@@ -82,7 +88,6 @@ const GeneralTopPageBanner: React.FC = () => {
         // veri tabanından alınan verileri set etme işlemini yapan fonksiyonu burada çalıştırdık.
         getAPI("/other/generalTopPageBanner").then((res) => {
           if(res){
-            console.log(res);
             setAllData(res.data[0]);
           }
         });
@@ -104,6 +109,30 @@ const GeneralTopPageBanner: React.FC = () => {
         setBackgroundColor(allData.backgroundColor);
       }
     }, [allData])
+
+    useEffect(() => {
+
+
+      // panel içerisinde verileri anlık görebilmek için kullanılan state (yanlızca panelde kullanılır.)
+      setAllDataPanel(
+        {
+          color:color,
+          mainTextColor:mainTextColor,
+          underTextColor:underTextColor,
+          buttonColor:buttonColor,
+          backgroundColor:backgroundColor,
+          mainText:mainText,
+          buttonTextColor:buttonTextColor,
+          buttonLink:buttonLink,
+          buttonText:buttonText,
+          detailText:detailText,
+          isActive:isActive,
+          startBannerTime:startBannerTime,
+          endBannerTime:endBannerTime,
+        }
+      )      
+    }, [allData, color, mainTextColor, underTextColor, buttonColor, backgroundColor, mainText, buttonTextColor, buttonLink, buttonText, detailText, isActive, startBannerTime, endBannerTime])
+    
 
 
     
@@ -184,9 +213,17 @@ const GeneralTopPageBanner: React.FC = () => {
               props.values.buttonLink = buttonLink,
               props.values.buttonText = buttonText,
 
-              <Form onSubmit={props.handleSubmit}>
-          <div className="my-2 p-2 w-full border-2 rounded-xl bg-white">
-          {GeneralTopPageBannerComponent && <GeneralTopPageBannerComponent/>}
+            <Form onSubmit={props.handleSubmit}>
+              <div className="w-full  p-2 flex flex-col my-4 bg-secondary rounded-xl justify-center items-center">
+                  
+                  <label className="text-white font-bold text-xl md:text-4xl mt-2">
+                    Örnek tasarım
+                  </label>
+                  <p className="text-xs text-white text-center">(Aşağıdaki panel üzerinden yaptığınız değişiklikleri bu alanda canlı olarak görebilir ve test edebilirsiniz)</p>
+                
+          <div className="my-2 p-2 w-full">
+          {GeneralTopPageBannerComponent && <GeneralTopPageBannerComponent allDataPanel={allDataPanel} isDashboard = {true}/>}
+          </div>
           </div>
                 
                 
@@ -201,7 +238,7 @@ const GeneralTopPageBanner: React.FC = () => {
                   <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
                     
                     <div className=''>
-                      <div className="w-full flex flex-wrap 2xl:flex-nowrap flex-col sm:flex-row justify-between items-center gap-x-4">
+                      <div className="w-full flex flex-wrap md:flex-nowrap 2xl:flex-nowrap flex-col sm:flex-row justify-between items-center gap-x-4">
                         {/* BANNER START TIME */}
                         <div className=" shadow w-full p-2 rounded-xl bg-white flex flex-col justify-center items-center mt-6 sm:mt-6">
                           <label className="mb-2 block text-center text-xl">
@@ -304,7 +341,9 @@ const GeneralTopPageBanner: React.FC = () => {
 
 
                         <label htmlFor="buttonText" className="pl-4 mt-2 block text-xl">
-                          Buton Metni
+                          <div className="flex flex-row flex-nowrap justify-start items-center gap-2">
+                            Buton Metni<p className="text-xs">(Eğer burayı boş bırakırsanız buton gözükmeyecektir.)</p>
+                          </div>
                         </label>
                         <input
                           id="buttonText"
@@ -326,7 +365,10 @@ const GeneralTopPageBanner: React.FC = () => {
                         />
 
                         <label htmlFor="buttonLink" className="pl-4 mt-2 block text-xl">
-                          Buton Bağlantı Adresi
+                        <div className="flex flex-row flex-wrap md:flex-nowrap justify-start items-center gap-2">
+                        Buton Bağlantı Adresi<p className="text-xs">({`${process.env.NEXT_PUBLIC_URL && process.env.NEXT_PUBLIC_URL}/... #### örnek: ${process.env.NEXT_PUBLIC_URL && process.env.NEXT_PUBLIC_URL}/buraya_yazilan_adres/...`   })</p>
+                          </div>
+                          
                         </label>
                         <input
                           id="buttonLink"
@@ -413,7 +455,7 @@ const GeneralTopPageBanner: React.FC = () => {
                             <label className="text-center">Ana Başlık Rengi</label>
                             <div
                               style={{ background: mainTextColor }}
-                              className="p-6  rounded inline-block"
+                              className="p-6  rounded inline-block border-2 border-opacity-50"
                             ></div>
                             <button
                             type='button'
@@ -434,7 +476,7 @@ const GeneralTopPageBanner: React.FC = () => {
                             <label className="text-center">Alt Metin Rengi</label>
                             <div
                               style={{ background: underTextColor }}
-                              className="p-6  rounded inline-block"
+                              className="p-6  rounded inline-block border-2 border-opacity-50"
                             ></div>
                             <button
                             type='button'
@@ -455,7 +497,7 @@ const GeneralTopPageBanner: React.FC = () => {
                             <label className="text-center">Buton Rengi</label>
                             <div
                               style={{ background: buttonColor }}
-                              className="p-6  rounded inline-block"
+                              className="p-6  rounded inline-block border-2 border-opacity-50"
                             ></div>
                             <button
                             type='button'
@@ -476,7 +518,7 @@ const GeneralTopPageBanner: React.FC = () => {
                             <label className="text-center">Buton Yazı Rengi</label>
                             <div
                               style={{ background: buttonTextColor }}
-                              className="p-6  rounded inline-block"
+                              className="p-6  rounded inline-block border-2 border-opacity-50"
                             ></div>
                             <button
                             type='button'
@@ -497,7 +539,7 @@ const GeneralTopPageBanner: React.FC = () => {
                             <label className="text-center">Arkaplan Rengi</label>
                             <div
                               style={{ background: backgroundColor }}
-                              className="p-6  rounded inline-block"
+                              className="p-6  rounded inline-block border-2 border-opacity-50"
                             ></div>
                             <button
                             type='button'

@@ -72,16 +72,16 @@ const pageConfig:PageConfig = {
     },
 
     // admin paneli için istekleri kontrol eder.
-    generalTopPageBanner: {
-        maxRequest: 3,
-        timeLimit: "15 s",   
-        errorMessage: "Kısa zamanda çok fazla istek attınız.",
-        backUrl: "/",
-        targetUrl: process.env.NEXT_PUBLIC_URL + "/dashboard/admin",
-        targetButtonName: "Genel Duyuru İşlemleri",
-        backButtonName: "Ana Sayfa",
-        label: "Lütfen Dikkat!",
-    }
+    // generalTopPageBanner: {
+    //     maxRequest: 3,
+    //     timeLimit: "15 s",   
+    //     errorMessage: "Kısa zamanda çok fazla istek attınız.",
+    //     backUrl: "/",
+    //     targetUrl: process.env.NEXT_PUBLIC_URL + "/dashboard/admin",
+    //     targetButtonName: "Genel Duyuru İşlemleri",
+    //     backButtonName: "Ana Sayfa",
+    //     label: "Lütfen Dikkat!",
+    // }
 };
 
 interface RateLimitResponse {

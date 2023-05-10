@@ -1,9 +1,8 @@
 'use client'
-export const dynamic = 'force-dynamic'
-
+import TimeCountDown from  "@/components/other/timeCountDown";
 import React,{useState, useEffect} from 'react'
 import {getAPI} from "@/services/fetchAPI";
-import TimeCountDown from  "@/components/other/timeCountDown";
+export const dynamic = 'force-dynamic'
 import Link from 'next/link';
 
 interface dataProps {
@@ -26,7 +25,7 @@ interface dataProps {
   error?:any
 }
 
-const GeneralTopPageBanner  = () => {
+const GeneralTopPageBanner  = (allDataPanel:any, isDashboard:boolean) => {
 
   // veri tabanından banner için gelen verileri içinde tutar.
   const [data, setData] = useState<dataProps>();
@@ -51,11 +50,19 @@ const GeneralTopPageBanner  = () => {
 
     datafetch();
 
-  }, [])  
+  }, [])
+
+
+  useEffect(() => {
+    // bu bölüm admin panelinden veriler gelirse anlık olarak görebilmesini sağlamak amacı ile yapıldı. kullanıcı için değildir! admin için işlev görür!
+    if(data && allDataPanel && allDataPanel.isDashboard){
+      console.log(allDataPanel.allDataPanel)
+      setData(allDataPanel.allDataPanel);
+    }
+  }, [allDataPanel])
+  
   
   if(data != undefined && data  && data.isActive){  
-    console.log(data);
-
     return (
       <div
         style={{ background: data.backgroundColor && data.backgroundColor }}
@@ -86,8 +93,8 @@ const GeneralTopPageBanner  = () => {
           </p>
         </div>
 
-        <div className="h-full">
-          <Link href={data.buttonLink ? data.buttonLink : "/"}>
+        <div className={`h-full ${!data.buttonText && "hidden absolute opacity-0 -z-50"} ${data.buttonText == "" && "hidden absolute opacity-0 -z-50"} ${data.buttonText == " " && "hidden absolute opacity-0 -z-50"}`}>
+          <Link passHref={true} href={data.buttonLink ? data.buttonLink : process.env.NEXT_PUBLIC_URL ? process.env.NEXT_PUBLIC_URL : "/" }>
             <button style={{ background: data.buttonColor ? data.buttonColor : "white", fontFamily: "Dekko, cursive",
             color: data.buttonTextColor && data.buttonTextColor
           }}
