@@ -19,10 +19,6 @@ import { signIn, signOut, useSession } from 'next-auth/react'
     <GeneralTopPageBanner />
     <h1>#### HomeContainer ####</h1>
 
-
-    
-
-
       { /* 
         session var mı ?
         VARSA -> logOut seçeneğini göster.

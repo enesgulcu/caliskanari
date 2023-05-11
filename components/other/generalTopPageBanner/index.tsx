@@ -2,7 +2,6 @@
 import TimeCountDown from  "@/components/other/timeCountDown";
 import React,{useState, useEffect} from 'react'
 import {getAPI} from "@/services/fetchAPI";
-export const dynamic = 'force-dynamic'
 import Link from 'next/link';
 
 interface dataProps {
@@ -42,10 +41,8 @@ const GeneralTopPageBanner  = (allDataPanel:any, isDashboard:boolean) => {
           setData(myData);
       }}
     }
-    })
-    
+    }) 
 }
-
   useEffect(() => {
 
     datafetch();
@@ -56,7 +53,6 @@ const GeneralTopPageBanner  = (allDataPanel:any, isDashboard:boolean) => {
   useEffect(() => {
     // bu bölüm admin panelinden veriler gelirse anlık olarak görebilmesini sağlamak amacı ile yapıldı. kullanıcı için değildir! admin için işlev görür!
     if(data && allDataPanel && allDataPanel.isDashboard){
-      console.log(allDataPanel.allDataPanel)
       setData(allDataPanel.allDataPanel);
     }
   }, [allDataPanel])

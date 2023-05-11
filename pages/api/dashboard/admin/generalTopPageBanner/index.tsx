@@ -34,7 +34,6 @@ const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> =
         try {
 
             const body:IGeneralTopPageBanner =await req.body;
-            console.log(body)
             if(!body){
                 throw new Error("Bir hata oluştu!");
             }
