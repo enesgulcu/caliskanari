@@ -10,9 +10,13 @@ import ValidationSchema from './formikData';
 import {getAPI} from "@/services/fetchAPI";
 import {notFound} from 'next/navigation';
 import { Formik, Form } from "formik";
+import { useSelector, useDispatch } from 'react-redux';
+import store from '@/redux/stores'
 
 const GeneralTopPageBanner: React.FC = () => {
 
+  const studentData = store.getState().student;
+  console.log(studentData);
 //###################################################################
 // sayfa rol kontrolü - erişim olmaz ise notfound'a yönlendirir. ####
 
@@ -215,7 +219,9 @@ const GeneralTopPageBanner: React.FC = () => {
 
             <Form onSubmit={props.handleSubmit}>
               <div className="w-full  p-2 flex flex-col my-4 bg-secondary rounded-xl justify-center items-center">
-                  
+                  <div className="red p-6 w-full">
+
+                  </div>
                   <label className="text-white font-bold text-xl md:text-4xl mt-2">
                     Örnek tasarım
                   </label>

@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getToken } from 'next-auth/jwt';
 import RateLimitPageConfig from '@/functions/other/rateLimitPageConfig';
+import CheckDataUpdates from '@/functions/other/checkDataUpdates'
 
 // kullanıcıların gidebileceği sayfaların başlangıç kısmını belirleriz.
 const roles = {
@@ -11,8 +12,10 @@ const roles = {
 
 
 export default async function middleware(req) {
+
   // Tüm istekleri burada yakalarız.
   const { pathname } = new URL(req.url) || new URL(req.nextUrl);
+
     //########################################################################################################
     // Sistemin kendi API isteklerini görmezden gelir.########################################################
     if (
@@ -35,6 +38,7 @@ export default async function middleware(req) {
     // sistem API istekleri haricinde...######################################################################
     // /api/auth ile başlayan tüm gelen isteklerin hepsini kontrol eder. #####################################
     else if (pathname.startsWith("/api/") && !pathname.startsWith("/api/mail")) {
+
       // rate limit kontrolü burada başlar.
       const { success, error, reset, backUrl, targetUrl, targetButtonName, backButtonName, label } = await RateLimitPageConfig(req, pathname);
 
@@ -45,7 +49,9 @@ export default async function middleware(req) {
           `/notification?type=error&message=${error}&label=${label}&remainingTime=${reset}&targetButtonName=${targetButtonName}&backButtonName=${backButtonName}&targetUrl=${targetUrl}&backUrl=${backUrl}`,req.url));
       } else {
         // kullanıcı limiti aşmadı ise isteği gönderir.
-        return NextResponse.next();
+
+        // cooki'ye zaman fırlatan fonksiyon (sürekli)
+        return CheckDataUpdates(req, pathname);
       }
     }
     //########################################################################################################
@@ -71,7 +77,7 @@ export default async function middleware(req) {
            return NextResponse.rewrite(new URL("/", req.url));
         }
         else{
-
+          
           return NextResponse.next();
         }
       }
@@ -101,7 +107,6 @@ export default async function middleware(req) {
       }
     }
   }
-
 
 export const config = {
   // kontrol işleminin hangi sayfalarda olacağını belirleriz.

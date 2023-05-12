@@ -6,7 +6,7 @@ import React from 'react'
 import { useSelector, useDispatch } from 'react-redux';
 
 //Slice içindeki reducer fonksiyonlarını (aksiyonları) çağırmak için import ettik.
-import { increment, decrement, incrementByAmount, setName, setAge } from '@/redux/stores/studentStore';
+import { increment, decrement, incrementByAmount, setName, setAge } from '@/redux/stores';
 
 //fonksiyonumuzu kullanmak için çağırdık.(dispatch içinde çalıştırmamız yeterli olacak)
 import store from '@/redux/stores'
