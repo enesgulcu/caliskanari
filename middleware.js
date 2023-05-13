@@ -51,6 +51,7 @@ export default async function middleware(req) {
         // kullanıcı limiti aşmadı ise isteği gönderir.
 
         // cooki'ye zaman fırlatan fonksiyon (sürekli) // 30 dakikada bir çalışır.
+        // updateLoop dakika cinsinden değer alır ve o dakika aralığı ile cookie zamanını günceller.
         return CookieTimeUpdate(req, pathname, updateLoop = 30);
       }
     }
