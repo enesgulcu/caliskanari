@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getToken } from 'next-auth/jwt';
 import RateLimitPageConfig from '@/functions/other/rateLimitPageConfig';
-import CheckDataUpdates from '@/functions/other/checkDataUpdates'
+import CookieTimeUpdate from '@/functions/other/cookieTimeUpdate'
 
 // kullanıcıların gidebileceği sayfaların başlangıç kısmını belirleriz.
 const roles = {
@@ -50,8 +50,8 @@ export default async function middleware(req) {
       } else {
         // kullanıcı limiti aşmadı ise isteği gönderir.
 
-        // cooki'ye zaman fırlatan fonksiyon (sürekli)
-        return CheckDataUpdates(req, pathname);
+        // cooki'ye zaman fırlatan fonksiyon (sürekli) // 30 dakikada bir çalışır.
+        return CookieTimeUpdate(req, pathname, updateLoop = 30);
       }
     }
     //########################################################################################################
