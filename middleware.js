@@ -52,7 +52,8 @@ export default async function middleware(req) {
 
         // cooki'ye zaman fırlatan fonksiyon (sürekli) // 30 dakikada bir çalışır.
         // updateLoop dakika cinsinden değer alır ve o dakika aralığı ile cookie zamanını günceller.
-        return CookieTimeUpdate(req, pathname, updateLoop = 30);
+        const updateLoop = 30;
+        return CookieTimeUpdate(req, pathname, updateLoop);
       }
     }
     //########################################################################################################

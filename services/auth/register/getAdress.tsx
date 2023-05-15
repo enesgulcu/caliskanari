@@ -7,8 +7,8 @@ const getAdress = async (route : string  ="") : Promise<string[] | undefined> =>
         .catch(err => console.log(err))
         return data;
         
-    } catch (error) {
-        console.log(error)    
+    } catch (err) {
+        console.log(err)    
     }
 
 }

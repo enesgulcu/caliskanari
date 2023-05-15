@@ -1,6 +1,7 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import {getAllData} from "@/services/serviceOperations";
 
+
 interface IGeneralTopPageBanner {
     role: string, // admin -> panel kim içinse o tanımlanacak
     startBannerTime?: string,

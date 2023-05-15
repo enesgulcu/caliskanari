@@ -16,7 +16,7 @@ import store from '@/redux/stores'
 const GeneralTopPageBanner: React.FC = () => {
 
   const studentData = store.getState().student;
-  console.log(studentData);
+
 //###################################################################
 // sayfa rol kontrolü - erişim olmaz ise notfound'a yönlendirir. ####
 

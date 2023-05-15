@@ -1,12 +1,16 @@
 import { NextResponse } from 'next/server';
+import dataUpdateChecker from '@/functions/other/dataUpdateChecker';
 
 // Bu fonksiyonun amacı cookie içerisinden gelen zamanı kontrol etmek 
 // zaman yok ise yeni bir zaman dilimini cookie içerisine aktarmaktır.
 // cookie içerisinde belirlenen aralıklarla güncel zamanı sürekli bulundurmayı sağlar.
+// "updateLoop" props'u ile gelen değer zamanı güncelleme aralığını belirler.
+// bu fonksiyon "middleware" içerisinde tanımlanmıştır.
 
-const CookieTimeUpdate = async (req:any, pathname:string, updateLoop:number):Promise<any> => {
 
-    if(req){      
+
+const CookieTimeUpdate = async (req:any, pathname:string, updateLoop:number=10):Promise<any> => {
+    try {
         const { cookies } = req
         const responseCookies = NextResponse.next();
 
@@ -23,8 +27,8 @@ const CookieTimeUpdate = async (req:any, pathname:string, updateLoop:number):Pro
 
             // Burası 30 dakikadan fazla zaman geçmişse çalışır...
             // updateLoop -> 30 dakika
+           
             if(timeDifference > 1000 * 60 * updateLoop){
-                console.log("büyük : " + timeDifference)
                 //responseCookies.cookies.delete("lastUpdateTime");
                  responseCookies.cookies.set(
                     {
@@ -36,8 +40,13 @@ const CookieTimeUpdate = async (req:any, pathname:string, updateLoop:number):Pro
                         httpOnly : true, // true by default
                         maxAge: 60 * 60 * 12, // 12 HOUR
                         path: '/', // root of the domain                    
-                    }                 
+                    } 
                 )
+
+                // dataUpdateChecker() fonksiyonu ile
+                // verilerin güncelliğini burası her çalıştığında kontrol ederiz.
+                dataUpdateChecker();
+
                 return responseCookies;    
             }
         }
@@ -58,8 +67,15 @@ const CookieTimeUpdate = async (req:any, pathname:string, updateLoop:number):Pro
                     path: '/', // root of the domain                    
                 }                 
             )
+            
+            dataUpdateChecker();
             return responseCookies;
         }
+    
+    } catch (error) {
+        console.log(error);
+        return NextResponse.next();
+
     }
 }
 
