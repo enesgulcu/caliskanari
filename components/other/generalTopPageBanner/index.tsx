@@ -32,6 +32,7 @@ const GeneralTopPageBanner  = (allDataPanel:any, isDashboard:boolean) => {
   const datafetch =  () => {
     getAPI("/other/generalTopPageBanner").then((res) => {
       if(res){
+        
         const myData = res.data[0]
       
       if(myData){

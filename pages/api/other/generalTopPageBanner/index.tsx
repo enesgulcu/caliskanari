@@ -1,6 +1,11 @@
 import { NextApiRequest, NextApiResponse } from 'next';
 import {getAllData} from "@/services/serviceOperations";
 
+// Aşağıdaki verileri eksiksiz gönderilmesi gerekiyor!!!
+// componentName: veri tabanındaki componentin adı -> generalTopPageBanner
+// storageType: cookie | localStorage | database
+// sendStorageLocation: cookie | localStorage
+import newSystemDataProcess from "@/functions/other/regularCheckSystemData/newSystemDataProcess";
 
 interface IGeneralTopPageBanner {
     role: string, // admin -> panel kim içinse o tanımlanacak
@@ -27,13 +32,14 @@ const handler = async (req:NextApiRequest, res:NextApiResponse): Promise<void> =
     if(req.method === 'GET'){
 
         try {
-            const data:IGeneralTopPageBanner = await getAllData("GeneralTopPageBanner");
+
+            const {data, status, error} = await newSystemDataProcess(req, "GeneralTopPageBanner", "cookie", "cookie");
             
-            if(!data || data.error || data === undefined){
+            if(!data || error || data === undefined || status != "success"){
                 throw new Error(data.error);
             }
             
-            return res.status(200).json({status: "success", data: data});
+            return res.status(200).json({status: status, data: data});
 
         } catch (error:any) {
             return res.status(500).json({status: "error", error: error.message, data: null}); 
