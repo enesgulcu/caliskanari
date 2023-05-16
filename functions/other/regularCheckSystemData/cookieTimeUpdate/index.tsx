@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import dataUpdateChecker from '@/functions/other/dataUpdateChecker';
+import dataUpdateChecker from '@/functions/other/regularCheckSystemData/dataUpdateChecker';
 
 // Bu fonksiyonun amacı cookie içerisinden gelen zamanı kontrol etmek 
 // zaman yok ise yeni bir zaman dilimini cookie içerisine aktarmaktır.

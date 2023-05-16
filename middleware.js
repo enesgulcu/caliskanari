@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getToken } from 'next-auth/jwt';
 import RateLimitPageConfig from '@/functions/other/rateLimitPageConfig';
-import CookieTimeUpdate from '@/functions/other/cookieTimeUpdate'
+import CookieTimeUpdate from '@/functions/other/regularCheckSystemData/cookieTimeUpdate'
 
 // kullanıcıların gidebileceği sayfaların başlangıç kısmını belirleriz.
 const roles = {

@@ -14,7 +14,8 @@
       }
 
 const allDataConfig:DataConfig[] = [
-    // bu alana cookie kullanan ve verilerini düzenli kontrol ettirmek istediğiniz verileri ekleyebilirsiniz.
+    // bu alana cookie ve localstorage'da kullanan düzenli kontrol ettirmek istediğiniz verileri ekleyebilirsiniz.
+    // isNewData: true ise veri yeni eklenmiş demektir. fonksiyon bunu kontrol eder ve yenileme işleminden sonra veri tabanına kaydeder.
     {
         name: "generalTopPageBanner",
         updateTime: "generalTopPageBanner",
