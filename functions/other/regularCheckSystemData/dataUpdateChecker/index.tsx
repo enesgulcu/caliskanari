@@ -1,5 +1,6 @@
 import {getAPI, postAPI} from "@/services/fetchAPI";
 import dataUpdateConfig from "./dataUpdateConfig"
+import { setCookie, getCookie, deleteCookie } from 'cookies-next';
 
 // bu fonksiyon veri tabanından gelen verileri kontrol eder ve güncelleme olan verileri bulur.
 const findNewData = (data:any) => {
@@ -34,29 +35,38 @@ const DataUpdateChecker = async ():Promise<any> => {
 
     // api ile veri tabanından güncelleme raporunu alıyoruz...
     getAPI("/other/dataUpdateChecker").then(async (res) => {
+      
 
+     
       if(res.status === "success" && res.data[0]){
+
         // gelen json değeri parse ederek objeye çevirdik ve veriyi içinden aldık.
         const data = JSON.parse(res.data[0].Configdata);
         
         // değişen verileri burada yakalarız.
         const checkedStatus = findNewData(data);
+        
         let removeDataValue:any = [];
         checkedStatus.map((item:any) => {
           if(item.isNewData === true){
             removeDataValue.push(item.name);
           }
         })
-        
+     
         const process = {
           // silinecek veriler burada
           data: DataConfig,
-          removeValue: removeDataValue,
-          process: "updateData"
+          removeValue: removeDataValue
         }
           // Veri tabanındaki, Cookie ve Local Storage içindeki verileri güncelleme işlemi için POST isteği atıyoruz.
           postAPI("/other/dataUpdateChecker", process).then((res) => {
-          return true;
+            if(res.status === "success"){
+              // veri tabanındaki verileri güncelledikten sonra cookie ve local storage içindeki verileri sileriz.
+              removeDataValue.map((item:any) => {
+                deleteCookie(item);                
+                localStorage.removeItem(item);
+              })
+            }          
         })
           
       }
@@ -70,8 +80,17 @@ const DataUpdateChecker = async ():Promise<any> => {
           data: DataConfig,
           process: "createData"
         }
+        
+        // verileri veri tabanına göndermek üzere apiye istek atar.
         postAPI("/other/dataUpdateChecker", process).then((res) => {
-            return true;
+          if(res.status === "success"){
+
+            // veri tabanındaki verileri güncelledikten sonra cookie ve local storage içindeki verileri sileriz.
+            const removeData = JSON.parse(process.data)[0].name;
+
+            deleteCookie(removeData);                
+            localStorage.removeItem(removeData);
+          }
         })
       }
     })  

@@ -1,7 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getToken } from 'next-auth/jwt';
 import RateLimitPageConfig from '@/functions/other/rateLimitPageConfig';
-import CookieTimeUpdate from '@/functions/other/regularCheckSystemData/cookieTimeUpdate'
+
 
 // kullanıcıların gidebileceği sayfaların başlangıç kısmını belirleriz.
 const roles = {
@@ -47,14 +47,7 @@ export default async function middleware(req) {
         // kullanıcı limiti aştı ise kullanıcıyı başka bir sayfaya yönlendirir.
         return NextResponse.redirect(new URL(
           `/notification?type=error&message=${error}&label=${label}&remainingTime=${reset}&targetButtonName=${targetButtonName}&backButtonName=${backButtonName}&targetUrl=${targetUrl}&backUrl=${backUrl}`,req.url));
-      } else {
-        // kullanıcı limiti aşmadı ise isteği gönderir.
-
-        // cooki'ye zaman fırlatan fonksiyon (sürekli) // 30 dakikada bir çalışır.
-        // updateLoop dakika cinsinden değer alır ve o dakika aralığı ile cookie zamanını günceller.
-        const updateLoop = 30;
-        return CookieTimeUpdate(req, pathname, updateLoop);
-      }
+      } 
     }
     //########################################################################################################
     // kullanıcının gittiği sayfaları (oturum açılmış) ve (oturum kapalı) durumuna göre kontrol eder. ########

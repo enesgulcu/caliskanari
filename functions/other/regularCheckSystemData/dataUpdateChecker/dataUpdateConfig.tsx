@@ -17,29 +17,12 @@ const allDataConfig:DataConfig[] = [
     // bu alana cookie ve localstorage'da kullanan düzenli kontrol ettirmek istediğiniz verileri ekleyebilirsiniz.
     // isNewData: true ise veri yeni eklenmiş demektir. fonksiyon bunu kontrol eder ve yenileme işleminden sonra veri tabanına kaydeder.
     {
-        name: "generalTopPageBanner",
-        updateTime: "generalTopPageBanner",
-        endTime: "generalTopPageBanner",
-        isNewData: false,
-    },
-    {
-        name: "generalTopPageBanner2",
-        updateTime: "generalTopPageBanner2",
-        endTime: "generalTopPageBanner2",
+        name: "GeneralTopPageBanner",
+        updateTime: "GeneralTopPageBanner",
+        endTime: "GeneralTopPageBanner",
         isNewData: true,
-    },
-    {
-        name: "generalTopPageBanner3",
-        updateTime: "generalTopPageBanner3",
-        endTime: "generalTopPageBanner3",
-        isNewData: false,
-    },
-    {
-        name: "generalTopPageBanner4",
-        updateTime: "generalTopPageBanner4",
-        endTime: "generalTopPageBanner4",
-        isNewData: true,
-    },
+    }
+
 ]
 
 const dataUpdateConfig = () => {

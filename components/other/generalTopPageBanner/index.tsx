@@ -3,6 +3,7 @@ import TimeCountDown from  "@/components/other/timeCountDown";
 import React,{useState, useEffect} from 'react'
 import {getAPI} from "@/services/fetchAPI";
 import Link from 'next/link';
+import NewSystemDataProcess from "@/functions/other/regularCheckSystemData/newSystemDataProcess";
 
 interface dataProps {
   startBannerTime?: string,
@@ -20,7 +21,6 @@ interface dataProps {
   buttonLink?: string,
   buttonText?: string,
 
-
   error?:any
 }
 
@@ -29,20 +29,19 @@ const GeneralTopPageBanner  = (allDataPanel:any, isDashboard:boolean) => {
   // veri tabanından banner için gelen verileri içinde tutar.
   const [data, setData] = useState<dataProps>();
 
-  const datafetch =  () => {
-    getAPI("/other/generalTopPageBanner").then((res) => {
-      if(res){
-        
-        const myData = res.data[0]
-      
-      if(myData){
-        const futureDate =  new Date(myData.startBannerTime); // başlangıç tarihini kontrol etme
+  const datafetch  = async () => {
+
+        // verileri (cookie | localstorage | database) yönetimini sağlayan fonksiyon
+        //(database ismi | cookie veya localstorage ismi | api url)
+        const {data} = await NewSystemDataProcess("GeneralTopPageBanner", "cookie", "cookie", "/other/generalTopPageBanner");
+       console.log(data);
+      if(data){
+        const futureDate =  new Date(data.startBannerTime); // başlangıç tarihini kontrol etme
         const currentDate = new Date();
         if(futureDate <= currentDate){ // başlangıç tarihi gelmişse ve geçmişse aktif et!
-          setData(myData);
+          setData(data);
       }}
-    }
-    }) 
+    
 }
   useEffect(() => {
 

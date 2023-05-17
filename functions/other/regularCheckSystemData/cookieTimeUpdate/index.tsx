@@ -1,5 +1,5 @@
-import { NextResponse } from 'next/server';
 import dataUpdateChecker from '@/functions/other/regularCheckSystemData/dataUpdateChecker';
+import { setCookie, getCookie } from 'cookies-next';
 
 // Bu fonksiyonun amacı cookie içerisinden gelen zamanı kontrol etmek 
 // zaman yok ise yeni bir zaman dilimini cookie içerisine aktarmaktır.
@@ -9,19 +9,16 @@ import dataUpdateChecker from '@/functions/other/regularCheckSystemData/dataUpda
 
 
 
-const CookieTimeUpdate = async (req:any, pathname:string, updateLoop:number=10):Promise<any> => {
+const CookieTimeUpdate = async (updateLoop:number=10):Promise<any> => {
     try {
-        const { cookies } = req
-        const responseCookies = NextResponse.next();
 
         // cookie içerisinde "lastUpdateTime" VARSA! burası çalışır...
-        if(cookies.get('lastUpdateTime')){
-
+        if(getCookie('lastUpdateTime')){
+            const cookieValue:any = getCookie('lastUpdateTime')
             // cookie içerisindeki json değerini JSON.parse() ile objeye çevirerek  kullanabilirsiniz.
-            const lastUpdateTime = JSON.parse(cookies.get('lastUpdateTime').value).Date
+            const lastUpdateTime = JSON.parse(cookieValue).Date
             const currentTime = new Date().getTime().toString()
             const timeDifference = parseInt(currentTime) - parseInt(lastUpdateTime)
-
             // 1000 milisaniye = 1 saniye
             // 1000 * 60 milisaniye = 1 dakika
 
@@ -29,25 +26,18 @@ const CookieTimeUpdate = async (req:any, pathname:string, updateLoop:number=10):
             // updateLoop -> 30 dakika
            
             if(timeDifference > 1000 * 60 * updateLoop){
+                
+                dataUpdateChecker();
                 //responseCookies.cookies.delete("lastUpdateTime");
-                 responseCookies.cookies.set(
-                    {
-                        name: 'lastUpdateTime',
-                        value:JSON.stringify({
-                            Date: new Date().getTime().toString(),
-                            Time: new Date().toLocaleTimeString()
-                        }),
-                        httpOnly : true, // true by default
-                        maxAge: 60 * 60 * 12, // 12 HOUR
-                        path: '/', // root of the domain                    
-                    } 
-                )
+                 setCookie(
+                    "lastUpdateTime",
+                    JSON.stringify({Date: new Date().getTime().toString(), Time: new Date().toLocaleTimeString()
+                }))
 
                 // dataUpdateChecker() fonksiyonu ile
                 // verilerin güncelliğini burası her çalıştığında kontrol ederiz.
-                dataUpdateChecker();
-
-                return responseCookies;    
+                
+                return {error: null, status: "success"}
             }
         }
         
@@ -55,26 +45,22 @@ const CookieTimeUpdate = async (req:any, pathname:string, updateLoop:number=10):
 
         // cookie içerisinde "lastUpdateTime" YOKSA! burası çalışır...
         else{
-            responseCookies.cookies.set(
-                {
-                    name: 'lastUpdateTime',
-                    value:JSON.stringify({
-                        Date: new Date().getTime().toString(),
-                        Time: new Date().toLocaleTimeString()
-                    }),
-                    httpOnly : true, // true by default
-                    maxAge: 60 * 60 * 12, // 12 HOUR
-                    path: '/', // root of the domain                    
-                }                 
-            )
+            setCookie(
+                "lastUpdateTime",
+                JSON.stringify({Date: new Date().getTime().toString(), Time: new Date().toLocaleTimeString()
+            }))
             
             dataUpdateChecker();
-            return responseCookies;
+            return {error: null, status: "success"}
         }
     
     } catch (error) {
         console.log(error);
-        return NextResponse.next();
+            return {
+                error: error,
+                status: "error",
+                data: null
+            }
 
     }
 }
