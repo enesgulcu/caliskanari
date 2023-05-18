@@ -8,6 +8,9 @@
 
 3- "newSystemDataProcess" içerisinde "cookieTimeUpdate" fonksiyonu ile hangi aralıkta yenileme kontrol yapacağını belirleriz. süreyi oradan kontrol edebilirsin.
 
+4- heroku gibi bir apiye adres sistemini entegre etmen gerekiyor (adreslerdeki benzer isimlendirmeyi düzeltmen gerekiyor)
+
+
 
 
 NTOE:
