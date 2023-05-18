@@ -1,6 +1,7 @@
 import { NextResponse } from 'next/server'
 import { getToken } from 'next-auth/jwt';
 import RateLimitPageConfig from '@/functions/other/rateLimitPageConfig';
+import DatabaseWhenUpdate from  '@/functions/other/regularCheckSystemData/databaseWhenUpdate';
 
 
 // kullanıcıların gidebileceği sayfaların başlangıç kısmını belirleriz.
@@ -38,16 +39,20 @@ export default async function middleware(req) {
     // sistem API istekleri haricinde...######################################################################
     // /api/auth ile başlayan tüm gelen isteklerin hepsini kontrol eder. #####################################
     else if (pathname.startsWith("/api/") && !pathname.startsWith("/api/mail")) {
-
+      
       // rate limit kontrolü burada başlar.
-      const { success, error, reset, backUrl, targetUrl, targetButtonName, backButtonName, label } = await RateLimitPageConfig(req, pathname);
+      if(!req.method === "GET"){ // İSTEK TİPİNE GÖRE "GET" gewlirse rate limiti çalıştırmıyoruz!
+        
+        const { success, error, reset, backUrl, targetUrl, targetButtonName, backButtonName, label } = await RateLimitPageConfig(req, pathname);
+      
 
-      if (!success || error && false) {
+        if (!success || error && false) {
 
-        // kullanıcı limiti aştı ise kullanıcıyı başka bir sayfaya yönlendirir.
-        return NextResponse.redirect(new URL(
-          `/notification?type=error&message=${error}&label=${label}&remainingTime=${reset}&targetButtonName=${targetButtonName}&backButtonName=${backButtonName}&targetUrl=${targetUrl}&backUrl=${backUrl}`,req.url));
-      } 
+          // kullanıcı limiti aştı ise kullanıcıyı başka bir sayfaya yönlendirir.
+          return NextResponse.redirect(new URL(
+            `/notification?type=error&message=${error}&label=${label}&remainingTime=${reset}&targetButtonName=${targetButtonName}&backButtonName=${backButtonName}&targetUrl=${targetUrl}&backUrl=${backUrl}`,req.url));
+        }
+      }  
     }
     //########################################################################################################
     // kullanıcının gittiği sayfaları (oturum açılmış) ve (oturum kapalı) durumuna göre kontrol eder. ########
@@ -100,6 +105,13 @@ export default async function middleware(req) {
         
         return NextResponse.next();
       }
+    }
+
+    // dataUpdateConfig verilerinde güncelleştirme durumu olduğunda çalışır ve güncellenen veriyi veri tabanına kaydeder.
+    if(req.method === "POST"){
+
+      await DatabaseWhenUpdate(pathname, req);
+     
     }
   }
 

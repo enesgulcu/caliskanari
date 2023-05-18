@@ -2,9 +2,9 @@
 =======
 ## UNUTULMAMASI GEREKEN KONTROLE TABİ AYARLAR VE YERLER!
 
-1- Rate limit yapısında sayfalar ve api isteklerinin sürelerini iş bitiminde ekle
+1- functions / other / Rate limit yapısında sayfalar ve api isteklerinin sürelerini iş bitiminde ekle
 
-2- functions / regularCheckSystemData içinde "dataUpdateChecker" config dosyasını çekeceğin verilere göre yenile
+2- functions / other / regularCheckSystemData içinde "dataUpdateChecker" config dosyasını çekeceğin verilere göre yenile
 
 3- "newSystemDataProcess" içerisinde "cookieTimeUpdate" fonksiyonu ile hangi aralıkta yenileme kontrol yapacağını belirleriz. süreyi oradan kontrol edebilirsin.
 

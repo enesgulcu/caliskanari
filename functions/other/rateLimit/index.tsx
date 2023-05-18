@@ -7,6 +7,7 @@ import {Redis} from "@upstash/redis";
 const rateLimit = async (req:string, maxRequest=10, timeLimit:any="30 s"): Promise<{success:boolean, reset:number} | {error:any}> =>{
 
   try {
+
     if(!req){
       throw new Error("Request is not found");
     }

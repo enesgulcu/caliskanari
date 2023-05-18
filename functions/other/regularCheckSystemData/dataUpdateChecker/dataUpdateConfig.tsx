@@ -20,7 +20,7 @@ const allDataConfig:DataConfig[] = [
         name: "GeneralTopPageBanner",
         updateTime: "GeneralTopPageBanner",
         endTime: "GeneralTopPageBanner",
-        isNewData: true,
+        isNewData: false,
     }
 
 ]

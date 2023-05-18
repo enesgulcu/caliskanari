@@ -51,7 +51,7 @@ const NewSystemDataProcess = async (
         // cooki'ye zaman fırlatan fonksiyon (sürekli) // 30 dakikada bir çalışır.
         // updateLoop dakika cinsinden değer alır ve o dakika aralığı ile cookie zamanını günceller.
         const updateLoop = 5;
-        CookieTimeUpdate(updateLoop);
+        await CookieTimeUpdate(updateLoop);
 
 //1.0 #### GEREKLİ KONTROLLER ####################################################################################
         if(!componentName ||  componentName == undefined){
@@ -95,7 +95,6 @@ const NewSystemDataProcess = async (
 
 
             if(!checkCookie || checkCookie == undefined || checkCookie == null || typeof(checkCookie) != "string"){
-               
 
                 // veri tabanından veri çeker (Cookie yoksa!)
                 const {data, error, status} = await getData(`${apiUrl}`);

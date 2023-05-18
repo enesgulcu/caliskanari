@@ -36,8 +36,6 @@ const DataUpdateChecker = async ():Promise<any> => {
     // api ile veri tabanından güncelleme raporunu alıyoruz...
     getAPI("/other/dataUpdateChecker").then(async (res) => {
       
-
-     
       if(res.status === "success" && res.data[0]){
 
         // gelen json değeri parse ederek objeye çevirdik ve veriyi içinden aldık.
@@ -47,6 +45,7 @@ const DataUpdateChecker = async ():Promise<any> => {
         const checkedStatus = findNewData(data);
         
         let removeDataValue:any = [];
+
         checkedStatus.map((item:any) => {
           if(item.isNewData === true){
             removeDataValue.push(item.name);
@@ -58,6 +57,9 @@ const DataUpdateChecker = async ():Promise<any> => {
           data: DataConfig,
           removeValue: removeDataValue
         }
+
+        if(removeDataValue.length >= 1 && removeDataValue != null && removeDataValue != undefined){
+
           // Veri tabanındaki, Cookie ve Local Storage içindeki verileri güncelleme işlemi için POST isteği atıyoruz.
           postAPI("/other/dataUpdateChecker", process).then((res) => {
             if(res.status === "success"){
@@ -67,7 +69,8 @@ const DataUpdateChecker = async ():Promise<any> => {
                 localStorage.removeItem(item);
               })
             }          
-        })
+          })
+        }
           
       }
 
