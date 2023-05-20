@@ -3,6 +3,7 @@
 import React from 'react'
 import Link from 'next/link'
 import GeneralTopPageBanner from '@/components/other/generalTopPageBanner';
+import Slider from '@/components/other/slider';
 
 // session: giriş yapmış kullanıcıyı temsil eder varsa bilgileri içinde barındırır.
 // signIn:  kullanıcıyı giriş yapmaya yönlendirmek için kullanılır.
@@ -17,6 +18,7 @@ import { signIn, signOut, useSession } from 'next-auth/react'
   return (
     <> 
     <GeneralTopPageBanner />
+    <Slider />
     <h1>#### HomeContainer ####</h1>
 
       { /* 

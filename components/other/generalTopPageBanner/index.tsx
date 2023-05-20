@@ -65,6 +65,7 @@ const GeneralTopPageBanner  = (allDataPanel:any, isDashboard:boolean) => {
           !data.backgroundColor && "bg-blue-200"
         }`}
       >
+        <div className="p-2 text-secondary bg-white absolute right-0 top-0">X</div>
         <div className="h-full scale-75 md:scale-90 lg:scale-100">
           <TimeCountDown data={data} />
         </div>
