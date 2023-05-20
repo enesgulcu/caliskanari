@@ -33,7 +33,7 @@ const GeneralTopPageBanner  = (allDataPanel:any, isDashboard:boolean) => {
 
         // verileri (cookie | localstorage | database) yönetimini sağlayan fonksiyon
         //(database ismi | cookie veya localstorage ismi | api url)
-        const {data} = await NewSystemDataProcess("GeneralTopPageBanner", "cookie", "cookie", "/other/generalTopPageBanner");
+        const {data} = await NewSystemDataProcess("GeneralTopPageBanner", "localStorage", "localStorage", "/other/generalTopPageBanner");
       if(data){
         const futureDate =  new Date(data.startBannerTime); // başlangıç tarihini kontrol etme
         const currentDate = new Date();

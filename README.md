@@ -10,7 +10,19 @@
 
 4- heroku gibi bir apiye adres sistemini entegre etmen gerekiyor (adreslerdeki benzer isimlendirmeyi düzeltmen gerekiyor)
 
+5- register - login sayfalarındaki görseller değiştirilecek
 
+
+6- Slider için veri tabanına ekran ölçüsüne göre görseller eklenmelidir.
+aşağıda ekran ölçülerine göre minumum width (genişlik) ölçüleri verilmiştir.
+
+sisize for 2K > 2560 (item.image6Xl)
+size for FULL HD > 1920 (item.image4Xl)
+size for large desktop > 1536 (item.image2Xl)
+size for desktop > 1280 (item.imageXl)
+size for tablet > 1024 (item.imageLg)
+size for mobile > 768 (item.imageMd)
+size for default <= 768 (item.image)
 
 
 NTOE:
