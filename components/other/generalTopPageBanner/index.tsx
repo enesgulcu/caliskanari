@@ -4,6 +4,7 @@ import React,{useState, useEffect} from 'react'
 import {getAPI} from "@/services/fetchAPI";
 import Link from 'next/link';
 import NewSystemDataProcess from "@/functions/other/regularCheckSystemData/newSystemDataProcess";
+import { CgClose } from "react-icons/cg";
 
 interface dataProps {
   startBannerTime?: string,
@@ -28,6 +29,7 @@ const GeneralTopPageBanner  = (allDataPanel:any, isDashboard:boolean) => {
 
   // veri tabanından banner için gelen verileri içinde tutar.
   const [data, setData] = useState<dataProps>();
+  const [isClose, setIsClose] = useState<boolean>(false);
 
   const datafetch  = async () => {
 
@@ -45,6 +47,7 @@ const GeneralTopPageBanner  = (allDataPanel:any, isDashboard:boolean) => {
   useEffect(() => {
 
     datafetch();
+    
 
   }, [])
 
@@ -57,15 +60,19 @@ const GeneralTopPageBanner  = (allDataPanel:any, isDashboard:boolean) => {
   }, [allDataPanel])
   
   
-  if(data != undefined && data  && data.isActive){  
+  if(data != undefined && data  && data.isActive && !isClose){  
     return (
       <div
         style={{ background: data.backgroundColor && data.backgroundColor }}
-        className={`w-full flex flex-row gap-4 md:gap-6 lg:gap-8 flex-wrap  justify-center p-4 items-center ${
+        className={`w-full flex flex-row gap-4 md:gap-6 lg:gap-8 flex-wrap justify-center p-4 items-center ${
           !data.backgroundColor && "bg-blue-200"
         }`}
       >
-        <div className="p-2 text-secondary bg-white absolute right-0 top-0">X</div>
+        <div className="absolute m-1 right-0 top-0 cursor-pointer"
+        onClick={() => setIsClose(true)}
+        >
+          <CgClose size={22} className="text-gray-600 bg-gray-100 bg-opacity-60 hover:bg-opacity-100 rounded hover:scale-110 hover:text-secondary transition-all"/>
+        </div>
         <div className="h-full scale-75 md:scale-90 lg:scale-100">
           <TimeCountDown data={data} />
         </div>

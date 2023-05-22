@@ -18,7 +18,7 @@ import { signIn, signOut, useSession } from 'next-auth/react'
   return (
     <> 
     <GeneralTopPageBanner />
-    <Slider />
+    <Slider targetDatabaseUrl = "mainSlider"/>
     
     <h1>#### HomeContainer ####</h1>
 
