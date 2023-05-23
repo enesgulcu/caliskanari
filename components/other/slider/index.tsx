@@ -19,65 +19,128 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
   const [width, setWidth] = useState<any>();
   const [sliderData, setSliderData] = useState<any>([
     {
+      mainText:"Lorem  mattis, pulvinar dapibus leo.",
+      mainTextColour: "rgb(255 255 255)",
+      
+      subText:"Lorem  mattis, pulvinar dapibus leo.",
+      subTextColour: "rgb(255 255 255)",
+
       buttonLink: "/",
-      buttonText: "Kampanyaya Git",
+      buttonText: "Kampanyaya Git 1",
+      buttonColour: "rgb(255 255 255)",
+      buttonTextColour: "rgb(27 27 27)",
+
+      mainImage: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+
+      mainImageOpen: true,
+      MainTextOpen: true,
+      buttonOpen: true,
+      subTextOpen: true,
+      changePosition: false,
+      backgrounBlur: true,
+      bgImageOpen: true,
+      bgDarkness: true,
+
+      bgColor: "rgba(0,0,0,0.5)",
 
       // standart image size
-      image: "https://images3.alphacoders.com/131/1313899.jpeg",
+      bgImage: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
       // image size for mobile
-      imageMd: "https://images3.alphacoders.com/131/1313899.jpeg",
+      bgImageMd: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
       // image size for tablet
-      imageLg: "https://images3.alphacoders.com/131/1313899.jpeg",
+      bgImageLg: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
       // image size for desktop
-      imageXl: "https://images3.alphacoders.com/131/1313899.jpeg",
+      bgImageXl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
       // image size for large desktop
-      image2Xl: "https://images3.alphacoders.com/131/1313899.jpeg",
+      bgImage2Xl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
       // image size for FULL HD
-      image4Xl: "https://images3.alphacoders.com/131/1313899.jpeg",
+      bgImage4Xl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
       // image size for 2K
-      image6Xl: "https://images3.alphacoders.com/131/1313899.jpeg",
+      bgImage6Xl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
 
 
     },
     {
+      mainText:"Lorem  mattis, pulvinar dapibus leo.",
+      mainTextColour: "rgb(255 255 255)",
+      
+      subText:"Lorem  mattis, pulvinar dapibus leo.",
+      subTextColour: "rgb(255 255 255)",
+
       buttonLink: "/",
-      buttonText: "Kampanyaya Git",
+      buttonText: "Kampanyaya Git 1",
+      buttonColour: "rgb(255 255 255)",
+      buttonTextColour: "rgb(27 27 27)",
+
+      mainImage: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+
+      mainImageOpen: true,
+      MainTextOpen: true,
+      buttonOpen: true,
+      subTextOpen: true,
+      changePosition: false,
+      backgrounBlur: true,
+      bgImageOpen: true,
+      bgDarkness: true,
+
+      bgColor: "rgba(0,0,0,0.5)",
 
       // standart image size
-      image: "https://images3.alphacoders.com/131/1313899.jpeg",
+      bgImage: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
       // image size for mobile
-      imageMd: "https://images3.alphacoders.com/131/1313899.jpeg",
+      bgImageMd: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
       // image size for tablet
-      imageLg: "https://images3.alphacoders.com/131/1313899.jpeg",
+      bgImageLg: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
       // image size for desktop
-      imageXl: "https://images3.alphacoders.com/131/1313899.jpeg",
+      bgImageXl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
       // image size for large desktop
-      image2Xl: "https://images3.alphacoders.com/131/1313899.jpeg",
+      bgImage2Xl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
       // image size for FULL HD
-      image4Xl: "https://images3.alphacoders.com/131/1313899.jpeg",
+      bgImage4Xl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
       // image size for 2K
-      image6Xl: "https://images3.alphacoders.com/131/1313899.jpeg",
+      bgImage6Xl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
 
 
     },
     {
+      mainText:"ÇALIŞKAN ARI İLE DEV KAMPANYA!",
+      mainTextColour: "rgb(255 255 255)",
+      
+      subText:"Alacağınız tüm kitaplarda Aralık ayına özel %50 indirim.",
+      subTextColour: "rgb(255 255 255)",
+
       buttonLink: "/",
-      buttonText: "Kampanyaya Git",
+      buttonText: "Kampanyaya Git 1",
+      buttonColour: "rgb(255 255 255)",
+      buttonTextColour: "rgb(27 27 27)",
+
+      mainImage: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+
+      mainImageOpen: true,
+      MainTextOpen: true,
+      buttonOpen: true,
+      subTextOpen: true,
+      changePosition: false,
+      backgrounBlur: true,
+      bgImageOpen: true,
+      bgDarkness: true,
+
+      bgColor: "rgba(0,0,0,0.5)",
 
       // standart image size
-      image: "https://images3.alphacoders.com/131/1313899.jpeg",
+      bgImage: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
       // image size for mobile
-      imageMd: "https://images3.alphacoders.com/131/1313899.jpeg",
+      bgImageMd: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
       // image size for tablet
-      imageLg: "https://images3.alphacoders.com/131/1313899.jpeg",
+      bgImageLg: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
       // image size for desktop
-      imageXl: "https://images3.alphacoders.com/131/1313899.jpeg",
+      bgImageXl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
       // image size for large desktop
-      image2Xl: "https://images3.alphacoders.com/131/1313899.jpeg",
+      bgImage2Xl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
       // image size for FULL HD
-      image4Xl: "https://images3.alphacoders.com/131/1313899.jpeg",
+      bgImage4Xl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
       // image size for 2K
-      image6Xl: "https://images3.alphacoders.com/131/1313899.jpeg",
+      bgImage6Xl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
 
 
     },
@@ -104,12 +167,12 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
 
 
   // ekran genişliği tablet ve üstü ise sliderı çalıştır.
-  if((width > 640 || true) && sliderData) {
+  if((width >= 768 || true) && sliderData) {
     return (
       <>
         <Swiper
           slidesPerView={1}
-          spaceBetween={30}
+          spaceBetween={width >= 768 ? 30 : 5}
           loop={true}
           pagination={{
             clickable: true,
@@ -121,32 +184,71 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
             return (
 
               <SwiperSlide key={index}>
-                <div className="w-full block overflow-hidden max-h-[500px]">
+                <div className={`relative w-full`}>
+                  { 
+                    item.bgImageOpen &&<div className={`${item.backgrounBlur && width >= 768 && "blur scale-105 "}`}>
+                      <img src={
+                        // image size for 2K
+                        width > 2560 && item.bgImage6Xl ? item.bgImage6Xl :
+                        // image size for FULL HD
+                        width > 1920 && item.bgImage4Xl ? item.bgImage4Xl :
+                        // image size for large desktop
+                        width > 1536 && item.bgImage2Xl ? item.bgImage2Xl :
+                        // image size for desktop
+                        width > 1280 && item.bgImageXl ? item.bgImageXl :
+                        // image size for tablet
+                        width > 1024 && item.bgImageLg ? item.bgImageLg :
+                        // image size for mobile
+                        width > 768 && item.bgImageLg ? item.bgImageMd :
+                        // standart image size
+                        item.bgImage && item.bgImage
 
-                  <img src={
-                    // image size for 2K
-                    width > 2560 && item.image6Xl ? item.image6Xl :
-                    // image size for FULL HD
-                    width > 1920 && item.image4Xl ? item.image4Xl :
-                    // image size for large desktop
-                    width > 1536 && item.image2Xl ? item.image2Xl :
-                    // image size for desktop
-                    width > 1280 && item.imageXl ? item.imageXl :
-                    // image size for tablet
-                    width > 1024 && item.imageLg ? item.imageLg :
-                    // image size for mobile
-                    width > 768 && item.imageLg ? item.imageMd :
-                    // standart image size
-                    item.image && item.image
-
-                  } alt={item.title} className="w-full "/>
-
-
-                    <div className="slider-item-content absolute top-0 left-0">
-                      <Link href={item.buttonLink}>
-                        <button>{item.buttonText}</button>
-                      </Link>
+                    } alt={item.title} className={`w-full ${ width > 768 ? "absolute" : "block"}`}/>
+                    <div className={`
+                    ${item.bgDarkness && width > 768 && "w-full h-screen bg-black bg-opacity-40 absolute "}
+                    ${item.bgDarkness && width < 768 && "w-full bg-black bg-opacity-40 relative "}
+                    `}></div>
                     </div>
+                  }
+                  {width > 768 &&
+                    <div className={` relative w-full gap-4 p-6 px-8 flex flex-nowrap items-center h-[400px] 
+                    ${item.changePosition ? "flex-row-reverse" : "flex-row" /* eğer yön değişikliği varsa */}
+                    ${item.mainImage && item.mainImageOpen  ? "justify-around" : "justify-start"}
+                    `}>
+                      <div className={`${item.mainImage && item.mainImageOpen  ? "max-w-[50%]" : "max-w-[90%]"} px-6  flex flex-col gap-2 justify-center items-center`}>
+                        {
+                          item.mainText && item.MainTextOpen &&
+                          <div>
+                            <h4 style={{color:item.mainTextColour}} className={`text-sm md:text-lg lg:text-2xl font-semibold ${item.MainTextOpen && "block"}`}>{item.mainText}</h4>
+                          </div>
+                        }
+                        {
+                          item.subText && item.subTextOpen &&
+                          <div>
+                            <p style={{color:item.subTextColour}} className={`text-xs md:text-md lg:text-lg ${item.subTextOpen && "block"}`}>{item.subText}</p>
+                          </div>
+                        }
+                        {
+                          item.buttonOpen &&
+                          <div>
+                            <Link href={item.buttonLink}>
+                              <button style={{background:item.buttonColour, color:item.buttonTextColour}} className="p-2  rounded-2xl font-bold m-2 hover:rotate-6 transition-all">{item.buttonText}</button>
+                            </Link>
+                          </div>
+                        }
+                      </div>
+                      {item.mainImage && item.mainImageOpen &&
+                      <div className=" max-w-[50%]  p-4 my-2">
+                        <div>
+                          <img className=" h-full max-w-full max-h-[400px] hover:scale-105 transition-all" src={item.mainImage} alt="resim" />
+                        </div>
+                      </div>
+                      }
+
+                      
+                  </div>
+                  }
+                  
                 </div>
               </SwiperSlide>
             )
