@@ -240,7 +240,7 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
                       {item.mainImage && item.mainImageOpen &&
                       <div className=" max-w-[50%]  p-4 my-2">
                         <div>
-                          <img className=" h-full max-w-full max-h-[400px] hover:scale-105 transition-all" src={item.mainImage} alt="resim" />
+                          <img className=" h-full max-w-full max-h-[400px] lg:p-6 hover:scale-105 transition-all" src={item.mainImage} alt="resim" />
                         </div>
                       </div>
                       }
