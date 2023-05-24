@@ -4,14 +4,13 @@
 
 1- functions / other / Rate limit yapısında sayfalar ve api isteklerinin sürelerini iş bitiminde ekle
 
-2- functions / other / regularCheckSystemData içinde "dataUpdateChecker" config dosyasını çekeceğin verilere göre yenile
+2- functions / other / regularCheckSystemData -> içinde "dataUpdateChecker" config dosyasını çekeceğin verilere göre yenile
 
 3- "newSystemDataProcess" içerisinde "cookieTimeUpdate" fonksiyonu ile hangi aralıkta yenileme kontrol yapacağını belirleriz. süreyi oradan kontrol edebilirsin.
 
 4- heroku gibi bir apiye adres sistemini entegre etmen gerekiyor (adreslerdeki benzer isimlendirmeyi düzeltmen gerekiyor)
 
 5- register - login sayfalarındaki görseller değiştirilecek
-
 
 6- Slider için veri tabanına ekran ölçüsüne göre görseller eklenmelidir.
 aşağıda ekran ölçülerine göre minumum width (genişlik) ölçüleri verilmiştir.
@@ -24,6 +23,7 @@ size for tablet > 1024 (item.imageLg)
 size for mobile > 768 (item.imageMd)
 size for default <= 768 (item.image)
 
+7- bir yerdne resim çekileceği zaman -> "next.config.js" içerisindeki "images" objesindeki "domains" içerisine eklenmesi gerekiyor. <!-- domains: ['source.unsplash.com','images.unsplash.com'], -->
 
 NTOE:
 

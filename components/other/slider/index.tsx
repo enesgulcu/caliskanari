@@ -16,6 +16,8 @@ import { Pagination, Navigation } from "swiper";
 // targetDatabaseUrl -> verilerin çekileceği veri tabanı adresi
 const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
 
+  
+
   const [width, setWidth] = useState<any>();
   const [sliderData, setSliderData] = useState<any>([
     {
@@ -142,18 +144,25 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
       // image size for 2K
       bgImage6Xl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
 
-
     },
 
   ]);
+
 
   useEffect(() => {
       if(typeof window !== "undefined" && window.innerWidth){
           setWidth(window.innerWidth);
       }
 
+      
+
+      console.log(sliderData)
+
       datafetch();
   }, []);
+
+
+
 
 
   const datafetch = async () => {

@@ -10,8 +10,8 @@ const allDataConfig:DataConfig[] = [
     // isNewData: true ise veri yeni eklenmiş demektir. fonksiyon bunu kontrol eder ve yenileme işleminden sonra veri tabanına kaydeder.
     {
         name: "GeneralTopPageBanner",
-        updateTime: "GeneralTopPageBanner",
-        endTime: "GeneralTopPageBanner",
+        updateTime: Date.now().toString(),
+        endTime: (Date.now() + (1000 * 60 * 60 * 24)).toString(), // 1 gün
         isNewData: false,
     }
 
