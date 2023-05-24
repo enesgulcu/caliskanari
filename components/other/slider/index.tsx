@@ -154,10 +154,6 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
           setWidth(window.innerWidth);
       }
 
-      
-
-      console.log(sliderData)
-
       datafetch();
   }, []);
 
