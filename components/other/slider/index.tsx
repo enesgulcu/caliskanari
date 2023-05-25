@@ -30,7 +30,7 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
       buttonColour: "rgb(255 255 255)",
       buttonTextColour: "rgb(27 27 27)",
 
-      mainImage: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      mainImage: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
 
       mainImageOpen: true,
       MainTextOpen: true,
@@ -44,19 +44,19 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
       bgColor: "rgba(0,0,0,0.5)",
 
       // standart image size
-      bgImage: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      bgImage: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
       // image size for mobile
-      bgImageMd: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      bgImageMd: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
       // image size for tablet
-      bgImageLg: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      bgImageLg: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
       // image size for desktop
-      bgImageXl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      bgImageXl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
       // image size for large desktop
-      bgImage2Xl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      bgImage2Xl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
       // image size for FULL HD
-      bgImage4Xl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      bgImage4Xl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
       // image size for 2K
-      bgImage6Xl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      bgImage6Xl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
 
 
     },
@@ -72,7 +72,7 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
       buttonColour: "rgb(255 255 255)",
       buttonTextColour: "rgb(27 27 27)",
 
-      mainImage: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      mainImage: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
 
       mainImageOpen: true,
       MainTextOpen: true,
@@ -86,19 +86,19 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
       bgColor: "rgba(0,0,0,0.5)",
 
       // standart image size
-      bgImage: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      bgImage: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
       // image size for mobile
-      bgImageMd: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      bgImageMd: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
       // image size for tablet
-      bgImageLg: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      bgImageLg: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
       // image size for desktop
-      bgImageXl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      bgImageXl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
       // image size for large desktop
-      bgImage2Xl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      bgImage2Xl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
       // image size for FULL HD
-      bgImage4Xl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      bgImage4Xl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
       // image size for 2K
-      bgImage6Xl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      bgImage6Xl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
 
 
     },
@@ -114,7 +114,7 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
       buttonColour: "rgb(255 255 255)",
       buttonTextColour: "rgb(27 27 27)",
 
-      mainImage: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      mainImage: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
 
       mainImageOpen: true,
       MainTextOpen: true,
@@ -128,19 +128,19 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
       bgColor: "rgba(0,0,0,0.5)",
 
       // standart image size
-      bgImage: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      bgImage: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
       // image size for mobile
-      bgImageMd: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      bgImageMd: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
       // image size for tablet
-      bgImageLg: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      bgImageLg: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
       // image size for desktop
-      bgImageXl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      bgImageXl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
       // image size for large desktop
-      bgImage2Xl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      bgImage2Xl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
       // image size for FULL HD
-      bgImage4Xl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      bgImage4Xl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
       // image size for 2K
-      bgImage6Xl: "https://free4kwallpapers.com/uploads/originals/2020/05/20/field-grass-wallpaper.jpg",
+      bgImage6Xl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
 
     },
 
