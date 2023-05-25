@@ -151,7 +151,7 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
 
   useEffect(() => {
       if(typeof window !== "undefined" && window.innerWidth){
-          //setWidth(window.innerWidth);
+          setWidth(window.innerWidth);
       }
 
       datafetch();
@@ -172,12 +172,12 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
 
 
   // ekran genişliği tablet ve üstü ise sliderı çalıştır.
-  if((width && width >= 768 || true) && sliderData) {
+  if((width >= 768 || true) && sliderData) {
     return (
       <>
         <Swiper
           slidesPerView={1}
-          spaceBetween={width ? (width >= 768 ? 30 : 5) : 5}
+          spaceBetween={width >= 768 ? 30 : 5}
           loop={true}
           pagination={{
             clickable: true,
@@ -191,33 +191,32 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
               <SwiperSlide key={index}>
                 <div className={`relative w-full`}>
                   { 
-                    item.bgImageOpen && 
-                    <div className={`${item.backgrounBlur && width && width ? (width >= 768 && "blur scale-105 ") : "blur-0 lg:blur lg:scale-105"}`}>
+                    item.bgImageOpen &&<div className={`${item.backgrounBlur && width >= 768 && "blur scale-105 "}`}>
                       <img src={
                         // image size for 2K
-                        width && width > 2560 && item.bgImage6Xl ? item.bgImage6Xl :
+                        width > 2560 && item.bgImage6Xl ? item.bgImage6Xl :
                         // image size for FULL HD
-                        width && width > 1920 && item.bgImage4Xl ? item.bgImage4Xl :
+                        width > 1920 && item.bgImage4Xl ? item.bgImage4Xl :
                         // image size for large desktop
-                        width && width > 1536 && item.bgImage2Xl ? item.bgImage2Xl :
+                        width > 1536 && item.bgImage2Xl ? item.bgImage2Xl :
                         // image size for desktop
-                        width && width > 1280 && item.bgImageXl ? item.bgImageXl :
+                        width > 1280 && item.bgImageXl ? item.bgImageXl :
                         // image size for tablet
-                        width && width > 1024 && item.bgImageLg ? item.bgImageLg :
+                        width > 1024 && item.bgImageLg ? item.bgImageLg :
                         // image size for mobile
-                        width && width > 768 && item.bgImageLg ? item.bgImageMd :
+                        width > 768 && item.bgImageLg ? item.bgImageMd :
                         // standart image size
                         item.bgImage && item.bgImage
 
-                    } alt={item.title} className={`w-full ${ width ? (width > 768 ? "absolute" : "block") : " absolute"}`}/>
+                    } alt={item.title} className={`w-full ${ width > 768 ? "absolute" : "block"}`}/>
                     <div className={`
                     ${item.bgDarkness && width > 768 && "w-full h-screen bg-black bg-opacity-40 absolute "}
                     ${item.bgDarkness && width < 768 && "w-full bg-black bg-opacity-40 relative "}
                     `}></div>
                     </div>
                   }
-                  {(!width || width && width > 768) && 
-                    <div className={`hidden  relative w-full gap-4 p-6 px-8 lg:flex flex-nowrap items-center h-[400px] 
+                  {width > 768 &&
+                    <div className={` relative w-full gap-4 p-6 px-8 flex flex-nowrap items-center h-[400px] 
                     ${item.changePosition ? "flex-row-reverse" : "flex-row" /* eğer yön değişikliği varsa */}
                     ${item.mainImage && item.mainImageOpen  ? "justify-around" : "justify-start"}
                     `}>
