@@ -30,7 +30,7 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
       buttonColour: "rgb(255 255 255)",
       buttonTextColour: "rgb(27 27 27)",
 
-      mainImage: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      mainImage: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
 
       mainImageOpen: true,
       MainTextOpen: true,
@@ -44,19 +44,19 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
       bgColor: "rgba(0,0,0,0.5)",
 
       // standart image size
-      bgImage: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      bgImage: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
       // image size for mobile
-      bgImageMd: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      bgImageMd: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
       // image size for tablet
-      bgImageLg: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      bgImageLg: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
       // image size for desktop
-      bgImageXl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      bgImageXl: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
       // image size for large desktop
-      bgImage2Xl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      bgImage2Xl: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
       // image size for FULL HD
-      bgImage4Xl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      bgImage4Xl: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
       // image size for 2K
-      bgImage6Xl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      bgImage6Xl: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
 
 
     },
@@ -72,7 +72,7 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
       buttonColour: "rgb(255 255 255)",
       buttonTextColour: "rgb(27 27 27)",
 
-      mainImage: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      mainImage: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
 
       mainImageOpen: true,
       MainTextOpen: true,
@@ -86,19 +86,19 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
       bgColor: "rgba(0,0,0,0.5)",
 
       // standart image size
-      bgImage: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      bgImage: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
       // image size for mobile
-      bgImageMd: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      bgImageMd: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
       // image size for tablet
-      bgImageLg: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      bgImageLg: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
       // image size for desktop
-      bgImageXl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      bgImageXl: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
       // image size for large desktop
-      bgImage2Xl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      bgImage2Xl: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
       // image size for FULL HD
-      bgImage4Xl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      bgImage4Xl: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
       // image size for 2K
-      bgImage6Xl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      bgImage6Xl: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
 
 
     },
@@ -114,7 +114,7 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
       buttonColour: "rgb(255 255 255)",
       buttonTextColour: "rgb(27 27 27)",
 
-      mainImage: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      mainImage: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
 
       mainImageOpen: true,
       MainTextOpen: true,
@@ -128,19 +128,19 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
       bgColor: "rgba(0,0,0,0.5)",
 
       // standart image size
-      bgImage: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      bgImage: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
       // image size for mobile
-      bgImageMd: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      bgImageMd: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
       // image size for tablet
-      bgImageLg: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      bgImageLg: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
       // image size for desktop
-      bgImageXl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      bgImageXl: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
       // image size for large desktop
-      bgImage2Xl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      bgImage2Xl: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
       // image size for FULL HD
-      bgImage4Xl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      bgImage4Xl: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
       // image size for 2K
-      bgImage6Xl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
+      bgImage6Xl: "https://images.unsplash.com/photo-1554088559-b9c59b87915a?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80",
 
     },
 
