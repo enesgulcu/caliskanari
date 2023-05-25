@@ -187,20 +187,20 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
                 <div className={`relative w-full`}>
                   { 
                     item.bgImageOpen && 
-                    <div className={`${item.backgrounBlur && "blur-0 lg:blur lg:scale-105"}`}>
-                      <Image width={800} height={200} src={ item.bgImage6Xl} alt={item.title} className={`hidden 4xl:block w-full relative lg:absolute`}/>
-                      <Image width={800} height={200} src={ item.bgImage4Xl} alt={item.title} className={`hidden 2xl:block 4xl:hidden w-full relative lg:absolute`}/>
-                      <Image width={800} height={200} src={ item.bgImage2Xl} alt={item.title} className={`hidden xl:block  2xl:hidden w-full relative lg:absolute`}/>
-                      <Image width={800} height={200} src={ item.bgImageXl}  alt={item.title} className={`hidden lg:block  xl:hidden  w-full relative lg:absolute`}/>
-                      <Image width={800} height={200} src={ item.bgImageMd}  alt={item.title} className={`hidden md:block  lg:hidden  w-full relative md:absolute`}/>
-                      <Image width={800} height={200} src={ item.bgImage}    alt={item.title} className={`          block  md:hidden  w-full relative lg:absolute`}/>
+                    <div className={`${item.backgrounBlur && "blur-0 md:blur  w-screen"}`}>
+                      <Image width={700}  height={400} src={ item.bgImage6Xl} alt={item.title} className={`hidden 4xl:block w-full relative lg:absolute`}/>
+                      <Image width={700}  height={400} src={ item.bgImage4Xl} alt={item.title} className={`hidden 2xl:block 4xl:hidden w-full relative lg:absolute`}/>
+                      <Image width={700}  height={400} src={ item.bgImage2Xl} alt={item.title} className={`hidden xl:block  2xl:hidden w-full relative lg:absolute`}/>
+                      <Image width={700}  height={400} src={ item.bgImageXl}  alt={item.title} className={`hidden lg:block  xl:hidden  w-full relative lg:absolute`}/>
+                      <Image width={700}  height={400} src={ item.bgImageMd}  alt={item.title} className={`hidden md:block  lg:hidden  w-full relative md:absolute`}/>
+                      <Image width={700}  height={400} src={ item.bgImage}    alt={item.title} className={`block md:hidden  w-full relative  `}/>
                     <div className={`
-                    ${item.bgDarkness && "w-full lg:h-screen bg-black bg-opacity-40 relative lg:absolute "}
+                    ${item.bgDarkness && "w-full md:h-screen bg-black bg-opacity-40 relative md:absolute "}
                     `}></div>
                     </div>
                   }
                    
-                    <div className={`hidden lg:flex  relative w-full gap-4 p-6 px-8  flex-nowrap items-center h-[400px] 
+                    <div className={`hidden md:flex  relative w-full gap-4 p-6 px-8  flex-nowrap items-center h-[400px] 
                     ${item.changePosition ? "flex-row-reverse" : "flex-row" /* eğer yön değişikliği varsa */}
                     ${item.mainImage && item.mainImageOpen  ? "justify-around" : "justify-start"}
                     `}>
@@ -229,7 +229,7 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
                       {item.mainImage && item.mainImageOpen &&
                       <div className=" max-w-[50%]  p-4 my-2">
                         <div>
-                          <Image width={800} height={200} className=" h-full max-w-full max-h-[400px] lg:p-6 hover:scale-105 transition-all" src={item.mainImage} alt="resim" />
+                          <Image width={700} height={400} className=" h-full max-w-full max-h-[400px] md:p-6 hover:scale-105 transition-all" src={item.mainImage} alt="resim" />
                         </div>
                       </div>
                       }
