@@ -30,7 +30,7 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
       buttonColour: "rgb(255 255 255)",
       buttonTextColour: "rgb(27 27 27)",
 
-      mainImage: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      mainImage: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
 
       mainImageOpen: true,
       MainTextOpen: true,
@@ -44,19 +44,19 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
       bgColor: "rgba(0,0,0,0.5)",
 
       // standart image size
-      bgImage: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      bgImage: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
       // image size for mobile
-      bgImageMd: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      bgImageMd: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
       // image size for tablet
-      bgImageLg: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      bgImageLg: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
       // image size for desktop
-      bgImageXl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      bgImageXl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
       // image size for large desktop
-      bgImage2Xl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      bgImage2Xl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
       // image size for FULL HD
-      bgImage4Xl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      bgImage4Xl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
       // image size for 2K
-      bgImage6Xl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      bgImage6Xl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
 
 
     },
@@ -72,7 +72,7 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
       buttonColour: "rgb(255 255 255)",
       buttonTextColour: "rgb(27 27 27)",
 
-      mainImage: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      mainImage: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
 
       mainImageOpen: true,
       MainTextOpen: true,
@@ -86,19 +86,19 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
       bgColor: "rgba(0,0,0,0.5)",
 
       // standart image size
-      bgImage: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      bgImage: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
       // image size for mobile
-      bgImageMd: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      bgImageMd: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
       // image size for tablet
-      bgImageLg: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      bgImageLg: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
       // image size for desktop
-      bgImageXl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      bgImageXl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
       // image size for large desktop
-      bgImage2Xl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      bgImage2Xl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
       // image size for FULL HD
-      bgImage4Xl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      bgImage4Xl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
       // image size for 2K
-      bgImage6Xl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      bgImage6Xl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
 
 
     },
@@ -114,7 +114,7 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
       buttonColour: "rgb(255 255 255)",
       buttonTextColour: "rgb(27 27 27)",
 
-      mainImage: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      mainImage: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
 
       mainImageOpen: true,
       MainTextOpen: true,
@@ -128,19 +128,19 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
       bgColor: "rgba(0,0,0,0.5)",
 
       // standart image size
-      bgImage: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      bgImage: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
       // image size for mobile
-      bgImageMd: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      bgImageMd: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
       // image size for tablet
-      bgImageLg: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      bgImageLg: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
       // image size for desktop
-      bgImageXl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      bgImageXl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
       // image size for large desktop
-      bgImage2Xl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      bgImage2Xl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
       // image size for FULL HD
-      bgImage4Xl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      bgImage4Xl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
       // image size for 2K
-      bgImage6Xl: "https://tinypng.com/backend/opt/output/4gxeh1v10jyjjgbvshecm4y1r7z6yddx/field-grass-wallpaper.jpg",
+      bgImage6Xl: "https://ezgif.com/save/ezgif-3-81bd66d022.webp",
 
     },
 
