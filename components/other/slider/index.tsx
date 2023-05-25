@@ -6,7 +6,6 @@ import Link from 'next/link';
 import "swiper/css";
 import "swiper/css/pagination";
 import "swiper/css/navigation";
-import Image from "next/image";
 
 // import required modules
 import { Pagination, Navigation } from "swiper";
@@ -17,6 +16,9 @@ import { Pagination, Navigation } from "swiper";
 // targetDatabaseUrl -> verilerin çekileceği veri tabanı adresi
 const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
 
+  
+
+  const [width, setWidth] = useState<any>();
   const [sliderData, setSliderData] = useState<any>([
     {
       mainText:"Lorem  mattis, pulvinar dapibus leo.",
@@ -148,6 +150,9 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
 
 
   useEffect(() => {
+      if(typeof window !== "undefined" && window.innerWidth){
+          //setWidth(window.innerWidth);
+      }
 
       datafetch();
   }, []);
@@ -167,12 +172,12 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
 
 
   // ekran genişliği tablet ve üstü ise sliderı çalıştır.
-  if(sliderData) {
+  if((width && width >= 768 || true) && sliderData) {
     return (
       <>
         <Swiper
           slidesPerView={1}
-          spaceBetween={10}
+          spaceBetween={width ? (width >= 768 ? 30 : 5) : 5}
           loop={true}
           pagination={{
             clickable: true,
@@ -187,20 +192,32 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
                 <div className={`relative w-full`}>
                   { 
                     item.bgImageOpen && 
-                    <div className={`${item.backgrounBlur && "blur-0 lg:blur lg:scale-105"}`}>
-                      <Image width={800} height={200} src={ item.bgImage6Xl} alt={item.title} className={`hidden 4xl:block w-full relative lg:absolute`}/>
-                      <Image width={800} height={200} src={ item.bgImage4Xl} alt={item.title} className={`hidden 2xl:block 4xl:hidden w-full relative lg:absolute`}/>
-                      <Image width={800} height={200} src={ item.bgImage2Xl} alt={item.title} className={`hidden xl:block  2xl:hidden w-full relative lg:absolute`}/>
-                      <Image width={800} height={200} src={ item.bgImageXl}  alt={item.title} className={`hidden lg:block  xl:hidden  w-full relative lg:absolute`}/>
-                      <Image width={800} height={200} src={ item.bgImageMd}  alt={item.title} className={`hidden md:block  lg:hidden  w-full relative md:absolute`}/>
-                      <Image width={800} height={200} src={ item.bgImage}    alt={item.title} className={`          block  md:hidden  w-full relative lg:absolute`}/>
+                    <div className={`${item.backgrounBlur && width && width ? (width >= 768 && "blur scale-105 ") : "blur-0 lg:blur lg:scale-105"}`}>
+                      <img src={
+                        // image size for 2K
+                        width && width > 2560 && item.bgImage6Xl ? item.bgImage6Xl :
+                        // image size for FULL HD
+                        width && width > 1920 && item.bgImage4Xl ? item.bgImage4Xl :
+                        // image size for large desktop
+                        width && width > 1536 && item.bgImage2Xl ? item.bgImage2Xl :
+                        // image size for desktop
+                        width && width > 1280 && item.bgImageXl ? item.bgImageXl :
+                        // image size for tablet
+                        width && width > 1024 && item.bgImageLg ? item.bgImageLg :
+                        // image size for mobile
+                        width && width > 768 && item.bgImageLg ? item.bgImageMd :
+                        // standart image size
+                        item.bgImage && item.bgImage
+
+                    } alt={item.title} className={`w-full ${ width ? (width > 768 ? "absolute" : "block") : " absolute"}`}/>
                     <div className={`
-                    ${item.bgDarkness && "w-full lg:h-screen bg-black bg-opacity-40 relative lg:absolute "}
+                    ${item.bgDarkness && width > 768 && "w-full h-screen bg-black bg-opacity-40 absolute "}
+                    ${item.bgDarkness && width < 768 && "w-full bg-black bg-opacity-40 relative "}
                     `}></div>
                     </div>
                   }
-                   
-                    <div className={`hidden lg:flex  relative w-full gap-4 p-6 px-8  flex-nowrap items-center h-[400px] 
+                  {(!width || width && width > 768) && 
+                    <div className={`hidden  relative w-full gap-4 p-6 px-8 lg:flex flex-nowrap items-center h-[400px] 
                     ${item.changePosition ? "flex-row-reverse" : "flex-row" /* eğer yön değişikliği varsa */}
                     ${item.mainImage && item.mainImageOpen  ? "justify-around" : "justify-start"}
                     `}>
@@ -229,14 +246,14 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
                       {item.mainImage && item.mainImageOpen &&
                       <div className=" max-w-[50%]  p-4 my-2">
                         <div>
-                          <Image width={800} height={200} className=" h-full max-w-full max-h-[400px] lg:p-6 hover:scale-105 transition-all" src={item.mainImage} alt="resim" />
+                          <img className=" h-full max-w-full max-h-[400px] lg:p-6 hover:scale-105 transition-all" src={item.mainImage} alt="resim" />
                         </div>
                       </div>
                       }
 
                       
                   </div>
-                  
+                  }
                   
                 </div>
               </SwiperSlide>
