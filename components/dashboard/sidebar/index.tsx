@@ -9,6 +9,7 @@ import Image from 'next/image'
 // ##################################################################
 //  KULLANILACAK OLAN PANELLERİN İMPORTLARI AŞAĞIDA YAPILMIŞTIR. ####
 import GeneralTopPageBanner from '@/components/dashboard/panels/admin/generalTopPageBanner';
+import Slider from '@/components/dashboard/panels/admin/slider';
 
 // ##################################################################
 
@@ -85,6 +86,10 @@ const Sidebar:React.FC<Props> = ({setContentData, contentData}) => {
               
               <div onClick={()=>handeButtonClick("Genel Duyuru", <GeneralTopPageBanner/>)}>
                 <Button text={"Genel Duyuru"} contentData={contentData}/>
+              </div>
+
+              <div onClick={()=>handeButtonClick("Slider Banner", <Slider/>)}>
+                <Button text={"Slider Banner"} contentData={contentData}/>
               </div>
               
             </Button>

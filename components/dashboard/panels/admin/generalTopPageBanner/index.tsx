@@ -3,19 +3,17 @@ import GeneralTopPageBannerComponent from "@/components/other/generalTopPageBann
 import { ToastContainer, toast } from 'react-toastify';
 import React, { useState, useEffect } from "react";
 import HashLoader from "react-spinners/HashLoader";
-import {postAPI} from '@/services/fetchAPI/index';
+import {postAPI, getAPI} from '@/services/fetchAPI/index';
 import { HexColorPicker } from "react-colorful";
 import { useSession } from 'next-auth/react';
 import ValidationSchema from './formikData';
-import {getAPI} from "@/services/fetchAPI";
 import {notFound} from 'next/navigation';
 import { Formik, Form } from "formik";
-import { useSelector, useDispatch } from 'react-redux';
-import store from '@/redux/stores'
+
 
 const GeneralTopPageBanner: React.FC = () => {
 
-  const studentData = store.getState().student;
+
 
 //###################################################################
 // sayfa rol kontrolü - erişim olmaz ise notfound'a yönlendirir. ####
@@ -230,7 +228,7 @@ const GeneralTopPageBanner: React.FC = () => {
           <div className="my-2 p-2 w-full">
           {GeneralTopPageBannerComponent && <GeneralTopPageBannerComponent allDataPanel={allDataPanel} isDashboard = {true}/>}
           </div>
-          </div>
+              </div>
                 
                 
                 <div className="flex flex-col w-full mx-auto min-h-screen">
@@ -243,7 +241,7 @@ const GeneralTopPageBanner: React.FC = () => {
                   </div>
                   <div className='grid grid-cols-1 lg:grid-cols-2 gap-4'>
                     
-                    <div className=''>
+                    <div>
                       <div className="w-full flex flex-wrap md:flex-nowrap 2xl:flex-nowrap flex-col sm:flex-row justify-between items-center gap-x-4">
                         {/* BANNER START TIME */}
                         <div className=" shadow w-full p-2 rounded-xl bg-white flex flex-col justify-center items-center mt-6 sm:mt-6">
