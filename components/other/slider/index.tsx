@@ -46,14 +46,14 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
       buttonTextColour: "rgb(27 27 27)",
       bgColor: "linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(9,9,121,1) 35%, rgba(0,212,255,1) 100%)",
 
-      mainImageOpen: true,
-      MainTextOpen: true,
-      buttonOpen: true,
-      subTextOpen: true,
+      mainImageOpen: false,
+      MainTextOpen: false,
+      buttonOpen: false,
+      subTextOpen: false,
       changePosition: false,
-      backgrounBlur: true,
+      backgrounBlur: false,
       bgImageOpen: true,
-      bgDarkness: true,
+      bgDarkness: false,
 
       bgDarknessValue: "0.2",
 
@@ -91,7 +91,7 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
       buttonOpen: true,
       subTextOpen: true,
       changePosition: false,
-      backgrounBlur: true,
+      backgrounBlur: false,
       bgImageOpen: true,
       bgDarkness: true,
 
@@ -214,7 +214,7 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
             clickable: true,
           }}
           autoplay={{
-            delay: 4000,
+            delay: 400000,
             disableOnInteraction: false,
           }}
           navigation={true}
@@ -228,12 +228,12 @@ const Slider =  ({targetDatabaseUrl}:{targetDatabaseUrl:string}) => {
                   { 
                     item.bgImageOpen ? 
                     <div className={`${item.backgrounBlur && "blur-0 md:blur  w-screen relative"}`}>
-                      <Image width={700}  height={400} src={ item.bgImage6Xl} alt={item.title ? item.title : "bgImage1"} className={`hidden 4xl:block w-full relative lg:absolute`}/>
-                      <Image width={700}  height={400} src={ item.bgImage4Xl} alt={item.title ? item.title : "bgImage1"} className={`hidden 2xl:block 4xl:hidden w-full relative lg:absolute`}/>
-                      <Image width={700}  height={400} src={ item.bgImage2Xl} alt={item.title ? item.title : "bgImage1"} className={`hidden xl:block  2xl:hidden w-full relative lg:absolute`}/>
-                      <Image width={700}  height={400} src={ item.bgImageXl}  alt={item.title ? item.title : "bgImage1"} className={`hidden lg:block  xl:hidden  w-full relative lg:absolute`}/>
-                      <Image width={700}  height={400} src={ item.bgImageMd}  alt={item.title ? item.title : "bgImage1"} className={`hidden md:block  lg:hidden  w-full relative md:absolute`}/>
-                      <Image width={700}  height={400} src={ item.bgImage}    alt={item.title ? item.title : "bgImage1"} className={`          block  md:hidden  w-full relative            `}/>
+                      <Image width={700}  height={400} src={ item.bgImage6Xl} alt={item.title ? item.title : "bgImage1"} className={`hidden 4xl:block w-full relative lg:absolute ${!item.backgrounBlur && "max-h-full"}`}/>
+                      <Image width={700}  height={400} src={ item.bgImage4Xl} alt={item.title ? item.title : "bgImage1"} className={`hidden 2xl:block 4xl:hidden w-full relative lg:absolute ${!item.backgrounBlur && "max-h-full"}`}/>
+                      <Image width={700}  height={400} src={ item.bgImage2Xl} alt={item.title ? item.title : "bgImage1"} className={`hidden xl:block  2xl:hidden w-full relative lg:absolute ${!item.backgrounBlur && "max-h-full"}`}/>
+                      <Image width={700}  height={400} src={ item.bgImageXl}  alt={item.title ? item.title : "bgImage1"} className={`hidden lg:block  xl:hidden  w-full relative lg:absolute ${!item.backgrounBlur && "max-h-full"}`}/>
+                      <Image width={700}  height={400} src={ item.bgImageMd}  alt={item.title ? item.title : "bgImage1"} className={`hidden md:block  lg:hidden  w-full relative md:absolute ${!item.backgrounBlur && "max-h-full"}`}/>
+                      <Image width={700}  height={400} src={ item.bgImage}    alt={item.title ? item.title : "bgImage1"} className={`          block  md:hidden  w-full relative             ${!item.backgrounBlur && "max-h-full"}`}/>
                     <div
                     style={item.bgDarknessValue ? {opacity:item.bgDarknessValue} : {opacity:0.3}}
                      className={`
