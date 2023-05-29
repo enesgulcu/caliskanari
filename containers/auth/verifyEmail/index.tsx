@@ -3,7 +3,7 @@ export const dynamic = 'force-dynamic'
 import React from 'react'
 import VerifyEmailComponents from '@/components/auth/verifyEmail';
 import { postAPI } from '@/services/fetchAPI'
-import Notification from '@/components/notification';
+import Notification from '@/components/other/notification';
 
 interface Props {
   searchParams: {

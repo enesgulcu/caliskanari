@@ -2,14 +2,14 @@
 import Link from 'next/link'
 import {useState, useEffect} from 'react'
 import { BsXCircleFill } from "react-icons/bs";
-import LoadingScreen from '@/components/loading';
+import LoadingScreen from '@/components/other/loading';
 
 
 interface Props {
-  Title: string;
-  subTitle: string;
-  buttonUrl: string;
-  buttonText: string;
+  Title?: string;
+  subTitle?: string;
+  buttonUrl?: string;
+  buttonText?: string;
   isVisible?: boolean;
 
   children?: React.ReactNode;
@@ -42,19 +42,28 @@ interface Props {
                       />
                     </span>
 
-                    <h2 className='text-gray-800 text-2xl font-semibold mb-2 text-center'>{Title}</h2>
-                    <h4 className='text-gray-700 mb-4 text-center'>{subTitle}</h4>
-                    <div className={`text-center h-full w-full mb-2 ${!children && "hidden"}`}>
+                    { Title &&
+                      <h2 className='text-gray-800 text-2xl font-semibold mb-2 text-center'>{Title}</h2>
+                    }
+                    {
+                      subTitle &&
+                      <h4 className='text-gray-700 mb-4 text-center'>{subTitle}</h4>
+                    }
+                    <div className={`text-center h-full w-full mb-2 ${!children && "block"}`}>
                     {children}
                     </div>
 
-                    <Link href={buttonUrl}>
-                      <button className='bg-blue-600 py-2 px-4 rounded text-white text-2xl mt-2 hover:scale-110 transition-all'
-                        onClick={() => setIsloading(true)}
-                      >
-                        {buttonText}
-                      </button>
-                    </Link>
+                    { buttonUrl && buttonText &&
+                      <div>
+                      <Link href={buttonUrl}>
+                        <button className='bg-blue-600 py-2 px-4 rounded text-white text-2xl mt-2 hover:scale-110 transition-all'
+                          onClick={() => setIsloading(true)}
+                        >
+                          {buttonText}
+                        </button>
+                      </Link>
+                    </div>
+                    }
                     </div>
 
                   </div>

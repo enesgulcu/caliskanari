@@ -5,7 +5,7 @@ import { Formik, Form } from "formik";
 import styles from "./styles.module.css";
 import { useRouter } from 'next/navigation';
 import PopupScreen from "@/components/other/popup";
-import LoadingScreen from '@/components/loading';
+import LoadingScreen from '@/components/other/loading';
 import adminValidationSchema from "./formikData";
 import { ToastContainer, toast } from "react-toastify";
 

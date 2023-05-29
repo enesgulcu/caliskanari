@@ -1,6 +1,6 @@
 "use client"
 import { useRouter } from 'next/navigation';
-import LoadingScreen from '@/components/loading';
+import LoadingScreen from '@/components/other/loading';
 import { useState , useEffect, useCallback} from "react";
 import { useSearchParams, usePathname } from 'next/navigation';
 import {MdDone, MdWarningAmber, MdCircleNotifications, MdOutlineErrorOutline } from "react-icons/md";

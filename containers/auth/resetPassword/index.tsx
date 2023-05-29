@@ -2,7 +2,7 @@ import React from 'react';
 import ResetPasswordComponent from '@/components/auth/resetPassword';
 import ResetPassword from 'functions/auth/resetPassword';
 import {notFound} from 'next/navigation';
-import Notification from '@/components/notification';
+import Notification from '@/components/other/notification';
 
 interface Props {
   searchParams:{

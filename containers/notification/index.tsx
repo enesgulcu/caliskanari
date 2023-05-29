@@ -1,4 +1,4 @@
-import NotificationComponent from '@/components/notification'
+import NotificationComponent from '@/components/other/notification'
 
  const NotificationContainer:React.FC = () => {
   return (

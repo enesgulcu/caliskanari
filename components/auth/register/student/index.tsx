@@ -7,7 +7,7 @@ import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { Transition } from '@headlessui/react';
 import Stepper from "@/components/other/Stepper";
-import LoadingScreen from '@/components/loading';
+import LoadingScreen from '@/components/other/loading';
 import {postAPI} from '@/services/fetchAPI/index';
 import studentValidationSchema from './formikData';
 import { Formik, Form, FormikProps } from 'formik';
