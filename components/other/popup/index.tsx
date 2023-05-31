@@ -1,25 +1,28 @@
 "use client"
 import Link from 'next/link'
-import {useState, useEffect} from 'react'
+import {useState} from 'react'
 import { BsXCircleFill } from "react-icons/bs";
 import LoadingScreen from '@/components/other/loading';
 
 
 interface Props {
-  Title?: string;
-  subTitle?: string;
-  buttonUrl?: string;
-  buttonText?: string;
-
-  setPopupData?: React.Dispatch<React.SetStateAction<any>>;
-  popupData?: any;
+  setPopupData: React.Dispatch<React.SetStateAction<any>>;
+  popupData: {
+    popupIsActive: boolean;
+    Title?: string;
+    subTitle?: string;
+    buttonUrl?: string;
+    buttonText?: string;
+  }
 
   children?: React.ReactNode;
 }
 
  const PopupScreen:React.FC<Props> = ({children, popupData, setPopupData}) => {
 
-  if(popupData){
+  if(!popupData) return null;
+
+  popupData
     const {
       Title, 
       subTitle,
@@ -75,12 +78,5 @@ interface Props {
       </>
     )
   }
-  else{
-    return (
-      <>
-      </>
-    )
-  }
-}
 
 export default PopupScreen
