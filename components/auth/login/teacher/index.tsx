@@ -36,11 +36,8 @@ const TeacherLoginComponent:React.FC <Props> = ({pageRole}) => {
   return (
     <>
       <PopupScreen
-          isVisible={popupData.popupIsActive}
-          Title={popupData.Title}
-          subTitle={popupData.subTitle}
-          buttonUrl={popupData.buttonUrl}
-          buttonText={popupData.buttonText}
+          setPopupData={setPopupData}
+          popupData = {popupData}
       >
       </PopupScreen>
 

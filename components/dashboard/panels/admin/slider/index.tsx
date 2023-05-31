@@ -153,9 +153,13 @@ const Slider:React.FC = () => {
                             {/* buranın altında inputlar olacak */}
                             <div className='grid grid-cols-1 lg:grid-cols-2 gap-2'>
 
+                                {/* Slider İçerik Bölümü */}
                                 <div className="flex flex-col flex-nowrap gap-8 shadow p-2 rounded-xl bg-white mt-6 sm:mt-6 min-w-[200px] overflow-hidden">
                                     
 
+                                    <div className='w-full flex justify-center items-center bg-gray-100 rounded-lg p-2'>
+                                        <h2 className='text-md lg:text-xl text-secondary'>Slider İçerik Bölümü</h2>
+                                    </div>
                                     
                                     {/* MAIN TEXT  START*/}
                                     <div className='flex justify-center items-end content-center gap-4'>
@@ -340,12 +344,16 @@ const Slider:React.FC = () => {
                                         />
                                     </div>
                                     {/* BUTTON LINK  END*/}
-                                    
-
-
+                                </div>
+                                <div className="flex flex-col flex-nowrap gap-8 shadow p-2 rounded-xl bg-white mt-6 sm:mt-6 min-w-[200px] overflow-hidden">
+                                    <div className='w-full flex justify-center items-center bg-gray-100 rounded-lg p-2'>
+                                        <h2 className='text-md lg:text-xl text-secondary'>Slider İçerik Bölümü</h2>
+                                    </div> 
+   
                                 </div>
                             </div>
                         </div>
+                        
 
                     </Form>
                 )}
