@@ -53,6 +53,39 @@ const Slider:React.FC = () => {
     const [isActiveSubText, setIsActiveSubText] = useState<boolean>();
     const [isActiveButtonText, setIsActiveButtonText] = useState<boolean>();
 
+    const [bgImage, setBgImage] = useState<string>("");
+    const [bgImageMd, setBgImageMd] = useState<string>("");
+    const [bgImageLg, setBgImageLg] = useState<string>("");
+    const [bgImageXl, setBgImageXl] = useState<string>("");
+    const [bgImage2Xl, setBgImage2Xl] = useState<string>("");
+    const [bgImage4Xl, setBgImage4Xl] = useState<string>("");
+    const [bgImage6Xl, setBgImage6Xl] = useState<string>("");
+    const [mainImage, setMainImage] = useState<string>("");
+
+    const [subTextColour, setSubTextColour] = useState<string>("#000000");
+    const [mainTextColour, setMainTextColour] = useState<string>("#000000");
+    const [buttonColour, setButtonColour] = useState<string>("#000000");
+    const [buttonTextColour, setButtonTextColour] = useState<string>("#000000");
+    const [bgColor, setBgColor] = useState<string>("#000000");
+
+    const [mainImageOpen, setMainImageOpen] = useState<boolean>(false);
+    const [MainTextOpen, setMainTextOpen] = useState<boolean>(false);
+    const [buttonOpen, setButtonOpen] = useState<boolean>(false);
+    const [subTextOpen, setSubTextOpen] = useState<boolean>(false);
+    const [changePosition, setChangePosition] = useState<boolean>(false);
+    const [backgrounBlur, setBackgrounBlur] = useState<boolean>(false);
+    const [bgImageOpen, setBgImageOpen] = useState<boolean>(false);
+    const [bgDarkness, setBgDarkness] = useState<boolean>(false);
+
+    const [bgDarknessValue, setBgDarknessValue] = useState<string>("0.0");
+
+    const [isLoading, setIsloading] = useState<boolean>(false);
+
+    const [sliderData, setSliderData] = useState<any>();
+
+    const [isEdit, setIsEdit] = useState<boolean>(false);
+
+
 //###################################################################
 // sayfa rol kontrolü - erişim olmaz ise notfound'a yönlendirir. ####
 
@@ -345,10 +378,233 @@ const Slider:React.FC = () => {
                                     </div>
                                     {/* BUTTON LINK  END*/}
                                 </div>
-                                <div className="flex flex-col flex-nowrap gap-8 shadow p-2 rounded-xl bg-white mt-6 sm:mt-6 min-w-[200px] overflow-hidden">
+
+                                {/* Resim Yükleme Bölümü */}
+                                <div className="flex flex-col flex-nowrap gap-2 shadow p-2 rounded-xl bg-white mt-6 sm:mt-6 min-w-[200px] overflow-hidden">
                                     <div className='w-full flex justify-center items-center bg-gray-100 rounded-lg p-2'>
-                                        <h2 className='text-md lg:text-xl text-secondary'>Slider İçerik Bölümü</h2>
+                                        <h2 className='text-md lg:text-xl text-secondary'>Resim Yükleme Bölümü</h2>
                                     </div> 
+
+                                    {/* BgImage Link */}
+                                    <div className='w-full'>
+                                            <label htmlFor="bgImage" className="pl-2  text-xl block">
+                                                Standart Resim <p className='text-sm inline-block text-red-600'>{` ( 0px - 768px)`} </p>
+                                            </label>
+                                            <div className='flex flex-row justify-center items-center gap-2'>
+                                                <input
+                                                id="bgImage"
+                                                name="bgImage"
+                                                autoComplete="off"
+                                                type="text"
+                                                value=""
+                                                onChange={(e)=>{
+                                                    props.handleChange({
+                                                        target: {
+                                                            name: "bgImage",
+                                                            value: e.target.value,
+                                                        },
+                                                    });
+                                                    setBgImage(e.target.value);
+                                                }}
+                                                placeholder="Standart resim linkini giriniz."
+                                                className="min-w-[200px] shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                                />
+                                                <div>
+                                                    <button className='min-w-[120px] p-2 rounded-xl  bg-secondary text-white hover:bg-primary hover:text-white hover:border-primary inline'>Resim Yükle</button>
+                                                </div>
+                                            </div>
+                                    </div>
+                                    
+
+                                    {/* BgImageMd Link */}
+                                    <div className='w-full'>
+                                            <label htmlFor="bgImageMd" className="pl-2  text-xl block">
+                                                M Resim <p className='text-sm inline-block text-red-600'>{` ( 768px - 1024px)`} </p>
+                                            </label>
+                                            <div className='flex flex-row justify-center items-center gap-2'>
+                                                <input
+                                                id="bgImageMd"
+                                                name="bgImageMd"
+                                                autoComplete="off"
+                                                type="text"
+                                                value=""
+                                                onChange={(e)=>{
+                                                    props.handleChange({
+                                                        target: {
+                                                            name: "bgImageMd",
+                                                            value: e.target.value,
+                                                        },
+                                                    });
+                                                    setBgImageMd(e.target.value);
+                                                }}
+                                                placeholder="M boyutundaki resim linkini giriniz."
+                                                className="min-w-[200px] shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                                />
+                                                
+                                                <div>
+                                                    <button className='min-w-[120px] p-2 rounded-xl  bg-secondary text-white hover:bg-primary hover:text-white hover:border-primary inline'>Resim Yükle</button>
+                                                </div>
+                                            </div>
+                                    </div>
+
+                                    {/* BgImageLg Link */}
+                                    <div className='w-full'>
+                                            <label htmlFor="bgImageLg" className="pl-2  text-xl block">
+                                                L Resim <p className='text-sm inline-block text-red-600'>{` ( 1024px - 1280px)`} </p>
+                                            </label>
+                                            <div className='flex flex-row justify-center items-center gap-2'>
+                                                <input
+                                                id="bgImageLg"
+                                                name="bgImageLg"
+                                                autoComplete="off"
+                                                type="text"
+                                                value=""
+                                                onChange={(e)=>{
+                                                    props.handleChange({
+                                                        target: {
+                                                            name: "bgImageLg",
+                                                            value: e.target.value,
+                                                        },
+                                                    });
+                                                    setBgImageLg(e.target.value);
+                                                }}
+                                                placeholder="L boyutundaki resim linkini giriniz."
+                                                className="min-w-[200px] shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                                />
+                                                <div>
+                                                    <button className='min-w-[120px] p-2 rounded-xl  bg-secondary text-white hover:bg-primary hover:text-white hover:border-primary inline'>Resim Yükle</button>
+                                                </div>
+                                            </div>
+                                    </div>
+
+                                    {/* BgImageXl Link */}
+                                    <div className='w-full'>
+                                            <label htmlFor="bgImageXl" className="pl-2  text-xl block">
+                                                XL Resim <p className='text-sm inline-block text-red-600'>{` ( 1280px - 1536px)`} </p>
+                                            </label>
+                                            <div className='flex flex-row justify-center items-center gap-2'>
+                                                <input
+                                                id="bgImageXl"
+                                                name="bgImageXl"
+                                                autoComplete="off"
+                                                type="text"
+                                                value=""
+                                                onChange={(e)=>{
+                                                    props.handleChange({
+                                                        target: {
+                                                            name: "bgImageXl",
+                                                            value: e.target.value,
+                                                        },
+                                                    });
+                                                    setBgImageXl(e.target.value);
+                                                }}
+                                                placeholder="XL boyutundaki resim linkini giriniz."
+                                                className="min-w-[200px] shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                                />
+                                                <div>
+                                                    <button className='min-w-[120px] p-2 rounded-xl  bg-secondary text-white hover:bg-primary hover:text-white hover:border-primary inline'>Resim Yükle</button>
+                                                </div>
+                                            </div>
+                                    </div>
+
+                                    {/* BgImage2Xl Link */}
+                                    <div className='w-full'>
+                                            <label htmlFor="bgImage2Xl" className="pl-2  text-xl block">
+                                                2XL Resim <p className='text-sm inline-block text-red-600'>{` ( 1536px - 1920px)`} </p>
+                                            </label>
+                                            <div className='flex flex-row justify-center items-center gap-2'>
+                                                <input
+                                                id="bgImage2Xl"
+                                                name="bgImage2Xl"
+                                                autoComplete="off"
+                                                type="text"
+                                                value=""
+                                                onChange={(e)=>{
+                                                    props.handleChange({
+                                                        target: {
+                                                            name: "bgImage2Xl",
+                                                            value: e.target.value,
+                                                        },
+                                                    });
+                                                    setBgImage2Xl(e.target.value);
+                                                }}
+                                                placeholder="2XL boyutundaki resim linkini giriniz."
+                                                className="min-w-[200px] shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                                />
+                                                <div>
+                                                    <button className='min-w-[120px] p-2 rounded-xl  bg-secondary text-white hover:bg-primary hover:text-white hover:border-primary inline'>Resim Yükle</button>
+                                                </div>
+                                            </div>
+                                    </div>
+
+                                    {/* BgImage4Xl Link */}
+                                    <div className='w-full'>
+                                            <label htmlFor="bgImage4Xl" className="pl-2  text-xl block">
+                                                4XL Resim <p className='text-sm inline-block text-red-600'>{` ( 1920px - 2560px)`} </p>
+                                            </label>
+                                            <div className='flex flex-row justify-center items-center gap-2'>
+                                                <input
+                                                id="bgImage4Xl"
+                                                name="bgImage4Xl"
+                                                autoComplete="off"
+                                                type="text"
+                                                value=""
+                                                onChange={(e)=>{
+                                                    props.handleChange({
+                                                        target: {
+                                                            name: "bgImage4Xl",
+                                                            value: e.target.value,
+                                                        },
+                                                    });
+                                                    setBgImage4Xl(e.target.value);
+                                                }}
+                                                placeholder="4XL boyutundaki resim linkini giriniz."
+                                                className="min-w-[200px] shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                                />
+                                                <div>
+                                                    <button className='min-w-[120px] p-2 rounded-xl  bg-secondary text-white hover:bg-primary hover:text-white hover:border-primary inline'>Resim Yükle</button>
+                                                </div>
+                                            </div>
+                                    </div>
+
+                                    {/* BgImage6Xl Link */}
+                                    <div className='w-full'>
+                                            <label htmlFor="bgImage6Xl" className="pl-2  text-xl block">
+                                                4XL Resim <p className='text-sm inline-block text-red-600'>{` ( 2560px ve üstü)`} </p>
+                                            </label>
+                                            <div className='flex flex-row justify-center items-center gap-2'>
+                                                <input
+                                                id="bgImage6Xl"
+                                                name="bgImage6Xl"
+                                                autoComplete="off"
+                                                type="text"
+                                                value=""
+                                                onChange={(e)=>{
+                                                    props.handleChange({
+                                                        target: {
+                                                            name: "bgImage6Xl",
+                                                            value: e.target.value,
+                                                        },
+                                                    });
+                                                    setBgImage6Xl(e.target.value);
+                                                }}
+                                                placeholder="6XL boyutundaki resim linkini giriniz."
+                                                className="min-w-[200px] shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                                />
+                                                <div>
+                                                    <button className='min-w-[120px] p-2 rounded-xl  bg-secondary text-white hover:bg-primary hover:text-white hover:border-primary inline'>Resim Yükle</button>
+                                                </div>
+                                            </div>
+                                    </div>
+
+
+
+
+
+
+
+
+                                    
    
                                 </div>
                             </div>
