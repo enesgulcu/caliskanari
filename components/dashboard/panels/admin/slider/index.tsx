@@ -183,7 +183,7 @@ const Slider:React.FC = () => {
                             <div className='grid grid-cols-1 lg:grid-cols-2 gap-2'>
 
                                 {/* Slider İçerik Bölümü */}
-                                <div className="flex flex-col flex-nowrap gap-8 shadow p-2 rounded-xl bg-white mt-6 sm:mt-6 min-w-[200px] overflow-hidden">
+                                <div className="flex flex-col flex-nowrap gap-4 shadow p-2 rounded-xl bg-white mt-6 sm:mt-6 min-w-[200px] overflow-hidden">
                                     
 
                                     <div className='w-full flex justify-center items-center bg-gray-100 rounded-lg p-2'>
@@ -191,28 +191,7 @@ const Slider:React.FC = () => {
                                     </div>
                                     
                                     {/* MAIN TEXT  START*/}
-                                    <div className='flex justify-center items-end content-center gap-4'>
-                                        
-                                        {/* SWITCH BUTTON */}
-                                        <div onClick={() => setMainTextOpen(!MainTextOpen)} className={`relative hover:cursor-pointer p-2 border-gray-500   shadow rounded-xl pl-4 ${MainTextOpen ? "bg-blue-400" : "bg-red-400"}`}>
-                                            <input
-                                                className="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-white before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-200 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]"
-                                                type="checkbox"
-                                                name="MainTextOpen"
-                                                checked={MainTextOpen ? MainTextOpen : false}
-                                                onChange={(e)=>{
-                                                    props.handleChange({
-                                                        target: {
-                                                        name: "MainTextOpen",
-                                                        value: e.target.checked,
-                                                        },
-                                                    });
-                                                    setMainTextOpen(e.target.checked);
-                                                    }                                                
-                                                }
-                                            />
-                                        </div>
-                                        <div className='w-full'>
+                                    <div className='w-full'>
                                             <label htmlFor="mainText" className="pl-2 block text-xl ">
                                                 Ana Başlık
                                             </label>
@@ -235,35 +214,8 @@ const Slider:React.FC = () => {
                                             className="min-w-[200px] shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                                             />
                                         </div>    
-                                        
-                                    </div>
-                                    {/* MAIN TEXT  END*/}
 
-
-
-
-                                    {/* SUB TEXT  START*/}
-                                    <div className='flex justify-center items-end content-center gap-4'>
-                                        
-                                        {/* SWITCH BUTTON */}
-                                        <div  onClick={() => setSubTextOpen(!subTextOpen)} className={`relative hover:cursor-pointer p-2 border-gray-500   shadow rounded-xl pl-4 ${subTextOpen ? "bg-blue-400" : "bg-red-400"}`}>
-                                            <input
-                                                className="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-white before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-200 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]"
-                                                type="checkbox"
-                                                name="subTextOpen"
-                                                checked={subTextOpen ? subTextOpen : false}
-                                                onChange={(e)=>{
-                                                    props.handleChange({
-                                                        target: {
-                                                        name: "subTextOpen",
-                                                        value: e.target.checked,
-                                                        },
-                                                    });
-                                                    setSubTextOpen(e.target.checked);
-                                                    }                                                
-                                                }
-                                            />
-                                        </div>
+                                        {/* SUB TEXT  START*/}
                                         <div className='w-full'>
                                             <label htmlFor="mainText" className="pl-2 block text-xl ">
                                                 Alt Açıklama Metni
@@ -287,33 +239,8 @@ const Slider:React.FC = () => {
                                                 className="min-w-[200px] shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                                             />
                                         </div>
-                                        
-                                    </div>
-                                    {/* SUB TEXT  END*/}
 
-                                                    
-
-                                    {/* BUTTON TEXT  START*/}
-                                    <div className='flex justify-center items-end content-center gap-4'>
-                                        {/* SWITCH BUTTON */}
-                                        <div onClick={() => setButtonOpen(!buttonOpen)} className={`relative hover:cursor-pointer p-2 border-gray-500   shadow rounded-xl pl-4 ${buttonOpen ? "bg-blue-400" : "bg-red-400"}`}>
-                                            <input
-                                                className="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-white before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-200 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]"
-                                                type="checkbox"
-                                                name="buttonOpen"
-                                                checked={buttonOpen ? buttonOpen : false}
-                                                onChange={(e)=>{
-                                                    props.handleChange({
-                                                        target: {
-                                                        name: "buttonOpen",
-                                                        value: e.target.checked,
-                                                        },
-                                                    });
-                                                    setButtonOpen(e.target.checked);
-                                                    }                                                
-                                                }
-                                            />
-                                        </div>
+                                        {/* BUTTON TEXT  START*/}
                                         <div className='w-full'>
                                             <label htmlFor="buttonText" className="pl-2 mt-2 block text-xl">
                                                 <div className="flex flex-row flex-nowrap justify-start items-center gap-2">
@@ -339,44 +266,242 @@ const Slider:React.FC = () => {
                                                 className="min-w-[200px] shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                                             />
                                         </div>
-                                        
-                                    </div>
-                                    {/* BUTTON TEXT  END*/}
 
+                                        {/* BUTTON LINK  START*/}
+                                        <div>
+                                            <label htmlFor="buttonLink" className="pl-2 mt-2 block text-xl my-2">
+                                                <div className="flex flex-col flex-wrap md:flex-nowrap justify-start items-start">
+                                                <div>Buton Bağlantı Adresi</div>
+                                                <p className="text-xs">({`${process.env.NEXT_PUBLIC_URL && process.env.NEXT_PUBLIC_URL}/... #### örnek: ${process.env.NEXT_PUBLIC_URL && process.env.NEXT_PUBLIC_URL}/buraya_yazilan_adres/...`   })</p>
+                                                </div>                                    
+                                            </label>
+                                            <input
+                                            id="buttonLink"
+                                            name="buttonLink"
+                                            autoComplete="off"
+                                            type="text"
+                                            value={buttonLink}
+                                            onChange={(e)=>{
+                                                props.handleChange({
+                                                    target: {
+                                                        name: "buttonLink",
+                                                        value: e.target.value,
+                                                    },
+                                                });
+                                                setButtonLink(e.target.value);
+                                            }}
+                                            placeholder="https://www.caliskanari.com/.../..."
+                                            className="min-w-[200px] shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
+                                            />
+                                        </div>
+                                    
+                                        {/* IS ACTIVE OR NOT OPTIONS */}
+                                        <div className='w-full flex flex-row justify-start items-start gap-0 lg:gap-4 flex-wrap'>
+                                            
+                                            
+                                            <div className='flex flex-col p-2 rounded gap-4 justify-center items-start'>
+                                                {/* Ana Başlık */}
+                                                <div className='flex gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
+                                                        <label htmlFor="MainTextOpen" className="pl-2 mt-2 block text-xl">Ana Başlık:</label>
+                                                        <div  onClick={() => setMainTextOpen(!MainTextOpen)} className={`relative hover:cursor-pointer p-2 border-gray-500   shadow rounded-xl pl-4 ${MainTextOpen ? "bg-blue-400" : "bg-red-400"}`}>
+                                                        <input
+                                                            className="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-white before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-200 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]"
+                                                            type="checkbox"
+                                                            name="MainTextOpen"
+                                                            checked={MainTextOpen ? MainTextOpen : false}
+                                                            onChange={(e)=>{
+                                                                props.handleChange({
+                                                                    target: {
+                                                                    name: "MainTextOpen",
+                                                                    value: e.target.checked,
+                                                                    },
+                                                                });
+                                                                setMainTextOpen(e.target.checked);
+                                                                }                                                
+                                                            }
+                                                        />
+                                                        </div>                                      
+                                                </div>
+                                                
 
+                                                {/* Alt Başlık */}
+                                                <div className='flex gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
+                                                        <label htmlFor="subTextOpen" className="pl-2 mt-2 block text-xl">Alt Açıklama:</label>
+                                                        <div  onClick={() => setSubTextOpen(!subTextOpen)} className={`relative hover:cursor-pointer p-2 border-gray-500   shadow rounded-xl pl-4 ${subTextOpen ? "bg-blue-400" : "bg-red-400"}`}>
+                                                        <input
+                                                            className="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-white before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-200 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]"
+                                                            type="checkbox"
+                                                            name="subTextOpen"
+                                                            checked={subTextOpen ? subTextOpen : false}
+                                                            onChange={(e)=>{
+                                                                props.handleChange({
+                                                                    target: {
+                                                                    name: "subTextOpen",
+                                                                    value: e.target.checked,
+                                                                    },
+                                                                });
+                                                                setSubTextOpen(e.target.checked);
+                                                                }                                                
+                                                            }
+                                                        />
+                                                        </div>                                      
+                                                </div>
+                                            </div>
 
-                                    {/* BUTTON LINK  START*/}
-                                    <div>
-                                        <label htmlFor="buttonLink" className="pl-2 mt-2 block text-xl my-2">
-                                            <div className="flex flex-col flex-wrap md:flex-nowrap justify-start items-start">
-                                            <div>Buton Bağlantı Adresi</div>
-                                            <p className="text-xs">({`${process.env.NEXT_PUBLIC_URL && process.env.NEXT_PUBLIC_URL}/... #### örnek: ${process.env.NEXT_PUBLIC_URL && process.env.NEXT_PUBLIC_URL}/buraya_yazilan_adres/...`   })</p>
-                                            </div>                                    
-                                        </label>
-                                        <input
-                                        id="buttonLink"
-                                        name="buttonLink"
-                                        autoComplete="off"
-                                        type="text"
-                                        value={buttonLink}
-                                        onChange={(e)=>{
-                                            props.handleChange({
-                                                target: {
-                                                    name: "buttonLink",
-                                                    value: e.target.value,
-                                                },
-                                            });
-                                            setButtonLink(e.target.value);
-                                        }}
-                                        placeholder="https://www.caliskanari.com/.../..."
-                                        className="min-w-[200px] shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
-                                        />
-                                    </div>
-                                    {/* BUTTON LINK  END*/}
+                                            <div className='flex flex-col p-2 rounded gap-4 justify-center items-start'>
+                                                {/* Buton */}              
+                                                <div className='flex gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
+                                                    <label htmlFor="buttonOpen" className="pl-2 mt-2 block text-xl">Buton:</label>
+                                                    <div  onClick={() => setButtonOpen(!buttonOpen)} className={`relative hover:cursor-pointer p-2 border-gray-500   shadow rounded-xl pl-4 ${buttonOpen ? "bg-blue-400" : "bg-red-400"}`}>
+                                                    <input
+                                                        className="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-white before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-200 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]"
+                                                        type="checkbox"
+                                                        name="buttonOpen"
+                                                        checked={buttonOpen ? buttonOpen : false}
+                                                        onChange={(e)=>{
+                                                            props.handleChange({
+                                                                target: {
+                                                                name: "buttonOpen",
+                                                                value: e.target.checked,
+                                                                },
+                                                            });
+                                                            setButtonOpen(e.target.checked);
+                                                            }                                                
+                                                        }
+                                                    />
+                                                    </div>                                      
+                                                </div>
+
+                                                {/* Koyulaştır */}
+                                                <div className='flex gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
+                                                    <label htmlFor="bgDarkness" className="pl-2 mt-2 block text-xl">Koyulaştır:</label>
+                                                    <div  onClick={() => setBgDarkness(!bgDarkness)} className={`relative hover:cursor-pointer p-2 border-gray-500   shadow rounded-xl pl-4 ${bgDarkness ? "bg-blue-400" : "bg-red-400"}`}>
+                                                    <input
+                                                        className="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-white before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-200 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]"
+                                                        type="checkbox"
+                                                        name="bgDarkness"
+                                                        checked={bgDarkness ? bgDarkness : false}
+                                                        onChange={(e)=>{
+                                                            props.handleChange({
+                                                                target: {
+                                                                name: "bgDarkness",
+                                                                value: e.target.checked,
+                                                                },
+                                                            });
+                                                            setBgDarkness(e.target.checked);
+                                                            }                                                
+                                                        }
+                                                    />
+                                                    </div>                                      
+                                                </div>
+                                            </div>
+                                            
+                                            <div className='flex flex-col p-2 rounded gap-4 justify-center items-start'>
+                                                {/* Ana Resim */}
+                                                <div className='flex gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
+                                                    <label htmlFor="mainImageOpen" className="pl-2 mt-2 block text-xl">Ana Resim:</label>
+                                                    <div  onClick={() => setMainImageOpen(!mainImageOpen)} className={`relative hover:cursor-pointer p-2 border-gray-500   shadow rounded-xl pl-4 ${mainImageOpen ? "bg-blue-400" : "bg-red-400"}`}>
+                                                    <input
+                                                        className="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-white before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-200 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]"
+                                                        type="checkbox"
+                                                        name="mainImageOpen"
+                                                        checked={mainImageOpen ? mainImageOpen : false}
+                                                        onChange={(e)=>{
+                                                            props.handleChange({
+                                                                target: {
+                                                                name: "mainImageOpen",
+                                                                value: e.target.checked,
+                                                                },
+                                                            });
+                                                            setMainImageOpen(e.target.checked);
+                                                            }                                                
+                                                        }
+                                                    />
+                                                    </div>                                      
+                                                </div>
+                                                
+                                                {/* Yer Değiştir */}
+                                                <div className='flex gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
+                                                    <label htmlFor="changePosition" className="pl-2 mt-2 block text-xl">Yer Değiştir:</label>
+                                                    <div  onClick={() => setChangePosition(!changePosition)} className={`relative hover:cursor-pointer p-2 border-gray-500   shadow rounded-xl pl-4 ${changePosition ? "bg-blue-400" : "bg-red-400"}`}>
+                                                    <input
+                                                        className="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-white before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-200 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]"
+                                                        type="checkbox"
+                                                        name="changePosition"
+                                                        checked={changePosition ? changePosition : false}
+                                                        onChange={(e)=>{
+                                                            props.handleChange({
+                                                                target: {
+                                                                name: "changePosition",
+                                                                value: e.target.checked,
+                                                                },
+                                                            });
+                                                            setChangePosition(e.target.checked);
+                                                            }                                                
+                                                        }
+                                                    />
+                                                    </div>                                      
+                                                </div>
+                                            </div>
+
+                                            <div className='flex flex-col p-2 rounded gap-4 justify-center items-start'>
+
+                                                {/* Bulanıklaştır */}
+                                                <div className='flex gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
+                                                    <label htmlFor="backgrounBlur" className="pl-2 mt-2 block text-xl">Bulanıklaştır:</label>
+                                                    <div  onClick={() => setBackgrounBlur(!backgrounBlur)} className={`relative hover:cursor-pointer p-2 border-gray-500   shadow rounded-xl pl-4 ${backgrounBlur ? "bg-blue-400" : "bg-red-400"}`}>
+                                                    <input
+                                                        className="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-white before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-200 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]"
+                                                        type="checkbox"
+                                                        name="backgrounBlur"
+                                                        checked={backgrounBlur ? backgrounBlur : false}
+                                                        onChange={(e)=>{
+                                                            props.handleChange({
+                                                                target: {
+                                                                name: "backgrounBlur",
+                                                                value: e.target.checked,
+                                                                },
+                                                            });
+                                                            setBackgrounBlur(e.target.checked);
+                                                            }                                                
+                                                        }
+                                                    />
+                                                    </div>                                      
+                                                </div>
+                                            
+                                                {/* Arka Plan Resmi */}
+                                                <div className='flex gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
+                                                    <label htmlFor="bgImageOpen" className="pl-2 mt-2 block text-xl">Arkaplandaki Resmi:</label>
+                                                    <div  onClick={() => setBgImageOpen(!bgImageOpen)} className={`relative hover:cursor-pointer p-2 border-gray-500   shadow rounded-xl pl-4 ${bgImageOpen ? "bg-blue-400" : "bg-red-400"}`}>
+                                                    <input
+                                                        className="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-white before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-200 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]"
+                                                        type="checkbox"
+                                                        name="bgImageOpen"
+                                                        checked={bgImageOpen ? bgImageOpen : false}
+                                                        onChange={(e)=>{
+                                                            props.handleChange({
+                                                                target: {
+                                                                name: "bgImageOpen",
+                                                                value: e.target.checked,
+                                                                },
+                                                            });
+                                                            setBgImageOpen(e.target.checked);
+                                                            }                                                
+                                                        }
+                                                    />
+                                                    </div>                                      
+                                                </div>
+
+                                            </div>
+
+                                                
+                                            
+                                            
+                                        </div>
                                 </div>
 
                                 {/* Resim Yükleme Bölümü */}
-                                <div className="flex flex-col flex-nowrap gap-2 shadow p-2 rounded-xl bg-white mt-6 sm:mt-6 min-w-[200px] overflow-hidden">
+                                <div className="flex flex-col flex-nowrap gap-4 shadow p-2 rounded-xl bg-white mt-6 sm:mt-6 min-w-[200px] overflow-hidden">
                                     <div className='w-full flex justify-center items-center bg-gray-100 rounded-lg p-2'>
                                         <h2 className='text-md lg:text-xl text-secondary'>Resim Yükleme Bölümü</h2>
                                     </div> 
