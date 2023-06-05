@@ -8,6 +8,7 @@ import { useSession } from 'next-auth/react';
 import ValidationSchema from './formikData';
 import {notFound} from 'next/navigation';
 import { Formik, Form } from "formik";
+import ImageUploader from '@/components/formElements/imageUploader';
 
 interface FormValues{
     mainText?: string;
@@ -136,14 +137,14 @@ const Slider:React.FC = () => {
                     buttonColour: "",
                     buttonTextColour: "",
                     bgColor: "",
-                    mainImageOpen: true,
-                    MainTextOpen: true,
-                    buttonOpen: true,
-                    subTextOpen: true,
-                    changePosition: true,
-                    backgrounBlur: true,
-                    bgImageOpen: true,
-                    bgDarkness: true,
+                    mainImageOpen,
+                    MainTextOpen,
+                    buttonOpen,
+                    subTextOpen,
+                    changePosition,
+                    backgrounBlur,
+                    bgImageOpen,
+                    bgDarkness,
                     bgDarknessValue: "0.0"
                 }}
 
@@ -296,12 +297,10 @@ const Slider:React.FC = () => {
                                         </div>
                                     
                                         {/* IS ACTIVE OR NOT OPTIONS */}
-                                        <div className='w-full flex flex-row justify-start items-start gap-0 lg:gap-4 flex-wrap'>
+                                        <div className='w-full flex flex-row mt-2 justify-start items-start gap-2 lg:gap-4 flex-wrap'>
                                             
-                                            
-                                            <div className='flex flex-col p-2 rounded gap-4 justify-center items-start'>
-                                                {/* Ana Başlık */}
-                                                <div className='flex gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
+                                            {/* Ana Başlık */}
+                                            <div className='w-full lg:w-auto flex justify-between gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
                                                         <label htmlFor="MainTextOpen" className="pl-2 mt-2 block text-xl">Ana Başlık:</label>
                                                         <div  onClick={() => setMainTextOpen(!MainTextOpen)} className={`relative hover:cursor-pointer p-2 border-gray-500   shadow rounded-xl pl-4 ${MainTextOpen ? "bg-blue-400" : "bg-red-400"}`}>
                                                         <input
@@ -321,11 +320,10 @@ const Slider:React.FC = () => {
                                                             }
                                                         />
                                                         </div>                                      
-                                                </div>
+                                            </div>
                                                 
-
-                                                {/* Alt Başlık */}
-                                                <div className='flex gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
+                                            {/* Alt Başlık */}
+                                            <div className='w-full lg:w-auto flex justify-between gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
                                                         <label htmlFor="subTextOpen" className="pl-2 mt-2 block text-xl">Alt Açıklama:</label>
                                                         <div  onClick={() => setSubTextOpen(!subTextOpen)} className={`relative hover:cursor-pointer p-2 border-gray-500   shadow rounded-xl pl-4 ${subTextOpen ? "bg-blue-400" : "bg-red-400"}`}>
                                                         <input
@@ -345,12 +343,10 @@ const Slider:React.FC = () => {
                                                             }
                                                         />
                                                         </div>                                      
-                                                </div>
                                             </div>
-
-                                            <div className='flex flex-col p-2 rounded gap-4 justify-center items-start'>
-                                                {/* Buton */}              
-                                                <div className='flex gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
+                                            
+                                            {/* Buton */}              
+                                            <div className='w-full lg:w-auto flex justify-between gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
                                                     <label htmlFor="buttonOpen" className="pl-2 mt-2 block text-xl">Buton:</label>
                                                     <div  onClick={() => setButtonOpen(!buttonOpen)} className={`relative hover:cursor-pointer p-2 border-gray-500   shadow rounded-xl pl-4 ${buttonOpen ? "bg-blue-400" : "bg-red-400"}`}>
                                                     <input
@@ -370,10 +366,10 @@ const Slider:React.FC = () => {
                                                         }
                                                     />
                                                     </div>                                      
-                                                </div>
+                                            </div>
 
-                                                {/* Koyulaştır */}
-                                                <div className='flex gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
+                                            {/* Koyulaştır */}
+                                            <div className='w-full lg:w-auto flex justify-between gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
                                                     <label htmlFor="bgDarkness" className="pl-2 mt-2 block text-xl">Koyulaştır:</label>
                                                     <div  onClick={() => setBgDarkness(!bgDarkness)} className={`relative hover:cursor-pointer p-2 border-gray-500   shadow rounded-xl pl-4 ${bgDarkness ? "bg-blue-400" : "bg-red-400"}`}>
                                                     <input
@@ -393,12 +389,10 @@ const Slider:React.FC = () => {
                                                         }
                                                     />
                                                     </div>                                      
-                                                </div>
                                             </div>
                                             
-                                            <div className='flex flex-col p-2 rounded gap-4 justify-center items-start'>
-                                                {/* Ana Resim */}
-                                                <div className='flex gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
+                                            {/* Ana Resim */}
+                                            <div className='w-full lg:w-auto flex justify-between gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
                                                     <label htmlFor="mainImageOpen" className="pl-2 mt-2 block text-xl">Ana Resim:</label>
                                                     <div  onClick={() => setMainImageOpen(!mainImageOpen)} className={`relative hover:cursor-pointer p-2 border-gray-500   shadow rounded-xl pl-4 ${mainImageOpen ? "bg-blue-400" : "bg-red-400"}`}>
                                                     <input
@@ -418,10 +412,10 @@ const Slider:React.FC = () => {
                                                         }
                                                     />
                                                     </div>                                      
-                                                </div>
+                                            </div>
                                                 
-                                                {/* Yer Değiştir */}
-                                                <div className='flex gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
+                                            {/* Yer Değiştir */}
+                                            <div className='w-full lg:w-auto flex justify-between gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
                                                     <label htmlFor="changePosition" className="pl-2 mt-2 block text-xl">Yer Değiştir:</label>
                                                     <div  onClick={() => setChangePosition(!changePosition)} className={`relative hover:cursor-pointer p-2 border-gray-500   shadow rounded-xl pl-4 ${changePosition ? "bg-blue-400" : "bg-red-400"}`}>
                                                     <input
@@ -441,36 +435,11 @@ const Slider:React.FC = () => {
                                                         }
                                                     />
                                                     </div>                                      
-                                                </div>
+                                                
                                             </div>
 
-                                            <div className='flex flex-col p-2 rounded gap-4 justify-center items-start'>
-
-                                                {/* Bulanıklaştır */}
-                                                <div className='flex gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
-                                                    <label htmlFor="backgrounBlur" className="pl-2 mt-2 block text-xl">Bulanıklaştır:</label>
-                                                    <div  onClick={() => setBackgrounBlur(!backgrounBlur)} className={`relative hover:cursor-pointer p-2 border-gray-500   shadow rounded-xl pl-4 ${backgrounBlur ? "bg-blue-400" : "bg-red-400"}`}>
-                                                    <input
-                                                        className="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-white before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-200 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]"
-                                                        type="checkbox"
-                                                        name="backgrounBlur"
-                                                        checked={backgrounBlur ? backgrounBlur : false}
-                                                        onChange={(e)=>{
-                                                            props.handleChange({
-                                                                target: {
-                                                                name: "backgrounBlur",
-                                                                value: e.target.checked,
-                                                                },
-                                                            });
-                                                            setBackgrounBlur(e.target.checked);
-                                                            }                                                
-                                                        }
-                                                    />
-                                                    </div>                                      
-                                                </div>
-                                            
-                                                {/* Arka Plan Resmi */}
-                                                <div className='flex gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
+                                            {/* Arka Plan Resmi */}
+                                            <div className='w-full lg:w-auto flex justify-between gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
                                                     <label htmlFor="bgImageOpen" className="pl-2 mt-2 block text-xl">Arkaplandaki Resmi:</label>
                                                     <div  onClick={() => setBgImageOpen(!bgImageOpen)} className={`relative hover:cursor-pointer p-2 border-gray-500   shadow rounded-xl pl-4 ${bgImageOpen ? "bg-blue-400" : "bg-red-400"}`}>
                                                     <input
@@ -490,9 +459,34 @@ const Slider:React.FC = () => {
                                                         }
                                                     />
                                                     </div>                                      
-                                                </div>
-
                                             </div>
+
+                                            {/* Bulanıklaştır */}
+                                            <div className='w-full lg:w-auto flex justify-between gap-4 glex-row bg-gray-100 p-2 rounded-xl'>
+                                                    <label htmlFor="backgrounBlur" className="pl-2 mt-2 block text-xl">Bulanıklaştır:</label>
+                                                    <div  onClick={() => setBackgrounBlur(!backgrounBlur)} className={`relative hover:cursor-pointer p-2 border-gray-500   shadow rounded-xl pl-4 ${backgrounBlur ? "bg-blue-400" : "bg-red-400"}`}>
+                                                    <input
+                                                        className="mr-2 mt-[0.3rem] h-3.5 w-8 appearance-none rounded-[0.4375rem] bg-white before:pointer-events-none before:absolute before:h-3.5 before:w-3.5 before:rounded-full before:bg-transparent before:content-[''] after:absolute after:z-[2] after:-mt-[0.1875rem] after:h-5 after:w-5 after:rounded-full after:border-none after:bg-neutral-200 after:shadow-[0_0px_3px_0_rgb(0_0_0_/_7%),_0_2px_2px_0_rgb(0_0_0_/_4%)] after:transition-[background-color_0.2s,transform_0.2s] after:content-[''] checked:bg-primary checked:after:absolute checked:after:z-[2] checked:after:-mt-[3px] checked:after:ml-[1.0625rem] checked:after:h-5 checked:after:w-5 checked:after:rounded-full checked:after:border-none checked:after:bg-primary checked:after:shadow-[0_3px_1px_-2px_rgba(0,0,0,0.2),_0_2px_2px_0_rgba(0,0,0,0.14),_0_1px_5px_0_rgba(0,0,0,0.12)] checked:after:transition-[background-color_0.2s,transform_0.2s] checked:after:content-[''] hover:cursor-pointer focus:outline-none focus:ring-0 focus:before:scale-100 focus:before:opacity-[0.12] focus:before:shadow-[3px_-1px_0px_13px_rgba(0,0,0,0.6)] focus:before:transition-[box-shadow_0.2s,transform_0.2s] focus:after:absolute focus:after:z-[1] focus:after:block focus:after:h-5 focus:after:w-5 focus:after:rounded-full focus:after:content-[''] checked:focus:border-primary checked:focus:bg-primary checked:focus:before:ml-[1.0625rem] checked:focus:before:scale-100 checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca] checked:focus:before:transition-[box-shadow_0.2s,transform_0.2s] dark:bg-neutral-600 dark:after:bg-neutral-400 dark:checked:bg-primary dark:checked:after:bg-primary dark:focus:before:shadow-[3px_-1px_0px_13px_rgba(255,255,255,0.4)] dark:checked:focus:before:shadow-[3px_-1px_0px_13px_#3b71ca]"
+                                                        type="checkbox"
+                                                        name="backgrounBlur"
+                                                        checked={backgrounBlur ? backgrounBlur : false}
+                                                        onChange={(e)=>{
+                                                            props.handleChange({
+                                                                target: {
+                                                                name: "backgrounBlur",
+                                                                value: e.target.checked,
+                                                                },
+                                                            });
+                                                            setBackgrounBlur(e.target.checked);
+                                                            }                                                
+                                                        }
+                                                    />
+                                                    </div>                                      
+                                            </div>
+                                            
+                                            
+
+                                            
 
                                                 
                                             
@@ -511,9 +505,10 @@ const Slider:React.FC = () => {
                                             <label htmlFor="bgImage" className="pl-2  text-xl block">
                                                 Standart Resim <p className='text-sm inline-block text-red-600'>{` ( 0px - 768px)`} </p>
                                             </label>
-                                            <div className='flex flex-row justify-center items-center gap-2'>
+                                            <div className='flex flex-col md:flex-row justify-center items-center gap-2'>
+
                                                 <input
-                                                id="bgImage"
+                                                    id="bgImage"
                                                 name="bgImage"
                                                 autoComplete="off"
                                                 type="text"
@@ -527,12 +522,14 @@ const Slider:React.FC = () => {
                                                     });
                                                     setBgImage(e.target.value);
                                                 }}
-                                                placeholder="Standart resim linkini giriniz."
+                                                placeholder="Standart resim linkini giriniz yada seçiniz."
                                                 className="min-w-[200px] shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                                                 />
-                                                <div>
-                                                    <button className='min-w-[120px] p-2 rounded-xl  bg-secondary text-white hover:bg-primary hover:text-white hover:border-primary inline'>Resim Yükle</button>
-                                                </div>
+
+                                                <ImageUploader fileLocation={"fileLocation"} fileName={"fileName"} />
+                                                
+                                                
+                                                
                                             </div>
                                     </div>
                                     
@@ -558,13 +555,11 @@ const Slider:React.FC = () => {
                                                     });
                                                     setBgImageMd(e.target.value);
                                                 }}
-                                                placeholder="M boyutundaki resim linkini giriniz."
+                                                placeholder="M boyutundaki resim linkini giriniz yada seçiniz."
                                                 className="min-w-[200px] shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                                                 />
                                                 
-                                                <div>
-                                                    <button className='min-w-[120px] p-2 rounded-xl  bg-secondary text-white hover:bg-primary hover:text-white hover:border-primary inline'>Resim Yükle</button>
-                                                </div>
+                                                <ImageUploader fileLocation={"fileLocation"} fileName={"fileName"} />
                                             </div>
                                     </div>
 
@@ -589,12 +584,10 @@ const Slider:React.FC = () => {
                                                     });
                                                     setBgImageLg(e.target.value);
                                                 }}
-                                                placeholder="L boyutundaki resim linkini giriniz."
+                                                placeholder="L boyutundaki resim linkini giriniz yada seçiniz."
                                                 className="min-w-[200px] shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                                                 />
-                                                <div>
-                                                    <button className='min-w-[120px] p-2 rounded-xl  bg-secondary text-white hover:bg-primary hover:text-white hover:border-primary inline'>Resim Yükle</button>
-                                                </div>
+                                                <ImageUploader fileLocation={"fileLocation"} fileName={"fileName"} />
                                             </div>
                                     </div>
 
@@ -619,12 +612,10 @@ const Slider:React.FC = () => {
                                                     });
                                                     setBgImageXl(e.target.value);
                                                 }}
-                                                placeholder="XL boyutundaki resim linkini giriniz."
+                                                placeholder="XL boyutundaki resim linkini giriniz yada seçiniz."
                                                 className="min-w-[200px] shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                                                 />
-                                                <div>
-                                                    <button className='min-w-[120px] p-2 rounded-xl  bg-secondary text-white hover:bg-primary hover:text-white hover:border-primary inline'>Resim Yükle</button>
-                                                </div>
+                                                <ImageUploader fileLocation={"fileLocation"} fileName={"fileName"} />
                                             </div>
                                     </div>
 
@@ -649,12 +640,10 @@ const Slider:React.FC = () => {
                                                     });
                                                     setBgImage2Xl(e.target.value);
                                                 }}
-                                                placeholder="2XL boyutundaki resim linkini giriniz."
+                                                placeholder="2XL boyutundaki resim linkini giriniz yada seçiniz."
                                                 className="min-w-[200px] shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                                                 />
-                                                <div>
-                                                    <button className='min-w-[120px] p-2 rounded-xl  bg-secondary text-white hover:bg-primary hover:text-white hover:border-primary inline'>Resim Yükle</button>
-                                                </div>
+                                                <ImageUploader fileLocation={"fileLocation"} fileName={"fileName"} />
                                             </div>
                                     </div>
 
@@ -679,12 +668,10 @@ const Slider:React.FC = () => {
                                                     });
                                                     setBgImage4Xl(e.target.value);
                                                 }}
-                                                placeholder="4XL boyutundaki resim linkini giriniz."
+                                                placeholder="4XL boyutundaki resim linkini giriniz yada seçiniz."
                                                 className="min-w-[200px] shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                                                 />
-                                                <div>
-                                                    <button className='min-w-[120px] p-2 rounded-xl  bg-secondary text-white hover:bg-primary hover:text-white hover:border-primary inline'>Resim Yükle</button>
-                                                </div>
+                                                <ImageUploader fileLocation={"fileLocation"} fileName={"fileName"} />
                                             </div>
                                     </div>
 
@@ -709,12 +696,10 @@ const Slider:React.FC = () => {
                                                     });
                                                     setBgImage6Xl(e.target.value);
                                                 }}
-                                                placeholder="6XL boyutundaki resim linkini giriniz."
+                                                placeholder="6XL boyutundaki resim linkini giriniz yada seçiniz."
                                                 className="min-w-[200px] shadow w-full px-4 py-2 text-md border border-blue-200 rounded-xl focus:border-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-600"
                                                 />
-                                                <div>
-                                                    <button className='min-w-[120px] p-2 rounded-xl  bg-secondary text-white hover:bg-primary hover:text-white hover:border-primary inline'>Resim Yükle</button>
-                                                </div>
+                                                <ImageUploader fileLocation={"fileLocation"} fileName={"fileName"} />
                                             </div>
                                     </div>
 
