@@ -678,7 +678,7 @@ const Slider:React.FC = () => {
                                     {/* BgImage6Xl Link */}
                                     <div className='w-full'>
                                             <label htmlFor="bgImage6Xl" className="pl-2  text-xl block">
-                                                4XL Resim <p className='text-sm inline-block text-red-600'>{` ( 2560px ve üstü)`} </p>
+                                                6XL Resim <p className='text-sm inline-block text-red-600'>{` ( 2560px ve üstü)`} </p>
                                             </label>
                                             <div className='flex flex-row justify-center items-center gap-2'>
                                                 <input
