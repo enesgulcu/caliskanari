@@ -427,7 +427,7 @@ const GeneralTopPageBanner: React.FC = () => {
                           >
                             Ayarları kaydet
                           </button>
-                        </div>
+                      </div>
                     </div>
 
                     <div>

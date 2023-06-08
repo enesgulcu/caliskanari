@@ -703,16 +703,16 @@ const Slider:React.FC = () => {
                                             </div>
                                     </div>
 
-
-
-
-
-
-
-
                                     
-   
+
                                 </div>
+                            </div>
+                            {/* SUBMIT BUTTON */}
+                            <div className="w-full flex justify-center items-center content-center mt-2 px-4">
+                                <button
+                                    className={`shadow w-1/2 bg-secondary hover:bg-primary hover:scale-110 transition-all block px-4 py-4 mt-6 text-md font-medium text-center text-white  border border-transparent rounded-lg focus:shadow-outline-blue`} type="submit">
+                                    Ayarları kaydet
+                                </button>
                             </div>
                         </div>
                         
