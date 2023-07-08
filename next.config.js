@@ -6,20 +6,6 @@ const nextConfig = {
   images: {
     domains: ['source.unsplash.com','images.unsplash.com','free4kwallpapers.com'],
   },
-
-  i18n: {
-    locales: ['tr-TR'],
-    
-    defaultLocale: 'tr-TR',
-    domains: [
-      {
-        domain: process.env.NEXT_PUBLIC_URL,
-        defaultLocale: 'tr-TR',
-
-        http: true,
-      }
-    ],
-  },
   
 }
 
