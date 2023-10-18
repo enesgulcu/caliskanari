@@ -1,6 +1,5 @@
 'use client'
 import Sidebar from '@/components/dashboard/sidebar';
-import Header from '@/components/dashboard/header';
 import Content from '@/components/dashboard/content';
 
 import { useState } from 'react';
@@ -22,8 +21,7 @@ import { useState } from 'react';
   return (
     <>
 
-      <Header/>
-      <div className='flex pt-16 '>
+      <div className='flex'>
         <Sidebar setContentData={setContentData} contentData={contentData}/>
         <Content setContentData={setContentData} contentData={contentData}/>
         
