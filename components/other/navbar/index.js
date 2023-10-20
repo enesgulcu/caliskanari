@@ -223,6 +223,10 @@ const Navbar = ({ links }) => {
                   )}
                 </div>
               ))}
+              {
+                data?.user &&
+                <button className='text-red-600 font-bold transition-all hover:font-bold hover:text-white hover:p-2 hover:rounded hover:bg-red-600' onClick={()=> signOut()}>Çıkış Yap</button>
+              }
               
             </div>
           </div>
