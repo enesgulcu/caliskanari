@@ -23,7 +23,7 @@
     "formik": "^2.4.1",
     "jshint": "^2.13.6",
     "jsonwebtoken": "^9.0.0",
-    "next": "^13.4.8",
+    "next": "^13.5.4",
     "next-auth": "^4.19.2",
     "nodemailer": "^6.9.3",
     "react": "^18.2.0",
