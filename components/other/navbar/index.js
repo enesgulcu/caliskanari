@@ -35,46 +35,71 @@ const Navbar = ({ links }) => {
   const [userRole, setUserRole] = useState("");
 
   const checkLinkRoles = (accessRoles, bannedRoles, userRole) => {
+
+    //checkLinkRoles(link.accessRoles, link.bannedRoles, userRole)
     // accessRoles[] -> linklerin erişim rollerini tutar. Birden fazla erişime izin verilen rol olabilir.
     // bannedRoles[] -> linklerin yasaklanan rollerini tutar. Birden fazla yasaklanan rol olabilir.
     // userRole -> kullanıcının rolünü tutar. boş ise kullanıcı giriş yapmamış demektir.
-    if(accessRoles === undefined && bannedRoles === undefined){
-      console.log("1 - true");
+    if((accessRoles === undefined || accessRoles === "") && (bannedRoles === undefined || bannedRoles === "")){
       return true;
     }
 
-    else if(bannedRoles && bannedRoles.length > 0){
-      // Kural 1: bannedRoles dizisinde herhangi bir değer var mı kontrol et. Eğer varsa:
-      if (bannedRoles && bannedRoles.includes(userRole)) {
-        console.log("3 - false");
-        return false;
-      }
-  
-      // Kural 2: Eğer accessRoles dizisi doluysa ve userRole değeri accessRoles içinde bir değere eşleşmiyorsa, false döndür.
-      if (accessRoles && accessRoles.length > 0 && !accessRoles.includes(userRole)) {
-        console.log("4 - false");
-        return false;
-      }
-      
-      else{
+    // Kural 1: bannedRoles dizisinde herhangi bir değer var mı kontrol et. Eğer varsa:
+    else if (userRole && bannedRoles && bannedRoles.length > 0 && bannedRoles.includes(userRole)) {
+      return false;
+    }
+
+    // Kural 2: Eğer accessRoles dizisi doluysa ve userRole değeri accessRoles içinde bir değere eşleşmiyorsa, false döndür.
+    else if (userRole && accessRoles && accessRoles.length > 0 && !accessRoles.includes(userRole)) {
+
+      return false;
+    }
+
+    // Kural 3: Engellenenler listesinde yoksa veya engeliler tanımı yoksa.
+    else if(!bannedRoles || !bannedRoles.includes(userRole) || bannedRoles.length === 0){
+      // erişime izin verilenler tanımı yoksa
+      if(!accessRoles){
         return true;
       }
+
+      // erişim kısıtlılığı varsa
+      if(accessRoles || accessRoles.length > 0){
+
+        // ve erişime izin verilenler içinde kullanıcının rolü varsa
+        if(userRole && accessRoles.includes(userRole)){
+          return true;
+        
+        }
+        else{
+          return false;
+        }
+      }
+      return false;
+    }
+
+    else{
+      return false;
     }
   };
 
   const pathname = usePathname();
   const searchParams = useSearchParams();
-
   const {data}= useSession();
+
+
   // data -> içi boş ise kullanıcı giriş yapmamış demektir.
   // data -> içi dolu ise kullanıcı giriş yapmış demektir.
   // data.user -> kullanıcı bilgilerini içerir.
 
-  useEffect(() => {
-    if(data && data.user && data.user.role){
+  const fetchUserData = async () => {
+    if (data && data.user && data.user.role) {
       setUserRole(data.user.role);
     }
-  }, [data])
+  };
+
+  useEffect(() => {
+    fetchUserData();
+  }, [data]);
   
 
   useEffect(() => {
@@ -136,9 +161,10 @@ const Navbar = ({ links }) => {
 
             <div className={`${isMenuOpen ? 'block' : 'hidden md:block'} md:flex md:space-x-4 md:items-center`}>
               {links.map((link, index) => (
+                // linklere hangi rollerin erişebileceğini belirleyen fonksiyon.
                 checkLinkRoles(link.accessRoles, link.bannedRoles, userRole) &&
                 <div key={index} className="relative">
-                  {link.submenu && checkLinkRoles(link.submenu.accessRoles, link.submenu.bannedRoles, userRole) ? (
+                  {link.submenu ? (
                     <>
                     <Link href={link.url}
                     >
@@ -161,6 +187,8 @@ const Navbar = ({ links }) => {
                         
                         >
                           {link.submenu.map((sublink, subIndex) => (
+                            // Sublinklere hangi rollerin erişebileceğini belirleyen fonksiyon.
+                            checkLinkRoles(sublink.accessRoles, sublink.bannedRoles, userRole) &&
                             <Link href={sublink.url} key={subIndex}
                             onClick={()=>{setIsMenuOpen(!isMenuOpen);}}
                             >
@@ -172,7 +200,8 @@ const Navbar = ({ links }) => {
                         </div>
                       )}
                     </>
-                  ) : 
+                  ) 
+                  :  
                   (
                     !link.button ? (
                     <Link href={link.url} key={index}

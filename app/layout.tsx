@@ -25,9 +25,9 @@ const links = [
     text: 'Giriş Yap',
     bannedRoles: ['admin', 'teacher', 'student'],
     submenu: [
-      { url: '/auth/login/admin', text: 'Admin Giriş', accessRoles: ['admin'], bannedRoles: ['teacher', 'student'] },
-      { url: '/auth/login/teacher', text: 'Öğretmen Giriş' },
-      { url: '/auth/login/student', text: 'Öğrenci Giriş' },
+      { url: '/auth/login/admin', text: 'Admin Giriş', bannedRoles: ['teacher', 'student'] },
+      { url: '/auth/login/teacher', text: 'Öğretmen Giriş', bannedRoles: ['teacher', 'student']},
+      { url: '/auth/login/student', text: 'Öğrenci Giriş', bannedRoles: ['teacher', 'student']},
     ],
   },
   {
@@ -35,18 +35,19 @@ const links = [
     text: 'Kayıt Ol',
     bannedRoles: ['admin', 'teacher', 'student'],
     submenu: [
-      { url: '/auth/register/teacher', text: 'Öğretmen Kayıt' },
-      { url: '/auth/register/student', text: 'Öğrenci Kayıt' },
+      { url: '/auth/register/teacher', text: 'Öğretmen Kayıt', bannedRoles: ['teacher', 'student'] },
+      { url: '/auth/register/student', text: 'Öğrenci Kayıt', bannedRoles: ['teacher', 'student'] },
     ],
   },
 
   {
     url: '#',
     text: 'Dashboards',
+    accessRoles: ['admin', 'teacher', 'student'],
     submenu: [
-      { url: '/dashboard/admin', text: 'Admin Dashboard' },
-      { url: '/dashboard/teacher', text: 'Öğretmen Dashboard' },
-      { url: '/dashboard/student', text: 'Öğrenci Dashboard' },
+      { url: '/dashboard/admin', text: 'Admin Dashboard', accessRoles: ['admin'], },
+      { url: '/dashboard/teacher', text: 'Öğretmen Dashboard', accessRoles: ['teacher'], bannedRoles: ['admin','student'] },
+      { url: '/dashboard/student', text: 'Öğrenci Dashboard', accessRoles: ['student'], bannedRoles: ['admin', 'teacher'] },
     ],
   },
 

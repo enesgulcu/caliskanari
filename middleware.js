@@ -120,6 +120,7 @@ export const config = {
   // aşağıda örnek olarak belirtilen sayfanın ve ona bağlı tüm alt sayfaların kontrolü yapılıyor.
   // buraya sayfayı yazmazsanız -> hiçbir zaman kontrol edilmeyecektir.
   matcher: [
+    '/',
     '/admin/:path*',
     '/student/:path*',
     '/teacher/:path*',
