@@ -47,6 +47,7 @@ const GeneralTopPageBanner = () => {
               setAllData(res.data[0]);
             }
           });
+      // eslint-disable-next-line react-hooks/exhaustive-deps
       }, [])
       
       
@@ -207,8 +208,8 @@ const GeneralTopPageBanner = () => {
                   </label>
                   <p className="text-xs text-white text-center">(Aşağıdaki panel üzerinden yaptığınız değişiklikleri bu alanda canlı olarak görebilir ve test edebilirsiniz)</p>
                 
-          <div className="my-2 p-2 w-full">
-          {GeneralTopPageBannerComponent && <GeneralTopPageBannerComponent allDataPanel={allDataPanel} isDashboard = {true}/>}
+          <div className="my-2 p-2 w-full relative">
+          {GeneralTopPageBannerComponent && allDataPanel && <GeneralTopPageBannerComponent allDataPanel={allDataPanel} isDashboard = {true}/>}
           </div>
               </div>
                 
