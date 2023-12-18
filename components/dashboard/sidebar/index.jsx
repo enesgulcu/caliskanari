@@ -22,20 +22,19 @@ const Sidebar = ({setContentData, contentData}) => {
   const [width, setWidth] = useState();
 
   useEffect(() => {
+    console.log(contentData);
       if(typeof window !== "undefined" && window.innerWidth){
           setWidth(window.innerWidth);
       }
   }, []);
 
-
+  
   // sidebarın açılıp kapanmasını sağlayan state
   const [collapsedSidebar, setCollapsedSidebar] = useState(false);
 
 
   // butona tıklandığında çalışacak fonksiyon.
-  const handeButtonClick = (name, component) => {
-    setContentData({name: name, component: component}); 
-
+  const handeButtonClick = () => {
     //width < 640 mobil görünümler için tıklandığında sidebarı hidden yapar. masaüstü için gizlemez.
     width < 640 && setCollapsedSidebar(!collapsedSidebar);
   }
@@ -72,7 +71,25 @@ const Sidebar = ({setContentData, contentData}) => {
             label: butonun üzerinde yazacak olan arkası koyu renkli yazı
             buttonDisabled: butonun tıklanabilirliğini kapatır
             children: butonun içerisine başka bir buton eklemek için kullanılır -> (<Button>  <Button/>  </Button>)
-            */            }
+            */}
+
+            {
+              contentData &&
+              contentData.map((item, index) => {
+                !item.parentButton && item.index == 0 &&
+                <div onClick={()=>handeButtonClick(item.name, item.component)} key={index}>
+                  <Button text={item.name} contentData={contentData}/>
+                </div>
+
+              })
+            }
+
+            <button onClick={ ()=>
+              contentData &&
+              contentData.map((item, index) => {
+                console.log(item);
+              })
+            }>test</button>
 
             <Button text={"Anasayfa İşlemleri"} icon={<AiFillHome/>}>
               
